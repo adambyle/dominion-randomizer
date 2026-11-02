@@ -5,7 +5,9 @@
   "compatibility_date": "2026-10-01",
   "assets": { "not_found_handling": "single-page-application", "run_worker_first": ["/api/*"] },
   "routes": [{ "pattern": "dominion.adambyle.net", "custom_domain": true }],
-  "observability": { "enabled": true }
-  // D1 (accounts, history) and a Durable Object (multiplayer rooms) get added back here when those
-  // features are built — see docs/ROADMAP.md.
+  "observability": { "enabled": true },
+  // Accounts, history and synced settings. No database_id: `wrangler deploy` creates the database
+  // on first deploy (automatic provisioning) and the Worker creates its tables on first use.
+  "d1_databases": [{ "binding": "DB", "database_name": "dominion-randomizer" }]
+  // A Durable Object (multiplayer rooms) gets added here when rooms are built — see docs/ROADMAP.md.
 }

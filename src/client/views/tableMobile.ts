@@ -7,6 +7,7 @@ import { artImage, cardImage, db, name, recommended, setIcon, setName } from "..
 import { buildModel, type TableItem, type TableModel } from "../model";
 import { costSymbols } from "../markup";
 import type { App } from "../main";
+import { playedControl } from "./history";
 
 const BASICS_PREVIEW = ["copper", "silver", "gold", "estate", "duchy", "province", "curse"];
 
@@ -201,7 +202,8 @@ function setupSheet(app: App, model: TableModel, empty: boolean) {
     h("p.label", null, "To hand out"),
     h("div.m-checks", null, model.checklist.map((c) => h("label.check", null,
       h("input", { type: "checkbox" }),
-      h("span", null, h("b", null, c.title), h("span.detail", null, ...app.markup(c.detail)))))));
+      h("span", null, h("b", null, c.title), h("span.detail", null, ...app.markup(c.detail)))))),
+    playedControl(app));
 
   const entering = sheetOpen && !shownSheetOpen;
   shownSheetOpen = sheetOpen;

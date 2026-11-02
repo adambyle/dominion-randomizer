@@ -1,6 +1,7 @@
 // Persisted app state (settings + current game) and the actions that change it.
 
 import type { RecommendedKingdom } from "../shared/types";
+import type { HistoryGame } from "../shared/history";
 import { resolveSetup, type AutoBool, type Choices, type SetupResult } from "../shared/setup";
 import { buildPool, DEFAULT_OPTIONS, randomize, replaceOne, rollSets, type RandomizerOptions } from "../shared/randomizer";
 import { createRng } from "../shared/random";
@@ -22,6 +23,8 @@ export interface Game {
   shelters: boolean | null;
   seed: number;
   warnings: string[];
+  /** The history entry this table was saved as; any edit starts a new draft (null). */
+  playedId: string | null;
 }
 
 export interface Settings {
@@ -32,6 +35,8 @@ export interface Settings {
   blackMarketSize: number;
   /** Set once the user has picked their sets on the first-visit screen. */
   onboarded: boolean;
+  /** When enabledBoxes last changed (ms), so account sync keeps the newest choice. */
+  boxesUpdated: number;
 }
 
 export interface State {
@@ -43,7 +48,7 @@ const newSeed = () => (Math.random() * 2 ** 32) >>> 0;
 
 const emptyGame = (): Game => ({
   kingdom: [], landscapes: [], locked: [], sets: null, choices: {}, official: false,
-  recommendedId: null, platinumColony: null, shelters: null, seed: newSeed(), warnings: [],
+  recommendedId: null, platinumColony: null, shelters: null, seed: newSeed(), warnings: [], playedId: null,
 });
 
 const defaultSettings = (): Settings => ({
@@ -53,6 +58,7 @@ const defaultSettings = (): Settings => ({
   shelters: "auto",
   blackMarketSize: 15,
   onboarded: false,
+  boxesUpdated: 0,
 });
 
 export type Action =
@@ -67,10 +73,14 @@ export type Action =
   | { type: "remove"; id: string }
   | { type: "clear" }
   | { type: "choices"; choices: Choices }
-  | { type: "loadRecommended"; kingdom: RecommendedKingdom };
+  | { type: "loadRecommended"; kingdom: RecommendedKingdom }
+  | { type: "loadHistory"; game: HistoryGame }
+  | { type: "played"; id: string | null }
+  /** Owned boxes from the account (keeps the account's timestamp). */
+  | { type: "accountBoxes"; enabledBoxes: string[]; updated: number };
 
 function edited(game: Game, patch: Partial<Game>): Game {
-  return { ...game, ...patch, official: false, recommendedId: null };
+  return { ...game, ...patch, official: false, recommendedId: null, playedId: null };
 }
 
 function reduce(state: State, action: Action): State {
@@ -80,7 +90,24 @@ function reduce(state: State, action: Action): State {
     case "settings":
       return { ...state, settings: { ...settings, ...action.patch } };
     case "options":
-      return { ...state, settings: { ...settings, options: { ...opts, ...action.patch } } };
+      return { ...state, settings: { ...settings, options: { ...opts, ...action.patch },
+        boxesUpdated: action.patch.enabledBoxes ? Date.now() : settings.boxesUpdated } };
+    case "accountBoxes": {
+      const known = new Set(data.boxes.map((b) => b.id));
+      return { ...state, settings: { ...settings, options: { ...opts, enabledBoxes: action.enabledBoxes.filter((b) => known.has(b)) },
+        boxesUpdated: action.updated } };
+    }
+    case "played":
+      return { ...state, game: { ...game, playedId: action.id } };
+    case "loadHistory": {
+      const g = action.game;
+      const known = (ids: string[]) => ids.filter((id) => db.byId.has(id));
+      return { settings: { ...settings, players: g.players }, game: {
+        ...emptyGame(), kingdom: known(g.kingdom), landscapes: known(g.landscapes), choices: g.choices,
+        // Exactly as played: the saved choices are used as they were, even if they break a usual rule.
+        official: true, recommendedId: g.recommendedId, platinumColony: g.platinumColony, shelters: g.shelters,
+      } };
+    }
     case "rollSets":
       return { ...state, game: { ...game, sets: rollSets(db, opts, createRng(newSeed())) } };
     case "deal": {

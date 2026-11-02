@@ -19,6 +19,19 @@ Follow-ups for the rules reference:
 - More topics as needed (Black Market deck, the no-visiting rule, Possession/extra turns).
 - New cards from future refreshes need files; the report lists them.
 
+**2. Accounts and history.** Username + password accounts (PBKDF2, HttpOnly session cookie,
+throttled sign-in), a "Mark as played" control under the table, `#/history` with multi-select,
+delete and delete-all, "Set up again", and sync of history (newest version wins, deletions kept as
+tombstones) and owned sets across devices. History works without an account; signing in merges the
+device's history into the account and signing out clears it from the device. D1 binding added
+(created automatically on deploy). See README → Accounts and history.
+
+Follow-ups for accounts:
+
+- Password change / reset (there is no email, so a reset would need another mechanism).
+- Notes or scores on history entries.
+- Rate limiting by IP as well as by username.
+
 ## Next, in priority order
 
 1. ~~**Our own rules reference for every card.**~~ Done (see above). Synthesize the official FAQ (rulebooks) and the
@@ -29,7 +42,7 @@ Follow-ups for the rules reference:
    doesn't overwrite them, mark which statements come from official rulings, and show them in the
    card view with the wiki FAQ as a secondary source. Include general rules reference pages
    (Setup, Stop-moving rule, Lose-track rule, Durations, Split piles ...) the same way.
-2. **Accounts and history (D1).** Username + password login (hashed, e.g. PBKDF2 via WebCrypto),
+2. ~~**Accounts and history (D1).**~~ Done (see above). Username + password login (hashed, e.g. PBKDF2 via WebCrypto),
    history stored locally and synced when logged in. Decide how edits affect history: a generated
    kingdom is a draft until the user confirms they played it; replacing cards edits the draft, not
    a played entry. Multi-select and delete-all. Owned expansions saved per account and used as the
@@ -47,9 +60,8 @@ Follow-ups for the rules reference:
 5. **Multiplayer rooms (Durable Objects).** Shared room code; collaborative pile selection and a
    common reference (kingdom, setup, rules, interactions) once generated; shared history. Room
    state can reuse the seeded engine: share inputs + seed, not results. Drafting games later.
-6. **Bindings for accounts and rooms.** The first deploy has no D1 or Durable Objects. When accounts/history
-   arrive: `wrangler d1 create dominion-randomizer`, add the `d1_databases` binding and `migrations/`; for rooms,
-   add the Durable Object binding plus a `migrations` entry with `new_sqlite_classes`.
+6. **Bindings for rooms.** D1 is in place for accounts. For rooms, add the Durable Object binding
+   plus a `migrations` entry with `new_sqlite_classes`.
 
 ## Smaller items
 

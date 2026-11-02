@@ -8,7 +8,7 @@ Randomizer and setup reference for *Dominion*, deployed to dominion.adambyle.net
 - `scripts/` — data pipeline (wiki export → app data) and checks
 - `src/shared/` — types, seeded RNG, and the setup engine (used by the client and the Worker)
 - `src/client/` — front end in plain TypeScript (no framework): `main.ts` shell and routing, `state.ts` store, `model.ts` table layout, `views/`
-- `src/worker/` — API (Hono), D1 access, multiplayer rooms (Durable Object)
+- `src/worker/` — API (Hono): accounts, synced history and settings in D1; later, multiplayer rooms (Durable Object)
 - `src/data/` — generated card and recommended-kingdom data, bundled into the client
 - `data/rules/` — the app's own rules reference, hand-written Markdown (see below)
 - `public/data/` — generated FAQ and rules reference, served as static assets
@@ -22,6 +22,23 @@ The site is a Cloudflare Worker with static assets, served at https://dominion.a
 npm run images   # on a fresh checkout: card images are not in git
 npm run deploy   # builds, then wrangler deploy
 ```
+
+## Accounts and history
+
+Played kingdoms ("Mark as played" under the table) are saved in the browser and listed at
+`#/history`. With an account (`#/account`) the history and the owned sets sync across devices.
+
+- The Worker (`src/worker/`) serves `/api/*` with Hono and stores accounts, sessions and history in
+  D1 (binding `DB`). The tables are created on first use, so there is no migration step.
+- `wrangler.jsonc` names the database without an id; `wrangler deploy` creates it on the first
+  deploy (automatic provisioning). If you'd rather create it yourself:
+  `npx wrangler d1 create dominion-randomizer` and add the printed `database_id` to the binding.
+- Without a `DB` binding the API answers 503 and the app quietly stays local-only.
+- Passwords are hashed with PBKDF2-SHA256 at 100,000 iterations (the Workers maximum). That takes
+  noticeable CPU time per sign-in; on the Workers Free plan (10 ms CPU per request) sign-ins may
+  fail, so use a paid plan or lower `PBKDF2_ITERATIONS` in `src/worker/auth.ts` (existing hashes keep
+  working, since each stores its own iteration count).
+- `npm run dev` runs the Worker and a local D1 (in `.wrangler/`) through the Cloudflare Vite plugin.
 
 ## Refreshing card data from the wiki
 

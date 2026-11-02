@@ -377,6 +377,45 @@ p.hint { margin: 10px 0; }
 .promo-list button { border: 1px solid var(--line-strong); background: none; border-radius: 999px; padding: 3px 11px; font-size: 13px; cursor: pointer; color: var(--ink-2); }
 .promo-list button.on { background: var(--deal-bg); border-color: var(--deal-bg); color: var(--deal-ink); }
 
+/* ---------- History and account */
+.account-link { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--ink-2); font-size: 14.5px;
+  padding: 6px 12px; border-radius: 999px; }
+.account-link:hover, .account-link.on { color: var(--ink); background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+.account-link span { max-width: 14ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.btn.danger { background: #a3352b; border-color: #a3352b; color: #fff; }
+.btn.danger:hover { background: #8a2b22; }
+.played-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 22px;
+  padding: 12px 16px; border-radius: 14px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); font-size: 14.5px; color: var(--ink-2); }
+.played-bar b { color: var(--ink); }
+.played-bar.saved { justify-content: flex-start; color: var(--ink); }
+.played-bar.saved .btn { margin-left: auto; }
+.sync-note { font-size: 13.5px; color: var(--ink-3); }
+.sync-note.error { color: #a3352b; }
+.confirm { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; }
+.history-page { max-width: 980px; }
+.history-day h2 { font-family: var(--serif); font-weight: 600; font-size: 15px; letter-spacing: 0.06em; margin: 26px 0 10px; color: var(--ink-2); }
+.history-list { display: grid; gap: 10px; }
+.history-row { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; padding: 12px 14px;
+  border-radius: 14px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+.history-row.selected { box-shadow: inset 0 0 0 2px var(--gold); }
+.history-row .pick input { width: 18px; height: 18px; accent-color: var(--ink); }
+.history-meta { margin: 0 0 8px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.history-tiles { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 4px; }
+.history-tiles .rk-tile { border: 0; padding: 0; cursor: pointer; color: inherit; }
+.history-row .rk-landscapes { margin-top: 6px; display: flex; gap: 6px; flex-wrap: wrap; }
+.account-page { max-width: 520px; padding-bottom: 40px; }
+.account-page h1 { font-family: var(--serif); font-weight: 600; font-size: 28px; letter-spacing: 0.03em; margin: 8px 0 6px; }
+.account-form { display: grid; gap: 14px; margin: 22px 0; }
+.account-form label { display: grid; gap: 6px; font-size: 14px; color: var(--ink-2); }
+.account-form input { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--paper); font-size: 16px; }
+.account-form .deal { justify-self: start; }
+.form-error { color: #a3352b; margin: 0; }
+.small { font-size: 13.5px; }
+.account-facts { padding-left: 18px; }
+.account-facts li { margin: 6px 0; }
+.danger-zone { margin-top: 36px; color: var(--ink-2); }
+.danger-zone summary { cursor: pointer; }
+
 /* ---------- Rules reference pages */
 .rules-page { max-width: 760px; padding-bottom: 40px; }
 .rules-page h1 { font-family: var(--serif); font-weight: 600; font-size: 28px; letter-spacing: 0.03em; margin: 8px 0 6px; }
@@ -570,6 +609,9 @@ p.hint { margin: 10px 0; }
   /* Other pages */
   .filters h1 { font-size: 22px; }
   .rules-page h1 { font-size: 23px; }
+  .history-row { grid-template-columns: auto 1fr; }
+  .history-row > .btn { grid-column: 1 / -1; justify-self: start; }
+  .history-tiles { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .filter-row { gap: 8px; }
   .search { min-width: 100%; }
   .rk-grid { grid-template-columns: 1fr; }

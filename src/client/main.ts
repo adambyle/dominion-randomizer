@@ -1,4 +1,5 @@
-// App shell: top bar, routing (#/, #/recommended, #/cards, #/rules[/topic], #/sets), overlays and the render loop.
+// App shell: top bar, routing (#/, #/recommended, #/cards, #/rules[/topic], #/history, #/account,
+// #/sets), overlays and the render loop.
 
 import "./styles.css";
 import { h, icon, replace, stepper, type Child } from "./dom";
@@ -15,14 +16,17 @@ import { welcomeView } from "./views/welcome";
 import { recommendedView } from "./views/recommended";
 import { cardsView } from "./views/cards";
 import { rulesView } from "./views/rules";
+import { accountView, historyView } from "./views/history";
+import { Account } from "./account";
 
-type Route = "table" | "recommended" | "cards" | "rules" | "sets";
+type Route = "table" | "recommended" | "cards" | "rules" | "history" | "account" | "sets";
 
 /** Portrait phones get their own table layout; landscape phones and tablets use the desktop one. */
 const PHONE = window.matchMedia("(max-width: 720px)");
 
 export class App {
   store = new Store();
+  account = new Account(this.store);
   recommended = recommended;
   private sheet: string[] = [];
   private tune = false;
@@ -41,9 +45,12 @@ export class App {
       if (added.length) this.renderAfterImages(added);
       else this.render();
     });
+    this.account.subscribe(() => this.render());
+    void this.account.init();
     PHONE.addEventListener("change", () => this.render());
     window.addEventListener("resize", () => this.measureTopBar());
     window.addEventListener("hashchange", () => {
+      if (this.route === "history" || this.route === "account") this.account.queueSync(0);
       this.menuOpen = false;
       this.sheet = [];
       this.tune = false;
@@ -64,7 +71,7 @@ export class App {
 
   get route(): Route {
     const r = location.hash.replace(/^#\/?/, "");
-    if (r === "recommended" || r === "cards" || r === "sets") return r;
+    if (r === "recommended" || r === "cards" || r === "sets" || r === "history" || r === "account") return r;
     if (r === "rules" || r.startsWith("rules/")) return "rules";
     return this.store.state.settings.onboarded ? "table" : "sets";
   }
@@ -155,6 +162,8 @@ export class App {
       case "sets": return welcomeView(this);
       case "recommended": return recommendedView(this);
       case "cards": return cardsView(this);
+      case "history": return historyView(this);
+      case "account": return accountView(this);
       case "rules": return rulesView(this, decodeURIComponent(location.hash.replace(/^#\/?rules\/?/, "")) || null);
       default: return this.phone ? tableMobileView(this) : tableView(this);
     }
@@ -181,15 +190,18 @@ function topBar(app: App, route: Route): Child {
           onclick: () => { app.menuOpen = !app.menuOpen; app.render(); } }, icon(app.menuOpen ? "close" : "menu")),
         app.menuOpen && h("nav.m-menu-pop", { "aria-label": "Sections" },
           link("#/", "Table", "table"), link("#/recommended", "Recommended kingdoms", "recommended"),
-          link("#/cards", "Cards", "cards"), link("#/rules", "Rules", "rules"), link("#/sets", "Your sets", "sets"),
+          link("#/cards", "Cards", "cards"), link("#/rules", "Rules", "rules"), link("#/history", "History", "history"),
+          link("#/sets", "Your sets", "sets"), link("#/account", accountLabel(app), "account"),
           route === "table" && hasGame && h("button", { type: "button", onclick: () => { app.menuOpen = false; app.store.dispatch({ type: "clear" }); } }, "Clear the table"))));
   }
   return h("header.topbar", null,
     h("a.mark", { href: "#/" }, "Dominion", h("small", null, "Kingdom randomizer")),
     !firstRun && h("nav.nav", { "aria-label": "Sections" },
       link("#/", "Table", "table"), link("#/recommended", "Recommended", "recommended"), link("#/cards", "Cards", "cards"),
-      link("#/rules", "Rules", "rules"), link("#/sets", "Your sets", "sets")),
+      link("#/rules", "Rules", "rules"), link("#/history", "History", "history"), link("#/sets", "Your sets", "sets")),
     h("div.spacer"),
+    !firstRun && h("a.account-link", { href: "#/account", class: route === "account" ? "on" : "", title: "Account" }, icon("user"),
+      h("span", null, app.account.status === "signedIn" ? app.account.username : "Sign in")),
     route === "table" && h("div.bar-actions", null,
       h("div.players", null, stepper({ value: settings.players, min: 2, max: 6, label: "players", format: (n) => `${n} players`,
         onChange: (n) => app.store.dispatch({ type: "settings", patch: { players: n } }) })),
@@ -198,6 +210,10 @@ function topBar(app: App, route: Route): Child {
       h("button.btn.ghost", { type: "button", onclick: () => app.openTune() }, icon("tune"), "Tune"),
       h("button.deal", { type: "button", onclick: () => app.store.dispatch({ type: "deal" }),
         title: game.locked.length ? "Deal again, keeping locked cards" : "Deal a random kingdom" }, hasGame ? "Deal again" : "Deal")));
+}
+
+function accountLabel(app: App) {
+  return app.account.status === "signedIn" ? `Account (${app.account.username})` : "Sign in";
 }
 
 new App();

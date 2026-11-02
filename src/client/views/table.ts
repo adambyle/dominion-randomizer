@@ -5,6 +5,7 @@ import { h, icon, type Child } from "../dom";
 import { cardImage, db, name, recommended, setIcon, setName } from "../data";
 import { buildModel, type TableItem } from "../model";
 import type { App } from "../main";
+import { playedControl } from "./history";
 
 const BASICS_PREVIEW = ["copper", "silver", "gold", "estate", "duchy", "province", "curse"];
 
@@ -134,7 +135,7 @@ export function tableView(app: App): Child {
   const view = h("div.table-view", null,
     game.warnings.length > 0 && h("div.notice", null, game.warnings.join(" ")),
     setup && setup.warnings.length > 0 && h("div.notice", null, setup.warnings.join(" ")),
-    table, checklist, prompt);
+    table, checklist, model && playedControl(app), prompt);
   wireHover(view, table);
 
   // The prompt shows only while the checklist is off-screen.
