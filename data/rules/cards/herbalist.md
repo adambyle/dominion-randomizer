@@ -1,0 +1,3 @@
+- Get +1 Buy and {coin:+1}. Once this turn, when you discard a Treasure from play, you may put it onto your deck.
+- It stacks: two Herbalists (or one played twice) can put back two Treasures.
+- It only works on Treasures discarded from play. Treasures that stay in play or leave in another way can't be put back.

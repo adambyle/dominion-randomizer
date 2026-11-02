@@ -1,0 +1,4 @@
+- Count the cards in your deck and discard pile together. Get {coin:+1} per 5 cards, rounded down. [official]
+- Your hand, cards in play and set-aside cards don't count. [official]
+- Don't change your deck's order while counting; you may look through your discard pile. [official]
+- The amount is fixed once played, even if the counts change later in the turn. [official]

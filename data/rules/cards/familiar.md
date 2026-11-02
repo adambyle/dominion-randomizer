@@ -1,0 +1,1 @@
+- Draw a card and get +1 Action. Each other player gains a {card:Curse}. [official]

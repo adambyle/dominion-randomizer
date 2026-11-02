@@ -1,0 +1,2 @@
+- Get +2 Actions. You may gain an Action card costing up to {cost:5}. [official]
+- Cards with {potion} or {debt:} in their cost can't be gained this way.

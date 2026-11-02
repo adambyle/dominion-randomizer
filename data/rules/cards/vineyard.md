@@ -1,0 +1,3 @@
+- At the end of the game, each Vineyard is worth {vp:1} per 3 Action cards you have, rounded down. [official]
+- Cards with Action among their types count.
+- It's a Kingdom Victory card: 8 with 2 players, 12 with 3 or more.

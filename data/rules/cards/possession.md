@@ -1,0 +1,6 @@
+- The player to your left takes an extra turn after this one, and you make every decision for them, seeing everything they can see.
+- Any cards (or {debt:}) they would gain that turn, you gain instead, to your discard pile.
+- Any of their cards trashed that turn are set aside instead, and go back to their discard pile after the turn. They still count as trashed for card abilities.
+- They can't take two Possession turns in a row, so extra Possessions on the same turn don't stack.
+- It's still their turn: "you" on cards means them. It isn't an Attack, so {card:Moat} doesn't help.
+- Their Possession turn counts as one of their turns.

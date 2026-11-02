@@ -1,0 +1,4 @@
+- Get +1 Action. Trash a card from your hand and draw a card per {cost:1} it costs, plus 2 more if its cost has {potion}. [official]
+- A {cost:0} card like {card:Copper} or {card:Curse} draws nothing. [official]
+- {card:Golem} ({cost:4}{potion}) draws 6. [official]
+- {debt:} in a cost doesn't count.

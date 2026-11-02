@@ -1,0 +1,4 @@
+- Draw 2 cards and get +1 Action.
+- At the start of your Clean-up, before discarding anything, if you have a {card:Potion} in play you may put Alchemist onto your deck. It will usually be in your next hand.
+- The Potion only has to be in play, not spent. Each Alchemist can go back, so one Potion lets you keep them all.
+- If the Potion has left play by then (for example, trashed), Alchemist can't go back.

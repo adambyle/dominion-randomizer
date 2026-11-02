@@ -1,0 +1,3 @@
+- A basic Treasure that costs {cost:4} and makes {potion}. [official]
+- It's not a Kingdom card. Use the Potion pile (16 cards) in any game with a card that has {potion} in its cost.
+- {potion} can only pay for the {potion} part of a cost, and coins can't pay for {potion}. Unspent {potion} is lost at the end of the turn.
