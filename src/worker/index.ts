@@ -1,9 +1,9 @@
 import { Hono } from "hono";
-import { DurableObject } from "cloudflare:workers";
+
+// Static assets (the app, card data, images) are served by Workers Assets; this Worker only
+// handles /api/*. Accounts, history and rooms will live here (see docs/ROADMAP.md).
 
 export interface Env {
-  DB: D1Database;
-  ROOMS: DurableObjectNamespace<Room>;
   ASSETS: Fetcher;
 }
 
@@ -11,6 +11,3 @@ const app = new Hono<{ Bindings: Env }>();
 app.get("/api/health", (c) => c.json({ ok: true }));
 
 export default app;
-
-/** Multiplayer room (one per room code). Implemented in a later step. */
-export class Room extends DurableObject<Env> {}

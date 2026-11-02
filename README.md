@@ -13,6 +13,15 @@ Randomizer and setup reference for *Dominion*, deployed to dominion.adambyle.net
 - `public/data/` — generated FAQ and rules reference, served as static assets
 - `public/img/` — card, box and symbol images from the wiki (git-ignored; `npm run images`)
 
+## Deploying
+
+The site is a Cloudflare Worker with static assets, served at https://dominion.adambyle.net.
+
+```bash
+npm run images   # on a fresh checkout: card images are not in git
+npm run deploy   # builds, then wrangler deploy
+```
+
 ## Refreshing card data from the wiki
 
 The Dominion Strategy wiki blocks automated clients, so the export runs in a browser session that

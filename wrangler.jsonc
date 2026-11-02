@@ -5,9 +5,7 @@
   "compatibility_date": "2026-10-01",
   "assets": { "not_found_handling": "single-page-application", "run_worker_first": ["/api/*"] },
   "routes": [{ "pattern": "dominion.adambyle.net", "custom_domain": true }],
-  "d1_databases": [
-    { "binding": "DB", "database_name": "dominion-randomizer", "database_id": "TBD-run-wrangler-d1-create", "migrations_dir": "migrations" }
-  ],
-  "durable_objects": { "bindings": [{ "name": "ROOMS", "class_name": "Room" }] },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Room"] }]
+  "observability": { "enabled": true }
+  // D1 (accounts, history) and a Durable Object (multiplayer rooms) get added back here when those
+  // features are built — see docs/ROADMAP.md.
 }

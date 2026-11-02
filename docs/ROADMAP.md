@@ -35,8 +35,9 @@ Nothing — the plain-TypeScript redesign is built for desktop (table layout) an
 5. **Multiplayer rooms (Durable Objects).** Shared room code; collaborative pile selection and a
    common reference (kingdom, setup, rules, interactions) once generated; shared history. Room
    state can reuse the seeded engine: share inputs + seed, not results. Drafting games later.
-6. **Deployment.** `wrangler d1 create`, fill the database id in `wrangler.jsonc`, custom domain
-   dominion.adambyle.net, D1 migrations in `migrations/`.
+6. **Bindings for accounts and rooms.** The first deploy has no D1 or Durable Objects. When accounts/history
+   arrive: `wrangler d1 create dominion-randomizer`, add the `d1_databases` binding and `migrations/`; for rooms,
+   add the Durable Object binding plus a `migrations` entry with `new_sqlite_classes`.
 
 ## Smaller items
 
