@@ -98,7 +98,12 @@ export class App {
   }
   backCard() { this.sheet = this.sheet.slice(0, -1); this.render(); }
   closeCard() { this.sheet = []; this.render(); }
-  openTune() { this.entering.add("tune"); this.tune = true; this.render(); }
+  openTune(section?: "expansions") {
+    this.entering.add("tune");
+    this.tune = true;
+    this.render();
+    if (section) requestAnimationFrame(() => document.querySelector(`[data-section="${section}"]`)?.scrollIntoView({ block: "start" }));
+  }
   closeTune() { this.tune = false; this.render(); }
   openPicker() { this.entering.add("picker"); this.picker = pickerView(this); this.render(); }
   closePicker() { this.picker = null; this.render(); }

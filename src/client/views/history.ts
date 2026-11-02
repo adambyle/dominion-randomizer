@@ -81,7 +81,7 @@ export function historyView(app: App): Child {
           icon("trash"), `Delete ${selection.size}`),
         entries.length > 0 && !confirmAll && h("button.btn.ghost", { type: "button", onclick: () => { confirmAll = true; rerender(); } }, "Delete all"),
         confirmAll && h("span.confirm", null, `Delete all ${entries.length} games?`,
-          h("button.btn.danger", { type: "button", onclick: () => { account.removeAll(); selection.clear(); confirmAll = false; } }, "Delete all"),
+          h("button.btn.danger", { type: "button", onclick: () => { confirmAll = false; selection.clear(); account.removeAll(); rerender(); } }, "Delete all"),
           h("button.btn.ghost", { type: "button", onclick: () => { confirmAll = false; rerender(); } }, "Cancel")),
         h("span.muted", null, `${entries.length} ${entries.length === 1 ? "game" : "games"}`),
         syncNote(app))),

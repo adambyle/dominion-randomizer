@@ -7,8 +7,8 @@ import { buildModel } from "../model";
 import type { FaqItem, FaqSection } from "../../shared/types";
 import { topicsForCard, type GuideDoc } from "../../shared/guide";
 import { cachedCardGuide, hasCardGuide, loadCardGuide, topics } from "../guide";
-import { guideBody, officialNote } from "./rules";
-import { sheetInteractions } from "./interactions";
+import { guideBody } from "./rules";
+import { notableCount, sheetInteractions } from "./interactions";
 import type { App } from "../main";
 
 let faqCache: Record<string, FaqSection[]> | null = null;
@@ -45,7 +45,7 @@ export function sheetView(app: App, stack: string[]): Child {
   const fillOwn = (doc: GuideDoc | null) => {
     replace(ownSection,
       h("h3", null, "Rules"),
-      doc ? [guideBody(app, doc, open, "h4"), officialNote()] : h("p.muted", null, "No rules written for this app yet — see the wiki FAQ below."),
+      doc ? guideBody(app, doc, open, "h4", true) : h("p.muted", null, "No rules written for this app yet — see the wiki FAQ below."),
       applicable.length > 0 && h("p.topic-chips", null, h("span.muted", null, "General rules: "),
         applicable.map((t, i) => [i > 0 && " · ", h("a.rule-ref", { href: `#/rules/${t.id}` }, t.title)])));
   };
@@ -63,9 +63,7 @@ export function sheetView(app: App, stack: string[]): Child {
       secs.filter((s) => s.deprecated).map((s) => h("details.deprecated", null, h("summary", null, s.heading), faqList(s.items, app, open))),
       h("p.attribution", null, "From the ", h("a", { href: wikiUrl(card.wikiTitle), target: "_blank", rel: "noreferrer" }, "Dominion Strategy Wiki"), " (CC BY-NC-SA 3.0)."),
     ];
-    // With our own rules present the wiki FAQ is collapsed; otherwise it's the main source.
     if (own && !secs.length) wikiSection.replaceChildren();
-    else if (own) replace(wikiSection, h("details.wiki-more", null, h("summary", null, h("h3", null, "Wiki FAQ")), body));
     else replace(wikiSection, h("h3", null, "Wiki FAQ"), body);
   };
   const withOwn = (all: Record<string, FaqSection[]>) => guidePromise.then((doc) => fillFaq(all, !!doc), () => fillFaq(all, false));
@@ -116,8 +114,8 @@ export function sheetView(app: App, stack: string[]): Child {
 
       data.setupNotes[id] && h("section", null, h("h3", null, "Setup"), h("p", null, ...app.markup(data.setupNotes[id]!, open))),
       ownSection,
-      sheetInteractions(app, id, open),
-      wikiSection));
+      // The FAQ comes first only when nothing in this game is worth a look.
+      notableCount(app) === 0 ? [wikiSection, sheetInteractions(app, id, open)] : [sheetInteractions(app, id, open), wikiSection]));
 }
 
 function faqList(items: FaqItem[], app: App, open: (id: string) => void): HTMLElement {

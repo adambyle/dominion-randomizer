@@ -56,7 +56,7 @@ export function tuneView(app: App): Child {
           `From your history: ${app.store.played().size} cards played so far`),
         pool.has("black-market") && row("Black Market deck", stepper({ value: settings.blackMarketSize, min: 5, max: 60, label: "Black Market cards", onChange: (n) => setSettings({ blackMarketSize: n }) }))),
 
-      h("section", null,
+      h("section", { "data-section": "expansions" },
         h("h3", null, "Expansions"),
         row("Expansions per game", stepper({ value: opts.setsPerGame, min: 0, max: enabledSets.length, label: "expansions per game",
           format: (n) => (n === 0 ? "All" : String(n)), onChange: (n) => setOpts({ setsPerGame: n }) }),

@@ -46,7 +46,9 @@ export function markup(text: string, onCard?: (id: string) => void): Child[] {
         const [topicId, display] = arg.split("|");
         return h("a.rule-ref", { href: `#/rules/${topicId}` }, display ?? topicTitle(topicId!));
       }
-      case "cost": case "coin": return sym("coin", arg, "s");
+      case "cost": return sym("coin", arg, "s");
+      // "+1 coin": the plus sits beside the coin, not inside it.
+      case "coin": return arg.startsWith("+") ? h("span.coin-plus", null, "+", sym("coin", arg.slice(1), "s")) : sym("coin", arg, "s");
       case "debt": return sym("debt", arg, "s");
       case "potion": return sym("potion", "", "s");
       case "vp": return sym("vp", arg, "s");

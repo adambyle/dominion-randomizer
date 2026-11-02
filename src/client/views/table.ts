@@ -12,7 +12,7 @@ const BASICS_PREVIEW = ["copper", "silver", "gold", "estate", "duchy", "province
 
 /** What the pointer is over, kept across re-renders so a click doesn't replay the fade. */
 let hovered: { attr: "id" | "roots" | "set"; value: string } | null = null;
-let checklistObserver: IntersectionObserver | null = null;
+let promptCleanup: (() => void) | null = null;
 
 function face(id: string, cls = "face", lazy = false) {
   const img = cardImage(id);
@@ -56,7 +56,7 @@ export function tableView(app: App): Child {
     const locked = game.locked.includes(id);
     const targets = model?.targetedBy.get(id) ?? [];
     const count = model?.pileCounts.get(id);
-    return h("div.pile", { "data-id": id, "data-set": db.get(id).set, class: locked ? "locked" : "" },
+    return h("div.pile", { "data-id": id, "data-set": db.get(id).set, class: [locked ? "locked" : "", app.store.fresh.has(id) ? "fresh" : ""] },
       h("button.pile-card", { type: "button", onclick: () => open(id), "aria-label": `${name(id)} — details` }, face(id)),
       locked && h("span.lockmark", { title: "Locked: dealing again keeps it" }, icon("lock")),
       bringsSomething.has(id) && h("span.dot", { title: "Needs extra setup — hover to see" }, "+"),
@@ -80,7 +80,7 @@ export function tableView(app: App): Child {
         const compact = sets.length > 4;
         return h("span.set-chip", { "data-set-key": s, title: setName(s), class: [game.sets?.includes(s) ? "rolled" : "", compact ? "icon-only" : ""] },
           img && h("img", { src: img.src, alt: compact ? setName(s) : "" }), !compact && setName(s));
-      }))),
+      }), h("button.set-edit", { type: "button", title: "Choose expansions", "aria-label": "Choose expansions", onclick: () => app.openTune("expansions") }, icon("tune")))),
     h("div.kingdom", { style: `--cols:${cols}` },
       kingdomIds.map(pile),
       Array.from({ length: slots }, (_, i) => h("button.slot", {
@@ -99,7 +99,7 @@ export function tableView(app: App): Child {
         const locked = game.locked.includes(l.card);
         return h("div.landscape", {
           "data-id": own ? l.card : undefined, "data-roots": own ? undefined : l.roots.join(" "), "data-set": db.get(l.card).set,
-          class: locked ? "locked" : "",
+          class: [locked ? "locked" : "", own && app.store.fresh.has(l.card) ? "fresh" : ""],
         },
           h("button.pile-card", { type: "button", onclick: () => open(l.card), "aria-label": `${name(l.card)} — details` }, face(l.card)),
           l.note && h("span.caption", null, l.note),
@@ -139,12 +139,16 @@ export function tableView(app: App): Child {
     table, checklist, model && interactionSummary(app), model && playedControl(app), prompt);
   wireHover(view, table);
 
-  // The prompt shows only while the checklist is off-screen.
-  checklistObserver?.disconnect();
-  checklistObserver = null;
+  // The prompt shows only while the checklist is still below the screen: not once it is in view or scrolled past.
+  promptCleanup?.();
+  promptCleanup = null;
   if (checklist && prompt) {
-    checklistObserver = new IntersectionObserver(([entry]) => prompt.classList.toggle("hidden", !!entry?.isIntersecting), { threshold: 0.15 });
-    requestAnimationFrame(() => checklistObserver?.observe(checklist));
+    prompt.classList.add("hidden");
+    const update = () => prompt.classList.toggle("hidden", checklist.getBoundingClientRect().top < window.innerHeight - 24);
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    promptCleanup = () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+    requestAnimationFrame(update);
   }
   return view;
 }

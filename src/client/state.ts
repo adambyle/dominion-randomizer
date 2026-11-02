@@ -287,10 +287,20 @@ export class Store {
   roomMode = false;
   onShared: ((shared: SharedState) => void) | null = null;
 
+  /** Cards just added, filled or swapped in, so the table can briefly highlight them. */
+  fresh = new Set<string>();
+  private freshTimer: ReturnType<typeof setTimeout> | undefined;
+
   dispatch = (action: Action) => {
     const prev = this.state;
     this.state = reduce(prev, action, { played: this.played() });
     if (this.state === prev) return;
+    if (action.type === "add" || action.type === "fill" || action.type === "replace") {
+      const had = new Set([...prev.game.kingdom, ...prev.game.landscapes]);
+      this.fresh = new Set([...this.state.game.kingdom, ...this.state.game.landscapes].filter((id) => !had.has(id)));
+      clearTimeout(this.freshTimer);
+      this.freshTimer = setTimeout(() => { this.fresh = new Set(); }, 1500);
+    } else if (action.type !== "choices" && action.type !== "played") this.fresh = new Set();
     if (!this.roomMode) {
       try { localStorage.setItem(KEY, JSON.stringify(this.state)); } catch { /* storage unavailable */ }
     } else if (!LOCAL_ACTIONS.has(action.type) && (this.state.game !== prev.game || sharedKey(this.state) !== sharedKey(prev))) {

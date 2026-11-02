@@ -8,10 +8,17 @@ import type { GuideDoc, GuideItem } from "../../shared/guide";
 import type { App } from "../main";
 
 /** Renders a guide document. Sections get `headingTag` headings (h2 on pages, h4 in the card sheet). */
-export function guideBody(app: App, doc: GuideDoc, open?: (id: string) => void, headingTag: "h2" | "h4" = "h2"): Child[] {
+export function guideBody(app: App, doc: GuideDoc, open?: (id: string) => void, headingTag: "h2" | "h4" = "h2", prose = false): Child[] {
   return doc.sections.map((s) => h("div.guide-section", null,
     s.heading && h(headingTag, null, ...app.markup(s.heading, open)),
-    s.blocks.map((b) => b.kind === "p" ? h("p", null, ...app.markup(b.text, open)) : guideList(app, b.items, open))));
+    s.blocks.map((b) => b.kind === "p" ? h("p", null, ...app.markup(b.text, open))
+      : prose ? guideProse(app, b.items, open) : guideList(app, b.items, open))));
+}
+
+/** A list as running paragraphs (one per top-level item, its sub-points following in the same paragraph), without the "Official" tags. */
+function guideProse(app: App, items: GuideItem[], open?: (id: string) => void): Child[] {
+  const flat = (it: GuideItem): string[] => [it.text, ...(it.children ?? []).flatMap(flat)];
+  return items.map((it) => h("p", null, ...app.markup(flat(it).join(" "), open)));
 }
 
 function guideList(app: App, items: GuideItem[], open?: (id: string) => void): HTMLElement {

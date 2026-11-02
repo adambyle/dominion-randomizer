@@ -38,11 +38,17 @@ function interactionBody(app: App, x: Interaction, opts: { rulings: boolean; ope
 const pairTitle = (app: App, x: Interaction, open?: (id: string) => void) => h("span.ix-pair", null,
   ...app.markup(`{card:${db.get(x.a).name}}`, open), " + ", ...app.markup(`{card:${db.get(x.b).name}}`, open));
 
+const notable = (app: App) => {
+  const ids = gameCards(app);
+  return ids.length < 2 ? [] : interactionsAmong(db, mentions(() => app.render()), ids).filter((x) => x.score >= 3);
+};
+
+/** How many notable pairs the current table has. */
+export const notableCount = (app: App) => notable(app).length;
+
 /** Table summary: the most notable pairs in this game. */
 export function interactionSummary(app: App, limit = 6): Child {
-  const ids = gameCards(app);
-  if (ids.length < 2) return null;
-  const list = interactionsAmong(db, mentions(() => app.render()), ids).filter((x) => x.score >= 3);
+  const list = notable(app);
   if (!list.length) return null;
   return h("section.ix-summary", { "aria-label": "Notable interactions" },
     h("p.label", null, "Notable interactions"),
@@ -56,10 +62,11 @@ export function interactionSummary(app: App, limit = 6): Child {
 /** Card sheet: this card's interactions with the rest of the game, and a link to the explorer. */
 export function sheetInteractions(app: App, id: string, open: (id: string) => void): Child {
   const others = gameCards(app).filter((x) => x !== id);
-  const list = others.length ? interactionsWith(db, mentions(() => app.render()), id, others) : [];
+  if (!others.length) return null;
+  const list = interactionsWith(db, mentions(() => app.render()), id, others);
   return h("section.ix-sheet", null,
     h("h3", null, "Interactions"),
-    others.length > 0 && !list.length && h("p.muted", null, "Nothing notable with the other cards in this game."),
+    !list.length && h("p.muted", null, "No notable interactions between this card and the others on the current table."),
     list.map((x) => h("div.ix-block", null,
       h("h4", null, ...app.markup(`{card:${db.get(x.b).name}}`, open), x.rulings.length > 0 && h("span.muted", null, ` · ${x.rulings.length} ${x.rulings.length === 1 ? "ruling" : "rulings"}`)),
       interactionBody(app, x, { rulings: true, open }))),

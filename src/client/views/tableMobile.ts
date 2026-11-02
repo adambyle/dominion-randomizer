@@ -40,7 +40,7 @@ export function tableMobileView(app: App): Child {
     const art = artImage(id) ?? cardImage(id);
     const brings = model ? bringsAnything(id, model) : false;
     return h("button", {
-      type: "button", class: ["m-tile", dim(id) ? "dim" : "", selected === id ? "selected" : "", game.locked.includes(id) ? "locked" : ""],
+      type: "button", class: ["m-tile", dim(id) ? "dim" : "", selected === id ? "selected" : "", game.locked.includes(id) ? "locked" : "", app.store.fresh.has(id) ? "fresh" : ""],
       "aria-label": `${c.name}${selected === id ? ", selected" : ""}`, ...pressHandlers(() => select(id), () => app.openCard(id)),
     },
       art && h("img", { src: art.src, alt: "", draggable: "false" }),
@@ -59,7 +59,7 @@ export function tableMobileView(app: App): Child {
     const img = cardImage(l.card);
     const own = game.landscapes.includes(l.card);
     return h("button", {
-      type: "button", class: ["m-landscape", dim(l.card, l.roots) ? "dim" : "", selected === l.card ? "selected" : ""],
+      type: "button", class: ["m-landscape", dim(l.card, l.roots) ? "dim" : "", selected === l.card ? "selected" : "", own && app.store.fresh.has(l.card) ? "fresh" : ""],
       ...pressHandlers(() => (own ? select(l.card) : app.openCard(l.card)), () => app.openCard(l.card)),
     }, img && h("img", { src: img.src, alt: name(l.card), draggable: "false" }), l.note && h("span.m-caption", null, l.note));
   });
@@ -76,7 +76,7 @@ export function tableMobileView(app: App): Child {
   const felt = h("section.m-felt", null,
     h("div.m-felt-head", null,
       h("p.label", null, rec ? `Kingdom · ${rec.name}` : "Kingdom"),
-      sets(game.sets ?? [...new Set([...game.kingdom, ...game.landscapes].map((id) => db.get(id).set))])),
+      sets(app, game.sets ?? [...new Set([...game.kingdom, ...game.landscapes].map((id) => db.get(id).set))])),
     h("div.m-kingdom", null, tiles, slots),
     empty && h("p.m-empty", null, "Deal a random kingdom, or pick a recommended one from the menu."),
     landscapes.length > 0 && h("div.m-landscapes", null, landscapes),
@@ -114,9 +114,9 @@ export function tableMobileView(app: App): Child {
     felt, quick, sheet, bar);
 }
 
-function sets(list: string[]) {
+function sets(app: App, list: string[]) {
   if (!list.length) return null;
-  return h("div.m-sets", null, list.map((s) => {
+  return h("button.m-sets", { type: "button", title: "Choose expansions", "aria-label": "Choose expansions", onclick: () => app.openTune("expansions") }, list.map((s) => {
     const img = setIcon(s);
     return img ? h("img", { src: img.src, alt: setName(s), title: setName(s) }) : null;
   }));
