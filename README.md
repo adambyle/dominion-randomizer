@@ -38,6 +38,8 @@ Played kingdoms ("Mark as played" under the table) are saved in the browser and 
   noticeable CPU time per sign-in; on the Workers Free plan (10 ms CPU per request) sign-ins may
   fail, so use a paid plan or lower `PBKDF2_ITERATIONS` in `src/worker/auth.ts` (existing hashes keep
   working, since each stores its own iteration count).
+- Recommended kingdoms marked played / crossed off sync the same way (D1 table `marks`). History
+  also feeds Tune → *Cards you've played* and the Stats tab on `#/history`.
 - `npm run dev` runs the Worker and a local D1 (in `.wrangler/`) through the Cloudflare Vite plugin.
 
 ## Refreshing card data from the wiki

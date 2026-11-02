@@ -37,7 +37,13 @@ export interface Settings {
   onboarded: boolean;
   /** When enabledBoxes last changed (ms), so account sync keeps the newest choice. */
   boxesUpdated: number;
+  /** Cards from your play history: deal them as usual, less often, or not at all. */
+  playedCards: PlayedMode;
 }
+
+export type PlayedMode = "any" | "fewer" | "none";
+/** Weight of an already-played card when dealing with "fewer". */
+const FEWER_WEIGHT = 0.15;
 
 export interface State {
   settings: Settings;
@@ -59,6 +65,7 @@ const defaultSettings = (): Settings => ({
   blackMarketSize: 15,
   onboarded: false,
   boxesUpdated: 0,
+  playedCards: "any",
 });
 
 export type Action =
@@ -83,7 +90,29 @@ function edited(game: Game, patch: Partial<Game>): Game {
   return { ...game, ...patch, official: false, recommendedId: null, playedId: null };
 }
 
-function reduce(state: State, action: Action): State {
+/** What the reducer needs from outside the stored state. */
+interface Env {
+  /** Cards played in earlier games (from history). */
+  played: Set<string>;
+}
+
+/**
+ * Runs a roll with the "played cards" preference. With "none", if skipping played cards leaves the
+ * deal shorter than a normal one would be, rolls again preferring unplayed cards instead.
+ */
+function withPlayed<T extends { kingdom: string[]; landscapes: string[]; warnings: string[] }>(settings: Settings, env: Env, roll: (cardWeight?: (id: string) => number) => T): T {
+  if (settings.playedCards === "any" || !env.played.size) return roll();
+  if (settings.playedCards === "none") {
+    const strict = roll((id) => (env.played.has(id) ? 0 : 1));
+    const normal = roll();
+    if (strict.kingdom.length >= normal.kingdom.length && strict.landscapes.length >= normal.landscapes.length) return strict;
+  }
+  const r = roll((id) => (env.played.has(id) ? FEWER_WEIGHT : 1));
+  if (settings.playedCards === "none") r.warnings = [...r.warnings, "Not enough cards you haven't played yet, so some you have are included."];
+  return r;
+}
+
+function reduce(state: State, action: Action, env: Env): State {
   const { settings, game } = state;
   const opts = settings.options;
   switch (action.type) {
@@ -114,21 +143,25 @@ function reduce(state: State, action: Action): State {
       const seed = newSeed();
       const rng = createRng(seed);
       const sets = opts.setsPerGame ? (game.sets ?? rollSets(db, opts, rng)) : null;
-      const draft = randomize(db, opts, {
+      const draft = withPlayed(settings, env, (cardWeight) => randomize(db, opts, {
         sets: sets ?? undefined,
         locked: game.kingdom.filter((id) => game.locked.includes(id)),
         lockedLandscapes: game.landscapes.filter((id) => game.locked.includes(id)),
-      }, rng);
+        cardWeight,
+      }, createRng((seed ^ 0x9e3779b9) >>> 0)));
       return { ...state, game: edited(game, { ...draft, sets, seed, choices: {}, platinumColony: null, shelters: null }) };
     }
     case "fill": {
       // Fill empty slots only: everything already on the table stays (without being locked).
-      const rng = createRng(newSeed());
-      const draft = randomize(db, opts, { sets: game.sets ?? undefined, locked: game.kingdom, lockedLandscapes: game.landscapes }, rng);
+      const seed = newSeed();
+      const draft = withPlayed(settings, env, (cardWeight) =>
+        randomize(db, opts, { sets: game.sets ?? undefined, locked: game.kingdom, lockedLandscapes: game.landscapes, cardWeight }, createRng(seed)));
       return { ...state, game: edited(game, { kingdom: draft.kingdom, landscapes: draft.landscapes, warnings: draft.warnings }) };
     }
     case "replace": {
-      const draft = replaceOne(db, opts, { ...game, warnings: [] }, action.id, { sets: game.sets ?? undefined }, createRng(newSeed()));
+      const seed = newSeed();
+      const draft = withPlayed(settings, env, (cardWeight) =>
+        replaceOne(db, opts, { ...game, warnings: [] }, action.id, { sets: game.sets ?? undefined, cardWeight }, createRng(seed)));
       return { ...state, game: edited(game, { kingdom: draft.kingdom, landscapes: draft.landscapes, warnings: draft.warnings }) };
     }
     case "toggleLock": {
@@ -205,13 +238,15 @@ type Listener = (state: State, prev: State) => void;
 
 export class Store {
   state: State = load();
+  /** Cards played in earlier games; the app wires this to the history. */
+  played: () => Set<string> = () => new Set();
   private listeners: Listener[] = [];
   private setupKey = "";
   private setupCache: SetupResult | null = null;
 
   dispatch = (action: Action) => {
     const prev = this.state;
-    this.state = reduce(prev, action);
+    this.state = reduce(prev, action, { played: this.played() });
     if (this.state === prev) return;
     try { localStorage.setItem(KEY, JSON.stringify(this.state)); } catch { /* storage unavailable */ }
     for (const l of this.listeners) l(this.state, prev);

@@ -32,6 +32,14 @@ Follow-ups for accounts:
 - Notes or scores on history entries.
 - Rate limiting by IP as well as by username.
 
+**3. History-driven features.** Recommended kingdoms can be marked *Played* or *Crossed off*
+without adding history (synced like history; a game set up from a recommended kingdom and marked
+played counts too), with badges, an "X of Y done" count and a "Hide played and crossed off" filter.
+Tune → *Cards you've played*: As usual / Less often / Skip (Skip falls back to "less often" with a
+note when there aren't enough unplayed cards). History → *Stats*: games played, share of your
+cards played, recommended kingdoms done, most played cards, games per expansion, and the Kingdom
+cards you haven't played yet.
+
 ## Next, in priority order
 
 1. ~~**Our own rules reference for every card.**~~ Done (see above). Synthesize the official FAQ (rulebooks) and the
@@ -47,7 +55,7 @@ Follow-ups for accounts:
    kingdom is a draft until the user confirms they played it; replacing cards edits the draft, not
    a played entry. Multi-select and delete-all. Owned expansions saved per account and used as the
    default pool and to filter the card reference.
-3. **History-driven features.** Mark recommended kingdoms as played or crossed off (counts as done
+3. ~~**History-driven features.**~~ Done (see above). Mark recommended kingdoms as played or crossed off (counts as done
    without adding history); show which ones haven't been played; bias towards unseen cards or
    exclude seen ones (the randomizer already accepts a per-card weight via `RollContext.cardWeight`);
    stats on played cards and expansions.

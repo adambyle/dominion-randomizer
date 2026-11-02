@@ -1,7 +1,7 @@
 import { Hono, type Context } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import {
-  isAccountSettings, isHistoryEntry, MAX_PASSWORD, MIN_PASSWORD, USERNAME,
+  isAccountSettings, isHistoryEntry, isRecommendedMark, MAX_PASSWORD, MIN_PASSWORD, USERNAME,
   type AccountSettings, type Me, type SyncResponse,
 } from "../shared/history";
 import { hashPassword, randomId, SESSION_COOKIE, SESSION_DAYS, sha256, verifyPassword } from "./auth";
@@ -150,9 +150,11 @@ app.post("/api/history/sync", async (c) => {
   const b = await body(c);
   const since = Number.isInteger(b.since) && (b.since as number) >= 0 ? b.since as number : 0;
   const changes = Array.isArray(b.changes) ? b.changes : [];
-  if (changes.length > MAX_SYNC_CHANGES) return c.json({ error: `Send at most ${MAX_SYNC_CHANGES} changes at a time.` }, 413);
+  const marks = Array.isArray(b.marks) ? b.marks : [];
+  if (changes.length + marks.length > MAX_SYNC_CHANGES) return c.json({ error: `Send at most ${MAX_SYNC_CHANGES} changes at a time.` }, 413);
   if (!changes.every(isHistoryEntry)) return c.json({ error: "Bad history entry." }, 400);
-  const result: SyncResponse = await q.syncHistory(c.var.db, c.var.user!.id, since, changes);
+  if (!marks.every(isRecommendedMark)) return c.json({ error: "Bad kingdom mark." }, 400);
+  const result: SyncResponse = await q.syncHistory(c.var.db, c.var.user!.id, since, changes, marks);
   return c.json(result);
 });
 

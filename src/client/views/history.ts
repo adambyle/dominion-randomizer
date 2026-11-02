@@ -2,7 +2,8 @@
 // "Mark as played" control shown under the table, and the account page (#/account).
 
 import { h, icon, type Child } from "../dom";
-import { artImage, byCost, db, name } from "../data";
+import { artImage, byCost, db, name, setName } from "../data";
+import { computeStats } from "../../shared/stats";
 import { ApiError } from "../account";
 import type { HistoryEntry, HistoryGame } from "../../shared/history";
 import { MIN_PASSWORD, USERNAME } from "../../shared/history";
@@ -45,7 +46,14 @@ export function playedControl(app: App): Child {
     } }, icon("check"), "Mark as played"));
 }
 
+let tab: "games" | "stats" = "games";
+
+const tabs = (app: App) => h("div.segmented.history-tabs", { role: "tablist", "aria-label": "History views" },
+  (["games", "stats"] as const).map((t) => h("button", { type: "button", role: "tab", "aria-selected": String(tab === t), class: tab === t ? "on" : "",
+    onclick: () => { tab = t; app.render(); } }, t === "games" ? "Games" : "Stats")));
+
 export function historyView(app: App): Child {
+  if (tab === "stats") return statsView(app);
   const { account } = app;
   const entries = account.entries;
   selection = new Set([...selection].filter((id) => entries.some((e) => e.id === id)));
@@ -61,7 +69,7 @@ export function historyView(app: App): Child {
 
   return h("div.page.history-page", null,
     h("div.filters", null,
-      h("h1", null, "History"),
+      h("div.history-title", null, h("h1", null, "History"), tabs(app)),
       h("div.filter-row", null,
         entries.length > 0 && h("label.toggle", null,
           h("input", { type: "checkbox", checked: allSelected, onchange: (e) => {
@@ -99,6 +107,43 @@ function historyRow(app: App, e: HistoryEntry, selected: boolean, toggle: (id: s
       })),
       g.landscapes.length > 0 && h("div.rk-landscapes", null, g.landscapes.filter((id) => db.byId.has(id)).map((id) => h("span.chip", null, name(id))))),
     h("button.btn", { type: "button", onclick: () => { app.store.dispatch({ type: "loadHistory", game: g }); location.hash = "#/"; } }, "Set up again"));
+}
+
+function statsView(app: App): Child {
+  const pool = app.store.pool();
+  const st = computeStats(db, app.account.entries, app.account.marks, app.recommended, pool);
+  const top = st.topCards.slice(0, 12);
+  const max = top[0]?.count ?? 1;
+  const unplayedKingdom = st.unplayed.filter((id) => db.get(id).kind === "kingdom").map((id) => db.get(id)).sort(byCost);
+  const pct = (n: number, d: number) => (d ? Math.round((100 * n) / d) : 0);
+  const played = st.poolSize - st.unplayed.length;
+  return h("div.page.history-page", null,
+    h("div.filters", null, h("div.history-title", null, h("h1", null, "History"), tabs(app))),
+    h("div.stat-tiles", null,
+      statTile(String(st.games), st.games === 1 ? "game played" : "games played"),
+      statTile(`${pct(played, st.poolSize)}%`, `of your cards played (${played} of ${st.poolSize})`),
+      statTile(`${st.recommendedDone} / ${st.recommendedPlayable}`, "recommended kingdoms done", "#/recommended")),
+    !st.games && !played && h("p.empty-note", null, "Stats fill in as you mark games as played."),
+    top.length > 0 && h("section.stat-section", null,
+      h("h2", null, "Most played cards"),
+      h("ol.bars", null, top.map((c) => h("li", null,
+        h("button.link.plain", { type: "button", onclick: () => app.openCard(c.id) }, name(c.id)),
+        h("span.bar", { style: `--w:${(100 * c.count) / max}%` }),
+        h("span.muted", null, String(c.count)))))),
+    st.sets.length > 0 && h("section.stat-section", null,
+      h("h2", null, "Expansions"),
+      h("table.stat-table", null,
+        h("thead", null, h("tr", null, h("th", null, "Expansion"), h("th", null, "Games"), h("th", null, "Cards played"))),
+        h("tbody", null, st.sets.map((x) => h("tr", null, h("td", null, setName(x.set)), h("td", null, x.games), h("td", null, x.cards)))))),
+    unplayedKingdom.length > 0 && played > 0 && h("section.stat-section", null,
+      h("h2", null, `Kingdom cards you haven't played (${unplayedKingdom.length})`),
+      h("p.muted", null, "From the sets you own. To see more of them, set Tune → Cards you've played to “Less often” or “Skip”."),
+      h("p.unplayed", null, unplayedKingdom.map((c, i) => [i > 0 && ", ", h("button.link", { type: "button", onclick: () => app.openCard(c.id) }, c.name)]))));
+}
+
+function statTile(value: string, label: string, href?: string): HTMLElement {
+  const body = [h("b", null, value), h("span", null, label)];
+  return href ? h("a.stat-tile", { href }, body) : h("div.stat-tile", null, body);
 }
 
 function syncNote(app: App): Child {

@@ -377,6 +377,17 @@ p.hint { margin: 10px 0; }
 .promo-list button { border: 1px solid var(--line-strong); background: none; border-radius: 999px; padding: 3px 11px; font-size: 13px; cursor: pointer; color: var(--ink-2); }
 .promo-list button.on { background: var(--deal-bg); border-color: var(--deal-bg); color: var(--deal-ink); }
 
+/* ---------- Recommended kingdom marks */
+.rk-actions { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.rk-actions .btn.ghost { padding: 7px 10px; font-size: 14px; color: var(--ink-2); }
+.rk-status { display: inline-flex; align-items: center; gap: 3px; margin-left: 8px; padding: 1px 8px; border-radius: 999px; vertical-align: 2px;
+  font-family: var(--sans); font-size: 11.5px; font-weight: 600; letter-spacing: 0.02em; }
+.rk-status .icon { width: 13px; height: 13px; }
+.rk-status.played { background: var(--gold-soft); color: var(--ink); }
+.rk-status.skipped { background: var(--line); color: var(--ink-2); }
+.rk.is-skipped .rk-tiles { opacity: 0.45; }
+.rk.is-skipped h3 { text-decoration: line-through; text-decoration-color: var(--ink-3); }
+
 /* ---------- History and account */
 .account-link { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--ink-2); font-size: 14.5px;
   padding: 6px 12px; border-radius: 999px; }
@@ -415,6 +426,23 @@ p.hint { margin: 10px 0; }
 .account-facts li { margin: 6px 0; }
 .danger-zone { margin-top: 36px; color: var(--ink-2); }
 .danger-zone summary { cursor: pointer; }
+
+.history-title { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 12px; }
+.history-title h1 { margin: 0; }
+.stat-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 8px; }
+.stat-tile { display: grid; gap: 2px; padding: 16px 18px; border-radius: 14px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line);
+  text-decoration: none; color: var(--ink-2); font-size: 14px; }
+.stat-tile b { font-family: var(--serif); font-size: 28px; color: var(--ink); }
+a.stat-tile:hover { box-shadow: inset 0 0 0 1px var(--ink-3); }
+.stat-section h2 { font-family: var(--serif); font-weight: 600; font-size: 16px; letter-spacing: 0.06em; margin: 30px 0 12px; }
+.bars { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.bars li { display: grid; grid-template-columns: minmax(120px, 200px) 1fr 32px; align-items: center; gap: 12px; font-size: 15px; }
+.bars .link { text-align: left; }
+.bar { height: 10px; border-radius: 999px; background: linear-gradient(to right, var(--gold) var(--w), transparent var(--w)); box-shadow: inset 0 0 0 1px var(--line); }
+.stat-table { border-collapse: collapse; font-size: 15px; min-width: min(100%, 420px); }
+.stat-table th, .stat-table td { text-align: left; padding: 7px 18px 7px 0; border-bottom: 1px solid var(--line); }
+.stat-table th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); font-weight: 600; }
+.unplayed { line-height: 1.8; }
 
 /* ---------- Rules reference pages */
 .rules-page { max-width: 760px; padding-bottom: 40px; }

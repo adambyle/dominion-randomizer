@@ -3,7 +3,7 @@
 // The schema is created on first use (CREATE ... IF NOT EXISTS), so a fresh database needs no
 // migration step. Add new columns/tables here with idempotent statements.
 
-import type { AccountSettings, HistoryEntry } from "../shared/history";
+import type { AccountSettings, HistoryEntry, RecommendedMark } from "../shared/history";
 import type { PasswordHash } from "./auth";
 
 const SCHEMA = [
@@ -33,6 +33,16 @@ const SCHEMA = [
     PRIMARY KEY (user_id, id)
   )`,
   `CREATE INDEX IF NOT EXISTS history_rev ON history(user_id, rev)`,
+  // Recommended kingdoms marked played or crossed off; synced like history (shares the counter).
+  `CREATE TABLE IF NOT EXISTS marks (
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    id TEXT NOT NULL,
+    updated INTEGER NOT NULL,
+    rev INTEGER NOT NULL,
+    data TEXT NOT NULL,
+    PRIMARY KEY (user_id, id)
+  )`,
+  `CREATE INDEX IF NOT EXISTS marks_rev ON marks(user_id, rev)`,
   `CREATE TABLE IF NOT EXISTS counters (name TEXT PRIMARY KEY, value INTEGER NOT NULL)`,
   // Failed sign-ins, for throttling password guessing.
   `CREATE TABLE IF NOT EXISTS login_failures (username TEXT NOT NULL COLLATE NOCASE, at INTEGER NOT NULL)`,
@@ -70,6 +80,7 @@ export async function createUser(db: D1Database, id: string, username: string, p
 
 export const deleteUser = (db: D1Database, userId: string) => db.batch([
   db.prepare("DELETE FROM history WHERE user_id = ?").bind(userId),
+  db.prepare("DELETE FROM marks WHERE user_id = ?").bind(userId),
   db.prepare("DELETE FROM sessions WHERE user_id = ?").bind(userId),
   db.prepare("DELETE FROM users WHERE id = ?").bind(userId),
 ]);
@@ -99,25 +110,35 @@ export const recordFailure = (db: D1Database, username: string, now: number, kee
 export const clearFailures = (db: D1Database, username: string) =>
   db.prepare("DELETE FROM login_failures WHERE username = ?").bind(username).run();
 
+/** Upserts rows into a synced table (history or marks): newest `updated` wins, each write gets a new rev. */
+function upserts(db: D1Database, table: "history" | "marks", userId: string, rows: { id: string; updated: number }[]) {
+  return rows.flatMap((e) => [
+    db.prepare(`INSERT INTO counters (name, value) VALUES ('history', 1)
+      ON CONFLICT(name) DO UPDATE SET value = value + 1`),
+    db.prepare(`INSERT INTO ${table} (user_id, id, updated, rev, data)
+      VALUES (?1, ?2, ?3, (SELECT value FROM counters WHERE name = 'history'), ?4)
+      ON CONFLICT(user_id, id) DO UPDATE SET updated = excluded.updated, rev = excluded.rev, data = excluded.data
+      WHERE excluded.updated > ${table}.updated`).bind(userId, e.id, e.updated, JSON.stringify(e)),
+  ]);
+}
+
 /**
  * Applies a client's changes (newest `updated` wins per entry) and returns everything that changed
  * on the server after `since`, with the new cursor.
  */
-export async function syncHistory(db: D1Database, userId: string, since: number, changes: HistoryEntry[]) {
-  if (changes.length) {
-    // One statement per entry: bump the counter, then upsert only if newer.
-    const stmts = changes.flatMap((e) => [
-      db.prepare(`INSERT INTO counters (name, value) VALUES ('history', 1)
-        ON CONFLICT(name) DO UPDATE SET value = value + 1`),
-      db.prepare(`INSERT INTO history (user_id, id, updated, rev, data)
-        VALUES (?1, ?2, ?3, (SELECT value FROM counters WHERE name = 'history'), ?4)
-        ON CONFLICT(user_id, id) DO UPDATE SET updated = excluded.updated, rev = excluded.rev, data = excluded.data
-        WHERE excluded.updated > history.updated`).bind(userId, e.id, e.updated, JSON.stringify(e)),
-    ]);
-    await db.batch(stmts);
-  }
-  const rows = await db.prepare("SELECT rev, data FROM history WHERE user_id = ? AND rev > ? ORDER BY rev").bind(userId, since).all<{ rev: number; data: string }>();
-  const results = rows.results ?? [];
-  const cursor = results.length ? results[results.length - 1]!.rev : since;
-  return { cursor, changes: results.map((r) => JSON.parse(r.data) as HistoryEntry) };
+export async function syncHistory(db: D1Database, userId: string, since: number, changes: HistoryEntry[], marks: RecommendedMark[]) {
+  const stmts = [...upserts(db, "history", userId, changes), ...upserts(db, "marks", userId, marks)];
+  if (stmts.length) await db.batch(stmts);
+  const [h, m] = await db.batch<{ rev: number; data: string }>([
+    db.prepare("SELECT rev, data FROM history WHERE user_id = ? AND rev > ? ORDER BY rev").bind(userId, since),
+    db.prepare("SELECT rev, data FROM marks WHERE user_id = ? AND rev > ? ORDER BY rev").bind(userId, since),
+  ]);
+  const hr = h?.results ?? [];
+  const mr = m?.results ?? [];
+  const cursor = Math.max(since, ...hr.map((r) => r.rev), ...mr.map((r) => r.rev));
+  return {
+    cursor,
+    changes: hr.map((r) => JSON.parse(r.data) as HistoryEntry),
+    marks: mr.map((r) => JSON.parse(r.data) as RecommendedMark),
+  };
 }

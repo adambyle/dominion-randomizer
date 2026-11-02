@@ -83,16 +83,47 @@ export const USERNAME = /^[A-Za-z0-9_.-]{3,32}$/;
 export const MIN_PASSWORD = 8;
 export const MAX_PASSWORD = 256;
 
+/**
+ * A recommended kingdom marked as played or crossed off without adding a history entry.
+ * "none" clears an earlier mark (kept so the change syncs).
+ */
+export interface RecommendedMark {
+  /** The recommended kingdom's id. */
+  id: string;
+  status: "played" | "skipped" | "none";
+  updated: number;
+}
+
+export function isRecommendedMark(v: unknown): v is RecommendedMark {
+  if (!v || typeof v !== "object") return false;
+  const m = v as Partial<RecommendedMark>;
+  return typeof m.id === "string" && /^[a-z0-9-]{1,128}$/.test(m.id)
+    && (m.status === "played" || m.status === "skipped" || m.status === "none")
+    && Number.isFinite(m.updated);
+}
+
+/** Newest version of each mark, by `updated`. */
+export function mergeMarks(current: RecommendedMark[], incoming: RecommendedMark[]): RecommendedMark[] {
+  const byId = new Map(current.map((m) => [m.id, m]));
+  for (const m of incoming) {
+    const existing = byId.get(m.id);
+    if (!existing || m.updated > existing.updated) byId.set(m.id, m);
+  }
+  return [...byId.values()];
+}
+
 /** POST /api/history/sync */
 export interface SyncRequest {
   /** The `cursor` from the last successful sync (0 for the first). */
   since: number;
   changes: HistoryEntry[];
+  marks?: RecommendedMark[];
 }
 export interface SyncResponse {
   cursor: number;
   /** Server versions changed since `since` (including ones just sent, if they won). */
   changes: HistoryEntry[];
+  marks: RecommendedMark[];
 }
 
 export interface Me {

@@ -4,7 +4,7 @@
 // Signing in merges this device's history into the account. Signing out clears it from the device
 // (it's safe on the server) so the next person to use the device doesn't see it.
 
-import { mergeEntries, visible, type HistoryEntry, type HistoryGame, type Me, type SyncResponse } from "../shared/history";
+import { mergeEntries, mergeMarks, visible, type HistoryEntry, type HistoryGame, type Me, type RecommendedMark, type SyncResponse } from "../shared/history";
 import type { Store } from "./state";
 
 const KEY = "dominion-randomizer:history:v1";
@@ -15,7 +15,13 @@ interface Saved {
   cursor: number;
   /** Ids changed locally since the last successful sync. */
   dirty: string[];
+  /** Recommended kingdoms marked played or crossed off. */
+  marks: RecommendedMark[];
+  /** Mark ids changed locally since the last successful sync. */
+  dirtyMarks: string[];
 }
+
+const emptySaved = (): Saved => ({ entries: [], cursor: 0, dirty: [], marks: [], dirtyMarks: [] });
 
 export type AccountStatus = "checking" | "unavailable" | "signedOut" | "signedIn";
 
@@ -68,7 +74,9 @@ export class Account {
 
   /** Live history, newest first. */
   get entries(): HistoryEntry[] { return visible(this.saved.entries); }
-  get pending(): number { return this.saved.dirty.length; }
+  get pending(): number { return this.saved.dirty.length + this.saved.dirtyMarks.length; }
+  /** Marks on recommended kingdoms (including cleared ones). */
+  get marks(): RecommendedMark[] { return this.saved.marks; }
 
   async init() {
     try {
@@ -93,9 +101,9 @@ export class Account {
 
   /** Signs out after a last sync; with `force`, even if unsynced changes would be lost. */
   async logout(force = false) {
-    if (!force && this.saved.dirty.length) {
+    if (!force && this.pending) {
       await this.sync();
-      if (this.saved.dirty.length) throw new ApiError("Some history hasn't synced yet.", 0);
+      if (this.pending) throw new ApiError("Some history hasn't synced yet.", 0);
     }
     try { await api("/auth/logout", { body: {} }); } catch { /* the cookie may already be gone */ }
     this.signedOut();
@@ -112,6 +120,7 @@ export class Account {
     if (fresh) {
       // Everything on this device joins the account.
       this.saved.dirty = this.saved.entries.map((e) => e.id);
+      this.saved.dirtyMarks = this.saved.marks.map((m) => m.id);
       this.saved.cursor = 0;
       this.persist();
     }
@@ -131,7 +140,7 @@ export class Account {
     this.username = null;
     this.lastSynced = null;
     this.syncError = null;
-    this.saved = { entries: [], cursor: 0, dirty: [] };
+    this.saved = emptySaved();
     this.persist();
     this.changed();
   }
@@ -153,6 +162,16 @@ export class Account {
   }
 
   removeAll() { this.remove(this.entries.map((e) => e.id)); }
+
+  /** Marks a recommended kingdom played or crossed off ("none" clears the mark). */
+  mark(id: string, status: RecommendedMark["status"]) {
+    const m: RecommendedMark = { id, status, updated: Date.now() };
+    this.saved.marks = mergeMarks(this.saved.marks, [m]);
+    this.saved.dirtyMarks = [...new Set([...this.saved.dirtyMarks, id])];
+    this.persist();
+    this.changed();
+    this.queueSync();
+  }
 
   private write(changes: HistoryEntry[]) {
     if (!changes.length) return;
@@ -180,7 +199,12 @@ export class Account {
       const sent = this.saved.entries.filter((e) => dirty.has(e.id));
       // Batches stay under the server's limit; the loop picks up anything left.
       const batch = sent.slice(0, 400);
-      const res = await api<SyncResponse>("/history/sync", { body: { since: this.saved.cursor, changes: batch } });
+      const dirtyMarks = new Set(this.saved.dirtyMarks);
+      const marks = this.saved.marks.filter((m) => dirtyMarks.has(m.id)).slice(0, Math.max(0, 450 - batch.length));
+      const res = await api<SyncResponse>("/history/sync", { body: { since: this.saved.cursor, changes: batch, marks } });
+      const markNow = new Map(this.saved.marks.map((m) => [m.id, m.updated]));
+      this.saved.dirtyMarks = this.saved.dirtyMarks.filter((id) => { const sentMark = marks.find((m) => m.id === id); return !sentMark || markNow.get(id) !== sentMark.updated; });
+      this.saved.marks = mergeMarks(this.saved.marks, res.marks ?? []);
       const sentIds = new Set(batch.map((e) => e.id));
       // Entries edited again while the request was out stay dirty.
       const current = new Map(this.saved.entries.map((e) => [e.id, e.updated]));
@@ -190,7 +214,7 @@ export class Account {
       this.persist();
       this.lastSynced = Date.now();
       this.syncError = null;
-      if (this.saved.dirty.length && batch.length === 400) this.queueSync(0);
+      if (this.pending && (batch.length === 400 || marks.length < dirtyMarks.size)) this.queueSync(0);
     } catch (err) {
       if (err instanceof ApiError && err.status === 401) {
         this.status = "signedOut";
@@ -219,9 +243,9 @@ export class Account {
   private load(): Saved {
     try {
       const v = JSON.parse(localStorage.getItem(KEY) ?? "null") as Saved | null;
-      if (v && Array.isArray(v.entries)) return { entries: v.entries, cursor: v.cursor ?? 0, dirty: v.dirty ?? [] };
+      if (v && Array.isArray(v.entries)) return { ...emptySaved(), ...v };
     } catch { /* storage unavailable */ }
-    return { entries: [], cursor: 0, dirty: [] };
+    return emptySaved();
   }
 
   private persist() {

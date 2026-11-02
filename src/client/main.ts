@@ -18,6 +18,7 @@ import { cardsView } from "./views/cards";
 import { rulesView } from "./views/rules";
 import { accountView, historyView } from "./views/history";
 import { Account } from "./account";
+import { playedCards } from "../shared/stats";
 
 type Route = "table" | "recommended" | "cards" | "rules" | "history" | "account" | "sets";
 
@@ -45,6 +46,7 @@ export class App {
       if (added.length) this.renderAfterImages(added);
       else this.render();
     });
+    this.store.played = () => new Set(playedCards(this.account.entries, this.account.marks, recommended).keys());
     this.account.subscribe(() => this.render());
     void this.account.init();
     PHONE.addEventListener("change", () => this.render());
