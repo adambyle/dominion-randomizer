@@ -1,0 +1,2 @@
+- A Trait. When you gain a card from its pile, also gain a Loot and a {card:Curse}, in that order. [official]
+- With no Curses left, you still gain the Loot. See {rule:loot}. [official]

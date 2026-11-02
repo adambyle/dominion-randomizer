@@ -1,0 +1,2 @@
+- Get +1 Action, +1 Buy and {coin:+2}. Once this turn, when you gain a Treasure, you may play it. [official]
+- Two Mining Roads can play two different gained Treasures, but not the same one twice. [official]

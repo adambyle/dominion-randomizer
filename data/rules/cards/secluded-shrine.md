@@ -1,0 +1,2 @@
+- Get {coin:+1}. The next time you gain a Treasure, you may trash up to 2 cards from your hand. [official]
+- It's used up when that happens, even if you trash nothing. [official]

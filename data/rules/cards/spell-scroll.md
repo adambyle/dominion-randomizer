@@ -1,0 +1,2 @@
+- A Loot that's both an Action and a Treasure. Trash it to gain a cheaper card. If that's an Action or Treasure, you may play it. [official]
+- Playing the gained card doesn't use up an Action. See {rule:loot}. [official]

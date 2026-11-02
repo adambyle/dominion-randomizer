@@ -1,0 +1,2 @@
+- Draw 2 cards and get +2 Actions. [official]
+- The next time the first card you play on a turn is a Treasure, put Landing Party onto your deck after resolving it. [official]

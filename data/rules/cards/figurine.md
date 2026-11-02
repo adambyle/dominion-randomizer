@@ -1,0 +1,2 @@
+- A Treasure. Draw 2 cards. You may discard an Action card for +1 Buy and {coin:+1}. [official]
+- Actions it draws usually can't be played in your Buy phase. [official]

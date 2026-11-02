@@ -1,0 +1,1 @@
+- Get {coin:+3}. Until your next turn starts, each time another player plays an Action card, they discard down to 4 cards in hand afterwards. [official]

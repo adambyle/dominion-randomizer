@@ -1,0 +1,1 @@
+- A Trait. When you shuffle, you may look through the cards and reveal Fated cards to put them on the top or bottom of the new deck. [official]

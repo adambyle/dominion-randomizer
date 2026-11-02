@@ -1,0 +1,1 @@
+- An Event. Gain a Loot. See {rule:loot}. [official]

@@ -1,0 +1,1 @@
+- A Trait. At the start of your turn, you may discard one card from its pile to draw 2 cards. [official]

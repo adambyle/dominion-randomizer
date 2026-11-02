@@ -1,0 +1,2 @@
+- An Event. In order: you may play an Attack from your hand; gain a {card:Duchy}; gain an Action onto your deck; gain a Loot and play it. [official]
+- Only the Attack is optional. [official]

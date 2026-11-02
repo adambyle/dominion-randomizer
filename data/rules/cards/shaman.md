@@ -1,0 +1,2 @@
+- Get +1 Action and {coin:+1}; you may trash a card from your hand.
+- In games using Shaman, at the start of each of your turns, gain a card costing up to {cost:6} from the trash. It's mandatory and happens even if no one has a Shaman. [official]

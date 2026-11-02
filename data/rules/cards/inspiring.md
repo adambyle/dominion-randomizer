@@ -1,0 +1,1 @@
+- A Trait. After playing a card from its pile on your turn, you may play an Action from your hand that you don't have a copy of in play. [official]

@@ -1,0 +1,1 @@
+- An Event. Discard 3 cards, revealing them. If they have 3 different names, gain a Loot. [official]

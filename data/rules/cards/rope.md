@@ -1,0 +1,1 @@
+- A Duration Treasure. Get {coin:+1} and +1 Buy. At the start of your next turn, draw a card, then you may trash a card from your hand. [official]

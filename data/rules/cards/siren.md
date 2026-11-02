@@ -1,0 +1,3 @@
+- Each other player gains a {card:Curse}. At the start of your next turn, draw until you have 8 cards in hand.
+- When you gain it, trash it unless you trash an Action card from your hand. [official]
+- If you move the Siren when it's gained (for example onto your deck), it can't trash itself.

@@ -1,0 +1,1 @@
+- A Trait. When you gain a card from its pile, set it aside and play it at the start of your next turn. [official]

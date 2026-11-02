@@ -1,0 +1,2 @@
+- A Treasure worth {coin:1} with +1 Buy.
+- When you trash it, gain a Loot. Whoever trashes it gets the Loot. See {rule:loot}. [official]

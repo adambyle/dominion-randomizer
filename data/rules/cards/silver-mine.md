@@ -1,0 +1,1 @@
+- A Treasure. Gain a Treasure costing less than Silver Mine to your hand. [official]

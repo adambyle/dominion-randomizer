@@ -1,0 +1,2 @@
+- An Event. Set aside your hand face up. At the start of your next turn, play the Actions and Treasures among them in any order, then discard the rest. [official]
+- Playing them all is mandatory. [official]

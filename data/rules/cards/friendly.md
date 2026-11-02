@@ -1,0 +1,1 @@
+- A Trait. At the start of your Clean-up, you may discard one card from its pile to gain a card from its pile. [official]

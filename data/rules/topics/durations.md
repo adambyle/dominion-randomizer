@@ -24,3 +24,9 @@ related: turn, stop-moving-rule
 - Next-turn effects happen at the start of your turn, before your Action phase.
 - If several happen at once, you choose the order.
 - "Your next turn" means your very next one, even if that's an extra turn (from {card:Outpost}, for example).
+
+## "The next time" (Plunder)
+
+- Some Durations wait for something to happen "the next time" (you gain a Victory card, you play an Action ...). They stay in play, turn after turn, until it happens. [official]
+- When it does, the effect happens once and the card is discarded in that turn's Clean-up.
+- It must be a new event after the card was played; the event that played it doesn't count.

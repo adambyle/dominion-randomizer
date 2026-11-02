@@ -1,0 +1,2 @@
+- A Trait. When you play a card from its pile, follow its instructions twice. When you discard one from play, return it to its pile. [official]
+- It still counts as one card played.

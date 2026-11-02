@@ -1,0 +1,1 @@
+- Get +2 Actions and draw a card per 3 cards you have in play, rounded down, counting itself. [official]

@@ -1,0 +1,2 @@
+- An Event. Get +1 Buy. The next time you gain an Action card this turn, play it. [official]
+- Buying it twice before gaining still plays only one card. [official]

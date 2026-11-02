@@ -1,0 +1,2 @@
+- A Trait. Setup: each player starts with a card from its pile in place of a starting card they choose. [official]
+- Replaced Coppers go back to their pile; replaced Estates, Shelters or Heirlooms go back to the box. These cards weren't gained. [official]

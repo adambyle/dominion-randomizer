@@ -1,0 +1,2 @@
+- A Loot. Now and at the start of each of your turns for the rest of the game: {coin:1} and +1 Buy. [official]
+- It stays in play for the rest of the game. See {rule:loot}. [official]

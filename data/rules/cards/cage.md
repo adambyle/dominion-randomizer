@@ -1,0 +1,3 @@
+- A Duration Treasure. Set aside up to 4 cards from your hand face down on Cage. [official]
+- The next time you gain a Victory card, trash Cage, and put the set-aside cards into your hand at the end of that turn, after drawing. [official]
+- It stays in play until then, even with nothing set aside. See {rule:durations}.

@@ -1,0 +1,1 @@
+- A Loot. A Treasure worth {coin:3} with +1 Buy. At the start of your next turn, put it on the bottom of your deck. See {rule:loot}. [official]

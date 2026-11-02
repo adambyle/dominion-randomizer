@@ -1,0 +1,2 @@
+- Each other player discards down to 3 cards in hand.
+- The next time anyone gains a Treasure costing {cost:5} or more, you gain a Loot. Loot itself counts. See {rule:loot}. [official]

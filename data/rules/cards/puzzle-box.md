@@ -1,0 +1,1 @@
+- A Loot. A Treasure worth {coin:3} with +1 Buy. You may set aside a card from your hand face down; put it into your hand at the end of the turn, after drawing. [official]

@@ -1,0 +1,1 @@
+- A Loot. Look through your discard pile, then choose: play an Action or Treasure from it; or +1 Buy and {coin:+3}. See {rule:loot}. [official]

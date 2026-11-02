@@ -1,0 +1,1 @@
+- A Trait. When you gain a card from its pile, you may trash a card from your hand. [official]

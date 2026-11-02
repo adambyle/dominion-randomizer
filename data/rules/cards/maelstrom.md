@@ -1,0 +1,1 @@
+- An Event. Trash 3 cards from your hand. Each other player with 5 or more cards in hand must trash one of them. [official]

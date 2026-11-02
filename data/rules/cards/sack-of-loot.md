@@ -1,0 +1,1 @@
+- A Treasure worth {coin:1} with +1 Buy; gain a Loot. See {rule:loot}. [official]

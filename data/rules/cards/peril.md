@@ -1,0 +1,1 @@
+- An Event. You may trash an Action card from your hand to gain a Loot. [official]

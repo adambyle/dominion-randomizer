@@ -1,0 +1,2 @@
+- A Duration Treasure. At the start of your next turn, +1 Buy and {coin:+3}.
+- When you gain it, you must play it. [official]

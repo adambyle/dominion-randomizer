@@ -1,0 +1,1 @@
+- A Treasure. Get {coin:+1} per differently named Treasure you have in play, counting itself. [official]

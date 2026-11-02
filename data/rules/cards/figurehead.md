@@ -1,0 +1,1 @@
+- A Loot. A Treasure worth {coin:3}; at the start of your next turn, draw 2 cards. See {rule:loot}. [official]

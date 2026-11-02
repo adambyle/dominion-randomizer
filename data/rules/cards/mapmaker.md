@@ -1,0 +1,2 @@
+- Look at the top 4 cards of your deck. Put 2 into your hand and discard the rest. [official]
+- When any player gains a Victory card, you included, you may play Mapmaker from your hand. [official]

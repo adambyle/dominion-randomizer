@@ -1,0 +1,2 @@
+- Get {coin:+2}. The next time a Supply pile empties, trash Search and gain a Loot. [official]
+- Played twice, it gains two Loots but is trashed once. [official]

@@ -1,0 +1,2 @@
+- At the start of your next turn, draw 2 cards. [official]
+- When anyone gains a Duration card, you may play Stowaway from your hand. [official]
