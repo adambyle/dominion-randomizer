@@ -1,0 +1,2 @@
+- Draw a card and get +2 Actions. [official]
+- At the start of Clean-up, if you have this and at most one other Action card in play, you may put it onto your deck. [official]

@@ -1,0 +1,5 @@
+- Get {coin:+2}. Reveal the top 3 cards of the Black Market deck. You may play Treasures from your hand, then buy one of the revealed cards. Put the rest on the bottom in any order. [official]
+- This is a buy outside your Buy phase, so it doesn't use up your Buy. Coins left over carry into your Buy phase. [official]
+- Setup: make a Black Market deck from Kingdom cards not in the Supply, one copy each. At least 15 is recommended. [official]
+- This app builds the Black Market deck for you.
+- Setup rules of cards in the deck apply even if no one buys them.

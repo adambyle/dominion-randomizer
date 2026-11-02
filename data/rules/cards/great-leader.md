@@ -1,0 +1,1 @@
+- A Prophecy. After each Action card you play, get +1 Action. [official]

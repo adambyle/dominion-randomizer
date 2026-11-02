@@ -1,0 +1,2 @@
+- An Event. Gain an Action or Treasure costing up to {cost:8}, and take {debt:} equal to its cost. [official]
+- It can't gain cards with {debt:} or {potion} in their cost.

@@ -1,0 +1,1 @@
+- A Prophecy. When you gain a card, put it onto your deck. This is mandatory, on any turn. [official]

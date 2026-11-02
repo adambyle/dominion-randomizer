@@ -1,0 +1,2 @@
+- Take {debt:2} and gain a card costing up to {cost:5}. [official]
+- This works even if you already have Debt. See {rule:costs-and-debt}. [official]

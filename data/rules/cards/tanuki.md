@@ -1,0 +1,2 @@
+- A Shadow. Trash a card from your hand and gain a card costing up to {cost:2} more than it. [official]
+- You can play it from your deck as if it were in your hand. See {rule:shadows-and-omens}. [official]

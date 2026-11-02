@@ -1,0 +1,2 @@
+- Draw a card, get +1 Action and +1 Buy. You may gain a {card:Gold} and take {debt:4}. [official]
+- No Gold without the Debt. [official]

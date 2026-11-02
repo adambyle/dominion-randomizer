@@ -1,0 +1,1 @@
+- An Event. Pay any extra amount of coins to trash that many cards from your hand. [official]

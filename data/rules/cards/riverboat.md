@@ -1,0 +1,3 @@
+- At the start of your next turn, play the set-aside card, leaving it there. [official]
+- Setup: set aside an unused non-Duration Action card costing exactly {cost:5}, and do its setup. [official]
+- The card never moves, even if it says to. [official]

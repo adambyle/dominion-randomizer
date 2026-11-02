@@ -1,0 +1,3 @@
+- A Victory card worth {vp:1} per 3 Victory cards you have, rounded down, counting itself. [official]
+- When you gain it, get +1 Buy and discard any number of cards for {coin:+1} each. [official]
+- It's a Kingdom Victory card: 8 with 2 players, 12 with 3 or more. [official]

@@ -1,0 +1,2 @@
+- Depending on how many Aristocrats you have in play: 1 or 5, +3 Actions; 2 or 6, +3 Cards; 3 or 7, {coin:+3}; 4 or 8, +3 Buys. [official]
+- It counts cards in play, not plays. Any other number does nothing. [official]

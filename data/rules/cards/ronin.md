@@ -1,0 +1,2 @@
+- A Shadow. Draw until you have 7 cards in hand. [official]
+- You can play it from your deck as if it were in your hand. See {rule:shadows-and-omens}. [official]

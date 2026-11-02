@@ -1,0 +1,2 @@
+- An Omen costing {debt:5}. Remove a Sun token, get {coin:+2}, and you may trash a card from your hand. [official]
+- Then, if any Action cards are in the trash (from anyone, any time), draw 2 cards. [official]

@@ -1,0 +1,2 @@
+- A Prophecy. Once active: after you play an Attack card, get {coin:+1}. [official]
+- Setup: add an extra Attack Kingdom pile to the Supply, whether or not the Prophecy ever activates. See {rule:shadows-and-omens}. [official]

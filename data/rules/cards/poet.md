@@ -1,0 +1,2 @@
+- An Omen. Remove a Sun token, draw a card and get +1 Action. [official]
+- Reveal the top card of your deck; if it costs {cost:3} or less, put it into your hand, otherwise put it back. [official]

@@ -1,0 +1,1 @@
+- Reveal the top 5 cards of your deck. The player to your left chooses one for you to discard; put the rest into your hand. [official]

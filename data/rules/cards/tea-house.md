@@ -1,0 +1,1 @@
+- An Omen. Remove a Sun token, then draw a card, get +1 Action and {coin:+2}. [official]

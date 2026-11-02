@@ -1,0 +1,1 @@
+- A Prophecy. At the start of your turn, choose: gain a {card:Curse} onto your deck; or discard 3 cards. [official]

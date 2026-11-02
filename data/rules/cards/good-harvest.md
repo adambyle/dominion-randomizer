@@ -1,0 +1,1 @@
+- A Prophecy. The first time each turn you play each differently named Treasure, first get +1 Buy and {coin:+1}. [official]

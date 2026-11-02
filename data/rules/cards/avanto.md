@@ -1,0 +1,2 @@
+- The bottom half of the {card:Sauna/Avanto} pile. Draw 3 cards; you may play a {card:Sauna} from your hand.
+- Playing the Sauna doesn't use up an Action.

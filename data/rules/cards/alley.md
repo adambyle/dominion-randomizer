@@ -1,0 +1,2 @@
+- A Shadow. Draw a card, get +1 Action, then discard a card. [official]
+- You can play it from your deck as if it were in your hand. See {rule:shadows-and-omens}. [official]

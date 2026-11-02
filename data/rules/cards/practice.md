@@ -1,0 +1,1 @@
+- An Event. You may play an Action card from your hand twice. [official]

@@ -1,0 +1,2 @@
+- A Prophecy. When you gain a card on your turn, if its pile has {debt:} on it, take it; otherwise put {debt:2} on the pile. [official]
+- Gains on other players' turns don't count. [official]

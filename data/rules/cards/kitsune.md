@@ -1,0 +1,2 @@
+- An Omen. Remove a Sun token ({sun:+}), then choose two different options: +2 Actions; {coin:+2}; each other player gains a {card:Curse}; gain a {card:Silver}. [official]
+- Do the options in the order listed. See {rule:shadows-and-omens}. [official]

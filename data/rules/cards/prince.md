@@ -1,0 +1,3 @@
+- A Duration–Command card. You may set aside a non-Duration, non-Command Action card costing up to {cost:4} from your hand on Prince.
+- At the start of each of your turns for the rest of the game, play that card, leaving it set aside. Prince stays in play.
+- If you set nothing aside, Prince is discarded this turn.
