@@ -61,6 +61,7 @@ export function tuneView(app: App): Child {
         row("Expansions per game", stepper({ value: opts.setsPerGame, min: 0, max: enabledSets.length, label: "expansions per game",
           format: (n) => (n === 0 ? "All" : String(n)), onChange: (n) => setOpts({ setsPerGame: n }) }),
           "Draw from a few of your sets each game"),
+        h("p.hint", null, "Tick the expansions this game draws from. Rolling picks new ones."),
         opts.setsPerGame > 0 && h("div.row.gap", null,
           h("button.btn", { type: "button", onclick: () => app.store.dispatch({ type: "rollSets" }) }, icon("swap"), "Roll expansions"),
           game.sets && h("span.muted", null, `This game: ${game.sets.map((s) => data.sets.find((x) => x.id === s)?.name).join(", ")}`)),
@@ -68,8 +69,12 @@ export function tuneView(app: App): Child {
         h("ul.set-weights", null, enabledSets.map((s) => {
           const w = opts.setWeights[s.id] ?? 1;
           const img = setIcon(s.id);
+          const inGame = !game.sets || game.sets.includes(s.id);
           return h("li", { class: game.sets?.includes(s.id) ? "rolled" : "" },
-            h("span.set-name", null, img && h("img", { src: img.src, alt: "" }), s.name),
+            h("label.toggle.set-name", null,
+              h("input", { type: "checkbox", checked: inGame, "aria-label": `${s.name} in this game`,
+                onchange: () => app.store.dispatch({ type: "toggleSet", id: s.id }) }),
+              img && h("img", { src: img.src, alt: "" }), s.name),
             h("div.pips", { role: "radiogroup", "aria-label": `${s.name} weight` }, SET_WEIGHTS.map((v, i) => h("button", {
               type: "button", role: "radio", "aria-checked": String(v === w), class: v <= w ? "on" : "",
               title: ["Rarely", "Less often", "Normal", "More often", "Much more often"][i], onclick: () => setOpts({ setWeights: { ...opts.setWeights, [s.id]: v } }),

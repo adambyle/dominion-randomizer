@@ -3,7 +3,7 @@
 import type { RecommendedKingdom } from "../shared/types";
 import type { HistoryGame } from "../shared/history";
 import { resolveSetup, type AutoBool, type Choices, type SetupResult } from "../shared/setup";
-import { buildPool, DEFAULT_OPTIONS, randomize, replaceOne, rollSets, type RandomizerOptions } from "../shared/randomizer";
+import { buildPool, DEFAULT_OPTIONS, poolSets, randomize, replaceOne, rollSets, type RandomizerOptions } from "../shared/randomizer";
 import { createRng } from "../shared/random";
 import { data, db } from "./data";
 
@@ -58,7 +58,7 @@ const emptyGame = (): Game => ({
 });
 
 const defaultSettings = (): Settings => ({
-  options: { ...DEFAULT_OPTIONS, enabledBoxes: data.boxes.filter((b) => b.edition !== 1).map((b) => b.id) },
+  options: { ...DEFAULT_OPTIONS, enabledBoxes: ["dominion-2"] },
   players: 3,
   platinumColony: "auto",
   shelters: "auto",
@@ -72,6 +72,8 @@ export type Action =
   | { type: "settings"; patch: Partial<Settings> }
   | { type: "options"; patch: Partial<RandomizerOptions> }
   | { type: "rollSets" }
+  /** Adds or drops one expansion from this game's expansions. */
+  | { type: "toggleSet"; id: string }
   | { type: "deal" }
   | { type: "fill" }
   | { type: "replace"; id: string }
@@ -139,10 +141,17 @@ function reduce(state: State, action: Action, env: Env): State {
     }
     case "rollSets":
       return { ...state, game: { ...game, sets: rollSets(db, opts, createRng(newSeed())) } };
+    case "toggleSet": {
+      const all = poolSets(db, buildPool(db, opts.enabledBoxes));
+      const current = game.sets ?? all;
+      const next = current.includes(action.id) ? current.filter((x) => x !== action.id) : [...current, action.id];
+      if (!next.length) return state;
+      return { ...state, game: { ...game, sets: next } };
+    }
     case "deal": {
       const seed = newSeed();
       const rng = createRng(seed);
-      const sets = opts.setsPerGame ? (game.sets ?? rollSets(db, opts, rng)) : null;
+      const sets = game.sets ?? (opts.setsPerGame ? rollSets(db, opts, rng) : null);
       const draft = withPlayed(settings, env, (cardWeight) => randomize(db, opts, {
         sets: sets ?? undefined,
         locked: game.kingdom.filter((id) => game.locked.includes(id)),

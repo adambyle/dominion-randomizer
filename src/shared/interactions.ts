@@ -106,8 +106,10 @@ const DETECTORS: Record<string, Detector> = {
   "replay-duration": (a, b) => {
     const r = REPLAYERS[a.id];
     if (!r || !r.durations || !is(b, "Duration") || !r.types.some((t) => is(b, t))) return null;
+    // An Event is never in play, so there is nothing of it to stay there.
+    const stays = is(a, "Event") ? "" : `, and ${ref(a)} stays in play as long as ${ref(b)} does`;
     return { label: "Replaying a Duration", weight: 6,
-      text: `When ${ref(a)} plays ${ref(b)} more than once, ${ref(b)}'s next-turn effects happen once for each play, and ${ref(a)} stays in play as long as ${ref(b)} does. See {rule:durations}.` };
+      text: `When ${ref(a)} plays ${ref(b)} more than once, ${ref(b)}'s next-turn effects happen once for each play${stays}. See {rule:durations}.` };
   },
   "replay-mover": (a, b) => {
     const r = REPLAYERS[a.id];

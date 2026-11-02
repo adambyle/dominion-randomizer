@@ -104,11 +104,11 @@ img { max-width: 100%; }
 select { padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--paper); font-size: 14px; }
 
 /* ---------- Top bar */
-.topbar { display: flex; align-items: center; gap: 28px; padding: 14px 28px; position: sticky; top: 0; z-index: 20; background: var(--bg); }
+.topbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 28px; padding: 14px 28px; position: sticky; top: 0; z-index: 20; background: var(--bg); }
 .mark { font-family: var(--serif); font-weight: 700; font-size: 21px; letter-spacing: 0.06em; text-decoration: none; line-height: 1.1; }
 .mark small { display: block; font-family: var(--sans); font-weight: 600; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-2); }
-.nav { display: flex; gap: 4px; }
-.nav a { text-decoration: none; padding: 6px 12px; border-radius: 999px; color: var(--ink-2); font-size: 15px; }
+.nav { display: flex; flex-wrap: wrap; gap: 4px; }
+.nav a { white-space: nowrap; text-decoration: none; padding: 6px 12px; border-radius: 999px; color: var(--ink-2); font-size: 15px; }
 .nav a:hover { color: var(--ink); }
 .nav a.on { color: var(--ink); background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
 .spacer { flex: 1; }
@@ -219,6 +219,7 @@ main { padding: 0 28px 24px; }
 
 /* Before you start */
 .checklist { margin-top: 40px; }
+.table-view > .checklist { margin-top: 48px; }
 .checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
 .check { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line);
   cursor: pointer; }
@@ -582,7 +583,7 @@ a.stat-tile:hover { box-shadow: inset 0 0 0 1px var(--ink-3); }
   body.phone-table .footer { display: none; }
   body.sheet-up { overflow: hidden; }
   main.route-table { padding: 0 8px; }
-  .m-sets { display: flex; gap: 6px; justify-content: flex-end; margin: -4px 6px 8px; }
+  .m-sets { display: flex; gap: 6px; justify-content: flex-end; margin: 6px 6px 8px; }
   .m-sets img { width: 20px; height: 20px; object-fit: contain; }
   .m-felt { background: var(--table); border-radius: 18px; padding: 12px 10px 14px; box-shadow: inset 0 0 0 1px var(--line); }
   .m-felt .label { margin-bottom: 8px; }
