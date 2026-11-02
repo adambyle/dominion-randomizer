@@ -86,4 +86,11 @@ first, with the wiki FAQ as a secondary source. The format is documented at the 
 `npm test` checks that every file names a real card and that every link points to a card or topic
 that exists.
 
+## Card interactions
+
+`src/shared/interactions.ts` detects interactions from card mechanics; `public/data/mentions.json`
+indexes rulings that name two cards (from the wiki FAQ and `data/rules/cards`). Regenerate it with
+`npm run mentions` after editing rules files (`npm run data` also runs it); `npm test` fails if it's
+stale.
+
 Wiki content is CC BY-NC-SA 3.0; the app credits the wiki wherever FAQ or rules text is shown.

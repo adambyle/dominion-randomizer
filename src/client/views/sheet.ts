@@ -8,6 +8,7 @@ import type { FaqItem, FaqSection } from "../../shared/types";
 import { topicsForCard, type GuideDoc } from "../../shared/guide";
 import { cachedCardGuide, hasCardGuide, loadCardGuide, topics } from "../guide";
 import { guideBody, officialNote } from "./rules";
+import { sheetInteractions } from "./interactions";
 import type { App } from "../main";
 
 let faqCache: Record<string, FaqSection[]> | null = null;
@@ -115,6 +116,7 @@ export function sheetView(app: App, stack: string[]): Child {
 
       data.setupNotes[id] && h("section", null, h("h3", null, "Setup"), h("p", null, ...app.markup(data.setupNotes[id]!, open))),
       ownSection,
+      sheetInteractions(app, id, open),
       wikiSection));
 }
 

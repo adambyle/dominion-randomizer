@@ -3,6 +3,7 @@ import kingdomsJson from "../data/kingdoms.json";
 import imagesJson from "../data/images.json";
 import type { Card, CardData, FaqSection, RecommendedKingdom } from "../shared/types";
 import { createDb } from "../shared/setup";
+import type { MentionIndex } from "../shared/mentions";
 
 export const data = cardsJson as unknown as CardData;
 export const db = createDb(data);
@@ -42,4 +43,22 @@ let faq: Promise<Record<string, FaqSection[]>> | null = null;
 export function loadFaq() {
   faq ??= fetch("/data/faq.json").then((r) => r.json());
   return faq;
+}
+
+let mentionsPromise: Promise<MentionIndex> | null = null;
+let mentionsCache: MentionIndex | null = null;
+/** Rulings that name two cards (public/data/mentions.json), loaded on first use. */
+export function loadMentions() {
+  mentionsPromise ??= fetch("/data/mentions.json").then((r) => r.json() as Promise<MentionIndex>).then((m) => (mentionsCache = m));
+  return mentionsPromise;
+}
+/** The rulings index if it has loaded; otherwise starts loading it and calls `then` once it has. */
+const mentionsWaiting = new Set<() => void>();
+export function mentions(then?: () => void): MentionIndex | null {
+  if (!mentionsCache) {
+    const first = !mentionsWaiting.size;
+    if (then) mentionsWaiting.add(then);
+    if (first) void loadMentions().then(() => { for (const fn of mentionsWaiting) fn(); mentionsWaiting.clear(); }, () => undefined);
+  }
+  return mentionsCache;
 }

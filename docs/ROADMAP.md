@@ -40,6 +40,23 @@ note when there aren't enough unplayed cards). History → *Stats*: games played
 cards played, recommended kingdoms done, most played cards, games per expansion, and the Kingdom
 cards you haven't played yet.
 
+**4. Card interactions.** `src/shared/interactions.ts` detects 14 kinds of interaction from card
+mechanics (replaying Durations or cards that move themselves, Command/"leave it there" plays, Ways
+on Durations and movers, discard and trash triggers, gain-to-deck vs gained-to-hand, cost reducers
+vs gain-by-cost, play-on-gain, Events vs "when you buy", Attacks vs Reactions, Patron reveals,
+Shadows, Capitalism), each with an explanation linking to the rules topics. Rulings that name two
+cards (wiki FAQ and this app's rules) are indexed by `npm run mentions` into
+`public/data/mentions.json` (a test checks it's current). Shown as "Notable interactions" on the
+table (and phone Setup sheet), an Interactions section in each card sheet, "Interacts with" in the
+phone quick card, and the `#/interactions/<a>/<b>` explorer (one card lists everything it interacts
+with).
+
+Follow-ups for interactions:
+
+- More detectors (Possession, Outpost/extra turns, Black Market timing, Enchantress, Highwayman,
+  Trait targets, Reactions to gaining).
+- Tune the broad detectors (discard/trash triggers match many cards) using play feedback.
+
 ## Next, in priority order
 
 1. ~~**Our own rules reference for every card.**~~ Done (see above). Synthesize the official FAQ (rulebooks) and the
@@ -59,7 +76,7 @@ cards you haven't played yet.
    without adding history); show which ones haven't been played; bias towards unseen cards or
    exclude seen ones (the randomizer already accepts a per-card weight via `RollContext.cardWeight`);
    stats on played cards and expansions.
-4. **Card interactions.** Procedurally detect interactions between cards' mechanics (e.g.
+4. ~~**Card interactions.**~~ Done (see above). Procedurally detect interactions between cards' mechanics (e.g.
    Innovation + Sculptor, Way of the Mouse + Durations, Trait targets, gain-to-hand vs gain
    triggers, stop-moving / lose-track cases). Highlight interactions with a selected pile, summarize
    notable ones on the kingdom screen, and a standalone two-card interaction explorer with a

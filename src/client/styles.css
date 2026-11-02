@@ -388,6 +388,37 @@ p.hint { margin: 10px 0; }
 .rk.is-skipped .rk-tiles { opacity: 0.45; }
 .rk.is-skipped h3 { text-decoration: line-through; text-decoration-color: var(--ink-3); }
 
+/* ---------- Interactions */
+.ix-kind { display: inline-block; padding: 0 7px; border-radius: 6px; background: var(--gold-soft); color: var(--ink-2);
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.02em; vertical-align: 1px; }
+.ix-summary { margin-top: 32px; }
+.ix-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+.ix-card { padding: 12px 14px; border-radius: 14px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); font-size: 14.5px; }
+.ix-card header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.ix-card p { margin: 6px 0 0; color: var(--ink-2); }
+.ix-pair { font-weight: 600; }
+.ix-more { font-size: 13px; color: var(--ink-3); }
+.ix-sheet .ix-block + .ix-block { margin-top: 10px; }
+.ix-sheet h4 { margin-bottom: 2px; }
+.ix-rulings h4 { font-size: 13px; color: var(--ink-2); margin: 10px 0 2px; }
+.ix-source { color: var(--ink-3); font-size: 13px; }
+.ix-compare { padding-left: 0; }
+.ix-page { max-width: 900px; padding-bottom: 40px; }
+.ix-page h1 { font-family: var(--serif); font-weight: 600; font-size: 28px; letter-spacing: 0.03em; margin: 8px 0 6px; }
+.ix-pickers { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin: 20px 0; }
+.ix-picker { display: grid; gap: 4px; font-size: 13.5px; flex: 1 1 220px; }
+.ix-picker input { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--paper); font-size: 16px; }
+.ix-faces { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.ix-face { border: 0; padding: 0; background: none; cursor: pointer; width: 150px; }
+.ix-face.wide { width: 230px; }
+.ix-face img { width: 100%; border-radius: 8px; box-shadow: var(--shadow); display: block; }
+.ix-plus { font: 600 26px var(--serif); color: var(--ink-3); }
+.ix-result .faq { font-size: 15.5px; }
+.ix-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 10px; }
+.ix-tile { display: grid; gap: 3px; text-decoration: none; font-size: 13.5px; }
+.ix-tile .rk-tile { width: 100%; }
+.ix-tile .muted { font-size: 12px; }
+
 /* ---------- History and account */
 .account-link { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--ink-2); font-size: 14.5px;
   padding: 6px 12px; border-radius: 999px; }
