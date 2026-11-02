@@ -1,0 +1,1 @@
+- Draw a card and get +2 Actions. You may then discard your hand to draw 5 cards. [official]

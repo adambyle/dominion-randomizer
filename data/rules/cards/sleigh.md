@@ -1,0 +1,3 @@
+- Gain 2 {card:Horse|Horses}. [official]
+- When you gain a card, you may discard Sleigh from your hand to put that card into your hand or onto your deck. [official]
+- It works even if the card went somewhere other than your discard pile, but not if something already moved it. [official]

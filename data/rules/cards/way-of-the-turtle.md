@@ -1,0 +1,2 @@
+- A Way. Instead of the card's instructions: set the card aside, and if you did, play it at the start of your next turn. [official]
+- You can use the Way again then, delaying it another turn. [official]

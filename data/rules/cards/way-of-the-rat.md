@@ -1,0 +1,1 @@
+- A Way. Instead of the card's instructions: you may discard a Treasure to gain a copy of the card you played, from the Supply. [official]

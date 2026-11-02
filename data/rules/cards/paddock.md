@@ -1,0 +1,1 @@
+- Get {coin:+2}, gain 2 {card:Horse|Horses}, and get +1 Action per empty Supply pile. [official]

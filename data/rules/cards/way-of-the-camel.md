@@ -1,0 +1,1 @@
+- A Way. Instead of the card's instructions: Exile a {card:Gold} from the Supply.

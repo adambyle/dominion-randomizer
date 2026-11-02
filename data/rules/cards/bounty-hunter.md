@@ -1,0 +1,1 @@
+- Get +1 Action and Exile a card from your hand. If you had no copy of it in Exile already, get {coin:+3}. See {rule:exile-and-horses}. [official]

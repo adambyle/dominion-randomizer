@@ -1,0 +1,1 @@
+- An Event. Choose: Exile an Action card from the Supply; or put an Action card from your Exile mat onto your deck. [official]

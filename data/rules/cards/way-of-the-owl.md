@@ -1,0 +1,1 @@
+- A Way. Instead of the card's instructions: draw until you have 6 cards in hand. [official]

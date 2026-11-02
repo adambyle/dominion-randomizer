@@ -1,0 +1,2 @@
+- An Event, once per turn. You may gain a {card:Curse}. If you do, get +1 Buy and {coin:+2}. [official]
+- With no Curses left, you get nothing. [official]

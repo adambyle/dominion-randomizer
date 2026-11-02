@@ -1,0 +1,1 @@
+- A Way. Instead of the card's instructions: {coin:+1}, and this turn, when you gain a card, you may put it onto your deck. [official]

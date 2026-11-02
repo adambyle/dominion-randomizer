@@ -1,0 +1,1 @@
+- Get +1 Action. You may trash a card from your hand. Then draw a card per card the player to your right trashed on their last turn. [official]

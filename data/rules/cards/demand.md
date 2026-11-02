@@ -1,0 +1,1 @@
+- An Event. Gain a {card:Horse} and a card costing up to {cost:4}, both onto your deck. The Horse goes first, so the other card ends up on top. [official]

@@ -1,0 +1,1 @@
+- An Event. You may trash a non-Victory card from your hand to gain a card costing up to {cost:2} more than it. [official]

@@ -1,0 +1,1 @@
+- An Event. Get +1 Buy. Name a card, reveal the top 4 cards of your deck, put the matches back and discard the rest. [official]

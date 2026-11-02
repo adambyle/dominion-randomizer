@@ -1,0 +1,2 @@
+- Trash a card from your hand, then choose a different option per {cost:1} it costs: +1 Card; +1 Action; +1 Buy; {coin:+1}; gain a {card:Silver}; gain a {card:Horse}. [official]
+- Do the chosen options in the order listed. A card costing {cost:6} or more gives all six. [official]

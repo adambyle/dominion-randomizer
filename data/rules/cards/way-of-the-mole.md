@@ -1,0 +1,1 @@
+- A Way. Instead of the card's instructions: +1 Action, discard your hand, then draw 3 cards. [official]

@@ -1,0 +1,3 @@
+- Gain a card costing less than Falconer to your hand. [official]
+- When any player gains a card with 2 or more types, you may play Falconer from your hand, whoever's turn it is. [official]
+- Gaining a Falconer to your hand lets it react to itself. [official]

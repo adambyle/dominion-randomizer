@@ -1,0 +1,2 @@
+- Draw a card, get +1 Action and {coin:+1}.
+- During your turns, if your discard pile is empty, it costs {cost:3} less. [official]

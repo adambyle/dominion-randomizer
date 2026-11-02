@@ -1,0 +1,1 @@
+- A Way. Instead of the card's instructions: trash a card from your hand.

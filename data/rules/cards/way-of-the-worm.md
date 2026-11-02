@@ -1,0 +1,1 @@
+- A Way. Instead of the card's instructions: Exile an {card:Estate} from the Supply.

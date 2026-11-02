@@ -1,0 +1,2 @@
+- An Event. Gain the top card of each Action Supply pile. [official]
+- Non-Supply piles and non-Action piles are skipped; for split piles, go by the randomizer. [official]

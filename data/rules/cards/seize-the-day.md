@@ -1,0 +1,2 @@
+- An Event, once per game. Take an extra turn after this one. [official]
+- It doesn't count for the "fewer turns" tie-breaker. [official]

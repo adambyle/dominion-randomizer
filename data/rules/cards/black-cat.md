@@ -1,0 +1,3 @@
+- Draw 2 cards. If it isn't your turn, each other player gains a {card:Curse}. [official]
+- When another player gains a Victory card, you may play Black Cat from your hand. [official]
+- Curses go out in turn order from the player whose turn it is. Other players can still use Reactions like {card:Moat}.

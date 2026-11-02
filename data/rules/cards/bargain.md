@@ -1,0 +1,1 @@
+- An Event. Gain a non-Victory card costing up to {cost:5}. Each other player gains a {card:Horse}. They can't refuse. [official]

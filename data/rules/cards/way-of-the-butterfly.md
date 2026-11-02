@@ -1,0 +1,2 @@
+- A Way. Instead of the card's instructions: you may return it to its pile to gain a card costing exactly {cost:1} more than it. [official]
+- You only gain if it returned. A card with no pile can't return. See {rule:events-and-landscapes}. [official]

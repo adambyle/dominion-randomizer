@@ -1,0 +1,2 @@
+- Draw a card and get +2 Actions.
+- When you gain it, you may discard any number of Treasures, revealed, to gain that many {card:Horse|Horses}. [official]

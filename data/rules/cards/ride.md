@@ -1,0 +1,1 @@
+- An Event. Gain a {card:Horse}. [official]

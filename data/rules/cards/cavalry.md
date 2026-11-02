@@ -1,0 +1,3 @@
+- Gain 2 {card:Horse|Horses}.
+- When you gain it, draw 2 cards and get +1 Buy, and if it's your Buy phase, go back to your Action phase. [official]
+- Going back doesn't give you any Actions or repeat start-of-turn effects. [official]

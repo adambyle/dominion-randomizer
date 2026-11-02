@@ -1,0 +1,3 @@
+- Get {coin:+4} and +1 Buy per empty Supply pile. [official]
+- Instead of paying {cost:7} to buy it, you may trash an Action card from your hand. Its cost is still {cost:7}. [official]
+- It counts empty piles when played; only Supply piles count. [official]

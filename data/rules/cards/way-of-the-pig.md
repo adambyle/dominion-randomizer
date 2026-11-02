@@ -1,0 +1,1 @@
+- A Way. Instead of the card's instructions: +1 Card and +1 Action.

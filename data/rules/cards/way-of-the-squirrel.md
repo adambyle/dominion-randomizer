@@ -1,0 +1,1 @@
+- A Way. Instead of the card's instructions: draw 2 cards at the end of this turn, after drawing your new hand. [official]

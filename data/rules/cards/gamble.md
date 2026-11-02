@@ -1,0 +1,2 @@
+- An Event. Get +1 Buy. Discard the top card of your deck; if it's an Action or Treasure, you may play it. [official]
+- Playing it doesn't use up an Action. [official]

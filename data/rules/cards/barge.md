@@ -1,0 +1,2 @@
+- Choose: either now or at the start of your next turn, draw 3 cards and get +1 Buy. [official]
+- Choosing now means Barge is discarded this turn. Each play gets its own choice. [official]

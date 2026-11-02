@@ -1,0 +1,2 @@
+- Gain a card costing up to {cost:4}. Then for its types: Action, gain a {card:Horse}; Treasure, gain a {card:Silver}; Victory, +1 Card and +1 Action. [official]
+- A card with several types gets each bonus. [official]
