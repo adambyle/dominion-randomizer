@@ -1,0 +1,4 @@
+- A Project. During your turns, Action cards with a {coin:+} amount in their text are also Treasures. [official]
+- You can play them in your Buy phase without using Actions, and Treasure effects apply to them. [official]
+- It needs a "+{coin:1}"-style amount, not just a {coin:1} cost in the text. [official]
+- +Actions you get in your Buy phase don't let you play other Actions. [official]

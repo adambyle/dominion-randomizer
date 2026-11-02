@@ -1,0 +1,1 @@
+- A Project. At the start of each of your turns, either add a token to your pile here, or remove all your tokens here to draw a card per token. [official]

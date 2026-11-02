@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. Reveal the top 3 cards of your deck; put the ones costing from {cost:2} to {cost:4} into your hand and the rest back in any order.
+- Costs with {potion} or {debt:} don't count. [official]

@@ -1,0 +1,3 @@
+- Get {coin:+2}.
+- When you gain or trash it, take the {card:Flag}. [official]
+- If someone else trashes it, the player who trashed it takes the Flag. [official]

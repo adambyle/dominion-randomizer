@@ -1,0 +1,1 @@
+- A Project. When you gain a Treasure, bought or not, take +1 Coffers. [official]

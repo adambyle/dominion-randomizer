@@ -1,0 +1,2 @@
+- A Project. At the end of your Buy phase, if you gained no cards during it, take +1 Coffers and +1 Villager.
+- Cards gained in your Action phase don't count.

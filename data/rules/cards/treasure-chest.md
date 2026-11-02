@@ -1,0 +1,1 @@
+- An Artifact, taken with {card:Swashbuckler}. At the start of your Buy phase, gain a {card:Gold}. It isn't optional. [official]

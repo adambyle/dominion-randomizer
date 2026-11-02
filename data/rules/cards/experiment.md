@@ -1,0 +1,3 @@
+- Draw 2 cards, get +1 Action, and return Experiment to its pile. [official]
+- When you gain one, gain another; the second doesn't bring a third. [official]
+- If it isn't in play when it tries to return, it stays where it is. [official]

@@ -1,0 +1,2 @@
+- Draw a card and get +2 Actions. Trash a card from your hand; if it's a Victory card, gain a {card:Curse}. [official]
+- Trashing isn't optional. Curses aren't Victory cards. [official]

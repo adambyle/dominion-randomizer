@@ -1,0 +1,2 @@
+- A Treasure that makes no coins: take +1 Coffers and +1 Buy. [official]
+- When you gain it, you may trash a {card:Copper} from your hand. [official]

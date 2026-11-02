@@ -1,0 +1,2 @@
+- Draw 2 cards.
+- When you gain it, take +2 Villagers. [official]

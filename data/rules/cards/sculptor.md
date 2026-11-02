@@ -1,0 +1,1 @@
+- Gain a card costing up to {cost:4} to your hand. If it's a Treasure, take +1 Villager. [official]

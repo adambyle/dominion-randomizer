@@ -1,0 +1,2 @@
+- An Artifact, taken with {card:Flag Bearer}. When drawing your hand in Clean-up, draw one extra card.
+- It works whatever size your hand would normally be. See {rule:mats-and-tokens}.

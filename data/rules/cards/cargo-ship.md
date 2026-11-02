@@ -1,0 +1,2 @@
+- Get {coin:+2}. Once this turn, when you gain a card, you may set it aside face up on Cargo Ship. At the start of your next turn, put it into your hand. [official]
+- It doesn't have to be the next card you gain. If you set nothing aside, Cargo Ship is discarded this turn. [official]

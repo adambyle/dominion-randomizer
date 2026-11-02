@@ -1,0 +1,1 @@
+- A Project. At the start of each of your turns, discard any number of {card:Copper|Coppers}, revealed, then draw that many cards. [official]

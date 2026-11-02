@@ -1,0 +1,2 @@
+- A Project. When you trash a card other than with Sewers, you may trash a card from your hand. [official]
+- It triggers however the first card was trashed, and the second card can be anything in your hand. [official]

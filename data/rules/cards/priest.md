@@ -1,0 +1,2 @@
+- Get {coin:+2} and trash a card from your hand. For the rest of the turn, whenever you trash a card, get {coin:+2}. [official]
+- It stacks with other Priests, and with replays of the same one. Any trashing counts, not just from your hand. [official]

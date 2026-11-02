@@ -1,0 +1,2 @@
+- Draw 3 cards. Then, if your discard pile has any cards in it, take +1 Coffers; and if you then have 4 or more Coffers, take the {card:Treasure Chest}. [official]
+- If drawing made you shuffle, your discard pile is usually empty, so nothing more happens. [official]

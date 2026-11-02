@@ -1,0 +1,3 @@
+- A Treasure. Choose: {coin:+2}; or replay a non-Command Action card you played this turn that's still in play. [official]
+- Durations from previous turns can't be chosen. If you replay a Duration, Scepter stays in play with it. [official]
+- +Actions in your Buy phase don't let you play Actions. Treasures drawn can still be played. [official]

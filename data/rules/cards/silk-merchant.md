@@ -1,0 +1,2 @@
+- Draw 2 cards and get +1 Buy.
+- When you gain or trash it, take +1 Coffers and +1 Villager. If another player trashes it, they get them. [official]

@@ -1,0 +1,1 @@
+- A Project. When another player gains a Victory card, you draw a card, even on your own turn. [official]

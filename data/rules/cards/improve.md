@@ -1,0 +1,3 @@
+- Get {coin:+2}. At the start of Clean-up, you may trash an Action card you would discard from play this turn, to gain a card costing exactly {cost:1} more. [official]
+- It can trash itself. Durations staying in play can't be chosen. [official]
+- The gained card needn't be an Action. If you trash, you must gain if you can. [official]

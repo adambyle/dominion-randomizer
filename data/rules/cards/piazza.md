@@ -1,0 +1,1 @@
+- A Project. At the start of each of your turns, reveal the top card of your deck. If it's an Action, play it; otherwise put it back. [official]

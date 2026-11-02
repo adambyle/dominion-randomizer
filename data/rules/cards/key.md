@@ -1,0 +1,2 @@
+- An Artifact, taken with {card:Treasurer}. At the start of your turn, get {coin:+1}.
+- It doesn't help on the turn you take it. [official]

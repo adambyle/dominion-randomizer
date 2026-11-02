@@ -1,0 +1,1 @@
+- An Artifact, taken with {card:Border Guard}. Once per turn, when you discard a Border Guard from play, you may put it onto your deck.
