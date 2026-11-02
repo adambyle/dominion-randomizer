@@ -7,3 +7,7 @@ dist/
 # Contains a wiki session cookie; never commit
 .claude/spec.md
 .claude/settings.local.json
+
+# Downloaded by npm run images
+public/img/
+data/generated/images-log.txt

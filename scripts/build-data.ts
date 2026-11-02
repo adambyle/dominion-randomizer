@@ -244,7 +244,8 @@ let order = 0;
 
 for (const page of pages.filter((p) => isKingdomPage(p.title))) {
   const source = page.title.includes("Donald X") ? "donald-x" : "rulebook";
-  if (page.title.includes("Designed by Community") || page.title === "Recommended Kingdoms") continue;
+  // Only the rulebook kingdoms: tournament and community sets are left out.
+  if (page.title.includes("Designed by") || page.title === "Recommended Kingdoms") continue;
   for (const s of splitSections(page.wikitext)) {
     if (/trivia|occurrences/i.test(s.heading)) continue;
     for (const m of s.body.matchAll(/\{\{Kingdom\|([^{}]*)\}\}/g)) {

@@ -1,0 +1,5 @@
+# Cloudflare static asset headers. Card images change only when `npm run images` is re-run.
+/img/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=604800
+/data/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800

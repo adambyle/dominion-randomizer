@@ -1,16 +1,15 @@
-// App state: randomizer options and the current game, persisted per browser.
+// Persisted app state (settings + current game) and the actions that change it.
 
-import { useEffect, useReducer } from "react";
 import type { RecommendedKingdom } from "../shared/types";
-import type { AutoBool, Choices } from "../shared/setup";
-import { DEFAULT_OPTIONS, randomize, replaceOne, rollSets, type RandomizerOptions } from "../shared/randomizer";
+import { resolveSetup, type AutoBool, type Choices, type SetupResult } from "../shared/setup";
+import { buildPool, DEFAULT_OPTIONS, randomize, replaceOne, rollSets, type RandomizerOptions } from "../shared/randomizer";
 import { createRng } from "../shared/random";
 import { data, db } from "./data";
 
 export interface Game {
   kingdom: string[];
   landscapes: string[];
-  /** Cards the user locked or added; rerolls keep them. */
+  /** Cards the user locked or added; deals keep them. */
   locked: string[];
   /** Expansions rolled for this game when "expansions per game" is set. */
   sets: string[] | null;
@@ -31,6 +30,8 @@ export interface Settings {
   platinumColony: AutoBool;
   shelters: AutoBool;
   blackMarketSize: number;
+  /** Set once the user has picked their sets on the first-visit screen. */
+  onboarded: boolean;
 }
 
 export interface State {
@@ -46,19 +47,20 @@ const emptyGame = (): Game => ({
 });
 
 const defaultSettings = (): Settings => ({
-  // Until the user picks, assume the current printing of everything.
   options: { ...DEFAULT_OPTIONS, enabledBoxes: data.boxes.filter((b) => b.edition !== 1).map((b) => b.id) },
   players: 3,
   platinumColony: "auto",
   shelters: "auto",
   blackMarketSize: 15,
+  onboarded: false,
 });
 
 export type Action =
   | { type: "settings"; patch: Partial<Settings> }
   | { type: "options"; patch: Partial<RandomizerOptions> }
   | { type: "rollSets" }
-  | { type: "randomize" }
+  | { type: "deal" }
+  | { type: "fill" }
   | { type: "replace"; id: string }
   | { type: "toggleLock"; id: string }
   | { type: "add"; id: string }
@@ -68,10 +70,10 @@ export type Action =
   | { type: "loadRecommended"; kingdom: RecommendedKingdom };
 
 function edited(game: Game, patch: Partial<Game>): Game {
-  return { ...game, ...patch, official: false, recommendedId: patch.recommendedId ?? null };
+  return { ...game, ...patch, official: false, recommendedId: null };
 }
 
-function reducer(state: State, action: Action): State {
+function reduce(state: State, action: Action): State {
   const { settings, game } = state;
   const opts = settings.options;
   switch (action.type) {
@@ -79,22 +81,27 @@ function reducer(state: State, action: Action): State {
       return { ...state, settings: { ...settings, ...action.patch } };
     case "options":
       return { ...state, settings: { ...settings, options: { ...opts, ...action.patch } } };
-    case "rollSets": {
-      const sets = rollSets(db, opts, createRng(newSeed()));
-      return { ...state, game: { ...game, sets } };
-    }
-    case "randomize": {
+    case "rollSets":
+      return { ...state, game: { ...game, sets: rollSets(db, opts, createRng(newSeed())) } };
+    case "deal": {
       const seed = newSeed();
       const rng = createRng(seed);
       const sets = opts.setsPerGame ? (game.sets ?? rollSets(db, opts, rng)) : null;
-      const lockedKingdom = game.kingdom.filter((id) => game.locked.includes(id));
-      const lockedLandscapes = game.landscapes.filter((id) => game.locked.includes(id));
-      const draft = randomize(db, opts, { sets: sets ?? undefined, locked: lockedKingdom, lockedLandscapes }, rng);
+      const draft = randomize(db, opts, {
+        sets: sets ?? undefined,
+        locked: game.kingdom.filter((id) => game.locked.includes(id)),
+        lockedLandscapes: game.landscapes.filter((id) => game.locked.includes(id)),
+      }, rng);
       return { ...state, game: edited(game, { ...draft, sets, seed, choices: {}, platinumColony: null, shelters: null }) };
     }
-    case "replace": {
+    case "fill": {
+      // Fill empty slots only: everything already on the table stays (without being locked).
       const rng = createRng(newSeed());
-      const draft = replaceOne(db, opts, { ...game, warnings: [] }, action.id, { sets: game.sets ?? undefined }, rng);
+      const draft = randomize(db, opts, { sets: game.sets ?? undefined, locked: game.kingdom, lockedLandscapes: game.landscapes }, rng);
+      return { ...state, game: edited(game, { kingdom: draft.kingdom, landscapes: draft.landscapes, warnings: draft.warnings }) };
+    }
+    case "replace": {
+      const draft = replaceOne(db, opts, { ...game, warnings: [] }, action.id, { sets: game.sets ?? undefined }, createRng(newSeed()));
       return { ...state, game: edited(game, { kingdom: draft.kingdom, landscapes: draft.landscapes, warnings: draft.warnings }) };
     }
     case "toggleLock": {
@@ -104,9 +111,7 @@ function reducer(state: State, action: Action): State {
     case "add": {
       const card = db.get(action.id);
       if (game.kingdom.includes(card.id) || game.landscapes.includes(card.id)) return state;
-      const patch = card.kind === "landscape"
-        ? { landscapes: [...game.landscapes, card.id] }
-        : { kingdom: [...game.kingdom, card.id] };
+      const patch = card.kind === "landscape" ? { landscapes: [...game.landscapes, card.id] } : { kingdom: [...game.kingdom, card.id] };
       return { ...state, game: edited(game, { ...patch, locked: [...game.locked, card.id], warnings: [] }) };
     }
     case "remove":
@@ -122,7 +127,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, game: { ...game, choices: action.choices } };
     case "loadRecommended": {
       const k = action.kingdom;
-      const traits = k.landscapes.filter((l) => db.get(l).types.includes("Trait"));
+      const isType = (id: string, t: string) => db.get(id).types.includes(t);
+      const trait = k.landscapes.find((l) => isType(l, "Trait"));
       const choices: Choices = {
         bane: k.choices.bane as string | undefined,
         ferryman: k.choices.ferryman as string | undefined,
@@ -130,15 +136,16 @@ function reducer(state: State, action: Action): State {
         wayOfTheMouse: k.choices.wayOfTheMouse as string | undefined,
         approachingArmy: k.choices.approachingArmy as string | undefined,
         druidBoons: k.choices.druidBoons as string[] | undefined,
-        ally: k.landscapes.find((l) => db.get(l).types.includes("Ally")),
-        prophecy: k.landscapes.find((l) => db.get(l).types.includes("Prophecy")),
-        traits: traits[0] && k.choices.traitFor1 ? { [traits[0]]: k.choices.traitFor1 as string } : undefined,
+        ally: k.landscapes.find((l) => isType(l, "Ally")),
+        prophecy: k.landscapes.find((l) => isType(l, "Prophecy")),
+        traits: trait && k.choices.traitFor1 ? { [trait]: k.choices.traitFor1 as string } : undefined,
       };
-      const standard = k.landscapes.filter((l) => !/Ally|Prophecy/.test(db.get(l).types.join(" ")));
+      const standard = k.landscapes.filter((l) => !isType(l, "Ally") && !isType(l, "Prophecy"));
       return {
         settings,
         game: {
-          ...emptyGame(), kingdom: k.kingdom, landscapes: standard, locked: [...k.kingdom, ...standard],
+          // Unlocked, so "Deal again" moves on to a random kingdom.
+          ...emptyGame(), kingdom: k.kingdom, landscapes: standard,
           choices, official: true, recommendedId: k.id, platinumColony: k.colony, shelters: k.shelters,
         },
       };
@@ -146,10 +153,10 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-const KEY = "dominion-randomizer:v1";
+const KEY = "dominion-randomizer:v2";
 
 function load(): State {
-  const fresh = { settings: defaultSettings(), game: emptyGame() };
+  const fresh: State = { settings: defaultSettings(), game: emptyGame() };
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) ?? "null") as State | null;
     if (!saved) return fresh;
@@ -159,17 +166,59 @@ function load(): State {
     return {
       settings: { ...fresh.settings, ...saved.settings, options: { ...fresh.settings.options, ...saved.settings.options,
         enabledBoxes: saved.settings.options.enabledBoxes.filter((b) => boxes.has(b)) } },
-      game: { ...fresh.game, ...saved.game, kingdom: known(saved.game.kingdom), landscapes: known(saved.game.landscapes) },
+      game: { ...fresh.game, ...saved.game, kingdom: known(saved.game.kingdom), landscapes: known(saved.game.landscapes),
+        locked: known(saved.game.locked) },
     };
   } catch {
     return fresh;
   }
 }
 
-export function useAppState() {
-  const [state, dispatch] = useReducer(reducer, undefined, load);
-  useEffect(() => {
-    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* private mode etc. */ }
-  }, [state]);
-  return [state, dispatch] as const;
+type Listener = (state: State, prev: State) => void;
+
+export class Store {
+  state: State = load();
+  private listeners: Listener[] = [];
+  private setupKey = "";
+  private setupCache: SetupResult | null = null;
+
+  dispatch = (action: Action) => {
+    const prev = this.state;
+    this.state = reduce(prev, action);
+    if (this.state === prev) return;
+    try { localStorage.setItem(KEY, JSON.stringify(this.state)); } catch { /* storage unavailable */ }
+    for (const l of this.listeners) l(this.state, prev);
+  };
+
+  subscribe(listener: Listener) {
+    this.listeners.push(listener);
+  }
+
+  pool() {
+    return buildPool(db, this.state.settings.options.enabledBoxes);
+  }
+
+  /** The resolved setup for the current game (memoized), or null for an empty table. */
+  setup(): SetupResult | null {
+    const { game, settings } = this.state;
+    if (!game.kingdom.length && !game.landscapes.length) return null;
+    const input = {
+      kingdom: game.kingdom, landscapes: game.landscapes, players: settings.players,
+      platinumColony: game.platinumColony ?? settings.platinumColony, shelters: game.shelters ?? settings.shelters,
+      choices: game.choices, acceptChoices: game.official, blackMarketSize: settings.blackMarketSize,
+    };
+    const key = JSON.stringify([input, game.seed, settings.options.enabledBoxes]);
+    if (key !== this.setupKey) {
+      // Setup choices (Bane, Ally ...) may use cards the user added from outside their enabled boxes.
+      const pool = new Set([...this.pool(), ...game.kingdom, ...game.landscapes]);
+      this.setupCache = resolveSetup(input, db, pool, createRng(game.seed));
+      this.setupKey = key;
+      // Keep the resolved choices so later edits don't reshuffle unrelated picks (Druid's Boons etc.).
+      if (JSON.stringify(this.setupCache.choices) !== JSON.stringify(game.choices)) {
+        const choices = this.setupCache.choices;
+        queueMicrotask(() => this.dispatch({ type: "choices", choices }));
+      }
+    }
+    return this.setupCache;
+  }
 }

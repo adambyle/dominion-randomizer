@@ -7,10 +7,11 @@ Randomizer and setup reference for *Dominion*, deployed to dominion.adambyle.net
 
 - `scripts/` — data pipeline (wiki export → app data) and checks
 - `src/shared/` — types, seeded RNG, and the setup engine (used by the client and the Worker)
-- `src/client/` — React app
+- `src/client/` — front end in plain TypeScript (no framework): `main.ts` shell and routing, `state.ts` store, `model.ts` table layout, `views/`
 - `src/worker/` — API (Hono), D1 access, multiplayer rooms (Durable Object)
 - `src/data/` — generated card and recommended-kingdom data, bundled into the client
 - `public/data/` — generated FAQ and rules reference, served as static assets
+- `public/img/` — card, box and symbol images from the wiki (git-ignored; `npm run images`)
 
 ## Refreshing card data from the wiki
 
@@ -30,6 +31,16 @@ has passed the site's check:
 
 4. Review `data/generated/report.txt` (parse warnings) and diff `setup-check.txt` (what each card
    pulls into setup) before committing.
+
+### Images
+
+Card scans, art crops, box covers, set icons and cost symbols come from the wiki too. Image *files*
+aren't behind the bot check, but their URLs have to be looked up through the API, so:
+
+1. In the same verified browser tab, run `scripts/wiki-images.browser.js`. It downloads
+   `dominion-wiki-images.json`; move it to `data/raw/wiki-images.json`.
+2. `npm run images` downloads anything missing into `public/img/` and writes `src/data/images.json`.
+   Run it on any fresh checkout before `npm run dev` or `npm run deploy`.
 
 Things the wiki doesn't express in a machine-readable way live in `scripts/supplement.ts`: boxes and
 editions, the 1st-edition Cornucopia/Guilds split, split-pile composition, excluded sets (Arcana,
