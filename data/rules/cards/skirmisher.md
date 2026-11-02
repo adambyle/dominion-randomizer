@@ -1,0 +1,2 @@
+- Draw a card, get +1 Action and {coin:+1}. This turn, when you gain an Attack card, each other player discards down to 3 cards in hand. [official]
+- Players must use {card:Moat} when Skirmisher is played, not on later gains. [official]

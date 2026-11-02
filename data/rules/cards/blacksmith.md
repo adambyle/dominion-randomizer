@@ -1,0 +1,1 @@
+- Part of the {card:Townsfolk} pile. Choose one: draw until you have 6 cards in hand; draw 2 cards; or draw a card and get +1 Action. [official]

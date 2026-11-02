@@ -1,0 +1,2 @@
+- An Ally. At the start of your turn, discard down to 4 cards in hand unless you spend a Favor. [official]
+- It isn't an Attack, so {card:Moat} doesn't help. [official]

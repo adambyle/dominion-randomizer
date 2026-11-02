@@ -1,0 +1,1 @@
+- An Ally. When discarding your hand in Clean-up, you may spend Favors to keep that many cards in hand. You still draw your normal 5. [official]

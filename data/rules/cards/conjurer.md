@@ -1,0 +1,1 @@
+- Part of the {card:Wizards} pile. Gain a card costing up to {cost:4}. At the start of your next turn, put Conjurer into your hand. [official]

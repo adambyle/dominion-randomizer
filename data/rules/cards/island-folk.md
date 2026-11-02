@@ -1,0 +1,1 @@
+- An Ally. At the end of your turn, you may spend 5 Favors to take an extra turn after this one, but never a third turn in a row. [official]

@@ -1,0 +1,1 @@
+- An Ally. At the start of your turn, you may spend a Favor to discard a card, then draw a card. Repeat as often as you like. [official]

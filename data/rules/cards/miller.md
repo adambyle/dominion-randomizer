@@ -1,0 +1,1 @@
+- Part of the {card:Townsfolk} pile. Get +1 Action. Look at the top 4 cards of your deck; put one into your hand and discard the rest. [official]

@@ -1,0 +1,1 @@
+- Trash a card from your hand. Choose: +1 Card and +1 Action; or gain a card costing up to {cost:2} more than the trashed card. [official]

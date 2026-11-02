@@ -1,0 +1,3 @@
+- Get {coin:+2}. Each other player trashes the top card of their deck. [official]
+- If it costs {cost:3} or more, they must gain a cheaper card sharing a type with it, if there is one. Otherwise they gain a {card:Curse}. [official]
+- They choose the card, in turn order. Nothing to trash means a Curse.

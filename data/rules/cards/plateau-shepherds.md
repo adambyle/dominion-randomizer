@@ -1,0 +1,1 @@
+- An Ally. When scoring, pair your Favors with cards you have costing exactly {cost:2}, for {vp:2} per pair. [official]

@@ -1,0 +1,2 @@
+- Part of the {card:Wizards} pile. Draw a card and get +1 Action. [official]
+- Each other player names a card and reveals their top card. If it isn't the named card, they gain a {card:Curse}. Either way it goes back. [official]

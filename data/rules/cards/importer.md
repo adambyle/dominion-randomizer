@@ -1,0 +1,2 @@
+- At the start of your next turn, gain a card costing up to {cost:5}.
+- Setup: each player gets +4 Favors, so starts with 5. [official]

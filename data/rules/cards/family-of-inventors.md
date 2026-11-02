@@ -1,0 +1,2 @@
+- An Ally. At the start of your Buy phase, you may put one of your Favor tokens on a non-Victory Supply pile. [official]
+- Cards cost {cost:1} less per Favor token on their pile, for everyone, never below {cost:0}. [official]

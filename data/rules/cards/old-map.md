@@ -1,0 +1,2 @@
+- Part of the {card:Odysseys} pile. Draw a card, get +1 Action, discard a card, then draw a card. [official]
+- Then you may rotate the Odysseys. See {rule:split-piles}. [official]

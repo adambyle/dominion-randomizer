@@ -1,0 +1,3 @@
+- Part of the {card:Augurs} pile. You may trash an Action or Victory card from your hand to gain a {card:Gold}. [official]
+- You may also trash Acolyte to gain an Augur: whichever is on top of the pile, even another Acolyte. [official]
+- Both parts are optional and separate. [official]

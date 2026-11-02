@@ -1,0 +1,1 @@
+- Get +1 Buy and draw a card per card in your hand. Then discard down to 10 cards in hand. [official]

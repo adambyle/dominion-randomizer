@@ -1,0 +1,2 @@
+- Get +2 Actions and {coin:+1}.
+- When you discard it from play, you may put it onto your deck. [official]

@@ -1,0 +1,1 @@
+- Draw a card, get +1 Action and +1 Favor. [official]

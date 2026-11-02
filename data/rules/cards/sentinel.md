@@ -1,0 +1,1 @@
+- Look at the top 5 cards of your deck. You may trash up to 2 of them, and put the rest back in any order. [official]

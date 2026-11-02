@@ -1,0 +1,2 @@
+- If no Supply piles are empty, get +1 Action and gain a card costing up to {cost:4}. [official]
+- Otherwise, trash a card from your hand and gain a card costing up to {cost:2} more than it. [official]

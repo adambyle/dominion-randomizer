@@ -1,0 +1,3 @@
+- Part of the {card:Wizards} pile. Draw 6 cards, get +2 Actions, and skip a turn. [official]
+- Skipping means your next turn doesn't happen at all: no start-of-turn effects, no phases. It still counts as a turn for the tie-breaker. [official]
+- When you trash Lich, move it from the trash to your discard pile (that isn't gaining), then gain a cheaper card from the trash if you can. [official]

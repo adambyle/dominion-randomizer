@@ -1,0 +1,2 @@
+- An Ally. When you shuffle, you may spend Favors to pick up to 2 cards per Favor to leave in your discard pile instead of shuffling them in. [official]
+- That isn't discarding them.

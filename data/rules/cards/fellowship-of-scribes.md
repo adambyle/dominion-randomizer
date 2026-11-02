@@ -1,0 +1,1 @@
+- An Ally. After playing an Action, if you have 4 or fewer cards in hand, you may spend a Favor to draw a card. Once per Action. [official]

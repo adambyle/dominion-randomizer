@@ -1,0 +1,2 @@
+- An Ally. When you gain an Action card during your turn, you may spend 2 Favors to play it. [official]
+- It works in your Buy phase, but +Actions then don't let you play more Actions. [official]

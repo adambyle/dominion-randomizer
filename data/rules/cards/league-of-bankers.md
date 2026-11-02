@@ -1,0 +1,1 @@
+- An Ally. At the start of your Buy phase, get {coin:+1} per 4 Favors you have, rounded down. You don't spend them. [official]

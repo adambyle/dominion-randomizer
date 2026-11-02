@@ -1,0 +1,2 @@
+- Part of the {card:Forts} pile. Choose: {coin:+3}; or draw 3 cards at the start of your next turn. [official]
+- It's also worth {vp:2}. Choosing the coins means it's discarded this turn. [official]

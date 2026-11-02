@@ -1,0 +1,1 @@
+- An Ally. At the start of your turn, you may spend 2 Favors to gain a card costing up to {cost:4} onto your deck. [official]

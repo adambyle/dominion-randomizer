@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. You may return an Action from your hand to its pile, to gain a different Action costing up to {cost:5} to your hand. [official]
+- Returning isn't trashing. [official]

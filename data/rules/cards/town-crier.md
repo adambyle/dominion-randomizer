@@ -1,0 +1,2 @@
+- Part of the {card:Townsfolk} pile. Choose: {coin:+2}; gain a {card:Silver}; or draw a card and get +1 Action. [official]
+- Then you may rotate the Townsfolk. See {rule:split-piles}. [official]

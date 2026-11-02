@@ -1,0 +1,1 @@
+- Part of the {card:Odysseys} pile. A Treasure: gain an Action card you don't have a copy of in play. [official]

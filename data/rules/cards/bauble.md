@@ -1,0 +1,2 @@
+- A Treasure. Choose two different options: +1 Buy; {coin:+1}; +1 Favor; or this turn, when you gain a card, you may put it onto your deck. [official]
+- The last option covers every card you gain this turn. See {rule:mats-and-tokens}.

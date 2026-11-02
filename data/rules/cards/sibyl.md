@@ -1,0 +1,2 @@
+- Part of the {card:Augurs} pile. Draw 4 cards and get +1 Action.
+- Then put a card from your hand on top of your deck, and another on the bottom. [official]

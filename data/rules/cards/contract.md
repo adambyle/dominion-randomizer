@@ -1,0 +1,2 @@
+- A Treasure worth {coin:2} with +1 Favor. You may set aside an Action from your hand, face up, to play at the start of your next turn. [official]
+- If you do, Contract stays in play until then; otherwise it's discarded this turn. [official]

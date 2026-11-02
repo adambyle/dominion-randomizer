@@ -1,0 +1,3 @@
+- At the start of your next turn, discard Highwayman from play and draw 3 cards. [official]
+- Until then, the first Treasure each other player plays each turn does nothing. It doesn't stack. [official]
+- Abilities below a dividing line on that Treasure still work. [official]

@@ -1,0 +1,2 @@
+- Part of the {card:Odysseys} pile. Get +1 Action. Take an extra turn after this one, but never a third turn in a row. [official]
+- In that turn you can play only 3 cards from your hand, of any type. Cards played from elsewhere don't count. [official]

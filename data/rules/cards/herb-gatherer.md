@@ -1,0 +1,2 @@
+- Part of the {card:Augurs} pile. Get +1 Buy. Put your deck into your discard pile, look through it, and you may play a Treasure from it. [official]
+- Then you may rotate the Augurs. Moving your deck isn't discarding. See {rule:split-piles}. [official]

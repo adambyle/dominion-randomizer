@@ -1,0 +1,2 @@
+- Trash a card from your hand and choose one, per {cost:1} it costs: +1 Card; or +1 Action; or {coin:+1}; or +1 Favor. [official]
+- {potion} and {debt:} give nothing. [official]

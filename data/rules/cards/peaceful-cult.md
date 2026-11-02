@@ -1,0 +1,1 @@
+- An Ally. At the start of your Buy phase, you may spend any number of Favors to trash that many cards from your hand. [official]

@@ -1,0 +1,2 @@
+- An Ally. When you gain a card costing {cost:3} or more, you may spend a Favor for +1 Card, +1 Action or +1 Buy. Once per gain. [official]
+- The cost when gained is what matters. [official]
