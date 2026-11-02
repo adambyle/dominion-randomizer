@@ -164,10 +164,10 @@ export class App {
     }
   }
 
-  /** Sticky page headers sit right under the top bar, whose height varies with the layout. */
+  /** Sticky page headers sit right under the top bar, whose height varies with the layout (and is fractional). They tuck 1px under it so no gap shows. */
   private measureTopBar() {
     const bar = this.root.querySelector<HTMLElement>(".topbar");
-    if (bar) document.documentElement.style.setProperty("--topbar-h", `${bar.offsetHeight}px`);
+    if (bar) document.documentElement.style.setProperty("--topbar-h", `${Math.floor(bar.getBoundingClientRect().height) - 1}px`);
   }
 
   private view(route: Route): Child {
