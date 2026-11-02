@@ -218,7 +218,7 @@ main { padding: 0 28px 24px; }
 .check.lit { box-shadow: inset 0 0 0 1.5px var(--gold); }
 
 /* Before you start */
-.checklist { margin-top: 22px; }
+.checklist { margin-top: 40px; }
 .checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
 .check { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line);
   cursor: pointer; }
@@ -294,8 +294,10 @@ p.hint { margin: 10px 0; }
 .trait { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
 .trait-name { font-size: 15px; }
 .trait.active .trait-name { font-weight: 600; }
-.trait .limits { grid-column: 1 / -1; display: none; align-items: center; gap: 8px; font-size: 13px; }
-.trait:hover .limits, .trait.active .limits, .trait:focus-within .limits { display: flex; }
+/* Limits are always laid out (nothing pops in or out); they stay muted until a limit is set. */
+.trait .limits { grid-column: 1 / -1; display: flex; justify-content: flex-end; align-items: center; gap: 8px; font-size: 13px;
+  opacity: 0.55; transition: opacity 0.15s; }
+.trait .limits.set, .trait .limits:hover, .trait .limits:focus-within { opacity: 1; }
 .limits .stepper button { width: 24px; height: 24px; }
 .limits .stepper output { min-width: 1.6em; font-size: 13px; }
 
@@ -321,7 +323,7 @@ p.hint { margin: 10px 0; }
 /* ---------- First visit / your sets */
 .welcome { max-width: 1080px; margin: 0 auto 40px; }
 .welcome-head {
-  position: sticky; top: 56px; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  position: sticky; top: var(--topbar-h, 56px); z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
   padding: 14px 0 26px; margin-bottom: -10px; isolation: isolate;
 }
 .welcome-head::before {
@@ -365,7 +367,7 @@ p.hint { margin: 10px 0; }
 /* ---------- Pages: recommended and cards */
 .page { max-width: 1240px; margin: 0 auto; }
 /* Sticky filter bar: its backdrop spans the whole window and fades into the content scrolling under it. */
-.filters { position: sticky; top: 56px; z-index: 10; padding: 4px 0 30px; margin-bottom: -16px; isolation: isolate; }
+.filters { position: sticky; top: var(--topbar-h, 56px); z-index: 10; padding: 4px 0 30px; margin-bottom: -16px; isolation: isolate; }
 .filters::before {
   content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: calc(50% - 50vw); right: calc(50% - 50vw);
   background: linear-gradient(to bottom, var(--bg) calc(100% - 30px), transparent);
@@ -444,7 +446,7 @@ p.hint { margin: 10px 0; }
   .m-tile.dim, .m-landscape.dim, .m-chip.dim { opacity: 0.55; filter: saturate(0.7); }
   .m-tile.selected { outline: 2.5px solid var(--gold); outline-offset: 1px; transform: translateY(-2px); }
   .m-name { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px 3px 5px; text-align: center; color: #fff;
-    font: 700 9.5px/1.1 var(--serif); letter-spacing: 0.02em; text-shadow: 0 1px 2px #000; background: linear-gradient(transparent, rgb(0 0 0 / 0.8) 50%); }
+    font: 700 9.5px/1.1 var(--serif); letter-spacing: 0.01em; text-shadow: 0 1px 2px #000; overflow-wrap: normal; background: linear-gradient(transparent, rgb(0 0 0 / 0.8) 50%); }
   .m-cost { position: absolute; top: 3px; left: 3px; }
   .m-cost .sym-s { font-size: 11px; }
   .m-dot { position: absolute; top: 3px; right: 3px; width: 16px; height: 16px; border-radius: 999px; background: var(--gold); color: #2a1c00;
@@ -473,7 +475,8 @@ p.hint { margin: 10px 0; }
   /* Quick card for the tapped pile */
   .m-quick { position: fixed; left: 10px; right: 10px; bottom: calc(84px + env(safe-area-inset-bottom)); z-index: 26; display: grid;
     grid-template-columns: 76px 1fr; gap: 12px; padding: 12px; border-radius: 18px; background: var(--paper);
-    box-shadow: 0 14px 40px -10px rgb(0 0 0 / 0.5); animation: rise 0.18s ease-out; }
+    box-shadow: 0 14px 40px -10px rgb(0 0 0 / 0.5); }
+  .m-quick.enter { animation: rise 0.18s ease-out; }
   .m-quick-face { width: 76px; border-radius: 6px; box-shadow: var(--shadow); }
   .m-quick h3 { margin: 0; font: 700 17px var(--serif); letter-spacing: 0.03em; }
   .m-quick p { margin: 3px 0 0; font-size: 13px; color: var(--ink-2); }
@@ -490,7 +493,8 @@ p.hint { margin: 10px 0; }
   /* Setup sheet: peeks above the bar, pulls up over the table */
   .m-sheet { position: fixed; left: 0; right: 0; bottom: calc(74px + env(safe-area-inset-bottom)); z-index: 24; background: var(--paper);
     border-radius: 22px 22px 0 0; box-shadow: 0 -8px 24px -8px rgb(40 28 10 / 0.35); display: flex; flex-direction: column; }
-  .m-sheet.open { top: 96px; animation: rise 0.22s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .m-sheet.open { top: 96px; }
+  .m-sheet.open.enter { animation: rise 0.22s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .m-sheet-head { padding: 8px 16px 12px; cursor: pointer; touch-action: none; user-select: none; }
   .m-handle { display: block; width: 40px; height: 5px; border-radius: 999px; background: var(--ink-3); opacity: 0.5; margin: 0 auto 10px; }
   .m-sheet-title { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
@@ -532,16 +536,16 @@ p.hint { margin: 10px 0; }
   .sheet-card img { width: 220px; }
   .palette { top: 0; width: 100vw; max-height: 100dvh; height: 100dvh; border-radius: 0; }
   .trait { grid-template-columns: 1fr; }
+  .trait .limits { justify-content: flex-start; }
   .field { flex-wrap: wrap; }
 
   /* Other pages */
-  .filters { top: 58px; }
   .filters h1 { font-size: 22px; }
   .filter-row { gap: 8px; }
   .search { min-width: 100%; }
   .rk-grid { grid-template-columns: 1fr; }
   .card-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; }
-  .welcome-head { top: 58px; padding: 10px 0 20px; }
+  .welcome-head { padding: 10px 0 20px; }
   .welcome-head h1 { font-size: 22px; }
   .welcome-actions .btn.ghost { padding: 6px 8px; }
   .boxes { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 20px 12px; }
@@ -565,9 +569,10 @@ input[type="search"]::-webkit-search-cancel-button { display: none; }
 .icon.down { transform: rotate(-90deg); width: 16px; height: 16px; }
 .checklist { scroll-margin-top: 80px; }
 
-/* Set icons are black glyphs; on dark surfaces they sit on a light disc */
+/* Set icons are black glyphs; on dark surfaces they're inverted (hue-rotate keeps coloured icons' hues) */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .set-chip img, :root:not([data-theme="light"]) .set-glyph, :root:not([data-theme="light"]) .set-name img {
-    background: #e9dfc9; border-radius: 999px; padding: 2px;
+  :root:not([data-theme="light"]) .set-chip img, :root:not([data-theme="light"]) .set-glyph,
+  :root:not([data-theme="light"]) .set-name img, :root:not([data-theme="light"]) .m-sets img {
+    filter: invert(1) hue-rotate(180deg);
   }
 }

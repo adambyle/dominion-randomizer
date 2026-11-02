@@ -12,6 +12,9 @@ const BASICS_PREVIEW = ["copper", "silver", "gold", "estate", "duchy", "province
 
 let selected: string | null = null;
 let sheetOpen = false;
+/** What was showing at the last render, so the quick card and sheet only animate when they appear. */
+let shownQuick: string | null = null;
+let shownSheetOpen = false;
 let playersOpen = false;
 
 export function tableMobileView(app: App): Child {
@@ -43,7 +46,8 @@ export function tableMobileView(app: App): Child {
       brings && h("span.m-dot", null, "+"),
       game.locked.includes(id) && h("span.m-lock", null, icon("lock")),
       (model?.targetedBy.get(id) ?? []).map((t) => h("span.m-ribbon", null, name(t))),
-      h("span.m-name", null, c.name));
+      // Split piles ("Settlers/Bustling Village") may break after the slash.
+      h("span.m-name", null, c.name.replace(/\//g, "/​")));
   });
   const slots = Array.from({ length: Math.max(0, size - tiles.length) }, () =>
     h("button.m-tile.m-slot", { type: "button", onclick: () => dispatch({ type: empty ? "deal" : "fill" }), "aria-label": empty ? "Deal" : "Fill the empty slots" }, empty ? "" : "Fill"));
@@ -76,6 +80,7 @@ export function tableMobileView(app: App): Child {
 
   // ---- Quick card for the selected pile
   const quick = selected && model && quickCard(app, selected, model);
+  if (!quick) shownQuick = null;
 
   // ---- Setup sheet
   // The quick card takes the sheet's place while a pile is selected.
@@ -94,6 +99,8 @@ export function tableMobileView(app: App): Child {
         h("button", { type: "button", role: "radio", "aria-checked": String(n === settings.players), class: n === settings.players ? "on" : "",
           onclick: () => { playersOpen = false; dispatch({ type: "settings", patch: { players: n } }); } }, n)))));
 
+  requestAnimationFrame(fitNames);
+  document.fonts?.ready.then(fitNames);
   return h("div.m-table", { class: selected ? "has-selection" : "", onclick: (e: MouseEvent) => {
     // Tapping empty felt clears the selection.
     if (selected && !(e.target as Element).closest("button, .m-quick, .m-sheet")) { selected = null; app.render(); }
@@ -134,7 +141,9 @@ function quickCard(app: App, id: string, model: TableModel) {
   const count = model.pileCounts.get(id);
   const dispatch = app.store.dispatch;
   const done = () => { selected = null; };
-  return h("div.m-quick", { role: "dialog", "aria-label": c.name },
+  const entering = shownQuick !== id;
+  shownQuick = id;
+  return h("div.m-quick", { role: "dialog", "aria-label": c.name, class: entering ? "enter" : "" },
     img && h("img.m-quick-face", { src: img.src, alt: "" }),
     h("div", null,
       h("h3", null, c.name),
@@ -194,7 +203,21 @@ function setupSheet(app: App, model: TableModel, empty: boolean) {
       h("input", { type: "checkbox" }),
       h("span", null, h("b", null, c.title), h("span.detail", null, ...app.markup(c.detail)))))));
 
-  return h("section", { class: ["m-sheet", sheetOpen ? "open" : ""], "aria-label": "Setup" }, handle, body);
+  const entering = sheetOpen && !shownSheetOpen;
+  shownSheetOpen = sheetOpen;
+  return h("section", { class: ["m-sheet", sheetOpen ? "open" : "", entering ? "enter" : ""], "aria-label": "Setup" }, handle, body);
+}
+
+/** Names wrap between words; a word too long for the tile ("Philosopher's") shrinks the name until it fits. */
+function fitNames() {
+  for (const el of document.querySelectorAll<HTMLElement>(".m-name")) {
+    el.style.fontSize = "";
+    let size = parseFloat(getComputedStyle(el).fontSize);
+    while (el.scrollWidth > el.clientWidth && size > 6.5) {
+      size -= 0.5;
+      el.style.fontSize = `${size}px`;
+    }
+  }
 }
 
 /** Tap selects; holding for half a second opens the full card instead. */

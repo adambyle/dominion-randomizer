@@ -41,6 +41,7 @@ export class App {
       else this.render();
     });
     PHONE.addEventListener("change", () => this.render());
+    window.addEventListener("resize", () => this.measureTopBar());
     window.addEventListener("hashchange", () => {
       this.menuOpen = false;
       this.sheet = [];
@@ -133,11 +134,18 @@ export class App {
       this.sheet.length > 0 && withEnter(sheetView(this, this.sheet), this.entering.has("sheet")),
       this.picker && withEnter(this.picker, this.entering.has("picker")));
     this.entering.clear();
+    this.measureTopBar();
 
     if (focusId) {
       const el = document.getElementById(focusId) as HTMLInputElement | null;
       if (el) { el.focus(); if (caret !== null) try { el.setSelectionRange(caret, caret); } catch { /* not a text field */ } }
     }
+  }
+
+  /** Sticky page headers sit right under the top bar, whose height varies with the layout. */
+  private measureTopBar() {
+    const bar = this.root.querySelector<HTMLElement>(".topbar");
+    if (bar) document.documentElement.style.setProperty("--topbar-h", `${bar.offsetHeight}px`);
   }
 
   private view(route: Route): Child {

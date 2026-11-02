@@ -89,7 +89,7 @@ export function tuneView(app: App): Child {
             return h("div.trait", { class: active ? "active" : "" },
               h("span.trait-name", null, t.label),
               segmented({ value: rule.weight ?? 1, options: WEIGHTS, label: `${t.label} weight`, small: true, onChange: (v) => set({ weight: v === 1 ? undefined : v }) }),
-              h("div.limits", null,
+              h("div.limits", { class: rule.min !== undefined || rule.max !== undefined ? "set" : "" },
                 h("span.muted", null, "at least"),
                 stepper({ value: rule.min ?? 0, min: 0, max: 10, label: `minimum ${t.label}`, format: (n) => (n === 0 ? "–" : String(n)), onChange: (n) => set({ min: n || undefined }) }),
                 h("span.muted", null, "at most"),
