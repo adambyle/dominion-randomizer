@@ -74,7 +74,9 @@ export function tableMobileView(app: App): Child {
 
   const rec = game.recommendedId ? recommended.find((k) => k.id === game.recommendedId) : null;
   const felt = h("section.m-felt", null,
-    h("p.label", null, rec ? `Kingdom · ${rec.name}` : "Kingdom"),
+    h("div.m-felt-head", null,
+      h("p.label", null, rec ? `Kingdom · ${rec.name}` : "Kingdom"),
+      sets(game.sets ?? [...new Set([...game.kingdom, ...game.landscapes].map((id) => db.get(id).set))])),
     h("div.m-kingdom", null, tiles, slots),
     empty && h("p.m-empty", null, "Deal a random kingdom, or pick a recommended one from the menu."),
     landscapes.length > 0 && h("div.m-landscapes", null, landscapes),
@@ -109,7 +111,6 @@ export function tableMobileView(app: App): Child {
   } },
     game.warnings.length > 0 && h("div.notice", null, game.warnings.join(" ")),
     setup && setup.warnings.length > 0 && h("div.notice", null, setup.warnings.join(" ")),
-    sets(game.sets ?? [...new Set([...game.kingdom, ...game.landscapes].map((id) => db.get(id).set))]),
     felt, quick, sheet, bar);
 }
 

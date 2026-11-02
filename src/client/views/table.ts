@@ -125,7 +125,7 @@ export function tableView(app: App): Child {
   const table = h("section.table", { class: [tray ? "has-tray" : "", empty ? "is-empty" : ""] }, supply, kingdom, tray);
 
   // ---- Before you start
-  const checklist = model && h("section.checklist#checklist", { "aria-label": "Setup checklist" },
+  const checklist = model && h("section#checklist.checklist", { "aria-label": "Setup checklist" },
     h("p.label", null, "Setup checklist"),
     h("div.checks", null, model.checklist.map((c) => h("label.check", { "data-roots": c.roots.join(" ") },
       h("input", { type: "checkbox" }),

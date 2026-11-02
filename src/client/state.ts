@@ -120,9 +120,22 @@ function reduce(state: State, action: Action, env: Env): State {
   switch (action.type) {
     case "settings":
       return { ...state, settings: { ...settings, ...action.patch } };
-    case "options":
-      return { ...state, settings: { ...settings, options: { ...opts, ...action.patch },
+    case "options": {
+      const options = { ...opts, ...action.patch };
+      let next = game;
+      if (action.patch.setsPerGame !== undefined) {
+        // The expansion count and the selected expansions are one thing: resizing keeps what's selected where it can.
+        const sets = options.setsPerGame ? rollSets(db, options, createRng(newSeed()), game.sets ?? []) : null;
+        next = { ...game, sets };
+      } else if (action.patch.enabledBoxes && game.sets) {
+        const available = poolSets(db, buildPool(db, options.enabledBoxes));
+        const kept = game.sets.filter((x) => available.includes(x));
+        next = { ...game, sets: kept.length ? kept : null };
+        options.setsPerGame = kept.length;
+      }
+      return { ...state, game: next, settings: { ...settings, options,
         boxesUpdated: action.patch.enabledBoxes ? Date.now() : settings.boxesUpdated } };
+    }
     case "accountBoxes": {
       const known = new Set(data.boxes.map((b) => b.id));
       return { ...state, settings: { ...settings, options: { ...opts, enabledBoxes: action.enabledBoxes.filter((b) => known.has(b)) },
@@ -140,13 +153,14 @@ function reduce(state: State, action: Action, env: Env): State {
       } };
     }
     case "rollSets":
+      if (!opts.setsPerGame) return state;
       return { ...state, game: { ...game, sets: rollSets(db, opts, createRng(newSeed())) } };
     case "toggleSet": {
-      const all = poolSets(db, buildPool(db, opts.enabledBoxes));
-      const current = game.sets ?? all;
+      // Selecting expansions sets the count; none selected means all of them.
+      const current = game.sets ?? [];
       const next = current.includes(action.id) ? current.filter((x) => x !== action.id) : [...current, action.id];
-      if (!next.length) return state;
-      return { ...state, game: { ...game, sets: next } };
+      return { ...state, game: { ...game, sets: next.length ? next : null },
+        settings: { ...settings, options: { ...opts, setsPerGame: next.length } } };
     }
     case "deal": {
       const seed = newSeed();

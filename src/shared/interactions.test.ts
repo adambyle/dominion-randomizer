@@ -28,12 +28,15 @@ describe("interaction detectors", () => {
     ["border-guard", "patron", "patron-reveal"],
     ["throne-room", "ninja", "shadow-play"],
     ["capitalism", "market", "capitalism"],
+    ["farmhands", "samurai", "start-of-turn"],
+    ["delay", "hireling", "start-of-turn"],
   ])("%s + %s: %s", (a, b, kind) => {
     expect(kinds(a, b)).toContain(kind);
     expect(kinds(b, a)).toContain(kind); // order doesn't matter
   });
 
   it("stays quiet for unrelated cards", () => {
+    expect(kinds("summon", "samurai")).not.toContain("start-of-turn"); // Summon only takes cards costing up to 4
     expect(kinds("village", "smithy")).toEqual([]);
     expect(kinds("procession", "caravan")).not.toContain("replay-duration"); // Procession can't play Durations
     expect(kinds("tiara", "caravan")).not.toContain("replay-duration"); // Tiara plays Treasures

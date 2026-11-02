@@ -55,6 +55,16 @@ const REPLAYERS: Record<string, { types: ("Action" | "Treasure")[]; durations: b
   "counterfeit": { types: ["Treasure"], durations: false },
 };
 
+/** Cards that set an Action (or Treasure) aside to play at the start of a later turn. maxCost limits what they can take. */
+const START_OF_TURN_PLAYERS: Record<string, { types: ("Action" | "Treasure")[]; maxCost?: number }> = {
+  "delay": { types: ["Action"] }, "contract": { types: ["Action"] }, "ghost": { types: ["Action"] },
+  "farmhands": { types: ["Action", "Treasure"] }, "prepare": { types: ["Action", "Treasure"] },
+  "rapid-expansion": { types: ["Action", "Treasure"] }, "summon": { types: ["Action"], maxCost: 4 },
+};
+
+/** Durations whose effect happens at the start of each of your turns (for the rest of the game). */
+const EVERY_TURN_DURATIONS = new Set(["samurai", "hireling", "quartermaster"]);
+
 /**
  * Cards that play another card while leaving it where it is (Supply, trash, set aside). Way of the
  * Mouse and Riverboat also do, but only ever with their one set-aside card, chosen in setup.
@@ -110,6 +120,12 @@ const DETECTORS: Record<string, Detector> = {
     const stays = is(a, "Event") ? "" : `, and ${ref(a)} stays in play as long as ${ref(b)} does`;
     return { label: "Replaying a Duration", weight: 6,
       text: `When ${ref(a)} plays ${ref(b)} more than once, ${ref(b)}'s next-turn effects happen once for each play${stays}. See {rule:durations}.` };
+  },
+  "start-of-turn": (a, b) => {
+    const p = START_OF_TURN_PLAYERS[a.id];
+    if (!p || !EVERY_TURN_DURATIONS.has(b.id) || !p.types.some((t) => is(b, t)) || (p.maxCost !== undefined && (b.cost?.coin ?? 0) > p.maxCost)) return null;
+    return { label: "Played at the start of the turn", weight: 5,
+      text: `${ref(a)} plays ${ref(b)} at the start of a turn, and that is still when ${ref(b)} triggers, so its start-of-turn effect happens that same turn, not only from the next one. See {rule:durations}.` };
   },
   "replay-mover": (a, b) => {
     const r = REPLAYERS[a.id];
