@@ -1,0 +1,3 @@
+- A Treasure worth {coin:2}. This turn, when you gain a Victory card you bought, gain a {card:Gold}. [official]
+- Victory cards gained other ways don't count. [official]
+- It stacks: two Hoards and two bought Victory cards give four Golds. [official]

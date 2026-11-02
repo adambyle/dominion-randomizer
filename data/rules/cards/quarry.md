@@ -1,0 +1,2 @@
+- A Treasure worth {coin:1}. This turn, Action cards cost {cost:2} less, never below {cost:0}. [official]
+- It stacks with itself and other cost reductions. [official]

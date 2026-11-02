@@ -1,0 +1,3 @@
+- Draw 2 cards, then discard any number of cards for {coin:+1} each. [official]
+- Each other player may discard 2 cards to draw a card. [official]
+- A player with one card can discard it but draws nothing. [official]

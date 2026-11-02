@@ -1,0 +1,3 @@
+- Draw a card and get +2 Actions. If any Supply pile is empty, draw another card. If two or more are, also get +1 Buy and {coin:+1}. [official]
+- Nothing more for three or more empty piles. [official]
+- It checks when played; later changes don't matter. Only Supply piles count. [official]

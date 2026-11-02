@@ -1,0 +1,3 @@
+- Get {coin:+2}. Each other player with 5 or more cards in hand puts one of them onto their deck.
+- At the start of your turn, you may play Clerk from your hand. This doesn't use up your Action. [official]
+- You can play any number of Clerks that way, one at a time, before or after other start-of-turn effects. [official]

@@ -1,0 +1,4 @@
+- A basic Victory card worth {vp:10} that costs {cost:11}. [official]
+- It's used only in games with {card:Platinum}, and isn't a Kingdom card. See {rule:setup}. [official]
+- 8 Colonies with 2 players, 12 with 3 or more. [official]
+- The game also ends when the Colony pile is empty. See {rule:game-end}. [official]

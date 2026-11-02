@@ -1,0 +1,4 @@
+- Draw a card and get +1 Action and {coin:+1}.
+- During a player's Buy phase, Peddler costs {cost:2} less per Action card they have in play, never below {cost:0}. [official]
+- It counts cards in play, not plays: a card played three times counts once. [official]
+- Outside the Buy phase it costs {cost:8}. [official]

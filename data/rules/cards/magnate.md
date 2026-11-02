@@ -1,0 +1,1 @@
+- Reveal your hand and draw a card per Treasure in it. [official]

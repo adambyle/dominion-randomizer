@@ -1,0 +1,2 @@
+- Draw 3 cards. Each other player reveals the top 3 cards of their deck, discards the Actions and Treasures, and puts the rest back in any order. [official]
+- Players shuffle if needed, and reveal what they can. [official]

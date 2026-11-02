@@ -1,0 +1,5 @@
+- Get +1 Buy and {coin:+2}. Each other player discards down to 3 cards in hand.
+- While Goons is in play, take {vp:1} token whenever you buy a card. Gaining without buying doesn't count. [official]
+- Each copy in play counts, but playing one copy several times doesn't. [official]
+- Buying Events doesn't count.
+- Removed in the second edition. It's still in first-edition boxes.

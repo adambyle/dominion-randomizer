@@ -1,0 +1,4 @@
+- You may reveal a Treasure from your hand and gain a copy of it. The revealed card stays in your hand. [official]
+- When you gain Mint, trash all your non-Duration Treasures in play. You keep the coins they made. [official]
+- Treasures in your hand aren't affected. [official]
+- It can only copy Treasures in the Supply.

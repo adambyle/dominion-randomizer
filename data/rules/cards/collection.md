@@ -1,0 +1,4 @@
+- A Treasure worth {coin:2} with +1 Buy. For the rest of this turn, take {vp:1} token whenever you gain an Action card. [official]
+- Bought or otherwise gained, it doesn't matter. Several Collections stack. [official]
+- Only Actions gained after you play it count.
+- Played twice (for example with {card:Tiara}), it gives 2 VP per Action.

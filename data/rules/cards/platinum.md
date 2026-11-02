@@ -1,0 +1,3 @@
+- A basic Treasure worth {coin:5} that costs {cost:9}. [official]
+- It's used only in games with {card:Colony}, and isn't a Kingdom card. See {rule:setup}. [official]
+- All 12 Platinums go in the Supply.

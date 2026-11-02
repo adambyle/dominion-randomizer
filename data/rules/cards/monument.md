@@ -1,0 +1,1 @@
+- Get {coin:+2} and take {vp:1} token. [official]

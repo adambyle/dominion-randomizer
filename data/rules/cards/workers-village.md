@@ -1,0 +1,1 @@
+- Draw a card and get +2 Actions and +1 Buy. [official]

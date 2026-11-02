@@ -1,0 +1,5 @@
+- Get {coin:+1} and take {vp:1} token. Then trash a card from your hand and take {vp:1} per {cost:2} it costs, rounded down. [official]
+- Then each other player may trash a card from their hand. They get no VP. [official]
+- You must trash a card if you can; for the others it's optional. [official]
+- {potion} and {debt:} in costs are ignored. [official]
+- With an empty hand you still get {coin:+1} and {vp:1}. [official]

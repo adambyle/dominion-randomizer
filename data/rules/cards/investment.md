@@ -1,0 +1,3 @@
+- Trash a card from your hand (if you have one). Then choose: {coin:+1}; or trash Investment to reveal your hand and take {vp:1} per differently named Treasure in it. [official]
+- You can still play the revealed Treasures afterwards. [official]
+- It can only trash itself once even if played twice.
