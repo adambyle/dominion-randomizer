@@ -1,0 +1,2 @@
+- A Treasure worth {coin:3}. When you gain it, gain 2 {card:Copper|Coppers}, or as many as are left. [official]
+- Removed in the second edition. It's still in first-edition boxes.

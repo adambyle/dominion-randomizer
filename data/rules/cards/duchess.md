@@ -1,0 +1,3 @@
+- Get {coin:+2}. Each player, you included, looks at the top card of their deck and may discard it. [official]
+- In games using Duchess, whenever a player gains a {card:Duchy}, they may also gain a Duchess. [official]
+- Removed in the second edition. It's still in first-edition boxes.

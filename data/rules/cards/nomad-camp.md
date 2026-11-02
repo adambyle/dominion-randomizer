@@ -1,0 +1,2 @@
+- Get +1 Buy and {coin:+2}. When you gain it, it goes onto your deck instead of your discard pile. [official]
+- Removed in the second edition. It's still in first-edition boxes.

@@ -1,0 +1,3 @@
+- Gain 2 {card:Silver|Silvers}, or a card costing up to {cost:4}. [official]
+- When you discard it other than in Clean-up, you may play it. [official]
+- Played on someone else's turn, it's discarded in that turn's Clean-up. [official]

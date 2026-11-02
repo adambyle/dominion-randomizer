@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action. Look at the top 4 cards of your deck, discard any number of them, and put the rest back in any order. [official]
+- With fewer than 4 cards even after shuffling, look at what you can. [official]
+- The cards aren't revealed; only the top discarded card is visible.

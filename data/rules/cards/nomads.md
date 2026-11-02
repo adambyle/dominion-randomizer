@@ -1,0 +1,2 @@
+- Get +1 Buy and {coin:+2}. When you gain or trash it, get {coin:+2}.
+- Gaining or trashing it on someone else's turn still gives coins, but you usually can't use them. [official]

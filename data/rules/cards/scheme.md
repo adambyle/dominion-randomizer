@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action. Once this turn, when you discard an Action card from play, you may put it onto your deck. [official]
+- It can be Scheme itself or any other Action you have in play. [official]
+- It stacks: two Schemes let you put back two. [official]

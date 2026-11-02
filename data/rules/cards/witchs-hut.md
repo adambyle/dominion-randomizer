@@ -1,0 +1,2 @@
+- Draw 4 cards, then discard 2 cards, revealing them. [official]
+- If both are Action cards, each other player gains a {card:Curse}. [official]

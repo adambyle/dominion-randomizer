@@ -1,0 +1,3 @@
+- Draw 2 cards. Then, if you have 5 or fewer cards in hand, draw 2 more. [official]
+- When another player plays an Attack, you may play Guard Dog from your hand first. The Attack still happens unless something else stops it. [official]
+- Played on someone else's turn, it's discarded in that turn's Clean-up. [official]

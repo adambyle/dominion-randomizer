@@ -1,0 +1,3 @@
+- The first Fool's Gold you play in a turn makes {coin:1}; each one after that makes {coin:4}. [official]
+- When another player gains a {card:Province}, you may trash Fool's Gold from your hand to gain a {card:Gold} onto your deck. [official]
+- This works even if the Province is gained on your turn.

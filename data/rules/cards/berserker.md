@@ -1,0 +1,4 @@
+- Gain a card costing less than Berserker. Each other player discards down to 3 cards in hand.
+- When you gain Berserker, if you have an Action card in play, you must play it. Other players can still respond with Reactions like {card:Moat}. [official]
+- With no Action in play, gaining it does nothing special. [official]
+- If Berserker costs {cost:0} (for example after several {card:Highway|Highways}), there's nothing cheaper to gain.

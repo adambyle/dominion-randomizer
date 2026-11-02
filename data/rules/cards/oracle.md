@@ -1,0 +1,3 @@
+- Each player, you included, reveals the top 2 cards of their deck. You choose for each player whether both are discarded or both put back; they choose the order. [official]
+- Then draw 2 cards, which may be the ones you put back. [official]
+- Removed in the second edition. It's still in first-edition boxes.

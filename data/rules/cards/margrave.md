@@ -1,0 +1,2 @@
+- Draw 3 cards and get +1 Buy. Each other player draws a card, then discards down to 3 cards in hand. [official]
+- Drawing isn't optional. A Reaction they draw is too late for this Attack.

@@ -1,0 +1,4 @@
+- A Treasure worth {coin:2} with +1 Buy. The third time you gain an Action card this turn, each other player gains a {card:Curse}. [official]
+- Only the third Action gain counts; if that happened before you played Cauldron, it does nothing. [official]
+- It's an Attack, so players can respond with Reactions like {card:Moat} when you play it. [official]
+- Several Cauldrons each give out Curses. [official]
