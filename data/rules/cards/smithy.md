@@ -1,0 +1,2 @@
+- Draw 3 cards. [official]
+- Smithy uses your Action and gives none back, so play your other Actions first if you have spares.

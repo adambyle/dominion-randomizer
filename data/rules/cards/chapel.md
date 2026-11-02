@@ -1,0 +1,3 @@
+- Trash up to 4 cards from your hand. Zero is allowed.
+- Chapel itself is in play, not in your hand, so it can't trash itself. [official]
+- Trash all the chosen cards together, then resolve any "when you trash" abilities they have, in the order you choose.

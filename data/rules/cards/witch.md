@@ -1,0 +1,3 @@
+- Draw 2 cards. Each other player gains a {card:Curse} from the Supply, to their discard pile. [official]
+- Curses are handed out in turn order, which matters when the pile is low. [official]
+- Once the Curses are gone, Witch still draws 2 cards. [official]

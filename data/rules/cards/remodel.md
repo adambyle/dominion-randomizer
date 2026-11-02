@@ -1,0 +1,3 @@
+- Trash a card from your hand and gain a card costing up to {cost:2} more than it, to your discard pile. [official]
+- You must trash a card if you have one. With an empty hand you gain nothing. [official]
+- The gained card can cost less than the limit, or be another copy of the trashed card. Coins don't raise the limit. [official]

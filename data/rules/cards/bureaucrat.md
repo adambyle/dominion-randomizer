@@ -1,0 +1,4 @@
+- Gain a {card:Silver} onto your deck (not into your discard pile).
+- Each other player puts a Victory card from their hand onto their deck, showing it to everyone. A player with no Victory card in hand shows their hand instead.
+- A player with an empty deck puts the Victory card down as the only card of their new deck. [official]
+- Cards that are Victory cards and another type at once (such as {card:Nobles} or {card:Mill}) count as Victory cards here.

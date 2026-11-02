@@ -1,0 +1,4 @@
+- Get {coin:+2}. Discard the top card of your deck. If it's an Action card, you may play it. [official]
+- Playing it doesn't use up an Action. [official]
+- Shuffle first if your deck is empty.
+- If the discarded card has its own "when discarded" ability, you can use that or play it with Vassal, but not both.

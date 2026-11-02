@@ -1,0 +1,3 @@
+- Get {coin:+2}. Each other player discards cards until they have 3 in hand. [official]
+- Players with 3 or fewer cards don't discard. [official]
+- Only the top card a player discards needs to be shown; the others can stay hidden.

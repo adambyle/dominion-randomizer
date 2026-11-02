@@ -1,0 +1,4 @@
+- Get +1 Action, then discard any number of cards from your hand, all at once, and draw one card for each card you discarded. [official]
+- If drawing makes you shuffle, the cards you just discarded are shuffled in too. [official]
+- Cellar itself is in play, not in your hand, so it can't be discarded to itself.
+- Other players only need to see the number of cards you discard and the top one, not every card. [official]

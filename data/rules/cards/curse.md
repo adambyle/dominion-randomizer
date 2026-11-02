@@ -1,0 +1,5 @@
+- A Curse is worth {vp:-1} at the end of the game. It isn't a Victory card.
+- The Curse pile is in every game: 10 Curses for each player after the first. See {rule:setup}.
+- It's a Supply pile, so running out of Curses counts toward the three-pile ending. See {rule:game-end}.
+- Curses are handed out in turn order, starting to the left of whoever caused them, which matters when the pile is low.
+- In games with {card:Charlatan}, Curses are also Treasures worth {coin:1} for the whole game.

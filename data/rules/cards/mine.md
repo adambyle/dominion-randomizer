@@ -1,0 +1,4 @@
+- You may trash a Treasure from your hand. If you do, gain a Treasure costing up to {cost:3} more than it, straight to your hand. [official]
+- The gained Treasure can be played this turn. [official]
+- It doesn't need to cost exactly {cost:3} more; it can cost less, or be another copy of the same Treasure.
+- No Treasure trashed means no Treasure gained. [official]

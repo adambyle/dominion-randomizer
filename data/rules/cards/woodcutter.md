@@ -1,0 +1,2 @@
+- Get +1 Buy and {coin:+2}. [official]
+- Removed in the second edition. It's still in first-edition boxes.

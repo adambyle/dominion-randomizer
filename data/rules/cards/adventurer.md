@@ -1,0 +1,4 @@
+- Reveal cards from the top of your deck one at a time until you have revealed 2 Treasures. Those 2 go into your hand; the other revealed cards are discarded afterwards. [official]
+- If your deck runs out partway through, shuffle your discard pile to continue. The cards revealed so far aren't in your discard pile yet, so they aren't shuffled in. [official]
+- If you run out of cards entirely, you keep whatever Treasures you found, even if that's only one or none. [official]
+- Removed in the second edition. It's still in first-edition boxes.

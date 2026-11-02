@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action. Then look through your discard pile and you may put one card from it onto your deck. [official]
+- Putting a card back is optional. [official]
+- If your discard pile is empty, nothing more happens.

@@ -1,0 +1,2 @@
+- Draw 4 cards and get +1 Buy. Then each other player draws a card. [official]
+- The other players have to draw; it isn't optional. [official]

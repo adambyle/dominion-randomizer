@@ -1,0 +1,4 @@
+- First you gain a {card:Gold} to your discard pile. [official]
+- Then each other player, in turn order, reveals their top 2 cards. If either is a Treasure other than {card:Copper}, they trash one of those (they choose which), and discard the rest. [official]
+- Copper can't be trashed by Bandit. A player who reveals only Coppers and non-Treasures just discards them. [official]
+- You gain the Gold even if no one loses anything, and even if a player blocks the Attack with a Reaction.

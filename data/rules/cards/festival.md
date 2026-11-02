@@ -1,0 +1,2 @@
+- Get +2 Actions, +1 Buy and {coin:+2}. [official]
+- No cards are drawn. Festival is useful for its Actions and coins, and for playing more Action cards you already hold.

@@ -1,0 +1,5 @@
+- Draw cards one at a time until you have 7 in hand. Each time you draw an Action card, you may set it aside instead of keeping it. [official]
+- When you have 7 cards in hand (or run out of cards), discard the cards you set aside. [official]
+- Setting Action cards aside is optional. Only Action cards can be set aside. [official]
+- If you already have 7 or more cards in hand, you draw nothing. [official]
+- Set-aside cards aren't in your discard pile, so they aren't shuffled in if you need to shuffle partway. [official]

@@ -1,0 +1,6 @@
+- Played as an Action, Moat draws 2 cards.
+- When another player plays an Attack card, you may reveal Moat from your hand before the Attack does anything, and the Attack doesn't affect you. [official]
+- Moat stays in your hand, so it can protect you from several Attacks and still be played on your own turn. [official]
+- It only protects you. The attacker and other players are affected as normal. [official]
+- Revealing Moat doesn't draw cards; only playing it does.
+- It only answers a played Attack card, not an Attack's on-gain effect or a non-Attack card. See {rule:attacks-and-reactions}.

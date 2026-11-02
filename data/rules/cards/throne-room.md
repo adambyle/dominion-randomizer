@@ -1,0 +1,6 @@
+- You may play an Action card from your hand twice. Resolve it fully, then play it again. [official]
+- Neither play uses up an Action. Nothing else is played in between unless the card itself says so. [official]
+- Throne Room on a Throne Room: play one Action twice, then another Action twice. It doesn't play one card four times. [official]
+- If the card leaves play during the first play, it's still played the second time, though it can't move itself again. See {rule:stop-moving-rule}.
+- On a Duration, Throne Room stays in play as long as the Duration does. See {rule:durations}. [official]
+- Playing an Action card is optional.
