@@ -92,10 +92,12 @@ describe("setup engine", () => {
     expect(b.choices).toEqual(a.choices);
   });
 
-  it("keeps a given choice that breaks the rule, with a warning", () => {
+  it("re-picks a carried-over choice that no longer fits", () => {
     const r = setup({ kingdom: ["ferryman", ...filler], choices: { ferryman: "farrier" } });
-    expect(r.choices.ferryman).toBe("farrier");
-    expect(r.warnings).toHaveLength(1);
+    expect(r.choices.ferryman).not.toBe("farrier");
+    expect([3, 4]).toContain(db.get(r.choices.ferryman!).cost!.coin);
+    const bane = setup({ kingdom: ["young-witch", "page", ...filler.slice(1)], choices: { bane: "page" } });
+    expect(bane.choices.bane).not.toBe("page");
   });
 
   it("accepts official choices as printed", () => {

@@ -239,15 +239,12 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
     }).map((c) => c.id);
 
   /**
-   * Uses the given choice if there is one, otherwise picks randomly from candidates. A given choice
-   * that breaks the card's rule is kept (rulebooks and users sometimes do this) but flagged.
+   * Uses the given choice if it's still eligible (or the choices are official), otherwise picks
+   * randomly. Choices carry over between edits, so one that stopped fitting — say, the Bane was
+   * added to the Kingdom — is quietly re-picked.
    */
   const choose = (key: string, givenId: string | undefined, candidates: string[]): string | undefined => {
-    if (givenId && candidates.includes(givenId)) return givenId;
-    if (givenId && db.byId.has(givenId)) {
-      if (!input.acceptChoices) warnings.push(`${name(givenId)} doesn't meet the usual requirement for ${key}; kept as chosen.`);
-      return givenId;
-    }
+    if (givenId && (candidates.includes(givenId) || (input.acceptChoices && db.byId.has(givenId)))) return givenId;
     const chosen = pick(rng, candidates);
     if (!chosen) warnings.push(`No eligible card for ${key}.`);
     return chosen;
@@ -300,20 +297,20 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
       if (comp.id === id || !comp.pattern.test(texts)) continue;
       const target = db.byId.get(comp.id);
       if (!target) continue;
-      const reason = { by, text: `${c.name} refers to ${target.name}` };
+      const reason = { by, text: `refers to ${target.name}` };
       if (target.kind === "status") addStatus(comp.id, reason);
       else addNonSupply(comp.id, reason);
     }
     for (const t of TOKEN_RULES) {
-      if (t.pattern.test(texts) || t.types?.some((ty) => types.has(ty))) addToken(t.id, t.label, { by, text: `${c.name} uses them` });
+      if (t.pattern.test(texts) || t.types?.some((ty) => types.has(ty))) addToken(t.id, t.label, { by, text: `uses these` });
     }
-    if (c.cost?.debt) addToken("debt", "Debt tokens", { by, text: `${c.name} costs Debt` });
+    if (c.cost?.debt) addToken("debt", "Debt tokens", { by, text: `costs Debt` });
     if (c.types.includes("Project")) addToken("cubes", "Player cubes (Projects)", { by, text: "Projects are bought with cubes" });
 
     // Potion.
     if (c.cost?.potion || c.pile?.members.some((m) => card(m).cost?.potion)) {
       if (once("potion")) result.basic.push({ id: "potion", count: 16, reasons: [] });
-      result.basic.find((p) => p.id === "potion")!.reasons.push({ by, text: `${c.name} costs a Potion` });
+      result.basic.find((p) => p.id === "potion")!.reasons.push({ by, text: `costs a Potion` });
     }
 
     // Groups.
@@ -324,7 +321,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
           members: db.data.cards.filter((x) => x.types.includes("Ruins")).map((x) => ({ id: x.id, count: 10 })),
         });
       }
-      result.basic.find((p) => p.id === "ruins")!.reasons.push({ by, text: `${c.name} is a Looter` });
+      result.basic.find((p) => p.id === "ruins")!.reasons.push({ by, text: `is a Looter` });
     }
     if (/\bLoot\b/.test(texts) && !types.has("Loot")) {
       if (once("loot")) {
@@ -333,22 +330,22 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
           shuffled: true, members: loot.map((x) => ({ id: x.id, count: x.quantity ?? 1 })) });
         for (const x of loot) use(x.id, { by, text: "Loot pile" });
       }
-      result.nonSupply.find((p) => p.id === "loot")!.reasons.push({ by, text: `${c.name} gains Loot` });
+      result.nonSupply.find((p) => p.id === "loot")!.reasons.push({ by, text: `gains Loot` });
     }
     if (/\bSpirit piles?\b/.test(texts)) {
-      for (const s of ["will-o-wisp", "imp", "ghost"]) addNonSupply(s, { by, text: `${c.name} gains from the Spirit piles` });
+      for (const s of ["will-o-wisp", "imp", "ghost"]) addNonSupply(s, { by, text: `gains from the Spirit piles` });
     }
     for (const [type, cardName] of [["Prize", "Tournament"], ["Reward", "Joust"]] as const) {
       if (c.name !== cardName) continue;
       for (const x of db.data.cards.filter((x) => x.types.includes(type))) {
-        addNonSupply(x.id, { by, text: `${c.name} uses ${type}s` });
+        addNonSupply(x.id, { by, text: `uses ${type}s` });
       }
     }
     if (HEIRLOOMS[id]) {
       const h = HEIRLOOMS[id]!;
       result.startingDeck.cards.push({ id: h, count: 1 });
       result.startingDeck.reasons.push({ by, text: `Each player replaces a Copper with ${name(h)}` });
-      use(h, { by, text: `${c.name}'s Heirloom` });
+      use(h, { by, text: `Heirloom` });
     }
     if (id === "necromancer") {
       for (const z of db.data.cards.filter((x) => x.types.includes("Zombie"))) {
@@ -365,7 +362,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
       const ally = choose("the Ally", given.ally, allies);
       if (ally) {
         choices.ally = ally;
-        result.landscapes.push({ id: ally, reasons: [{ by, text: `${c.name} is a Liaison` }] });
+        result.landscapes.push({ id: ally, reasons: [{ by, text: `is a Liaison` }] });
         use(ally, { by, text: "Ally for Liaisons" });
       }
       result.playerStart.favors += 1;
@@ -380,7 +377,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
       const prophecy = choose("the Prophecy", given.prophecy, prophecies);
       if (prophecy) {
         choices.prophecy = prophecy;
-        result.landscapes.push({ id: prophecy, reasons: [{ by, text: `${c.name} is an Omen` }] });
+        result.landscapes.push({ id: prophecy, reasons: [{ by, text: `is an Omen` }] });
         use(prophecy, { by, text: "Prophecy for Omens" });
       }
       addToken("sun", `Sun tokens (${SUN_TOKENS[players]} on the Prophecy)`, { by, text: "Omens remove Sun tokens" });
@@ -388,10 +385,10 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
     if (types.has("Fate") && !fateCards.includes(id)) fateCards.push(id);
     if (types.has("Doom") && once("hexes")) {
       const hexes = db.data.cards.filter((x) => x.types.includes("Hex")).map((x) => x.id);
-      result.decks.push({ id: "hexes", cards: hexes, reasons: [{ by, text: `${c.name} is a Doom card` }] });
+      result.decks.push({ id: "hexes", cards: hexes, reasons: [{ by, text: `is a Doom card` }] });
       for (const h of hexes) use(h, { by: id, text: "In the Hexes deck" });
     } else if (types.has("Doom")) {
-      result.decks.find((d) => d.id === "hexes")!.reasons.push({ by, text: `${c.name} is a Doom card` });
+      result.decks.find((d) => d.id === "hexes")!.reasons.push({ by, text: `is a Doom card` });
     }
 
     // Cards whose setup picks something.
@@ -442,7 +439,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
     }
 
     // Setup tokens on landmarks etc. are covered by notes; make sure the tokens are listed.
-    if (note && /\{vp:/.test(note)) addToken("vp", "Victory tokens", { by, text: `${c.name}'s setup` });
+    if (note && /\{vp:/.test(note)) addToken("vp", "Victory tokens", { by, text: `setup places them` });
     if (id === "tax") addToken("debt", "Debt tokens", { by, text: "Tax puts Debt on each Supply pile" });
     if (id === "trade-route") addToken("coin-tokens", "Coin tokens (as markers)", { by, text: "Trade Route's setup" });
 
@@ -455,13 +452,13 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
         const keep = (given.druidBoons ?? []).filter((b) => boons.includes(b)).slice(0, 3);
         const set = [...keep, ...shuffle(rng, boons.filter((b) => !keep.includes(b)))].slice(0, 3);
         choices.druidBoons = set;
-        result.setAside.push({ id: "druid", cards: set, reasons: [{ by: "druid", text: "Druid sets aside 3 Boons face up" }] });
+        result.setAside.push({ id: "druid", cards: set, reasons: [{ by: "druid", text: "sets aside 3 Boons face up" }] });
         for (const b of set) use(b, { by: "druid", text: "Set aside for Druid" });
         deckBoons = boons.filter((b) => !set.includes(b));
       }
       const others = fateCards.filter((f) => f !== "druid");
       if (others.length) {
-        result.decks.push({ id: "boons", cards: deckBoons, reasons: others.map((f) => ({ by: f, text: `${name(f)} is a Fate card` })) });
+        result.decks.push({ id: "boons", cards: deckBoons, reasons: others.map((f) => ({ by: f, text: `is a Fate card` })) });
         for (const b of deckBoons) use(b, { by: others[0]!, text: "In the Boons deck" });
       }
     }
@@ -519,12 +516,12 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
     ? { used: first?.set === "prosperity", reason: { by: first?.id ?? null, text: first?.set === "prosperity"
         ? `The first Kingdom card (${first.name}) is from Prosperity`
         : "The first Kingdom card isn't from Prosperity" } }
-    : { used: input.platinumColony, reason: { by: null, text: input.platinumColony ? "Chosen" : "Not chosen" } };
+    : { used: input.platinumColony, reason: { by: null, text: input.platinumColony ? "Chosen for this game" : "Not used this game" } };
   result.shelters = input.shelters === "auto"
     ? { used: last?.set === "dark-ages", reason: { by: last?.id ?? null, text: last?.set === "dark-ages"
         ? `The last Kingdom card (${last.name}) is from Dark Ages`
         : "The last Kingdom card isn't from Dark Ages" } }
-    : { used: input.shelters, reason: { by: null, text: input.shelters ? "Chosen" : "Not chosen" } };
+    : { used: input.shelters, reason: { by: null, text: input.shelters ? "Chosen for this game" : "Not used this game" } };
 
   // Basic Supply.
   const big = players > 4;

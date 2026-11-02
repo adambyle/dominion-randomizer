@@ -72,6 +72,7 @@ Emissary: ls league-of-shopkeepers, tok favors
 Encampment/Plunder: tok vp
 Enclave: tok exile
 Engineer: tok debt
+Exorcist: ns will-o-wisp, ns imp, ns ghost
 Exploration: tok coffers, tok villagers, tok cubes
 Fair: tok cubes
 Familiar: basic potion
