@@ -1,0 +1,2 @@
+- A Castle. At the end of the game it's worth {vp:2} per Castle you have, counting itself. [official]
+- See {card:Castles} for how the pile works.

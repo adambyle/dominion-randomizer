@@ -1,0 +1,2 @@
+- Get {coin:+2}. Each other player reveals their top 2 cards, Exiles one costing from {cost:3} to {cost:6}, and discards the rest. [official]
+- If both qualify, they choose. [official]

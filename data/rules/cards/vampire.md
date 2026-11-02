@@ -1,0 +1,2 @@
+- A Night–Attack card. Each other player receives the next Hex. Gain a card costing up to {cost:5} other than a Vampire. Then exchange Vampire for a {card:Bat}. [official]
+- With no Bats left, you can't exchange, but do the rest. [official]

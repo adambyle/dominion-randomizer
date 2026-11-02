@@ -1,0 +1,2 @@
+- Trash a card from your hand, then gain a card costing up to {cost:5}. [official]
+- You gain a card even if you had nothing to trash. Neither part is optional. [official]

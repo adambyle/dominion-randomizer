@@ -1,0 +1,1 @@
+- A Trait. When you gain a card from its pile, get +1 Buy. [official]

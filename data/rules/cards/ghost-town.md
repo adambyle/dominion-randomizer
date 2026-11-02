@@ -1,0 +1,2 @@
+- A Night–Duration card. At the start of your next turn, draw a card and get +1 Action. [official]
+- It's gained to your hand instead of your discard pile. [official]

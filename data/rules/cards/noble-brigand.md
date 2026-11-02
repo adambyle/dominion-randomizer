@@ -1,0 +1,4 @@
+- Get {coin:+1}. When you play it, and also when you buy it, do its Attack. [official]
+- Attack: each other player reveals their top 2 cards, trashes a {card:Silver} or {card:Gold} you choose from them, and discards the rest. Anyone who revealed no Treasure gains a {card:Copper}. You gain the trashed cards. [official]
+- Buying isn't playing an Attack, so {card:Moat} can't respond then. [official]
+- Removed in the second edition. It's still in first-edition boxes.

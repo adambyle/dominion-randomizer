@@ -1,0 +1,2 @@
+- An Event. Draw 2 extra cards for your next hand in this turn's Clean-up. [official]
+- It stacks: two Expeditions mean drawing 9. [official]

@@ -1,0 +1,2 @@
+- A Landmark. When scoring, each player gets {vp:-2} for each {card:Silver} and each {card:Gold} they have. [official]
+- Scores can go below zero. [official]

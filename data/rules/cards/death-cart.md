@@ -1,0 +1,2 @@
+- You may trash Death Cart or an Action card from your hand. If you do, get {coin:+5}. [official]
+- When you gain it, gain the top 2 Ruins (as many as are left). [official]

@@ -1,0 +1,2 @@
+- Gain a card costing up to {cost:4} onto your deck. [official]
+- Cards that would normally be gained elsewhere still go onto your deck.

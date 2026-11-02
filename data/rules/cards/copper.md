@@ -1,0 +1,6 @@
+- Copper is a basic Treasure worth {coin:1}. Play it in your Buy phase. [official]
+- Each player starts with 7 Coppers. The rest of the Copper pile is in the Supply every game. [official]
+- It costs {cost:0}, so you can buy one with a spare Buy even when you have no coins left.
+- An effect that gains "a card costing up to" some amount can gain a Copper.
+- The Copper pile is an ordinary Supply pile. If it runs out, it counts toward the three-pile ending. See {rule:game-end}.
+- Copper is a basic card, not a Kingdom card. Effects that need a Kingdom card or Kingdom pile can't pick it.

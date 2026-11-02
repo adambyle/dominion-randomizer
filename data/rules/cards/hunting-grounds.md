@@ -1,0 +1,2 @@
+- Draw 4 cards. [official]
+- When you trash it, gain a {card:Duchy} or 3 {card:Estate|Estates}. [official]

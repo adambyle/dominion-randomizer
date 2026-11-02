@@ -1,0 +1,3 @@
+- Get +1 Villager and {coin:+2}.
+- When something makes you reveal Patron (using the word "reveal") during an Action phase, take +1 Coffers. [official]
+- Just being seen isn't enough; the card must say "reveal". [official]

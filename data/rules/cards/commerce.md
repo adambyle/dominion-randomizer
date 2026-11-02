@@ -1,0 +1,1 @@
+- An Event. Gain a {card:Gold} for each differently named card you've gained this turn. [official]

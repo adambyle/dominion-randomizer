@@ -1,0 +1,1 @@
+- An Event. Reveal cards from your deck until you reveal an Action. Set it aside and discard the rest; put it into your hand at the end of the turn, after drawing. [official]

@@ -1,0 +1,2 @@
+- Get {coin:+2}. If you have no other cards in play, gain an {card:Imp}. Otherwise each other player receives the next Hex. [official]
+- Durations from earlier turns count as cards in play. [official]

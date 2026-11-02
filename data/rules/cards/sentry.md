@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action. Then look at the top 2 cards of your deck. [official]
+- Trash any of them, discard any of them, and put the rest back in any order. Any mix is fine. [official]
+- Trashing happens before discarding.

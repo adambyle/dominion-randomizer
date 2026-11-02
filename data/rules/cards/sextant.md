@@ -1,0 +1,1 @@
+- A Loot. A Treasure worth {coin:3} with +1 Buy. Look at the top 5 cards of your deck, discard any number and put the rest back in any order. See {rule:loot}. [official]

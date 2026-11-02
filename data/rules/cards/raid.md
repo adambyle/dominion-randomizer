@@ -1,0 +1,2 @@
+- An Event. Gain a {card:Silver} for each Silver you have in play. Each other player puts their –1 Card token on their deck. [official]
+- It isn't playing an Attack, so {card:Moat} can't respond. [official]

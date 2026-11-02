@@ -1,0 +1,2 @@
+- Draw a card and get +2 Actions. You may discard 2 cards for {coin:+2}. Then you may pay {coin:2} for +2 Cards. [official]
+- The coins you pay can come from anywhere, including the discard just before. [official]

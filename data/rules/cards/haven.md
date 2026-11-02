@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action. Then set aside a card from your hand face down under Haven, and put it into your hand at the start of your next turn. [official]
+- You must set aside a card if you can. You may look at it; other players can't. [official]
+- If you have no card to set aside, Haven does nothing more and is discarded this turn.

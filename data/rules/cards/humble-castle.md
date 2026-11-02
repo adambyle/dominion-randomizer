@@ -1,0 +1,3 @@
+- A Castle, and a Treasure worth {coin:1}.
+- At the end of the game it's worth {vp:1} per Castle you have, counting itself. [official]
+- See {card:Castles} for how the pile works.

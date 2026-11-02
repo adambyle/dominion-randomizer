@@ -1,0 +1,4 @@
+- Now: +1 Action and {coin:+1}. At the start of your next turn: {coin:+1}.
+- From when you play it until your next turn starts, Attacks other players play don't affect you, even if you'd like them to. [official]
+- You can still reveal Reactions to those Attacks. [official]
+- What counts is whether Lighthouse is in play when the Attack is played. It doesn't help against an Attack played before it.

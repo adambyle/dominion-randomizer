@@ -8,9 +8,10 @@
     "dev": "vite",
     "build": "vite build",
     "deploy": "npm run build && wrangler deploy",
-    "data": "tsx scripts/build-data.ts",
+    "data": "tsx scripts/build-data.ts && tsx scripts/build-mentions.ts",
     "typecheck": "tsc -p . && tsc -p src/worker",
-    "images": "tsx scripts/build-images.ts"
+    "images": "tsx scripts/build-images.ts",
+    "mentions": "tsx scripts/build-mentions.ts"
   },
   "keywords": [],
   "author": "",

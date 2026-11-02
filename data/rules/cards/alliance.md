@@ -1,0 +1,2 @@
+- An Event. Gain a {card:Province}, a {card:Duchy}, an {card:Estate}, a {card:Gold}, a {card:Silver} and a {card:Copper}, in that order. [official]
+- You gain each one that's available and can't skip any. [official]

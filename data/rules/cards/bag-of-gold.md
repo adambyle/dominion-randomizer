@@ -1,0 +1,3 @@
+- A Prize (not in the Supply). Get +1 Action and gain a {card:Gold} onto your deck. [official]
+- No Gold is gained if the pile is empty. [official]
+- Prizes are won with {card:Tournament}. First-edition Cornucopia only.

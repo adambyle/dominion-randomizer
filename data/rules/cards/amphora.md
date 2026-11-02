@@ -1,0 +1,2 @@
+- A Loot. Choose: either now or at the start of your next turn, +1 Buy and {coin:+3}. [official]
+- Choosing now means it's discarded this turn. See {rule:loot}. [official]

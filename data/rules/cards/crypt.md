@@ -1,0 +1,3 @@
+- A Night–Duration card. Set aside any number of non-Duration Treasures you have in play, face down under Crypt. [official]
+- At the start of each of your turns, put one of them into your hand, until none are left; then Crypt is discarded. [official]
+- You may look at them; other players can't. [official]

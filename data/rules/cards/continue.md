@@ -1,0 +1,2 @@
+- An Event costing {debt:8}, once per turn. Gain a non-Attack Action card costing up to {cost:4}, return to your Action phase and play it, then get +1 Action and +1 Buy. [official]
+- Playing it doesn't use up an Action. [official]

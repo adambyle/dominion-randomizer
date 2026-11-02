@@ -1,0 +1,1 @@
+- You may trash a Treasure from your hand. If you do, choose: +2 Cards and +1 Action; or +1 Buy and {coin:+2}. [official]

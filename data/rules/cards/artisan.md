@@ -1,0 +1,5 @@
+- Gain a card costing up to {cost:5} from the Supply, straight to your hand. [official]
+- Coins you have don't raise that limit. [official]
+- Cost changes in effect (such as {card:Highway}) do count, so a card that's cheaper right now can be in range.
+- Then put a card from your hand onto your deck. It can be the card you just gained or any other. [official]
+- If your hand is empty at that point (it can't normally be, since you just gained a card), you put nothing back.

@@ -1,0 +1,2 @@
+- Get +1 Action. Trash a card from your hand, and for each {cost:1} it costs, set aside a card from your deck face down on Research. [official]
+- At the start of your next turn, put them all into your hand. [official]

@@ -1,0 +1,1 @@
+- A Hex. Reveal cards from your deck until you reveal one costing {cost:3} or {cost:4}. Trash it and discard the rest. [official]

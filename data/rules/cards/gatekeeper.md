@@ -1,0 +1,3 @@
+- At the start of your next turn, get {coin:+3}. [official]
+- Until then, when another player gains an Action or Treasure they don't have a copy of in Exile, they Exile it. [official]
+- Victory cards aren't affected. See {rule:exile-and-horses}. [official]

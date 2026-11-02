@@ -1,0 +1,2 @@
+- An Event. Gain a {card:Province}. If you do, take {vp:9}. [official]
+- With no Provinces left, it does nothing. [official]

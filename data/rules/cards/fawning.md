@@ -1,0 +1,1 @@
+- A Trait. When you gain a {card:Province}, you must also gain a card from the Fawning pile. [official]

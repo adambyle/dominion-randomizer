@@ -1,0 +1,1 @@
+- A Boon. Draw 2 cards, then discard 2.

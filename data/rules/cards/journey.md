@@ -1,0 +1,2 @@
+- An Event. You don't discard cards from play in Clean-up this turn. Take an extra turn after this one, but never a third in a row. [official]
+- The kept cards do nothing again; they're just in play. The extra turn doesn't count for the tie-breaker. [official]

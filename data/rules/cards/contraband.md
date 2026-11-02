@@ -1,0 +1,4 @@
+- A Treasure worth {coin:3} with +1 Buy. The player to your left names a card; you can't buy that card this turn. [official]
+- You can still gain it other ways. [official]
+- Each Contraband played gets its own named card. [official]
+- Removed in the second edition. It's still in first-edition boxes.

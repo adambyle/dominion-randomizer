@@ -1,0 +1,1 @@
+- Get {coin:+2}. The next time you play a card this turn, you may first gain a copy of it from the Supply. [official]

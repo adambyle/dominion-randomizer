@@ -1,0 +1,3 @@
+- Get {coin:+2}. Each other player may discard a {card:Curse}. If they don't, they gain a Curse and a {card:Copper}. [official]
+- If one of those piles is empty, they still gain the other. [official]
+- Removed in the second edition. It's still in first-edition boxes.

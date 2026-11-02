@@ -1,0 +1,2 @@
+- One of the {card:Knights}. Each other player discards down to 3 cards in hand, then do the Knight Attack. [official]
+- Knight Attack: each other player reveals their top 2 cards, trashes one costing from {cost:3} to {cost:6}, and discards the rest. If a Knight is trashed, trash Sir Michael.

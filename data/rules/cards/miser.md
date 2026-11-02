@@ -1,0 +1,3 @@
+- Choose: put a {card:Copper} from your hand onto your Tavern mat; or get {coin:+1} per Copper on your mat. [official]
+- Either choice is allowed even if it does nothing. [official]
+- Coppers on the mat aren't trashed; they count for scoring. [official]

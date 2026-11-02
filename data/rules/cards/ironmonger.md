@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. Reveal the top card of your deck and you may discard it. [official]
+- Either way, its types give bonuses: Action, +1 Action; Treasure, {coin:+1}; Victory, +1 Card. A card with several gives each. [official]

@@ -1,0 +1,3 @@
+- A Treasure worth {coin:2} with a different card back. [official]
+- When you shuffle it, you may look through your remaining deck and put Stash anywhere in the shuffled cards. [official]
+- Everyone can see where your Stashes are because of the card back. [official]

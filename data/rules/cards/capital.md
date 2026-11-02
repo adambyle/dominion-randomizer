@@ -1,0 +1,4 @@
+- A Treasure worth {coin:6} with +1 Buy.
+- When you discard it from play, take {debt:6}. You can pay it off right away with coins you have left. [official]
+- If it leaves play some other way (for example, trashed), you take no Debt. [official]
+- Playing it twice still means one discard and {debt:6}. See {rule:costs-and-debt}. [official]

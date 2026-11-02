@@ -1,0 +1,3 @@
+- Draw a card; you may trash a card from your hand.
+- Overpay: when you buy it, play it once per {cost:1} overpaid. [official]
+- Gaining it without buying doesn't allow overpaying. [official]

@@ -1,0 +1,2 @@
+- A Trait. Cards from its pile cost {cost:1} less, all game, including for scoring. [official]
+- It doesn't lower {potion} or {debt:}, and doesn't apply during setup. See {rule:events-and-landscapes}. [official]

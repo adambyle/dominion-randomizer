@@ -1,0 +1,3 @@
+- A Ruins card: get {coin:+1}. [official]
+- Ruins come into the game with Looters ({card:Death Cart}, {card:Marauder}, {card:Cultist}). The Ruins pile is in the Supply, shuffled face down with the top card face up.
+- The Ruins pile has 10 cards per player after the first, so emptying it counts toward the three-pile ending. See {rule:game-end}.

@@ -1,0 +1,2 @@
+- An Event. Gain an Action card costing up to {cost:4} and set it aside. If you did, play it at the start of your next turn. [official]
+- Playing it doesn't use up an Action. If the card moved before it could be set aside, Summon does nothing more. [official]

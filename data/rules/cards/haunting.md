@@ -1,0 +1,1 @@
+- A Hex. If you have 4 or more cards in hand, put one of them onto your deck.

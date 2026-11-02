@@ -1,0 +1,2 @@
+- Part of the {card:Clashes} pile. Worth {vp:1} per differently named Victory card you have. [official]
+- When you gain it, gain a {card:Gold} per empty Supply pile, including the Clashes if this emptied them. [official]

@@ -1,0 +1,3 @@
+- Draw 2 cards, get +2 Actions, then discard 2 cards.
+- When you gain it, look through your discard pile, reveal any number of Action cards from it (including this Inn) and shuffle them into your deck. [official]
+- Choosing none is allowed. You still shuffle your deck.

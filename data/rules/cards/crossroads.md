@@ -1,0 +1,3 @@
+- Reveal your hand and draw a card per Victory card in it. [official]
+- If this is the first Crossroads you've played this turn, also get +3 Actions. [official]
+- Later Crossroads, including the second play from {card:Throne Room}, give cards but no Actions. [official]

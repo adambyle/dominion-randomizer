@@ -1,0 +1,4 @@
+- A Treasure worth {coin:1}. While it's in play, when you buy a non-Victory card costing {cost:4} or less, gain another copy of it. [official]
+- Only buying counts. Its current cost is what matters. [official]
+- Each Talisman gives a copy. No copy is gained if the pile is empty. [official]
+- Removed in the second edition. It's still in first-edition boxes.

@@ -1,0 +1,3 @@
+- A Prophecy. When the last Sun token is removed, remove all the Kingdom piles from the Supply and set up 10 new random ones. [official]
+- Basic piles, Ruins, Potions, Platinum and Colony stay. Do any setup the new cards need. [official]
+- Removed piles no longer count for game end. Players keep the cards they have. [official]

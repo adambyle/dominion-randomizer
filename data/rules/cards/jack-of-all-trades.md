@@ -1,0 +1,3 @@
+- Do four things in order: gain a {card:Silver}; look at the top card of your deck and may discard it; draw until you have 5 cards in hand; you may trash a non-Treasure from your hand. [official]
+- If looking at the top card makes you shuffle, the Silver is shuffled in. [official]
+- With 5 or more cards already, you draw nothing. [official]

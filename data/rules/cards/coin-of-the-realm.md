@@ -1,0 +1,3 @@
+- A Treasure worth {coin:1}. When you play it, put it on your Tavern mat. [official]
+- After you play an Action card, you may call it for +2 Actions. It goes into play and is discarded that turn; it doesn't make coins then. [official]
+- See {rule:reserve-cards}.

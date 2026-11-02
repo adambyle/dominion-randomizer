@@ -1,0 +1,2 @@
+- A Duration–Command card. Get {coin:+2}. The next time you play a non-Command Action card, play it again. [official]
+- That isn't optional, and it works even if the card left play. Two Flagships replay it twice. [official]

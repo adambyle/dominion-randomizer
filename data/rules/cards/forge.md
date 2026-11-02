@@ -1,0 +1,4 @@
+- Trash any number of cards from your hand, then gain a card whose cost is exactly the total coin cost of the trashed cards. [official]
+- Trashing nothing means you gain a {cost:0} card if you can. [official]
+- If no card has exactly that cost, you gain nothing. [official]
+- {potion} and {debt:} don't add up, and the gained card can't have them in its cost. [official]

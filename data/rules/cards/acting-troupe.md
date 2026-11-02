@@ -1,0 +1,2 @@
+- Take +4 Villagers, then trash Acting Troupe. [official]
+- You get the Villagers even if it can't be trashed (for example, the second play from {card:Throne Room}). [official]

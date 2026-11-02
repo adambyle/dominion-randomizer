@@ -1,0 +1,2 @@
+- Gain a {card:Spoils}. Each other player gains a Ruins, in turn order, taking the top of the pile. [official]
+- If Spoils or Ruins run out, those gains just don't happen. [official]

@@ -1,0 +1,2 @@
+- Trash a card from your hand. If it costs {cost:1} or more, gain a cheaper card and a {card:Gold}. [official]
+- Trashing isn't optional. A {cost:0} card gives nothing. Costs of only {potion} or {debt:} don't count as {cost:1} or more. [official]

@@ -1,0 +1,3 @@
+- Take +2 Coffers. Each other player discards down to 3 cards in hand. [official]
+- In any game using Footpad, whenever a player gains a card in an Action phase, they draw a card. Drawing isn't optional. [official]
+- This applies whether or not anyone has a Footpad, but not in Buy or Clean-up phases. [official]

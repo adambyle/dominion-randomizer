@@ -1,0 +1,2 @@
+- A Way. Instead of the card's instructions: +2 Cards, +1 Action, and return the card to its pile. [official]
+- A card with no pile stays where it is, but you still get the bonus. [official]

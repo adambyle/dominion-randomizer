@@ -1,0 +1,3 @@
+- Trash a card from your hand and gain a card costing up to {cost:3} more than it, to your discard pile. [official]
+- The gained card can cost less, or be another copy. With an empty hand you gain nothing. [official]
+- {potion} in a cost carries over, so a card with {potion} can become another card with {potion}.

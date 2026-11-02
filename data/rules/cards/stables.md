@@ -1,0 +1,2 @@
+- You may discard a Treasure. If you do, draw 3 cards and get +1 Action. [official]
+- You draw after discarding, so a shuffle includes the discarded card. [official]

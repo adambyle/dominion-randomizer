@@ -1,0 +1,3 @@
+- If you have any Debt, get {coin:+3}. [official]
+- Otherwise, trash a card from your hand and gain a card costing more coins than it, then take {debt:} equal to the difference. [official]
+- You can pay off Debt first to choose the second option. See {rule:costs-and-debt}. [official]

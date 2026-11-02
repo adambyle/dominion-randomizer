@@ -1,0 +1,1 @@
+- An Ally. At the start of your turn, you may spend a Favor to look at the top 3 cards of your deck, discard any number and put the rest back in any order. Once per turn. [official]

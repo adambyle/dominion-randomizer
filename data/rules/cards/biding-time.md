@@ -1,0 +1,1 @@
+- A Prophecy. At the start of your Clean-up, set aside your hand face down; at the start of your next turn, put those cards back into your hand. [official]

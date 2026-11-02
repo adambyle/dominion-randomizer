@@ -1,0 +1,3 @@
+- Make two choices in turn. First: discard 2 cards; or put a card from your hand onto your deck; or gain a {card:Copper}. [official]
+- Then: {coin:+3}; or trash your hand; or gain a {card:Duchy}. [official]
+- You can choose an option you can't do. [official]

@@ -1,0 +1,1 @@
+- An Event costing {cost:0}. You may trash an Action card from your hand. If you do, gain an Action card costing up to {cost:6}. [official]

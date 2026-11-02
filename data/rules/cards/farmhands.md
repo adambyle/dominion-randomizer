@@ -1,0 +1,3 @@
+- Draw a card and get +2 Actions.
+- When you gain it, you may set aside an Action or Treasure from your hand, face up. At the start of your next turn you must play it. [official]
+- Playing it then doesn't use up an Action. [official]

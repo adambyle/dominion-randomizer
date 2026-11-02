@@ -1,0 +1,5 @@
+- Get +1 Action, then choose one: trash an Action card from the Supply; or gain an Action card from the trash. [official]
+- The card can have other types as long as it's an Action. [official]
+- Only the top card of a Supply pile can be trashed, which matters for split piles.
+- A trashed card's "when you trash this" ability still triggers, even though it wasn't yours.
+- You can pick either option even if there's nothing to trash or gain.

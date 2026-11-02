@@ -1,0 +1,2 @@
+- Not in the Supply. Draw 2 cards, get +1 Action, and return it to its pile. [official]
+- Played several times, it only returns once, but you get the bonus each time. See {rule:exile-and-horses}. [official]

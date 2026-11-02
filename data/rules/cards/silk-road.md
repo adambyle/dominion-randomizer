@@ -1,0 +1,3 @@
+- At the end of the game, worth {vp:1} per 4 Victory cards you have, rounded down. Silk Roads count themselves. [official]
+- It's a Kingdom Victory card: 8 with 2 players, 12 with 3 or more. [official]
+- Removed in the second edition. It's still in first-edition boxes.

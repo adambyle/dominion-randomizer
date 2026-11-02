@@ -1,0 +1,1 @@
+- Choose: draw a card and get +2 Actions; or get +1 Buy and {coin:+2}. [official]

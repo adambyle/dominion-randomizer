@@ -1,0 +1,4 @@
+- Draw a card and get +2 Actions.
+- When you gain it, also gain a card costing less than Border Village. Normally that's up to {cost:5}. [official]
+- Cost changes (like {card:Highway}) change what's cheaper. [official]
+- Border Village is gained first, then the other card. [official]

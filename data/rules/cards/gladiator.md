@@ -1,0 +1,3 @@
+- The top half of the {card:Gladiator/Fortune} pile. Get {coin:+2} and reveal a card from your hand.
+- The player to your left may reveal a copy from their hand. If they don't, get {coin:+1} and trash a Gladiator from its pile. [official]
+- With an empty hand, they can't match, so you get the bonus. [official]

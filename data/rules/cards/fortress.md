@@ -1,0 +1,4 @@
+- Draw a card and get +2 Actions. [official]
+- When you trash it, put it into your hand, on anyone's turn. That isn't optional. [official]
+- It was still trashed, so effects that reward trashing still apply. [official]
+- Taking it back isn't gaining it.

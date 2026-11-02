@@ -1,0 +1,3 @@
+- A Landmark. Setup: put {vp:6} on it per player.
+- When you gain an Action card in your Buy phase, if you have a copy of it in play, take {vp:2} from Colonnade. [official]
+- Cards from the same pile aren't copies of each other unless they have the same name. [official]

@@ -1,0 +1,2 @@
+- Each other player discards down to 3 cards in hand, once. [official]
+- Samurai stays in play for the rest of the game, giving you {coin:+1} at the start of each of your turns. [official]

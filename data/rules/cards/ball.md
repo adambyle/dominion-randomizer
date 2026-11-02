@@ -1,0 +1,3 @@
+- An Event. Take your –{coin:1} token, then gain 2 cards each costing up to {cost:4}. [official]
+- They can be the same or different. [official]
+- Buying it twice gains 4 cards, but you only have one token. See {rule:adventures-tokens}.

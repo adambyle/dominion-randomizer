@@ -1,0 +1,3 @@
+- A Treasure worth {coin:2}. If you have an odd number of Idols in play, counting this one, receive a Boon; if even, each other player gains a {card:Curse}. [official]
+- It counts Idols in play, not Idols played. [official]
+- It's an Attack, so Reactions can be used when you play it.

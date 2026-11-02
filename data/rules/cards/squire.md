@@ -1,0 +1,2 @@
+- Get {coin:+1} and choose: +2 Actions; +2 Buys; or gain a {card:Silver}. [official]
+- When you trash it, gain an Attack card from the Supply, if there is one. [official]

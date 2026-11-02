@@ -1,0 +1,2 @@
+- Part of the {card:Augurs} pile. Get +1 Action. Name a card, reveal the top card of your deck and put it into your hand. [official]
+- If it was the named card, each other player gains a {card:Curse}. [official]

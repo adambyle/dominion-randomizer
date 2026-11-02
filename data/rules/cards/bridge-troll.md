@@ -1,0 +1,3 @@
+- Each other player takes their –{coin:1} token. [official]
+- This turn and your next turn, cards cost {cost:1} less. Now and at the start of your next turn, +1 Buy. [official]
+- Played twice, costs drop by {cost:2} on both turns.

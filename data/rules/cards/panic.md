@@ -1,0 +1,2 @@
+- A Prophecy. When you play a Treasure, get +2 Buys, and when you discard one from play, return it to its pile. [official]
+- Treasures with no pile (like Heirlooms) stay. Loot goes back on top of the Loot pile. [official]

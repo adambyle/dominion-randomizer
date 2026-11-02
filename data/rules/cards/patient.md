@@ -1,0 +1,1 @@
+- A Trait. At the start of your Clean-up, you may set aside cards from its pile from your hand, to play at the start of your next turn. [official]

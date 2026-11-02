@@ -1,0 +1,2 @@
+- An Event. Exile an Action card from the Supply. [official]
+- While it's in Exile, each time another player gains a copy or Invests in one, you draw 2 cards. It isn't optional and it stacks. [official]

@@ -1,0 +1,2 @@
+- An Event. Look through your discard pile; you may play an Action card from it. [official]
+- It doesn't use up an Action. [official]

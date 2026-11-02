@@ -1,0 +1,2 @@
+- A Treasure worth {coin:3} with +1 Buy. When played, Exile it. [official]
+- Played twice, it gives both bonuses twice but is only Exiled once. See {rule:exile-and-horses}. [official]

@@ -1,0 +1,2 @@
+- An Event. Take {vp:1}, then trash a Victory card from the Supply. [official]
+- Its "when you trash this" ability happens, for you. [official]

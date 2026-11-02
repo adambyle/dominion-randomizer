@@ -1,0 +1,2 @@
+- Get +1 Action and {coin:+1}. If you gain a card costing exactly {cost:5} this turn, repeat this at the start of your next turn. [official]
+- It can keep going turn after turn as long as you keep gaining {cost:5} cards. [official]

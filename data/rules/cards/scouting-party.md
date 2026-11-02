@@ -1,0 +1,2 @@
+- An Event. Get +1 Buy. Look at the top 5 cards of your deck, discard 3 and put the rest back in any order. [official]
+- With fewer than 5 cards you still discard 3. [official]

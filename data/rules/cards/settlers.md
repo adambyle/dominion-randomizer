@@ -1,0 +1,2 @@
+- The top half of the {card:Settlers/Bustling Village} pile. Draw a card and get +1 Action.
+- You may reveal a {card:Copper} from your discard pile and put it into your hand. You may look through your discard pile either way. [official]

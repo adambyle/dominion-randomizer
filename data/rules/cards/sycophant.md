@@ -1,0 +1,2 @@
+- Get +1 Action and discard 3 cards. If you discarded at least one, get {coin:+3}. [official]
+- When you gain or trash it, take +2 Favors. [official]

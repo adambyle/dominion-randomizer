@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. This turn, cards everywhere cost {cost:1} less, never below {cost:0}. [official]
+- It stacks with itself and other reductions. [official]

@@ -1,0 +1,2 @@
+- A Landmark. When scoring, {vp:-3} per card you have exactly one copy of. [official]
+- Scores can go below zero. [official]

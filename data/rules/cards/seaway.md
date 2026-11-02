@@ -1,0 +1,2 @@
+- An Event. Gain an Action card costing up to {cost:4}, then move your +1 Buy token to its pile. [official]
+- Only the cost when gained matters. See {rule:adventures-tokens}. [official]

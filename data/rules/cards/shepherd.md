@@ -1,0 +1,2 @@
+- Get +1 Action. Discard any number of Victory cards, revealing them, and draw 2 cards per card discarded. [official]
+- Heirloom: in games using Shepherd, each player replaces a starting Copper with a {card:Pasture}. [official]

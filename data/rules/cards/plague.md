@@ -1,0 +1,1 @@
+- A Hex. Gain a {card:Curse} to your hand.

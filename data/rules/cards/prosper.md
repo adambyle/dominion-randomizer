@@ -1,0 +1,1 @@
+- An Event. Gain a Loot, then any number of differently named Treasures, one at a time. [official]

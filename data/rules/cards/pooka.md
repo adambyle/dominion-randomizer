@@ -1,0 +1,2 @@
+- You may trash a Treasure other than {card:Cursed Gold} from your hand. If you do, draw 4 cards.
+- Heirloom: in games using Pooka, each player replaces a starting Copper with a {card:Cursed Gold}. [official]

@@ -1,0 +1,3 @@
+- Get {coin:+2}. If the trash has any cards costing from {cost:3} to {cost:6}, you must gain one of them. [official]
+- Otherwise each other player reveals their top 2 cards, trashes one costing from {cost:3} to {cost:6} (their choice), and discards the rest. [official]
+- It's an Attack either way, so Reactions can be used when you play it.

@@ -1,0 +1,1 @@
+- A Project. When you gain an Action card, bought or not, take +1 Villager. See {rule:mats-and-tokens}. [official]

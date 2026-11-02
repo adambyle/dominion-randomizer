@@ -1,0 +1,4 @@
+- When played, Bank makes {coin:1} for each Treasure you have in play, counting itself. [official]
+- Play your other Treasures first. Treasures played after Bank don't change what it made. [official]
+- A second Bank played right after makes {coin:1} more than the first. [official]
+- Every Treasure in play counts, even ones that made no coins (like {card:Potion}).

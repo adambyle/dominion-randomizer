@@ -1,0 +1,2 @@
+- Draw 2 cards and get +2 Actions.
+- When you gain it, each other player draws a card. [official]

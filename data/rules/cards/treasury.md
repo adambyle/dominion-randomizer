@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action and {coin:+1}.
+- When you discard it from play, if you didn't gain a Victory card in your Buy phase this turn, you may put it onto your deck. [official]
+- Only Victory cards gained in your Buy phase count; ones gained in your Action phase don't. [official]

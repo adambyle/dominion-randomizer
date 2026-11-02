@@ -1,0 +1,3 @@
+- Draw 3 cards and get +1 Action. At the start of your next turn, discard 2 cards. [official]
+- With fewer than 2 cards in hand then, discard what you have. [official]
+- Order your start-of-turn effects to help: draw first, then discard. [official]

@@ -1,0 +1,3 @@
+- Get +2 Actions, +1 Buy and {coin:+1}.
+- When you gain it, put it into your hand and get +1 Action. If it's your Buy phase, go back to your Action phase.
+- Back in your Action phase you can play Actions, then have another Buy phase. You only have the Buys you have left.

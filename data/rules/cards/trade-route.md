@@ -1,0 +1,4 @@
+- Get +1 Buy. Trash a card from your hand, then get {coin:+1} per Coin token on the Trade Route mat. [official]
+- Setup: put a Coin token on each Victory card pile in the Supply. The first time a card is gained from that pile, move its token to the mat. [official]
+- Split piles that aren't Victory piles (like {card:Clashes}) don't get a token.
+- Removed in the second edition. It's still in first-edition boxes.

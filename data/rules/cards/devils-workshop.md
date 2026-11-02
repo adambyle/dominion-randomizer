@@ -1,0 +1,2 @@
+- A Night card. Depending on how many cards you've gained this turn: 2 or more, gain an {card:Imp}; exactly 1, gain a card costing up to {cost:4}; none, gain a {card:Gold}. [official]
+- You can't pick a different result. Cards gained earlier at Night count. [official]

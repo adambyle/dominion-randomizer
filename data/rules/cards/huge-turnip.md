@@ -1,0 +1,2 @@
+- A Reward (not in the Supply), and a Treasure. Take +2 Coffers, then get {coin:+1} per Coffers you have, including those 2. [official]
+- The Coffers stay on your mat; you can still spend them later.

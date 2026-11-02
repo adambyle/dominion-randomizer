@@ -1,0 +1,1 @@
+- An Ally. At the start of your Buy phase, you may spend a Favor to play an Action card from your hand. Repeat as you like. [official]

@@ -1,0 +1,1 @@
+- A Trait. When you discard a card from its pile from play, set it aside and put it onto your deck at the end of the turn, after drawing. [official]

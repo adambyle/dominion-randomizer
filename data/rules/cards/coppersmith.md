@@ -1,0 +1,4 @@
+- For the rest of this turn, each {card:Copper} you play makes {coin:1} more. [official]
+- It stacks: played twice (for example with {card:Throne Room}), each Copper makes {coin:3}. [official]
+- Coppers you played before Coppersmith don't get the bonus.
+- Removed in the second edition. It's still in first-edition boxes.

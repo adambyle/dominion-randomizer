@@ -1,0 +1,3 @@
+- Draw 2 cards. Each other player gains a Ruins, in turn order, taking the top card of the pile. [official]
+- Then you may play a Cultist from your hand. That doesn't use up an Action. [official]
+- When you trash Cultist, on anyone's turn, draw 3 cards. [official]

@@ -1,0 +1,4 @@
+- A split pile of 10 cards: 5 {card:Catapult|Catapults} on top of 5 {card:Rocks}. See {rule:split-piles}. [official]
+- Only the top card can be bought or gained. The Rocks can't be bought or gained until every Catapult is gone. [official]
+- As a pile it's a {cost:3} Action – Attack pile, as on the randomizer. Anything that affects the pile also affects Rocks, which is a Treasure. [official]
+- {card:Catapult} can trash a {card:Rocks} from your hand. Rocks costs {cost:4}, so the other players gain Curses, and it's a Treasure, so they also discard down to 3. Then Rocks's own ability gains you a Silver, to your hand since it isn't your Buy phase.

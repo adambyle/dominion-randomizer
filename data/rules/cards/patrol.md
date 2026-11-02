@@ -1,0 +1,3 @@
+- Draw 3 cards. Then reveal the top 4 cards of your deck. [official]
+- Put all the revealed Victory cards and Curses into your hand; you must take them all. [official]
+- Put the rest back on your deck in any order. [official]

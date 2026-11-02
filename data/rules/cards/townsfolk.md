@@ -1,0 +1,4 @@
+- A split pile of 16 cards: 4 each of {card:Town Crier}, {card:Blacksmith}, {card:Miller} and {card:Elder}, in that order from the top. See {rule:split-piles}. [official]
+- Only the top card can be bought or gained. You can look through the pile at any time without changing its order. [official]
+- {card:Town Crier} can rotate the pile, moving every Town Crier still on top to the bottom. [official]
+- As a pile, the Townsfolk are a {cost:2} Action – Townsfolk pile, as on the randomizer. [official]

@@ -1,0 +1,1 @@
+- An Event. Choose: trash a card from your hand; or gain an {card:Estate} from the trash, and if you did, gain a card costing up to {cost:5}. [official]

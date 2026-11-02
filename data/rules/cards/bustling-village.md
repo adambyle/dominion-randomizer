@@ -1,0 +1,2 @@
+- The bottom half of the {card:Settlers/Bustling Village} pile. Draw a card and get +3 Actions.
+- You may reveal a {card:Settlers} from your discard pile and put it into your hand. You may look through your discard pile even if there's none. [official]

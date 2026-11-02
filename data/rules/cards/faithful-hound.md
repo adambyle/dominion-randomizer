@@ -1,0 +1,4 @@
+- Draw 2 cards.
+- When you discard it, other than in Clean-up, you may set it aside and put it into your hand at the end of the turn, after drawing. [official]
+- It works on any turn and from anywhere it's discarded. [official]
+- Cards moved to your discard pile without being discarded don't count. [official]

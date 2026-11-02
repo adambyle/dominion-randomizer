@@ -1,0 +1,4 @@
+- Get {coin:+2}. This turn, whenever you gain a card you bought, also gain a cheaper card that isn't a Victory card. [official]
+- That gain isn't optional. Cards gained without buying don't trigger it. [official]
+- If nothing cheaper is available, you gain nothing. [official]
+- It stacks with copies and replays. [official]

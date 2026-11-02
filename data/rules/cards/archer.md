@@ -1,0 +1,2 @@
+- Part of the {card:Clashes} pile. Get {coin:+2}. [official]
+- Each other player with 5 or more cards in hand keeps one card hidden and reveals the rest; you choose one of those for them to discard. [official]

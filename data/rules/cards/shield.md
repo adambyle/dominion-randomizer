@@ -1,0 +1,2 @@
+- A Loot. A Treasure worth {coin:3} with +1 Buy. [official]
+- When another player plays an Attack, you may reveal it from your hand to be unaffected, like {card:Moat}. See {rule:loot}. [official]

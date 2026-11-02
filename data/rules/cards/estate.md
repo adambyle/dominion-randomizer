@@ -1,0 +1,5 @@
+- Estate is a basic Victory card worth {vp:1} at the end of the game. It costs {cost:2}. [official]
+- It does nothing during play. In your hand it takes up space.
+- Each player starts with 3 Estates, unless the game uses Shelters. These come on top of the Estate pile. [official]
+- The Estate pile in the Supply has 8 cards with 2 players and 12 with 3 or more. [official]
+- With Shelters, players start with {card:Hovel}, {card:Necropolis} and {card:Overgrown Estate} instead. The Estate pile is still in the Supply.

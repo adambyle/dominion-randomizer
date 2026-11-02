@@ -1,0 +1,1 @@
+- An Event. Draw a card per Action card you have in play, then trash up to that many cards from your hand. [official]

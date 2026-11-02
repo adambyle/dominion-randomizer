@@ -1,0 +1,2 @@
+- A Landmark. Setup: put {vp:6} on it per player.
+- When you gain your second card in one of your turns, take {vp:2} from Labyrinth. Only once per turn. [official]

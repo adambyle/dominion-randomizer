@@ -1,0 +1,2 @@
+- An Heirloom (from {card:Cemetery}). A Treasure worth {coin:1}.
+- When you trash it, you may discard an Action card to gain a {card:Ghost}. It doesn't trash itself. [official]

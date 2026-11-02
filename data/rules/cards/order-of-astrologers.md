@@ -1,0 +1,2 @@
+- An Ally. When you shuffle, you may spend Favors to pick one card per Favor to go on top of the new deck. [official]
+- You can't look through the cards unless you spend at least one. [official]

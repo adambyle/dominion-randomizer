@@ -1,0 +1,2 @@
+- A Treasure. Gain a copy of a card anyone has in play. [official]
+- Tools itself counts. Only Supply cards can be copied.

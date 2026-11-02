@@ -1,0 +1,2 @@
+- Get {coin:+3}. This turn, when you gain a card costing {cost:4} or more, gain a {card:Horse}. [official]
+- It stacks with copies and replays. [official]

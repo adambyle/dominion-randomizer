@@ -1,0 +1,2 @@
+- A Treasure worth {coin:2} with +1 Buy.
+- When you gain it, take +2 Coffers. [official]

@@ -1,0 +1,1 @@
+- The bottom half of the {card:Encampment/Plunder} pile. A Treasure worth {coin:2}; also take {vp:1} token each time you play it. [official]

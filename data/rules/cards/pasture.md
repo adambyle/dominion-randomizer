@@ -1,0 +1,1 @@
+- An Heirloom (from {card:Shepherd}). A Treasure worth {coin:1}, and a Victory card worth {vp:1} per {card:Estate} you have. [official]

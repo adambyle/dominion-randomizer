@@ -1,0 +1,2 @@
+- Draw 2 cards and get +1 Action. [official]
+- Because it replaces the Action it uses, Laboratory never stops you from playing your next Action card.

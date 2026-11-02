@@ -1,0 +1,2 @@
+- Gain a card costing up to {cost:4}, then cards cost {cost:1} less for the rest of the turn. [official]
+- The reduction comes after the gain, so it helps later Inventors and buys. [official]

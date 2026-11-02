@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action, then put Guide on your Tavern mat. [official]
+- At the start of your turn, you may call it to discard your hand and draw 5 cards. See {rule:reserve-cards}. [official]

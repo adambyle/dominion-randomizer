@@ -1,0 +1,4 @@
+- Draw a card and get +1 Action and +1 Buy. [official]
+- When one of your cards is trashed, you may discard Market Square from your hand to gain a {card:Gold}. [official]
+- Several Market Squares can be discarded for the same trashed card. [official]
+- Cards you don't own (such as a Supply card trashed by {card:Lurker}) don't count.

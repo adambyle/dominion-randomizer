@@ -1,0 +1,4 @@
+- Get +1 Buy and {coin:+1}. For the rest of the turn, all cards everywhere cost {cost:1} less, but never less than {cost:0}. [official]
+- This stacks. Two Bridges, or one played twice, make cards cost {cost:2} less. [official]
+- The reduction comes from playing Bridge, not from it staying in play, so it lasts even if Bridge leaves play.
+- Cheaper cards matter for buying and for anything that checks costs, like {card:Remodel} or {card:Workshop}.

@@ -1,0 +1,4 @@
+- Trash Feast and gain a card costing up to {cost:5} from the Supply, to your discard pile. [official]
+- Coins you have don't raise that limit. [official]
+- Gaining isn't conditional on trashing. With {card:Throne Room} you gain 2 cards even though Feast can only be trashed once. [official]
+- Removed in the second edition. It's still in first-edition boxes.

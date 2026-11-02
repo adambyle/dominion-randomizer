@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. [official]
+- If your hand has no two cards with the same name, you may reveal it and return Snake Witch to its pile; if you did, each other player gains a {card:Curse}. [official]

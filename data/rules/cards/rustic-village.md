@@ -1,0 +1,1 @@
+- An Omen. Remove a Sun token, draw a card and get +2 Actions. You may discard 2 cards to draw a card. [official]

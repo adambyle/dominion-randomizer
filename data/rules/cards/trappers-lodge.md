@@ -1,0 +1,1 @@
+- An Ally. When you gain a card, you may spend a Favor to put it onto your deck. [official]

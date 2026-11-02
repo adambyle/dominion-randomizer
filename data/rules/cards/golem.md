@@ -1,0 +1,4 @@
+- Reveal cards from your deck until you've revealed 2 Action cards that aren't Golems. Discard the rest, then play those Actions in either order. [official]
+- You must play them. If you find only one, play it; if none, you're done. [official]
+- They're played from outside your hand, so they can't use each other. A revealed {card:Throne Room} can't play the other card. [official]
+- Playing them doesn't use up Actions.

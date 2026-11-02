@@ -1,0 +1,2 @@
+- Draw 3 cards, get +1 Action, and discard 2 cards.
+- When you gain it, get +1 Buy. So buying it gives you the Buy back. [official]

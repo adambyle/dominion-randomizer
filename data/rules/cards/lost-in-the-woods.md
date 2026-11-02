@@ -1,0 +1,2 @@
+- A State, taken with {card:Fool}. At the start of your turn, you may discard a card to receive a Boon. [official]
+- It stays with you until another player takes it. [official]

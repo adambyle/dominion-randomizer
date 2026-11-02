@@ -1,0 +1,1 @@
+- Get {coin:+1}. Discard the top card of your deck, then look through your discard pile; you may play an Action or Treasure from it. [official]

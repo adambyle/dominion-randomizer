@@ -1,0 +1,4 @@
+- You may play a non-Duration Action card from your hand twice. Then trash it and gain an Action card costing exactly {cost:1} more than it. [official]
+- The gain happens even if the card couldn't be trashed. If nothing costs exactly that, you gain nothing. [official]
+- Effects from trashing it happen before the gain. [official]
+- Cards that move themselves when played (like {card:Horse} or Reserves) end up where they put themselves instead of the trash. See {rule:stop-moving-rule}.

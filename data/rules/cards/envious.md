@@ -1,0 +1,2 @@
+- A State. At the start of your Buy phase, return it; this turn, {card:Silver} and {card:Gold} make only {coin:1}. [official]
+- Other Treasures aren't affected. [official]

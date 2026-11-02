@@ -1,0 +1,2 @@
+- A Landmark. When scoring, for each differently named Treasure, the player with the most copies (ties included) gets {vp:5}. [official]
+- If everyone has the same number, they all get it. [official]

@@ -1,0 +1,2 @@
+- Draw 2 cards, then trash a card from your hand and take +1 Villager per {cost:1} it costs. [official]
+- {potion} and {debt:} give nothing. [official]

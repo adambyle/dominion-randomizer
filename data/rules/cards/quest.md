@@ -1,0 +1,2 @@
+- An Event costing {cost:0}. You may discard an Attack, or 2 {card:Curse|Curses}, or any 6 cards. If you do, gain a {card:Gold}. [official]
+- You can choose an option you can't complete; you'll discard what you can but gain nothing. [official]

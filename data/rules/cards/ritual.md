@@ -1,0 +1,2 @@
+- An Event. Gain a {card:Curse}. If you do, trash a card from your hand and take {vp:1} per {cost:1} it costs. [official]
+- With no Curses left, it does nothing. {debt:} and {potion} give nothing. [official]

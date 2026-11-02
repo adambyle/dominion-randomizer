@@ -1,0 +1,4 @@
+- When any player gains a Treasure, including you, you may play Pirate from your hand. [official]
+- At the start of your next turn, gain a Treasure costing up to {cost:6} to your hand. [official]
+- Played on someone else's turn, its Treasure comes at the start of your next turn. [official]
+- You can also play it normally as an Action, but it's mostly played as a reaction. See {rule:durations}.

@@ -1,0 +1,1 @@
+- A Treasure worth {coin:1}. When played, gain a {card:Horse} onto your deck. [official]

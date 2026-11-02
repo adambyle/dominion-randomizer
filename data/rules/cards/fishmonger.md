@@ -1,0 +1,2 @@
+- A Shadow. Get +1 Buy and {coin:+1}. [official]
+- You can play it from your deck as if it were in your hand. See {rule:shadows-and-omens}. [official]

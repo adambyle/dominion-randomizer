@@ -1,0 +1,2 @@
+- Get +2 Actions. Look through your discard pile and put a card from it into your hand. If your discard pile is empty, draw a card instead. [official]
+- If there's anything there, you must take a card. [official]

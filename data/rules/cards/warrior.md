@@ -1,0 +1,4 @@
+- Not in the Supply; part of the {card:Page} line. Draw 2 cards. [official]
+- For each Traveller you have in play, counting Warrior, each other player discards their top card and trashes it if it costs exactly {cost:3} or {cost:4}. [official]
+- {card:Champion} and {card:Teacher} aren't Travellers. [official]
+- When you discard it from play, you may exchange it for a {card:Hero}. See {rule:travellers}.

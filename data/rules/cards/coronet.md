@@ -1,0 +1,4 @@
+- A Reward (not in the Supply), both Action and Treasure. You may play a non-Reward Action from your hand twice, and you may play a non-Reward Treasure from your hand twice. [official]
+- Both are optional; if you do both, the Action goes first. Neither uses up Actions. [official]
+- Playing an Action this way in your Buy phase doesn't let you play more Actions afterwards.
+- Rewards are won with {card:Joust}.

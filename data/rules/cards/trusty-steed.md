@@ -1,0 +1,4 @@
+- A Prize (not in the Supply). Choose two different options: +2 Cards; +2 Actions; {coin:+2}; or gain 4 {card:Silver|Silvers} and put your deck into your discard pile. [official]
+- Do them in the order listed. [official]
+- Moving your deck isn't discarding, so "when you discard" effects don't trigger.
+- First-edition Cornucopia only.

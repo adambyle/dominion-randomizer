@@ -1,0 +1,3 @@
+- Get {coin:+1}. This turn, when you gain a card, you may put it onto your deck. Then receive a Boon.
+- The topdecking applies to cards gained from the Boon.
+- Heirloom: in games using Tracker, each player replaces a starting Copper with a {card:Pouch}.

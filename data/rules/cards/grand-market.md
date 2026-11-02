@@ -1,0 +1,4 @@
+- Draw a card and get +1 Action, +1 Buy and {coin:+2}.
+- You can't buy it if you have a {card:Copper} in play. Coppers in your hand don't matter. [official]
+- You can still gain it other ways. [official]
+- Remember you don't have to play every Treasure, and you can't play more after buying.

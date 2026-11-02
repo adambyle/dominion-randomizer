@@ -1,0 +1,3 @@
+- Draw 2 cards.
+- When you gain a card, on any turn, you may play Sheepdog from your hand. [official]
+- Treasures it draws after you've bought something can't be played that Buy phase. [official]

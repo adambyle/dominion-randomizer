@@ -1,0 +1,2 @@
+- A Loot that's an Attack. A Treasure worth {coin:3} with +1 Buy; each other player discards down to 4 cards in hand. [official]
+- Reactions like {card:Moat} work against it. See {rule:loot}. [official]

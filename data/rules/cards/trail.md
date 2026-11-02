@@ -1,0 +1,4 @@
+- Draw a card and get +1 Action.
+- When you gain, trash or discard Trail, other than in Clean-up, you may play it. [official]
+- Played on someone else's turn, it's discarded in that turn's Clean-up. [official]
+- Playing it after trashing it takes it back out of the trash; it still counts as trashed.

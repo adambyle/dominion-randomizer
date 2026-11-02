@@ -1,0 +1,2 @@
+- Play any number of Action cards with the same name from your hand, then draw until you have 6 cards in hand. [official]
+- Copies drawn along the way can be played too. [official]

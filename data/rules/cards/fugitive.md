@@ -1,0 +1,2 @@
+- Not in the Supply; part of the {card:Peasant} line. Draw 2 cards, get +1 Action, then discard a card. [official]
+- When you discard it from play, you may exchange it for a {card:Disciple}. See {rule:travellers}.

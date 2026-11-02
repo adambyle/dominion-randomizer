@@ -7,6 +7,8 @@ import { artImage, cardImage, db, name, recommended, setIcon, setName } from "..
 import { buildModel, type TableItem, type TableModel } from "../model";
 import { costSymbols } from "../markup";
 import type { App } from "../main";
+import { playedControl } from "./history";
+import { interactionSummary, interactsWithNames } from "./interactions";
 
 const BASICS_PREVIEW = ["copper", "silver", "gold", "estate", "duchy", "province", "curse"];
 
@@ -139,6 +141,7 @@ function quickCard(app: App, id: string, model: TableModel) {
   const brings = relatedTo(id, model).filter((x) => x !== id);
   const groups = model.tray.filter((g) => g.by === id).map((g) => g.what);
   const count = model.pileCounts.get(id);
+  const interacts = interactsWithNames(app, id);
   const dispatch = app.store.dispatch;
   const done = () => { selected = null; };
   const entering = shownQuick !== id;
@@ -149,6 +152,8 @@ function quickCard(app: App, id: string, model: TableModel) {
       h("h3", null, c.name),
       h("p", null, [c.types.join(" – "), setName(c.set), count ? `${count} cards` : null].filter(Boolean).join(" · ")),
       groups.length > 0 && h("p.m-quick-brings", null, `Brings: ${groups.join("; ")}`),
+      interacts.length > 0 && h("p.m-quick-brings", null, "Interacts with ", interacts.slice(0, 4).map((x, i) => [i > 0 && ", ",
+        h("button.link", { type: "button", onclick: () => app.openCard(x) }, name(x))]), interacts.length > 4 ? ` +${interacts.length - 4}` : ""),
       brings.length > 0 && h("div.m-quick-thumbs", null, brings.slice(0, 6).map((b) => {
         const bi = cardImage(b);
         return h("button", { type: "button", onclick: () => app.openCard(b), "aria-label": name(b) }, bi && h("img", { src: bi.src, alt: "" }));
@@ -201,7 +206,9 @@ function setupSheet(app: App, model: TableModel, empty: boolean) {
     h("p.label", null, "To hand out"),
     h("div.m-checks", null, model.checklist.map((c) => h("label.check", null,
       h("input", { type: "checkbox" }),
-      h("span", null, h("b", null, c.title), h("span.detail", null, ...app.markup(c.detail)))))));
+      h("span", null, h("b", null, c.title), h("span.detail", null, ...app.markup(c.detail)))))),
+    interactionSummary(app, 4),
+    playedControl(app));
 
   const entering = sheetOpen && !shownSheetOpen;
   shownSheetOpen = sheetOpen;

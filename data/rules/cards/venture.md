@@ -1,0 +1,3 @@
+- A Treasure worth {coin:1}. Reveal cards from your deck until you reveal a Treasure; discard the others and play that Treasure. [official]
+- If you find nothing after shuffling, discard everything revealed. [official]
+- Removed in the second edition. It's still in first-edition boxes.

@@ -1,0 +1,1 @@
+- Draw 3 cards. If that made you shuffle (with at least one card in your discard pile), get +1 Action and +2 Favors. [official]

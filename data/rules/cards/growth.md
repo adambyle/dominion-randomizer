@@ -1,0 +1,1 @@
+- A Prophecy. When you gain a Treasure, gain a cheaper card. This is mandatory and can chain. [official]

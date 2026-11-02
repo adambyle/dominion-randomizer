@@ -1,0 +1,1 @@
+- An Event. Get +1 Buy. The next time you gain an Action card this turn, gain a copy of it. It stacks. [official]

@@ -1,0 +1,2 @@
+- A Project. The first time you play an Action card on each of your turns, play it again afterwards. It isn't optional. [official]
+- It counts the first Action card played, even outside your Action phase. [official]

@@ -1,0 +1,2 @@
+- An Event costing {cost:4} and {debt:3}. Take {vp:1} and gain a {card:Gold}. [official]
+- You still get the {vp:1} with no Gold left. [official]

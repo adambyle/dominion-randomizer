@@ -1,0 +1,1 @@
+- Get +1 Action. Set aside up to 4 cards from your hand face down on Grotto. At the start of your next turn, discard them and draw that many. [official]

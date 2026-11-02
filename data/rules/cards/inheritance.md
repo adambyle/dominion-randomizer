@@ -1,0 +1,3 @@
+- An Event, once per game. Set aside a non-Command, non-Duration Action card costing up to {cost:4} from the Supply and put your Estate token on it.
+- For the rest of the game, on your turns, your {card:Estate|Estates} are also Command Action cards that play the card with your Estate token, leaving it there.
+- Setting the card aside isn't gaining it, but it counts as yours for scoring.

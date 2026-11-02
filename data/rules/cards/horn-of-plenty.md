@@ -1,0 +1,4 @@
+- A Treasure that makes no coins. When played, gain a card costing up to {cost:1} per differently named card you have in play, counting itself. [official]
+- Every card in play counts: Treasures, Actions and Durations from last turn. Cards that already left play don't. [official]
+- If the gained card is a Victory card, trash Horn of Plenty. [official]
+- Victory cards gained other ways don't trash it. [official]

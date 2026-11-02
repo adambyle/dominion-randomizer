@@ -1,0 +1,4 @@
+- Draw a card and get +1 Action and {coin:+1}.
+- You may set aside a {card:Province} from your hand to gain any Reward to your hand. Discard the Province in Clean-up. [official]
+- Setup: put the Rewards near the Supply: one of each with 2 players, two of each with more. They're not in the Supply. [official]
+- With 3 or more players you can take a Reward you already have. With none left, setting aside a Province does nothing. [official]

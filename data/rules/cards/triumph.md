@@ -1,0 +1,2 @@
+- An Event costing {debt:5}. Gain an {card:Estate}. If you did, take {vp:1} per card you've gained this turn, including it. [official]
+- With no Estates left, it does nothing. Events bought don't count. [official]

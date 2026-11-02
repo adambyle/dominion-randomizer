@@ -1,0 +1,2 @@
+- A Night card. Look at the top 5 cards of your deck, discard any number and put the rest back in any order.
+- It's gained to your hand instead of your discard pile, so you can usually play it the turn you buy it. [official]

@@ -1,0 +1,2 @@
+- At the start of your next turn, you may play an Action card from your hand three times. [official]
+- It doesn't use up Actions. If it plays a Duration, Mastermind stays in play with it. [official]

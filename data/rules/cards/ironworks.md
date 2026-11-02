@@ -1,0 +1,4 @@
+- Gain a card costing up to {cost:4} from the Supply, to your discard pile. [official]
+- Then you get a bonus for each of its types: Action gives +1 Action, Treasure gives {coin:+1}, Victory gives +1 Card. A card with two of these types gives both. [official]
+- A card with none of these types, such as {card:Curse}, gives no bonus.
+- You get the bonus even if the card is moved or trashed right after being gained.

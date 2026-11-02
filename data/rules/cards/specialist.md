@@ -1,0 +1,2 @@
+- You may play an Action or Treasure from your hand. Then choose: play it again; or gain a copy of it from the Supply. [official]
+- You can play it again even if it left play. [official]

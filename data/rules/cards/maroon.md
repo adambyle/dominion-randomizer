@@ -1,0 +1,2 @@
+- Trash a card from your hand and draw 2 cards per type it has (Action, Attack, Treasure ...). [official]
+- A Trait or being a Bane doesn't add a type.

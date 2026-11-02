@@ -1,0 +1,4 @@
+- A Night card. Trash it and gain a copy of a card you have in play. [official]
+- In games using Changeling, whenever you gain a card costing {cost:3} or more, you may exchange it for a Changeling: return the gained card to its pile and take a Changeling to your discard pile. [official]
+- The gained card's "when you gain" effects still happen. You need to be able to return it, and there must be a Changeling left. [official]
+- Costs that aren't more than {cost:3} or equal to it (like {cost:0}{potion}) don't qualify. [official]

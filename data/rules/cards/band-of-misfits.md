@@ -1,0 +1,4 @@
+- Play a non-Command, non-Duration Action card from the Supply that costs less than Band of Misfits. The card stays in the Supply.
+- Only the top card of a pile can be played. Command is a type with no rules of its own except that these cards can't play each other.
+- If the played card tries to move itself (trash itself, set itself aside), it can't, since it isn't where it expects to be. See {rule:stop-moving-rule}.
+- Playing it this way doesn't use up an Action.

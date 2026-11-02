@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. Then reveal the top 4 cards of your deck. [official]
+- Put every revealed {card:Copper} and {card:Potion} into your hand; you must take them all. Put the rest back in any order. [official]

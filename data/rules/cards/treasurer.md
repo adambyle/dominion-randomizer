@@ -1,0 +1,2 @@
+- Get {coin:+3}. Choose: trash a Treasure from your hand; gain a Treasure from the trash to your hand; or take the {card:Key}. [official]
+- You can take the Key even if you already have it. [official]

@@ -1,0 +1,2 @@
+- A Boon. You may discard 3 cards to gain a {card:Gold}. [official]
+- With fewer than 3, you discard them but gain nothing. [official]

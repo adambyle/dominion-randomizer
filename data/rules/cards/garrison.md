@@ -1,0 +1,2 @@
+- Part of the {card:Forts} pile. Get {coin:+2}. This turn, when you gain a card, add a token to Garrison. [official]
+- At the start of your next turn, remove them and draw a card per token. With no tokens, it's discarded this turn. [official]

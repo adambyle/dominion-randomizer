@@ -1,0 +1,2 @@
+- An Event costing {cost:0}. You may set aside an Action card from your hand, then play it at the start of your next turn. [official]
+- Once set aside, you must play it. It doesn't use up an Action. [official]

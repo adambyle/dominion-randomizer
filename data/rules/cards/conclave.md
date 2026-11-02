@@ -1,0 +1,2 @@
+- Get {coin:+2}. You may play an Action card from your hand that you don't have a copy of in play. If you do, get +1 Action. [official]
+- It only matters whether a copy is in play now. [official]

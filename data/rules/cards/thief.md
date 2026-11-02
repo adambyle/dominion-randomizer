@@ -1,0 +1,5 @@
+- Each other player reveals their top 2 cards. If any are Treasures, they trash one of them that you choose, and discard the rest. [official]
+- You may then gain any or all of the Treasures trashed this way, to your discard pile. Ones you don't take stay in the trash. [official]
+- Only the Treasures just trashed by this Thief can be gained, not earlier ones. [official]
+- Players shuffle as needed to reveal 2 cards; if they still can't, they reveal what they can. [official]
+- Removed in the second edition. It's still in first-edition boxes.

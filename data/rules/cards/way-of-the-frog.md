@@ -1,0 +1,1 @@
+- A Way. Instead of the card's instructions: +1 Action, and when you discard it from play this turn, put it onto your deck.

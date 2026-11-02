@@ -1,0 +1,2 @@
+- A Landmark. When scoring, {vp:1} per non-Victory card you have from an empty Supply pile. [official]
+- A split pile with only half gone isn't empty. Curses count. [official]

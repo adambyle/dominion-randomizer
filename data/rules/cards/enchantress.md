@@ -1,0 +1,4 @@
+- At the start of your next turn, draw 2 cards.
+- Until then, the first time each other player plays an Action card on their turn, they get +1 Card and +1 Action instead of its instructions. [official]
+- Abilities below a dividing line still work. [official]
+- Reactions like {card:Moat} must be used when Enchantress is played. [official]

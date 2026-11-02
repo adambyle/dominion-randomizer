@@ -1,0 +1,4 @@
+- Gold is a basic Treasure worth {coin:3} that costs {cost:6}. [official]
+- All 30 Golds are in the Supply every game.
+- Several cards gain Golds without buying them. These gains still come from the Supply pile, so if it's empty you get nothing.
+- Gold is a basic card, not a Kingdom card.

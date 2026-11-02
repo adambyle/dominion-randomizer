@@ -1,0 +1,2 @@
+- An Heirloom (from {card:Fool}). A Treasure worth {coin:1}; when played, gain a {card:Silver}. [official]
+- You don't have to play it. [official]

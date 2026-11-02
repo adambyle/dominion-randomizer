@@ -1,0 +1,2 @@
+- A Shadow. Draw a card; each other player discards down to 3 cards in hand. [official]
+- You can play it from your deck as if it were in your hand. See {rule:shadows-and-omens}. [official]

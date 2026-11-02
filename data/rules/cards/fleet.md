@@ -1,0 +1,3 @@
+- A Project. After the game ends, there's one extra round of turns just for players with Fleet. [official]
+- Turns go in order from the player after the one who ended the game. Scores are counted only after all Fleet turns. [official]
+- The game stays over even if the end conditions stop being met. [official]

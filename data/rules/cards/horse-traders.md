@@ -1,0 +1,5 @@
+- Get +1 Buy and {coin:+3}, and discard 2 cards (or as many as you have). [official]
+- When another player plays an Attack, you may set Horse Traders aside from your hand before it resolves. At the start of your next turn, return it to your hand and draw a card. [official]
+- Setting it aside doesn't protect you from the Attack, and once aside it can't be used again until it returns. [official]
+- Several Horse Traders can be set aside for the same Attack, which leaves fewer cards in your hand for it. [official]
+- Removed in the second edition (Cornucopia). It's still in first-edition boxes.

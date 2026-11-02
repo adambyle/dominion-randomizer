@@ -1,0 +1,2 @@
+- A Duration Treasure. The next time you gain an Action card, get +1 Buy and {coin:+3}. [official]
+- It stays in play until then; gained on another player's turn, the bonus won't help. See {rule:durations}. [official]

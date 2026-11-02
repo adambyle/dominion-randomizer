@@ -1,0 +1,3 @@
+- A Castle that's also an Action, worth {vp:3}.
+- Discard any number of Victory cards from your hand, revealing them, and get {coin:+2} per card discarded.
+- See {card:Castles} for how the pile works.

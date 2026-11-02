@@ -1,0 +1,4 @@
+- You may play an Action card from your hand three times. Resolve it fully each time. [official]
+- No Actions are used up. Nothing else is played in between unless the card says so. [official]
+- King's Court on a King's Court plays three different Actions three times each, not one card nine times. [official]
+- On a Duration, King's Court stays in play as long as the Duration does. See {rule:durations}.

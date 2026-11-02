@@ -1,0 +1,3 @@
+- Get {coin:+3}. Put a card from your hand onto your deck. [official]
+- When you gain it, put all the Treasures you have in play onto your deck in any order. You keep the coins they made. [official]
+- Removed in the second edition. It's still in first-edition boxes.

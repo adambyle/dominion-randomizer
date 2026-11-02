@@ -1,0 +1,4 @@
+- A Treasure worth {coin:1}. You may gain a {card:Copper} to your hand, and you can play it. [official]
+- When you gain it, each other player gains a {card:Curse}. [official]
+- This isn't an Attack, so {card:Moat} doesn't help. [official]
+- Removed in the second edition. It's still in first-edition boxes.

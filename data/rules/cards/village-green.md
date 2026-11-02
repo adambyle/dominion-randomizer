@@ -1,0 +1,3 @@
+- Choose: either now or at the start of your next turn, draw a card and get +2 Actions. [official]
+- When you discard it other than in Clean-up, you may play it. [official]
+- Played on another player's turn, choosing "now" wastes the Actions. [official]

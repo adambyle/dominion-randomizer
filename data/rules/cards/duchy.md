@@ -1,0 +1,3 @@
+- Duchy is a basic Victory card worth {vp:3} at the end of the game. It costs {cost:5}. [official]
+- The pile has 8 cards with 2 players and 12 with 3 or more. [official]
+- Running out of Duchies doesn't end the game by itself. It counts toward the three-pile ending like any Supply pile. See {rule:game-end}.

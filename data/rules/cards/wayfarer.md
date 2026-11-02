@@ -1,0 +1,3 @@
+- Draw 3 cards; you may gain a {card:Silver}.
+- It costs the same as the last other card gained this turn by anyone; with none, {cost:6}. [official]
+- Cost reductions apply to that other card, not again to Wayfarer. Its cost can include {potion} or {debt:}. [official]

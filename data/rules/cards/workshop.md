@@ -1,0 +1,3 @@
+- Gain a card costing up to {cost:4} from the Supply, to your discard pile. [official]
+- Coins you have don't raise that limit. [official]
+- Cost reductions in effect (such as {card:Highway}) do count.

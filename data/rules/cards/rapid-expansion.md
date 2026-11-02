@@ -1,0 +1,1 @@
+- A Prophecy. When you gain an Action or Treasure, set it aside and play it at the start of your next turn. [official]

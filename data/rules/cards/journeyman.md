@@ -1,0 +1,3 @@
+- Name a card. Reveal cards from your deck until you have revealed 3 cards that aren't the named card. [official]
+- Put those 3 into your hand and discard the named cards revealed. [official]
+- You can name any card. If you run out, keep what you found. [official]

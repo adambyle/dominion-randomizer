@@ -1,0 +1,1 @@
+- An Ally. At the start of your turn, you may spend 5 Favors to draw 3 cards. [official]

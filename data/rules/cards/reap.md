@@ -1,0 +1,2 @@
+- An Event. Gain a {card:Gold} and set it aside; at the start of your next turn, play it. [official]
+- You start that turn with the Gold in play and {coin:3}, and still have your Action phase. [official]

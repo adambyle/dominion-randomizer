@@ -1,0 +1,4 @@
+- Draw a card and get +1 Action. At the end of the game it's worth {vp:1}. [official]
+- It's both an Action and a Victory card. [official]
+- Use 8 with 2 players and 12 with 3 or more. [official]
+- Removed in the second edition. It's still in first-edition boxes.

@@ -1,0 +1,2 @@
+- Trash a card from your hand. For each of its types you gain: Action, a {card:Duchy}; Treasure, a Transmute; Victory, a {card:Gold}. [official]
+- A card with two of these types gets both. A {card:Curse} gets nothing. [official]

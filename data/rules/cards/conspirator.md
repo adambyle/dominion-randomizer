@@ -1,0 +1,4 @@
+- Get {coin:+2}. If you've played 3 or more Actions this turn, counting this one, also draw a card and get +1 Action.
+- It counts plays, not cards in play. [official]
+- With {card:Throne Room} on Conspirator, the second play counts the Throne Room and both plays, so it gets the bonus.
+- Actions that left play still count, but Durations left over from a previous turn don't, since they weren't played this turn.

@@ -1,0 +1,4 @@
+- Get +2 Actions, then choose: put the top card of your deck face down on your Native Village mat; or put every card from your mat into your hand. [official]
+- Choose before looking at the top card. Either choice is allowed even if your deck or mat is empty. [official]
+- You can look at your mat at any time; other players can't. [official]
+- At the end of the game, cards on the mat go back into your deck for scoring. [official]

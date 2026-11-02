@@ -1,0 +1,3 @@
+- At the end of the game, each Fairgrounds is worth {vp:2} per 5 differently named cards you have, rounded down. [official]
+- Differently named Shelters, Ruins and Knights each count separately.
+- It's a Kingdom Victory card: 8 with 2 players, 12 with 3 or more. [official]

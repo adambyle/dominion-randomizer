@@ -1,0 +1,3 @@
+- Get +1 Buy and {coin:+1}. At the end of your Buy phase, take +1 Coffers per card you gained in that Buy phase. [official]
+- Bought or otherwise gained in the Buy phase, it counts; gains in the Action phase don't. [official]
+- It stacks with copies or replays. [official]

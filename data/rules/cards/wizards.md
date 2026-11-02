@@ -1,0 +1,5 @@
+- A split pile of 16 cards: 4 each of {card:Student}, {card:Conjurer}, {card:Sorcerer} and {card:Lich}, in that order from the top. See {rule:split-piles}. [official]
+- Only the top card can be bought or gained. You can look through the pile at any time without changing its order. [official]
+- {card:Student} can rotate the pile, moving every Student still on top to the bottom. [official]
+- As a pile, the Wizards are a {cost:3} Action – Wizard – Liaison pile, as on the randomizer, because {card:Student} is a Liaison.
+- Liaisons use Favors, so a game with the Wizards also needs an Ally. The Setup panel adds one.

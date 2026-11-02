@@ -1,0 +1,2 @@
+- Get +1 Action. Look at the top 3 cards of your deck: trash one, then discard one, then put the last one back. [official]
+- Do it in that order. If you only have 1 or 2 cards even after shuffling, you trash first, then discard. [official]

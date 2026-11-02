@@ -1,0 +1,3 @@
+- Trash a card from your hand. Gain two cards onto your deck: one costing exactly {cost:1} more and one costing exactly {cost:1} less, in either order. [official]
+- If one cost has no card, still gain the other. [official]
+- Even cards that would normally go elsewhere when gained go onto your deck.

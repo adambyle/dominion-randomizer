@@ -1,0 +1,2 @@
+- A Command card costing {debt:6}. Draw a card and get +1 Action. [official]
+- The next time you play a non-Command Action card this turn, play it again afterwards. That isn't optional, and works even if the card left play. [official]

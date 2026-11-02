@@ -1,0 +1,3 @@
+- Get +1 Action. Set aside the top 3 cards of your deck face down under Archive; you may look at them. [official]
+- Put one into your hand now, one at the start of your next turn and one the turn after. [official]
+- Each Archive (or each play of one) keeps its own set. With fewer cards it runs out sooner and is discarded then. [official]

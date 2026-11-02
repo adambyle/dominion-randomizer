@@ -1,0 +1,1 @@
+- An Event. Trash a card from your hand. If you've gained a {card:Gold} at any point this game, gain a card costing up to {cost:2} more than the trashed card. [official]

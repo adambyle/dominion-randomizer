@@ -1,0 +1,4 @@
+- At the start of your next turn, get {coin:+3}. [official]
+- Until then, whenever another player gains a card they bought, they gain a {card:Curse}. [official]
+- It stacks with other Swamp Hags. Cards gained without buying don't count. [official]
+- Reactions like {card:Moat} must be used when Swamp Hag is played. [official]

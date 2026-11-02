@@ -1,0 +1,4 @@
+- Get +1 Action. Reveal the top 4 cards of your deck, put all revealed Victory cards into your hand, and put the rest back in any order. [official]
+- You must take every Victory card revealed. Curses aren't Victory cards. [official]
+- If your deck has fewer than 4 cards, reveal them, shuffle your discard pile, and reveal the rest. [official]
+- Removed in the second edition. It's still in first-edition boxes.

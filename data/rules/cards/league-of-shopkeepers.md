@@ -1,0 +1,1 @@
+- An Ally. After playing a Liaison: with 5 or more Favors, get {coin:+1}; with 10 or more, also +1 Action and +1 Buy. You don't spend them. [official]

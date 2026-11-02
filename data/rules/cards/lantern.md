@@ -1,0 +1,1 @@
+- An Artifact, taken with {card:Border Guard}. Your Border Guards reveal 3 cards and discard 2, and all 3 must be Actions to take the {card:Horn}.

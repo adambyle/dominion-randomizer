@@ -1,0 +1,1 @@
+- A Boon. You may trash a card from your hand.

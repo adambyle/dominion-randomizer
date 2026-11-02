@@ -1,0 +1,1 @@
+- An Event. If you have 5 or fewer cards in play, gain 5 {card:Horse|Horses} onto your deck (as many as are left). [official]

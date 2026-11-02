@@ -1,0 +1,3 @@
+- A Treasure with +1 Buy. This turn, when you gain a card, you may put it onto your deck. [official]
+- You may also play a Treasure from your hand twice.
+- Tiara on Tiara lets you play two Treasures twice each, not one four times. [official]

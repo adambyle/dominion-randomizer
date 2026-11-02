@@ -1,0 +1,2 @@
+- Draw 2 cards. Set aside up to 2 cards from your hand face down under Gear; at the start of your next turn, put them into your hand. [official]
+- Setting aside none means Gear is discarded this turn. [official]

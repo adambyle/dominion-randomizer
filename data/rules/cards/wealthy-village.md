@@ -1,0 +1,2 @@
+- Draw a card and get +2 Actions.
+- When you gain it, if you have at least 3 differently named Treasures in play, gain a Loot. [official]

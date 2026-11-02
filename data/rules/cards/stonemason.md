@@ -1,0 +1,4 @@
+- Trash a card from your hand and gain 2 cards, each costing less than it. They can be the same or different. [official]
+- Trashing and gaining aren't optional. If nothing cheaper exists (as with {card:Copper}), you gain nothing. [official]
+- Overpay: when you buy it, gain 2 Action cards each costing exactly the amount overpaid. [official]
+- You can't overpay with {debt:}, but overpaying {potion} lets you gain cards with {potion}. [official]

@@ -1,0 +1,3 @@
+- A Castle worth {vp:4}.
+- When you gain it, gain a {card:Duchy} or 3 {card:Estate|Estates}. Either choice is allowed whatever is left. [official]
+- See {card:Castles} for how the pile works.

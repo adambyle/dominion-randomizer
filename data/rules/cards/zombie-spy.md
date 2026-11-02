@@ -1,0 +1,1 @@
+- A Zombie that starts in the trash, for {card:Necromancer}. Draw a card, get +1 Action, then look at the top card of your deck and discard it or put it back. [official]

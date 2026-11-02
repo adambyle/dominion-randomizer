@@ -1,0 +1,4 @@
+- A Treasure worth {coin:2} that is also a Victory card worth {vp:2}. [official]
+- Play it in your Buy phase like any Treasure. [official]
+- Use 8 with 2 players and 12 with 3 or more. [official]
+- First-edition Intrigue calls this card Harem. It's the same card.

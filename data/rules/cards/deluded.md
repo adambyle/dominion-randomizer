@@ -1,0 +1,3 @@
+- A State. At the start of your Buy phase, return it; you can't buy Action cards this turn. [official]
+- You can still gain Actions without buying them. [official]
+- Taken before your Buy phase, it applies this turn; otherwise next turn. [official]

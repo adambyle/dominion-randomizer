@@ -1,0 +1,4 @@
+- A promotional split pile of 10 cards: 5 {card:Sauna|Saunas} on top of 5 {card:Avanto|Avantos}. See {rule:split-piles}.
+- Only the top card can be bought or gained. The Avantos can't be bought until every Sauna is gone. [official]
+- As a pile it's a {cost:4} Action pile, as on the randomizer.
+- Each card can play the other from your hand, so Sauna and Avanto chain into each other.

@@ -1,0 +1,1 @@
+- A Prophecy. Cards cost {cost:1} less, and you may use unused Action plays as Buys. [official]

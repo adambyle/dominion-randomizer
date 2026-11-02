@@ -1,0 +1,1 @@
+- Now: +2 Actions and {coin:+1}. At the start of your next turn: +1 Action and {coin:+1}. [official]

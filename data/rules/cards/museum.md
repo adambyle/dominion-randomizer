@@ -1,0 +1,2 @@
+- A Landmark. When scoring, {vp:2} per differently named card you have. [official]
+- Different cards from the same pile count separately. [official]

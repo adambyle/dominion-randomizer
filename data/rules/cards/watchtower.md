@@ -1,0 +1,4 @@
+- Draw until you have 6 cards in hand. [official]
+- When you gain a card, you may reveal Watchtower from your hand to trash that card or put it onto your deck. [official]
+- Each gain is a separate choice. It works on any gain, even to your hand. [official]
+- A trashed card was still gained, so "when you gain" effects still happen.

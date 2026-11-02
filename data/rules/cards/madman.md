@@ -1,0 +1,3 @@
+- Not in the Supply; you get one from {card:Hermit}. Get +2 Actions, then return Madman to its pile. If you did, draw a card per card in your hand. [official]
+- Returning it isn't optional. If it can't be returned (for example, the second play from {card:Throne Room}), you don't draw.
+- The Madman pile isn't in the Supply, so it doesn't count for pile endings.

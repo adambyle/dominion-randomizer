@@ -1,0 +1,2 @@
+- A Night card. For each card you've gained this turn, you may trash a card from your hand or a {card:Copper} you have in play. [official]
+- Exchanged cards weren't gained, so they don't count. [official]

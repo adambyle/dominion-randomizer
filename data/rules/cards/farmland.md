@@ -1,0 +1,4 @@
+- A Victory card worth {vp:2}.
+- When you gain it, trash a card from your hand and gain a card costing exactly {cost:2} more than it, other than a Farmland. [official]
+- With an empty hand, or no card at that cost, you gain nothing. [official]
+- It's a Kingdom Victory card: 8 with 2 players, 12 with 3 or more. [official]

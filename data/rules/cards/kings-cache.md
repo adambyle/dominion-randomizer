@@ -1,0 +1,2 @@
+- A Treasure. You may play a Treasure from your hand three times. [official]
+- On a Duration Treasure, it stays in play as long as that card does. [official]

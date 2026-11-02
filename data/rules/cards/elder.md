@@ -1,0 +1,3 @@
+- Part of the {card:Townsfolk} pile. Get {coin:+2}. You may play an Action card from your hand. [official]
+- When that card says "choose", you may choose one extra, different option this turn. Do the options in the card's order. [official]
+- Choices without the word "choose" aren't affected. [official]

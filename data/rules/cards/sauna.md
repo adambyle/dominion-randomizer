@@ -1,0 +1,2 @@
+- The top half of the {card:Sauna/Avanto} pile. Draw a card and get +1 Action. You may play an {card:Avanto} from your hand.
+- This turn, when you play a {card:Silver}, you may trash a card from your hand.

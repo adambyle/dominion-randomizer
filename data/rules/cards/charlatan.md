@@ -1,0 +1,5 @@
+- Get {coin:+3}. Each other player gains a {card:Curse}.
+- In any game using Charlatan, Curses are also Treasures worth {coin:1}, all game, everywhere. [official]
+- Players can play Curses in their Buy phase. Anything that cares about Treasures treats them as Treasures. [official]
+- They're still worth {vp:-1} at the end. [official]
+- This applies even if Charlatan is only in the {card:Black Market} deck.

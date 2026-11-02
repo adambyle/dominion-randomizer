@@ -1,0 +1,3 @@
+- A Landmark. Setup: choose a random Action Supply pile. [official]
+- When scoring, {vp:2} per card you have from that pile, even if they have different names. [official]
+- The Ruins pile can be chosen when it's in the game. [official]

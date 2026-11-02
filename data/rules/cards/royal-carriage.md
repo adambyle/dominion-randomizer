@@ -1,0 +1,4 @@
+- Get +1 Action and put it on your Tavern mat. [official]
+- After you finish playing an Action card that's still in play, you may call Royal Carriage to play it again. [official]
+- Several can be called for the same card. On a Duration, Royal Carriage stays in play as long as the Duration does. [official]
+- It can't replay a card that left play (like a Reserve that went to the mat). See {rule:reserve-cards}. [official]

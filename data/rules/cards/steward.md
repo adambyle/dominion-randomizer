@@ -1,0 +1,2 @@
+- Choose one: draw 2 cards; or get {coin:+2}; or trash 2 cards from your hand. [official]
+- If you choose to trash and have only one card, trash it. With 2 or more, you must trash exactly 2. [official]

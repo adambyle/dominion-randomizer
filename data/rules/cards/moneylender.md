@@ -1,0 +1,2 @@
+- You may trash a {card:Copper} from your hand. If you do, get {coin:+3}. [official]
+- No Copper trashed means no coins. [official]

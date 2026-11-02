@@ -1,0 +1,2 @@
+- At the end of the game, each Duke is worth {vp:1} for each {card:Duchy} you have. With 5 Duchies, each Duke is worth {vp:5}. [official]
+- Use 8 Dukes with 2 players and 12 with 3 or more. [official]

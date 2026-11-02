@@ -1,0 +1,4 @@
+- You may reveal a {card:Province} from your hand. If you do, gain a {card:Gold} to your hand; otherwise gain a {card:Silver} to your hand. [official]
+- Revealing is optional. [official]
+- The gained card can be played this turn. [official]
+- Removed in the second edition. It's still in first-edition boxes.

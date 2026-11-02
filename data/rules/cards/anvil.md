@@ -1,0 +1,2 @@
+- A Treasure worth {coin:1}. You may also discard a Treasure from your hand to gain a card costing up to {cost:4}. [official]
+- Discarding is optional. The gained card goes to your discard pile. [official]

@@ -1,0 +1,1 @@
+- A Boon. You may discard a Treasure to gain a card costing up to {cost:4}.

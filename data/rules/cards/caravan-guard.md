@@ -1,0 +1,4 @@
+- Draw a card and get +1 Action. At the start of your next turn, get {coin:+1}. [official]
+- When another player plays an Attack, you may play Caravan Guard from your hand first. [official]
+- Played on someone else's turn, its +Action is useless, but the {coin:+1} still comes on your next turn. [official]
+- You can then use more Reactions, including ones you just drew. [official]

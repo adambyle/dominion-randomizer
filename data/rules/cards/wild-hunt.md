@@ -1,0 +1,2 @@
+- A Gathering card. Choose: draw 3 cards and add {vp:1} to the Wild Hunt pile; or gain an {card:Estate}, and if you do, take all the {vp:} from the pile. [official]
+- With no Estates left, choosing that gives you nothing. [official]

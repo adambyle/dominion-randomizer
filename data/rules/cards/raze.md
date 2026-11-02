@@ -1,0 +1,2 @@
+- Get +1 Action. Trash Raze or a card from your hand. Look at one card from the top of your deck per {cost:1} the trashed card costs; put one into your hand and discard the rest. [official]
+- Trashing a {cost:0} card gives you nothing. {potion} and {debt:} don't count. [official]

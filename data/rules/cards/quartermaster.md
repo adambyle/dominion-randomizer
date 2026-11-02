@@ -1,0 +1,2 @@
+- It stays in play for the rest of the game. At the start of each of your turns, choose: gain a card costing up to {cost:4} and set it aside on Quartermaster; or put a card from it into your hand. [official]
+- Each Quartermaster has its own set of cards. Cards left on it still count as yours.

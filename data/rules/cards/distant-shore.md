@@ -1,0 +1,2 @@
+- Part of the {card:Odysseys} pile. Draw 2 cards, get +1 Action, and gain an {card:Estate}. [official]
+- It's also worth {vp:2}.

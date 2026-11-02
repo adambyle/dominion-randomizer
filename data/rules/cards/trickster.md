@@ -1,0 +1,2 @@
+- Each other player gains a {card:Curse}. [official]
+- Once this turn, when you discard a Treasure from play, you may set it aside and put it into your hand at the end of the turn, after drawing. [official]

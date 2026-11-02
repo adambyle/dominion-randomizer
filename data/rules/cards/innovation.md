@@ -1,0 +1,2 @@
+- A Project. Once during each of your turns, when you gain an Action card, you may play it.
+- It works in your Buy phase too. Choosing to use it on one card uses it up for the turn.

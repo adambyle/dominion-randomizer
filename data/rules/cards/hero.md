@@ -1,0 +1,2 @@
+- Not in the Supply; part of the {card:Page} line. Get {coin:+2} and gain a Treasure from the Supply. [official]
+- When you discard it from play, you may exchange it for a {card:Champion}. See {rule:travellers}.

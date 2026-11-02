@@ -1,0 +1,2 @@
+- An Event costing {debt:8}. At the start of your next turn, before anything else: put your deck and discard pile into your hand, trash any number of cards, shuffle the rest into your deck and draw 5.
+- Effects from trashing happen before you shuffle.

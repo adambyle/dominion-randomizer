@@ -1,0 +1,2 @@
+- A Prophecy. Treasures are also Actions. When you play a Treasure in an Action phase, you get +1 Card and +1 Action instead of its instructions. [official]
+- In the Buy phase, Treasures work as normal. [official]

@@ -1,0 +1,2 @@
+- Reveal the top 4 cards of your deck. Put one copy of each differently named card into your hand and discard the rest. [official]
+- Shuffle if needed; with fewer than 4 cards, reveal what you can. [official]

@@ -1,0 +1,5 @@
+- You draw only 3 cards for your next hand, and you take an extra turn after this one. [official]
+- You never get a third turn in a row. Two Outposts in one turn give only one extra turn, but you still draw only 3. [official]
+- The extra turn is otherwise normal; Durations from this turn do their next-turn effects in it. [official]
+- No extra turn happens once the game has ended.
+- Extra turns don't count for the "fewer turns" tie-breaker. [official]

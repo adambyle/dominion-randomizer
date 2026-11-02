@@ -1,0 +1,3 @@
+- A Duration–Command card. Now and at the start of your next turn: play a non-Duration, non-Command Action card costing up to {cost:4} from the Supply, leaving it there.
+- Only the top card of a pile can be chosen. Each time can be a different card.
+- If the played card tries to move itself, it can't. See {rule:stop-moving-rule}.

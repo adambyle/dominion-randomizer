@@ -1,0 +1,5 @@
+- A split pile of 10 cards: 5 {card:Encampment|Encampments} on top of 5 {card:Plunder|Plunders}. See {rule:split-piles}. [official]
+- Only the top card can be bought or gained. [official]
+- An {card:Encampment} that sets itself aside goes back on top of the pile at the start of Clean-up. That can cover Plunders that were showing, and then they can't be bought again until the Encampments are gone. [official]
+- As a pile it's a {cost:2} Action pile, as on the randomizer. [official]
+- {card:Plunder} gives VP tokens. Use the VP token supply from Prosperity or Empires.

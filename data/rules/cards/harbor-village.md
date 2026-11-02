@@ -1,0 +1,2 @@
+- Draw a card and get +2 Actions. After the next Action you play this turn, if it gave you {coin:+}, get {coin:+1} more. [official]
+- Coffers and {coin:+0} don't count. [official]

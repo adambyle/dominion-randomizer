@@ -1,0 +1,1 @@
+- Discard your hand, then draw 7 cards. [official]

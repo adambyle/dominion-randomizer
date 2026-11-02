@@ -1,0 +1,4 @@
+- Choose a face-up, non-Duration Action card in the trash. Turn it face down for the rest of the turn and play it, leaving it in the trash. [official]
+- Setup: put the 3 Zombies ({card:Zombie Apprentice}, {card:Zombie Mason}, {card:Zombie Spy}) into the trash. [official]
+- Each card in the trash can only be played this way once per turn. Turn them back face up at the end of the turn. [official]
+- If the played card tries to move itself, it can't. It isn't in play, so "while in play" abilities do nothing. [official]

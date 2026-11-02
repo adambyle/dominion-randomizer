@@ -1,0 +1,2 @@
+- Draw a card and get +2 Actions. [official]
+- The Actions let you play more Action cards later this turn; you don't have to use them right away.

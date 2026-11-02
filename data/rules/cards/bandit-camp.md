@@ -1,0 +1,2 @@
+- Draw a card and get +2 Actions, then gain a {card:Spoils}. [official]
+- Spoils come from their own pile outside the Supply. If none are left, you get nothing. [official]

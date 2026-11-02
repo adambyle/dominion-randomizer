@@ -1,0 +1,4 @@
+- Draw a card and get +1 Action. The first time you play a {card:Silver} later this turn, you get {coin:+1}. [official]
+- Each Merchant you play (including each play from {card:Throne Room}) gives its own {coin:+1} on that first Silver. [official]
+- Only the first Silver of the turn counts. Second and later Silvers get nothing extra. [official]
+- If you already played a Silver this turn before playing Merchant, Merchant gives nothing.

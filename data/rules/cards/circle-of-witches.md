@@ -1,0 +1,2 @@
+- An Ally. After playing a Liaison, you may spend 3 Favors to have each other player gain a {card:Curse}. [official]
+- It isn't an Attack, so {card:Moat} doesn't help. [official]

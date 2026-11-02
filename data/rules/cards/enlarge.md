@@ -1,0 +1,1 @@
+- Now and at the start of your next turn: trash a card from your hand and gain one costing up to {cost:2} more. [official]

@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. Reveal the top card of your deck. If it's a Treasure, put it into your hand. [official]
+- If it's an Action or Victory card, gain a Magpie. A card that's both a Treasure and a Victory card does both. [official]

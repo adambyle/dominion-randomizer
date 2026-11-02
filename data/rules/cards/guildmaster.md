@@ -1,0 +1,1 @@
+- Get {coin:+3}. This turn, when you gain a card, take +1 Favor. [official]

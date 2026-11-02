@@ -1,0 +1,3 @@
+- A Landmark. The first time any player gains a {card:Province}, each player bids once, up to {debt:40}, starting on that player's left and ending with them.
+- Each bid passes or beats the previous one. The highest bidder takes that much {debt:} and {vp:8}.
+- It only happens once per game. See {rule:costs-and-debt}.

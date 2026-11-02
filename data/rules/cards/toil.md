@@ -1,0 +1,2 @@
+- An Event. Get +1 Buy. You may play an Action card from your hand; it doesn't use up an Action. [official]
+- Treasures it draws usually can't be played, since you've already bought something.

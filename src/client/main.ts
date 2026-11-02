@@ -1,4 +1,5 @@
-// App shell: top bar, routing (#/, #/recommended, #/cards, #/sets), overlays and the render loop.
+// App shell: top bar, routing (#/, #/recommended, #/cards, #/rules[/topic], #/history, #/account,
+// #/sets), overlays and the render loop.
 
 import "./styles.css";
 import { h, icon, replace, stepper, type Child } from "./dom";
@@ -14,14 +15,23 @@ import { pickerView } from "./views/picker";
 import { welcomeView } from "./views/welcome";
 import { recommendedView } from "./views/recommended";
 import { cardsView } from "./views/cards";
+import { rulesView } from "./views/rules";
+import { accountView, historyView } from "./views/history";
+import { interactionsView } from "./views/interactions";
+import { roomView } from "./views/room";
+import { RoomClient } from "./room";
+import { Account } from "./account";
+import { playedCards } from "../shared/stats";
 
-type Route = "table" | "recommended" | "cards" | "sets";
+type Route = "table" | "recommended" | "cards" | "rules" | "interactions" | "history" | "account" | "room" | "sets";
 
 /** Portrait phones get their own table layout; landscape phones and tablets use the desktop one. */
 const PHONE = window.matchMedia("(max-width: 720px)");
 
 export class App {
   store = new Store();
+  account = new Account(this.store);
+  room = new RoomClient(this.store, this.account);
   recommended = recommended;
   private sheet: string[] = [];
   private tune = false;
@@ -40,9 +50,17 @@ export class App {
       if (added.length) this.renderAfterImages(added);
       else this.render();
     });
+    this.store.played = () => new Set(playedCards(this.account.entries, this.account.marks, recommended).keys());
+    this.account.subscribe(() => this.render());
+    this.room.subscribe(() => this.render());
+    // Back into the room you were in before a reload.
+    const roomLink = /^#\/?room\/([A-Za-z]{3})(?![A-Za-z0-9])/.exec(location.hash)?.[1];
+    if (!roomLink && this.room.saved) this.room.join(this.room.saved);
+    void this.account.init();
     PHONE.addEventListener("change", () => this.render());
     window.addEventListener("resize", () => this.measureTopBar());
     window.addEventListener("hashchange", () => {
+      if (this.route === "history" || this.route === "account") this.account.queueSync(0);
       this.menuOpen = false;
       this.sheet = [];
       this.tune = false;
@@ -63,8 +81,12 @@ export class App {
 
   get route(): Route {
     const r = location.hash.replace(/^#\/?/, "");
-    if (r === "recommended" || r === "cards" || r === "sets") return r;
-    return this.store.state.settings.onboarded ? "table" : "sets";
+    if (r === "recommended" || r === "cards" || r === "sets" || r === "history" || r === "account") return r;
+    if (r === "rules" || r.startsWith("rules/")) return "rules";
+    if (r === "interactions" || r.startsWith("interactions/")) return "interactions";
+    if (r === "room" || r.startsWith("room/")) return "room";
+    // Joining a room from a link skips the first-visit set picker: the room has its sets.
+    return this.store.state.settings.onboarded || this.store.roomMode ? "table" : "sets";
   }
 
   markup = (text: string, onCard?: (id: string) => void) => markup(text, onCard ?? ((id) => this.openCard(id)));
@@ -153,6 +175,14 @@ export class App {
       case "sets": return welcomeView(this);
       case "recommended": return recommendedView(this);
       case "cards": return cardsView(this);
+      case "history": return historyView(this);
+      case "room": return roomView(this, location.hash.replace(/^#\/?room\/?/, "") || null);
+      case "interactions": {
+        const [a = null, b = null] = location.hash.replace(/^#\/?interactions\/?/, "").split("/").filter(Boolean).map(decodeURIComponent);
+        return interactionsView(this, a, b);
+      }
+      case "account": return accountView(this);
+      case "rules": return rulesView(this, decodeURIComponent(location.hash.replace(/^#\/?rules\/?/, "")) || null);
       default: return this.phone ? tableMobileView(this) : tableView(this);
     }
   }
@@ -173,20 +203,27 @@ function topBar(app: App, route: Route): Child {
     return h("header.topbar.m-top", null,
       h("a.mark", { href: "#/" }, "Dominion", h("small", null, "Kingdom randomizer")),
       h("div.spacer"),
+      roomChip(app),
       !firstRun && h("div.m-menu-wrap", null,
         h("button.m-menu", { type: "button", "aria-label": "Menu", "aria-expanded": String(app.menuOpen),
           onclick: () => { app.menuOpen = !app.menuOpen; app.render(); } }, icon(app.menuOpen ? "close" : "menu")),
         app.menuOpen && h("nav.m-menu-pop", { "aria-label": "Sections" },
           link("#/", "Table", "table"), link("#/recommended", "Recommended kingdoms", "recommended"),
-          link("#/cards", "Cards", "cards"), link("#/sets", "Your sets", "sets"),
+          link("#/cards", "Cards", "cards"), link("#/rules", "Rules", "rules"), link("#/interactions", "Interactions", "interactions"),
+          link("#/history", "History", "history"), link("#/room", app.room.code ? `Room ${app.room.code}` : "Play together", "room"),
+          link("#/sets", app.store.roomMode ? "Room's sets" : "Your sets", "sets"), link("#/account", accountLabel(app), "account"),
           route === "table" && hasGame && h("button", { type: "button", onclick: () => { app.menuOpen = false; app.store.dispatch({ type: "clear" }); } }, "Clear the table"))));
   }
   return h("header.topbar", null,
     h("a.mark", { href: "#/" }, "Dominion", h("small", null, "Kingdom randomizer")),
     !firstRun && h("nav.nav", { "aria-label": "Sections" },
       link("#/", "Table", "table"), link("#/recommended", "Recommended", "recommended"), link("#/cards", "Cards", "cards"),
-      link("#/sets", "Your sets", "sets")),
+      link("#/rules", "Rules", "rules"), link("#/interactions", "Interactions", "interactions"), link("#/history", "History", "history"),
+      !app.room.code && link("#/room", "Play together", "room"), link("#/sets", app.store.roomMode ? "Room's sets" : "Your sets", "sets")),
     h("div.spacer"),
+    roomChip(app),
+    !firstRun && h("a.account-link", { href: "#/account", class: route === "account" ? "on" : "", title: "Account" }, icon("user"),
+      h("span", null, app.account.status === "signedIn" ? app.account.username : "Sign in")),
     route === "table" && h("div.bar-actions", null,
       h("div.players", null, stepper({ value: settings.players, min: 2, max: 6, label: "players", format: (n) => `${n} players`,
         onChange: (n) => app.store.dispatch({ type: "settings", patch: { players: n } }) })),
@@ -195,6 +232,18 @@ function topBar(app: App, route: Route): Child {
       h("button.btn.ghost", { type: "button", onclick: () => app.openTune() }, icon("tune"), "Tune"),
       h("button.deal", { type: "button", onclick: () => app.store.dispatch({ type: "deal" }),
         title: game.locked.length ? "Deal again, keeping locked cards" : "Deal a random kingdom" }, hasGame ? "Deal again" : "Deal")));
+}
+
+/** "Room ABC123 · 3" while in a room. */
+function roomChip(app: App): Child {
+  const r = app.room;
+  if (!r.code) return null;
+  return h("a.room-chip", { href: "#/room", class: r.status === "open" ? "" : "offline", title: r.status === "open" ? "In a room" : "Reconnecting" },
+    h("span.dot"), h("b", null, r.code), h("span", null, ` · ${r.members.length || 1}`));
+}
+
+function accountLabel(app: App) {
+  return app.account.status === "signedIn" ? `Account (${app.account.username})` : "Sign in";
 }
 
 new App();

@@ -1,0 +1,3 @@
+- A Castle worth {vp:5}.
+- When you gain it, reveal your hand. Take {vp:1} per Victory card in your hand and in play. [official]
+- See {card:Castles} for how the pile works.

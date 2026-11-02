@@ -1,0 +1,3 @@
+- Trash a card from your hand and gain a {card:Silver} per {cost:1} it cost. [official]
+- When you gain a card, you may reveal Trader from your hand to exchange that card for a Silver: return the gained card and gain a Silver instead.
+- Exchanging happens after the card is gained, so "when you gain" effects of the first card still happened.

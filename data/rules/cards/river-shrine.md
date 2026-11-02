@@ -1,0 +1,2 @@
+- An Omen. Remove a Sun token, then trash up to 2 cards from your hand. [official]
+- At the start of Clean-up, if you gained no cards in your Buy phase this turn, gain a card costing up to {cost:4}. [official]

@@ -1,0 +1,3 @@
+- Get +1 Buy. You may discard an {card:Estate} from your hand for {coin:+4}.
+- If you don't discard one, you must gain an Estate, if any are left. [official]
+- Discarding is your choice even when you hold an Estate; you can take the gain instead.

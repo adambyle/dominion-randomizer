@@ -1,0 +1,4 @@
+- The bottom half of the {card:Gladiator/Fortune} pile. A Treasure with +1 Buy. If you haven't doubled your coins this turn, double them now. [official]
+- Only the first Fortune doubles; later ones only give +1 Buy. [official]
+- Coins already spent aren't doubled. Spend Coffers before playing it to include them.
+- When you gain it, gain a {card:Gold} per {card:Gladiator} you have in play.

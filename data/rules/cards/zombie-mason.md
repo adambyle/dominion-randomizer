@@ -1,0 +1,1 @@
+- A Zombie that starts in the trash, for {card:Necromancer}. Trash the top card of your deck; you may gain a card costing up to {cost:1} more than it. [official]

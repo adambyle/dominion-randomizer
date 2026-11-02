@@ -1,0 +1,3 @@
+- Get +1 Action. Set aside up to 3 cards from your hand face down.
+- At the start of your next turn, put them into your hand, then you may trash a card from your hand.
+- It stays until next turn even if you set aside nothing.

@@ -1,0 +1,4 @@
+- Get {coin:+2}. Then you may put your whole deck into your discard pile at once. [official]
+- Decide right away, before playing anything else or buying. You can't look through your deck as you move it. [official]
+- Moving your deck this way isn't discarding each card, so "when you discard" abilities (like {card:Tunnel}'s) don't trigger.
+- Removed in the second edition. It's still in first-edition boxes.

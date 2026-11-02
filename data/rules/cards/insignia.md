@@ -1,0 +1,1 @@
+- A Loot. A Treasure worth {coin:3}. This turn, when you gain a card, you may put it onto your deck. See {rule:loot}. [official]

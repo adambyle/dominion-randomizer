@@ -1,0 +1,1 @@
+- Take +2 Coffers. Each other player with 5 or more cards in hand discards a card costing {cost:2} or more, or reveals they can't. [official]

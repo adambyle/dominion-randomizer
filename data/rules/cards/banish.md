@@ -1,0 +1,1 @@
+- An Event. Exile any number of cards with the same name from your hand. See {rule:exile-and-horses}. [official]

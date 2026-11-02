@@ -1,0 +1,1 @@
+- An Event, once per turn. Get +1 Buy. Set aside a card from your hand face down; put it into your hand at the end of the turn, after drawing your new hand. [official]

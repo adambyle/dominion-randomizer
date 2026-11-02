@@ -1,0 +1,4 @@
+- Get +1 Action. Each player, you first, reveals the top card of their deck, and you decide for each whether it's discarded or put back. [official]
+- Then reveal cards from your own deck until you reveal a non-Action card. Put all the cards revealed this way into your hand, including that non-Action. [official]
+- Shuffle if needed; if you run out entirely, stop. [official]
+- Cards with the Action type among others count as Actions.

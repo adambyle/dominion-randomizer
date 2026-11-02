@@ -1,0 +1,2 @@
+- Part of the {card:Clashes} pile. Get +1 Action. At the start of your next turn, draw 2 cards. [official]
+- Until then, other players can't play an Action card from their hand if they have 2 or more copies of it in play. [official]

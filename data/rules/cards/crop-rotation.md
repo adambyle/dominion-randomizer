@@ -1,0 +1,1 @@
+- A Project. At the start of each of your turns, you may discard one Victory card to draw 2 cards. [official]

@@ -1,0 +1,1 @@
+- Get +1 Action. Trash a card from your hand. If it's a Treasure, draw 2 cards; if it's an Action, draw 5. Both, draw 7. [official]

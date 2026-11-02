@@ -1,0 +1,4 @@
+- A split pile of 10 cards: 5 {card:Patrician|Patricians} on top of 5 {card:Emporium|Emporiums}. See {rule:split-piles}. [official]
+- Only the top card can be bought or gained. The Emporiums can't be bought until every Patrician is gone. [official]
+- As a pile it's a {cost:2} Action pile, as on the randomizer. [official]
+- {card:Emporium}'s {vp:2} when gained comes as VP tokens. Use the VP token supply from Prosperity or Empires.

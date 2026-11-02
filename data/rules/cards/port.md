@@ -1,0 +1,2 @@
+- Draw a card and get +2 Actions.
+- When you gain a Port, gain another Port. The second one doesn't bring a third. [official]

@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action. Gain a Rats, then trash a card from your hand that isn't a Rats, or reveal a hand of only Rats. [official]
+- When you trash a Rats, on anyone's turn, draw a card. [official]
+- The pile has 20 Rats, whatever the number of players. [official]

@@ -1,0 +1,3 @@
+- A Treasure worth {coin:2}. While it's in play, when you gain a card, you may put that card onto your deck. [official]
+- It works on every card you gain, bought or not. [official]
+- Removed in the second edition. It's still in first-edition boxes.

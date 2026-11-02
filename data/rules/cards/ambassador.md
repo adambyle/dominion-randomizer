@@ -1,0 +1,6 @@
+- Reveal a card from your hand. Return up to 2 copies of it from your hand to its Supply pile, then each other player gains a copy from that pile. [official]
+- You can return 0, 1 or 2 copies. [official]
+- If there aren't enough to go around, hand them out in turn order from your left. [official]
+- A card that didn't come from the Supply (such as {card:Spoils} or a Shelter) can't be returned, and no one gains a copy.
+- In piles of mixed cards (Ruins, {card:Knights}, split piles), returned cards go on top, and players only gain a copy if the top card has that name.
+- Removed in the second edition. It's still in first-edition boxes.

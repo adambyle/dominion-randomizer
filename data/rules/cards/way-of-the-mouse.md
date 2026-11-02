@@ -1,0 +1,3 @@
+- A Way. Instead of the card's instructions: play the set-aside card, leaving it there. [official]
+- Setup: set aside an unused non-Duration Action Kingdom card costing {cost:2} or {cost:3}, and do its setup. [official]
+- The set-aside card can't move itself, and text below its dividing line does nothing. [official]

@@ -1,0 +1,3 @@
+- Get +1 Buy and {coin:+4}, and put it on your Tavern mat. [official]
+- At the end of your Buy phase, if you have {coin:2} or more unspent, you may discard it from your mat. One {coin:2} covers any number of Wine Merchants. [official]
+- It goes straight to your discard pile rather than into play. See {rule:reserve-cards}.

@@ -1,0 +1,3 @@
+- A Treasure worth {coin:1}. Look at the top card of your deck. You may trash it, discard it, or play it if it's an Action or Treasure. [official]
+- Otherwise leave it on your deck. [official]
+- An Action played this way in your Buy phase gives you its effects, but +Actions don't let you play Actions from your hand. Treasures it draws can be played. [official]

@@ -1,0 +1,3 @@
+- A Treasure. Choose: +1 Buy and {coin:+2}; or the next time you gain a card this turn, you may also gain a differently named card with exactly the same cost.
+- Several Charms stack; each extra card just has to differ from the card that triggered it.
+- "Same cost" means every part matches. See {rule:costs-and-debt}.

@@ -1,0 +1,1 @@
+- An Ally. At the start of your Buy phase, you may spend a Favor to trash an Action card from your hand. If you did, gain an Action card of any cost. [official]

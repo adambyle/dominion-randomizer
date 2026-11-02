@@ -1,0 +1,2 @@
+- Get +2 Actions and draw until you have 6 cards in hand. [official]
+- When you gain it, receive a Hex. See {rule:night-boons-and-hexes}. [official]

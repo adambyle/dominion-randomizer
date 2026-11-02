@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. You may discard a card to gain an Action card costing the same or less. [official]
+- Any card can be discarded, but you can only gain an Action. Discarding an Action lets you gain a copy. [official]

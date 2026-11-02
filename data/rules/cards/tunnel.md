@@ -1,0 +1,4 @@
+- A Victory card worth {vp:2}. [official]
+- When you discard it other than in Clean-up, you may reveal it to gain a {card:Gold}. [official]
+- Each discard allows one reveal. It's a Kingdom Victory card: 8 with 2 players, 12 with 3 or more. [official]
+- Moving cards to your discard pile without discarding them (like putting your deck there) doesn't count.

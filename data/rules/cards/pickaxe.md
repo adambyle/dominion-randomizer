@@ -1,0 +1,2 @@
+- A Treasure worth {coin:1}. Trash a card from your hand. If it costs {cost:3} or more, gain a Loot to your hand. [official]
+- Trashing isn't optional if you have a card. See {rule:loot}. [official]

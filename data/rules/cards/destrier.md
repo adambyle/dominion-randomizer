@@ -1,0 +1,3 @@
+- Draw 2 cards and get +1 Action.
+- During your turns, it costs {cost:1} less for each card you've gained this turn. [official]
+- Only the current player's gains count. [official]

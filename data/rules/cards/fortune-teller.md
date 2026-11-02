@@ -1,0 +1,3 @@
+- Get {coin:+2}. Each other player reveals cards from their deck until they reveal a Victory card or a Curse, puts it on top, and discards the rest. [official]
+- If none turns up, they discard everything revealed. [official]
+- Removed in the second edition (Cornucopia). It's still in first-edition boxes.

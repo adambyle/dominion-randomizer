@@ -1,0 +1,4 @@
+- Get +1 Action, then choose one: {coin:+2}; or discard your hand and draw 4 cards, and each other player with 5 or more cards in hand discards their hand and draws 4.
+- Other players reveal Reactions like {card:Moat} before you choose. [official]
+- A player who blocks with Moat neither discards nor draws. [official]
+- You draw 4 even if your hand was empty.

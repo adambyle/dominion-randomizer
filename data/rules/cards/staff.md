@@ -1,0 +1,1 @@
+- A Loot. A Treasure worth {coin:3} with +1 Buy; you may play an Action from your hand. See {rule:loot}. [official]

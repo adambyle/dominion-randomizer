@@ -1,0 +1,1 @@
+- Get {coin:+2}. Look at the top 3 cards of your deck. You may play a Treasure from them, then put the rest back in any order. [official]

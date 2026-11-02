@@ -1,0 +1,3 @@
+- Get +1 Action. Reveal the top 2 cards of your deck; put one into your hand and discard the other. If both were Actions, take the {card:Lantern} or {card:Horn}. [official]
+- With the Lantern, reveal 3 and discard 2; all 3 must be Actions to take an Artifact. [official]
+- Revealing fewer cards than required gives no Artifact. Artifacts work the turn you take them. See {rule:mats-and-tokens}. [official]

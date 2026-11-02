@@ -1,0 +1,2 @@
+- A Landmark. Whenever you trash a card, take {vp:1}, on anyone's turn and even for cards that aren't yours. [official]
+- Trashing several at once gives {vp:1} each.

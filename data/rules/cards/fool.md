@@ -1,0 +1,3 @@
+- If you don't already have {card:Lost in the Woods}, take it (even from another player), take 3 Boons and receive them in any order. [official]
+- If you have it already, Fool does nothing. [official]
+- Heirloom: in games using Fool, each player replaces a starting Copper with a {card:Lucky Coin}. [official]

@@ -1,0 +1,2 @@
+- An Ally. When you gain a card, you may spend 2 Favors to gain a cheaper non-Victory card. [official]
+- That second gain can trigger it again. See {rule:mats-and-tokens}. [official]

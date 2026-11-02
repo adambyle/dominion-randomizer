@@ -1,0 +1,1 @@
+- A Project. At the start of each of your turns, trash a card from your hand. It isn't optional, and you can't remove your cube. [official]

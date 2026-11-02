@@ -1,0 +1,3 @@
+- One of the {card:Knights}. Get +2 Buys, then do the Knight Attack.
+- He costs {cost:4} instead of {cost:5}. [official]
+- Knight Attack: each other player reveals their top 2 cards, trashes one costing from {cost:3} to {cost:6}, and discards the rest. If a Knight is trashed, trash Sir Martin.

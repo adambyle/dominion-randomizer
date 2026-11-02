@@ -1,0 +1,3 @@
+- Draw a card and get +2 Actions.
+- When you gain it, take a Boon. You can look at it, then receive it now or at the start of your next turn. [official]
+- See {rule:night-boons-and-hexes}.

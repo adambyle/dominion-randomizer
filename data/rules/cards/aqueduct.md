@@ -1,0 +1,3 @@
+- A Landmark. Setup: put {vp:8} on the {card:Silver} pile and on the {card:Gold} pile.
+- When you gain a Treasure, move {vp:1} from its pile (if it has any) to Aqueduct. When you gain a Victory card, take all the {vp:} on Aqueduct.
+- A card that's both can be resolved in either order. [official]

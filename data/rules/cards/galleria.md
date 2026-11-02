@@ -1,0 +1,2 @@
+- Get {coin:+3}. This turn, when you gain a card costing {cost:3} or {cost:4}, get +1 Buy. [official]
+- The cost when gained is what counts. [official]

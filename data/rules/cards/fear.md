@@ -1,0 +1,1 @@
+- A Hex. If you have 5 or more cards in hand, discard an Action or Treasure, or reveal your hand to show you have neither. [official]

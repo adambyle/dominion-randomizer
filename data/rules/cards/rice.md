@@ -1,0 +1,1 @@
+- A Treasure with +1 Buy. Get {coin:+1} per different type among the cards you have in play. [official]

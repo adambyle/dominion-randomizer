@@ -1,0 +1,2 @@
+- An Event. Trash up to 2 {card:Copper|Coppers} you have in play. [official]
+- You keep the coins they made. [official]

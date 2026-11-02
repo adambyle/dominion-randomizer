@@ -1,0 +1,2 @@
+- Get +1 Action and {coin:+2}. Each other player Exiles a {card:Curse} from the Supply; a player who can't (no Curses left) discards their Exiled Curses instead. [official]
+- Exiling a Curse isn't gaining one.

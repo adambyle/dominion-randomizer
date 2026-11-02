@@ -1,0 +1,2 @@
+- Get +1 Buy. Discard any number of cards and draw that many. [official]
+- Then discard any number of cards (including ones you drew) for {coin:+1} each. [official]

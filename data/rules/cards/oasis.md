@@ -1,0 +1,1 @@
+- Draw a card, get +1 Action and {coin:+1}, then discard a card. [official]

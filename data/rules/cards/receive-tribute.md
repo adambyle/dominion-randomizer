@@ -1,0 +1,1 @@
+- An Event. If you've gained at least 3 cards this turn, gain up to 3 differently named Action cards that you don't have copies of in play. [official]

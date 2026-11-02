@@ -1,0 +1,3 @@
+- At the end of the game, each Gardens is worth {vp:1} for every full 10 cards you have. With 37 cards, each Gardens is worth {vp:3}. [official]
+- Count every card you own: deck, hand, discard pile, cards in play, set aside or on mats.
+- It's a Kingdom Victory card, so the pile has 8 cards with 2 players and 12 with 3 or more. [official]

@@ -1,0 +1,2 @@
+- Costs {debt:8}. Get +1 Action and draw a card per card you have exactly one copy of in play. [official]
+- Artist counts itself if it's your only one, and Durations from earlier turns count. [official]

@@ -1,0 +1,2 @@
+- Draw a card, get +4 Actions and +1 Buy. Ignore any further +Actions you'd get this turn. [official]
+- Actions you already had stay. Cards that play other cards (like {card:Throne Room}) still work. [official]

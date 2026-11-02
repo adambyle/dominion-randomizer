@@ -1,0 +1,2 @@
+- A Duration Treasure. Choose: either now or at the start of your next turn, {coin:+2}. [official]
+- When you gain it, you may play an Action card from your hand; it doesn't use up an Action.

@@ -1,0 +1,3 @@
+- Look at the top 3 cards of your deck. Choose: put them all into your hand; or discard them all and draw 3 cards. [official]
+- If you discard and need to shuffle, the discarded cards are shuffled in. [official]
+- When you trash Catacombs, gain a card costing less than it, on anyone's turn. [official]

@@ -1,0 +1,3 @@
+- A split pile of 10 cards: 5 {card:Settlers} on top of 5 {card:Bustling Village|Bustling Villages}. See {rule:split-piles}. [official]
+- Only the top card can be bought or gained. The Bustling Villages can't be bought until every Settlers is gone. [official]
+- As a pile it's a {cost:2} Action pile, as on the randomizer. [official]

@@ -1,0 +1,2 @@
+- Get +1 Buy and {coin:+7}, then lose {coin:1} per card in your hand, never going below {coin:0}. [official]
+- When you gain it, trash up to 2 cards from your hand. [official]

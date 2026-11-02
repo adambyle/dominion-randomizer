@@ -1,0 +1,2 @@
+- Part of the {card:Clashes} pile. Draw a card and get +1 Action. You may reveal an Attack card from your hand to draw a card. Then you may rotate any Supply pile. [official]
+- Rotating matters for split piles, {card:Castles}, {card:Knights} and Ruins. See {rule:split-piles}. [official]

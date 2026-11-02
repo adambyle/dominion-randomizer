@@ -1,0 +1,5 @@
+- Gain a copy of a card costing up to {cost:6} that the player to your right gained on their last turn. [official]
+- The cost is checked now, not when they gained it. They don't have to have bought it. [official]
+- If they gained several such cards, choose one; if none, gain nothing. [official]
+- The copy must come from the Supply. [official]
+- It isn't an Attack. [official]

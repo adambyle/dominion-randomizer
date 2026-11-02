@@ -1,0 +1,3 @@
+- The player to your left names a card. Gain a card costing up to {cost:5} that hasn't been named for War Chests this turn. [official]
+- Each War Chest adds another name, so later ones are more limited. [official]
+- They can name any card. Named cards can still be gained in other ways. [official]

@@ -1,0 +1,2 @@
+- An Event. Get +1 Buy. The next time you shuffle this turn, pick up to 3 of the cards to leave in your discard pile instead. [official]
+- It stacks. If you don't shuffle, it does nothing. [official]

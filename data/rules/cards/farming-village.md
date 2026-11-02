@@ -1,0 +1,3 @@
+- Get +2 Actions. Reveal cards from your deck until you reveal a Treasure or an Action. Put it into your hand and discard the rest. [official]
+- You stop at the first card of either type. If none turns up, discard everything revealed. [official]
+- Removed in the second edition (Cornucopia). It's still in first-edition boxes.

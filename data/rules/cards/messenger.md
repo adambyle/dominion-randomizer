@@ -1,0 +1,2 @@
+- Get +1 Buy and {coin:+2}. You may put your deck into your discard pile. That isn't discarding. [official]
+- When Messenger is the first card you gain in your Buy phase, gain a card costing up to {cost:4}, and each other player gains a copy of it. [official]

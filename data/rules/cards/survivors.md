@@ -1,0 +1,2 @@
+- A Ruins card: look at the top 2 cards of your deck, then discard both or put both back in any order. [official]
+- You can't discard just one. See {card:Abandoned Mine} for how the Ruins pile works.

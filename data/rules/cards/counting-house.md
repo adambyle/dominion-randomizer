@@ -1,0 +1,3 @@
+- Look through your discard pile, reveal any number of {card:Copper|Coppers} from it and put them into your hand. [official]
+- Only the Coppers you take need to be shown. [official]
+- Removed in the second edition. It's still in first-edition boxes.

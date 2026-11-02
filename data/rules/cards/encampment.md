@@ -1,0 +1,3 @@
+- The top half of the {card:Encampment/Plunder} pile. Draw 2 cards and get +2 Actions.
+- You may reveal a {card:Gold} or {card:Plunder} from your hand. If you don't, set Encampment aside and return it to the top of its pile at the start of Clean-up. [official]
+- That can cover Plunders again. [official]

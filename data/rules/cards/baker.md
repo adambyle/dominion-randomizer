@@ -1,0 +1,3 @@
+- Draw a card, get +1 Action and +1 Coffers. [official]
+- Setup: every player starts the game with 1 Coffers, even if Baker is only in the {card:Black Market} deck. [official]
+- Coffers are tokens you can spend for {coin:1} each in your Buy phase, before buying.

@@ -1,0 +1,1 @@
+- Draw a card and get +1 Action. At the start of your next turn, choose: {coin:+2}; or trash Cabin Boy to gain a Duration card. [official]

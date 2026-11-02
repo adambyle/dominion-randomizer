@@ -1,0 +1,1 @@
+- A Prophecy. At the start of your turn, and when you remove the last Sun token, gain an Action of any cost to your hand. [official]

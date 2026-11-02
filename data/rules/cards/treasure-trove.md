@@ -1,0 +1,2 @@
+- A Treasure worth {coin:2}. When played, gain a {card:Gold} and a {card:Copper}. [official]
+- If one pile is empty, you still gain the other. [official]

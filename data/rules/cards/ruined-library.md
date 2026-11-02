@@ -1,0 +1,2 @@
+- A Ruins card: draw a card. [official]
+- See {card:Abandoned Mine} for how the Ruins pile works.

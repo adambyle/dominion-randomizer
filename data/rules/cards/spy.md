@@ -1,0 +1,5 @@
+- Draw a card and get +1 Action. Then every player, you included, reveals the top card of their deck. For each one, you choose whether it's discarded or put back. [official]
+- You draw before anyone reveals. [official]
+- Players shuffle if they need to; a player with no cards at all reveals nothing. [official]
+- Go in turn order, starting with yourself. [official]
+- Removed in the second edition. It's still in first-edition boxes.

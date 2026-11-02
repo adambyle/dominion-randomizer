@@ -1,0 +1,2 @@
+- A Duration Treasure. Now and at the start of your next turn: {coin:+1} and +1 Buy. [official]
+- It stays in play until the Clean-up of your next turn. See {rule:durations}.

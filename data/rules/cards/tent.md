@@ -1,0 +1,2 @@
+- Part of the {card:Forts} pile. Get {coin:+2}. You may rotate the Forts.
+- When you discard it from play, you may put it onto your deck. [official]

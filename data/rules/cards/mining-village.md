@@ -1,0 +1,4 @@
+- Draw a card and get +2 Actions. Then you may trash Mining Village for {coin:+2}. [official]
+- Decide right then; you can't trash it later in the turn. [official]
+- With {card:Throne Room} you can only trash it once, so you get the {coin:+2} at most once (see {rule:stop-moving-rule}). [official]
+- The coins only come from Mining Village trashing itself, not from another card trashing it.

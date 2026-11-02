@@ -1,0 +1,2 @@
+- Get +1 Action. Reveal the top 3 cards of your deck. Put an Action, a Treasure and a Victory card from them into your hand, and discard the rest. [official]
+- A card with several types can fill any one matching slot. [official]

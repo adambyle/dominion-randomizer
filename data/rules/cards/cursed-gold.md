@@ -1,0 +1,2 @@
+- An Heirloom (from {card:Pooka}). A Treasure worth {coin:3}; when played, gain a {card:Curse}. [official]
+- You don't have to play it. [official]

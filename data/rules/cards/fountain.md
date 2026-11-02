@@ -1,0 +1,2 @@
+- A Landmark. When scoring, {vp:15} if you have at least 10 {card:Copper|Coppers}. [official]
+- There's no extra for 20. [official]

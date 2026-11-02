@@ -1,0 +1,2 @@
+- Draw a card, get +1 Action and {coin:+1}, then trash a card from your hand. [official]
+- Trashing isn't optional if you have a card. [official]

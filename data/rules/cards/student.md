@@ -1,0 +1,3 @@
+- Part of the {card:Wizards} pile. Get +1 Action. You may rotate the Wizards. [official]
+- Then trash a card from your hand. If it's a Treasure, take +1 Favor and put Student onto your deck. [official]
+- Trashing isn't optional; nor is putting it back after a Treasure. [official]

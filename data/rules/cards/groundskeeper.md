@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. This turn, whenever you gain a Victory card, take {vp:1}.
+- It stacks with copies and replays.

@@ -1,0 +1,1 @@
+- A Loot. A Treasure worth {coin:3}. When you gain it, gain a {card:Gold}. See {rule:loot}. [official]

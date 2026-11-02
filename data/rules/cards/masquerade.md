@@ -1,0 +1,5 @@
+- Draw 2 cards. Then every player with cards in hand picks one at the same time and passes it to the next player to the left who has cards in hand. [official]
+- Players with no cards in hand are skipped: they neither pass nor receive. [official]
+- Then you may trash a card from your hand. [official]
+- It isn't an Attack, so {card:Moat} doesn't stop it. [official]
+- Passing isn't gaining, so "when you gain" abilities don't trigger. [official]

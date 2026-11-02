@@ -47,6 +47,13 @@ export function tuneView(app: App): Child {
         row("Ways, at most", stepper({ value: opts.maxWays, min: 0, max: 4, label: "Ways", onChange: (n) => setOpts({ maxWays: n }) })),
         row("Platinum and Colony", segmented({ value: settings.platinumColony, options: autoOptions, label: "Platinum and Colony", small: true, onChange: (v) => setSettings({ platinumColony: v }) })),
         row("Shelters", segmented({ value: settings.shelters, options: autoOptions, label: "Shelters", small: true, onChange: (v) => setSettings({ shelters: v }) })),
+        row("Cards you've played", segmented({ value: settings.playedCards, label: "Cards you've played", small: true,
+          options: [
+            { value: "any", label: "As usual", title: "Ignore your history" },
+            { value: "fewer", label: "Less often", title: "Prefer cards you haven't played yet" },
+            { value: "none", label: "Skip", title: "Only cards you haven't played (falls back if there aren't enough)" },
+          ], onChange: (v) => setSettings({ playedCards: v }) }),
+          `From your history: ${app.store.played().size} cards played so far`),
         pool.has("black-market") && row("Black Market deck", stepper({ value: settings.blackMarketSize, min: 5, max: 60, label: "Black Market cards", onChange: (n) => setSettings({ blackMarketSize: n }) }))),
 
       h("section", null,

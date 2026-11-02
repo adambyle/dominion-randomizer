@@ -1,0 +1,5 @@
+- Each other player reveals cards from their deck until they reveal one costing {cost:3} or more. They trash it and may gain a card costing up to {cost:2} less than it. They discard the other revealed cards.
+- A player who runs out of cards without finding one just discards what they revealed.
+- Revealed cards aren't shuffled in if a player has to shuffle partway.
+- The player who loses the card is the one who trashes it, so they get any "when you trash this" effect.
+- Removed in the second edition. It's still in first-edition boxes.

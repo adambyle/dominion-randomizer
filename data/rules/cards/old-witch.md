@@ -1,0 +1,2 @@
+- Draw 3 cards. Each other player gains a {card:Curse} and may trash a Curse from their hand. [official]
+- With no Curses left, they can still trash one. Players unaffected (for example by {card:Moat}) neither gain nor trash. [official]

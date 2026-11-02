@@ -1,0 +1,2 @@
+- Exile a card from your hand. Gain a differently named card costing up to {cost:2} more than it. [official]
+- It can cost less. See {rule:exile-and-horses}. [official]

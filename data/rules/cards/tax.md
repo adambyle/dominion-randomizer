@@ -1,0 +1,3 @@
+- An Event. Add {debt:2} to a Supply pile.
+- Setup: put {debt:1} on every Supply pile.
+- When a player gains a card in their Buy phase, they take the {debt:} from its pile. Gains at other times leave it there. See {rule:costs-and-debt}.

@@ -1,0 +1,3 @@
+- A Prize (not in the Supply). A Treasure worth {coin:2}, plus {coin:1} for each unused Action you have. [official]
+- Actions, not Action cards: if you played no Actions, you have one unused Action, so it makes {coin:3}. [official]
+- First-edition Cornucopia only.

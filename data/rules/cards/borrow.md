@@ -1,0 +1,2 @@
+- An Event. Once per turn: +1 Buy. If your –1 Card token isn't on your deck, put it there and get {coin:+1}. [official]
+- If the token is already on your deck, you get only the +1 Buy. See {rule:adventures-tokens}.

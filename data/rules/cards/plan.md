@@ -1,0 +1,1 @@
+- An Event. Move your Trashing token to an Action Supply pile. When you gain a card from that pile, you may trash a card from your hand. See {rule:adventures-tokens}. [official]

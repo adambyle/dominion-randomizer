@@ -1,0 +1,2 @@
+- An Event. Get +1 Buy. This turn, each card you gain is set aside and put into your hand at the end of the turn, after drawing. [official]
+- Buying it twice does nothing extra. [official]

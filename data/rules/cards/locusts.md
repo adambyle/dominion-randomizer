@@ -1,0 +1,2 @@
+- A Hex. Trash the top card of your deck. If it's a {card:Copper} or {card:Estate}, gain a {card:Curse}. [official]
+- Otherwise gain a cheaper card that shares a type with it. If there isn't one, nothing. [official]

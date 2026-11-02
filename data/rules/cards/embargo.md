@@ -1,0 +1,6 @@
+- Get {coin:+2}. Then trash Embargo to put an Embargo token on any Supply pile. [official]
+- For the rest of the game, whenever anyone buys a card from that pile, including you, they gain a {card:Curse}. [official]
+- Tokens stack: three tokens mean three Curses per buy. [official]
+- Gaining from the pile without buying doesn't trigger it, and nothing happens once the Curses run out. [official]
+- With {card:Throne Room} you get {coin:+4} but place only one token, since Embargo can only be trashed once. [official]
+- Removed in the second edition. It's still in first-edition boxes.

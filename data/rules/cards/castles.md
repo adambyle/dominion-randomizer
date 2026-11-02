@@ -1,0 +1,3 @@
+- A Victory pile of 8 different Castles in cost order, cheapest ({card:Humble Castle}) on top. Only the top card can be bought or gained. [official]
+- With 2 players use one of each (8 cards); with more players use all 12. [official]
+- The pile counts as a {cost:3} Victory–Castle pile, as on its randomizer. See {rule:split-piles}.

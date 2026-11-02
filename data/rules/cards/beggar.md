@@ -1,0 +1,4 @@
+- Gain 3 {card:Copper|Coppers} to your hand (as many as are left). [official]
+- When another player plays an Attack, you may discard Beggar from your hand to gain 2 {card:Silver|Silvers}, one onto your deck and one to your discard pile. [official]
+- With one Silver left, it goes onto your deck. [official]
+- Discarding it doesn't protect you from the Attack.

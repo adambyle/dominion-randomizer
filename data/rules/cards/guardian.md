@@ -1,0 +1,3 @@
+- A Night–Duration card. At the start of your next turn, get {coin:+1}. [official]
+- Until then, Attacks other players play don't affect you. You can still use Reactions. [official]
+- It's gained to your hand instead of your discard pile. [official]

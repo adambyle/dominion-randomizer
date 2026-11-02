@@ -1,0 +1,1 @@
+- An Event. Gain a {card:Gold} and Exile a {card:Duchy} from the Supply. [official]

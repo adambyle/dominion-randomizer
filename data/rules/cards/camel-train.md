@@ -1,0 +1,2 @@
+- Exile a non-Victory card from the Supply. [official]
+- When you gain Camel Train, Exile a {card:Gold} from the Supply. [official]

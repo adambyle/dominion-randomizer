@@ -1,0 +1,2 @@
+- An Event. Gain a card costing exactly {cost:3}, one costing exactly {cost:4} and one costing exactly {cost:5}, in that order. [official]
+- If one can't be gained, still gain the others. [official]

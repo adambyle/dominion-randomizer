@@ -1,0 +1,2 @@
+- Get +1 Action, then choose one. Everyone does it, but you get the bigger version: each player draws 1 card (you draw 3); or each gains a {card:Silver} (you gain a {card:Gold}); or each may trash a card and gain one costing exactly {cost:1} more (you, {cost:2} more). [official]
+- Go in turn order, starting with you. [official]

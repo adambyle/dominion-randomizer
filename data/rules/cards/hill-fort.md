@@ -1,0 +1,1 @@
+- Part of the {card:Forts} pile. Gain a card costing up to {cost:4}. Then choose: put it into your hand; or +1 Card and +1 Action. [official]

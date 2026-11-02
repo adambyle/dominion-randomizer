@@ -1,0 +1,1 @@
+- A Boon. Look at the top 4 cards of your deck, discard any number and put the rest back in any order.

@@ -1,0 +1,3 @@
+- Draw 5 cards, then discard 3.
+- When you gain it, each other player gains a {card:Silver}. That isn't optional. [official]
+- Removed in the second edition. It's still in first-edition boxes.

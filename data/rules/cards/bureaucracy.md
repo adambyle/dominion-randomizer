@@ -1,0 +1,2 @@
+- A Prophecy. When you gain a card that doesn't cost {cost:0}, gain a {card:Copper}. [official]
+- Cards with {debt:} in their cost don't cost {cost:0}. [official]

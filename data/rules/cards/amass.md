@@ -1,0 +1,2 @@
+- An Event. If you have no Action cards in play, gain an Action card costing up to {cost:5}. [official]
+- Durations from earlier turns count as Actions in play. [official]

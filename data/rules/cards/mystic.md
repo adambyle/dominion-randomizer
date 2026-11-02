@@ -1,0 +1,2 @@
+- Get +1 Action and {coin:+2}. Name a card and reveal the top card of your deck. If it's the named card, put it into your hand; otherwise put it back. [official]
+- Names must match exactly; different Knights don't match each other. [official]

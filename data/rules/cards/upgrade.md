@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action. Then trash a card from your hand and gain a card costing exactly {cost:1} more. [official]
+- If nothing costs exactly that, you gain nothing. [official]
+- Trashing and its effects happen before the gain.

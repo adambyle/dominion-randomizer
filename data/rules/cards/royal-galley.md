@@ -1,0 +1,3 @@
+- Draw a card. You may play a non-Duration Action card from your hand. [official]
+- If it's still in play, it isn't discarded in Clean-up, and at the start of your next turn you play it again. Royal Galley stays with it. [official]
+- If the card left play, Royal Galley is discarded this turn. [official]

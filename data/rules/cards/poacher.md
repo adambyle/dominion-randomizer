@@ -1,0 +1,4 @@
+- Draw a card and get +1 Action and {coin:+1}. Then discard a card for each empty Supply pile. [official]
+- Draw before discarding. With no empty piles you discard nothing. [official]
+- Every Supply pile counts, including basic piles like Curse and Copper. Piles outside the Supply don't count. [official]
+- If you don't have enough cards, discard your whole hand. [official]

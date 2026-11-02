@@ -1,0 +1,3 @@
+- Not in the Supply; you get it from {card:Urchin}. You may trash 2 cards from your hand. [official]
+- If you trashed 2, draw 2 cards, get {coin:+2}, and each other player discards down to 3 cards in hand. [official]
+- Trashing just one card isn't enough for the bonus. Players respond with Reactions before you decide. [official]

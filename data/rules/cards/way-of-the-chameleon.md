@@ -1,0 +1,2 @@
+- A Way. Follow the card's instructions, but this turn, whenever they would give you +Cards you get that much {coin:+} instead, and vice versa. [official]
+- Other drawing wording ("draw until...") isn't changed. Cards it plays aren't affected unless you use the Way on them too. [official]

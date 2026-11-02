@@ -1,0 +1,1 @@
+- A Way. Instead of the card's instructions: {coin:+2}.
