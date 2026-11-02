@@ -57,6 +57,23 @@ Follow-ups for interactions:
   Trait targets, Reactions to gaining).
 - Tune the broad detectors (discard/trash triggers match many cards) using play feedback.
 
+**5. Multiplayer rooms.** A Room Durable Object per 6-character code (`src/worker/room.ts`,
+WebSocket hibernation, SQLite-backed storage, deleted after two weeks idle). Rooms share the
+table's inputs (Kingdom, landscapes, locks, choices, seed) and the settings that decide the deal;
+each client resolves the setup with the seeded engine, so everyone sees the same setup. Anyone
+can deal, swap, lock, add or load a recommended kingdom. `#/room` creates or joins (invite links
+`#/room/<code>`), lists who's there, sets the room's sets ("Use my sets" / "Combine everyone's
+sets"), and shows the room's played games; "Mark as played" in a room saves the game to every
+member's history. Your own table and settings are kept and come back when you leave; reloading
+rejoins the room.
+
+Follow-ups for rooms:
+
+- Drafting games (pick piles in turn).
+- Last-writer-wins today: simultaneous edits can overwrite each other; add per-change merging if
+  that bites.
+- Rate limits / size caps per room beyond the current message limits.
+
 ## Next, in priority order
 
 1. ~~**Our own rules reference for every card.**~~ Done (see above). Synthesize the official FAQ (rulebooks) and the
@@ -82,11 +99,11 @@ Follow-ups for interactions:
    notable ones on the kingdom screen, and a standalone two-card interaction explorer with a
    shortcut from any card in a kingdom. The wiki's "Synergies"/"Other rules clarifications"
    sections and card-mentions in FAQ text are a starting corpus.
-5. **Multiplayer rooms (Durable Objects).** Shared room code; collaborative pile selection and a
+5. ~~**Multiplayer rooms (Durable Objects).**~~ Done (see above). Shared room code; collaborative pile selection and a
    common reference (kingdom, setup, rules, interactions) once generated; shared history. Room
    state can reuse the seeded engine: share inputs + seed, not results. Drafting games later.
-6. **Bindings for rooms.** D1 is in place for accounts. For rooms, add the Durable Object binding
-   plus a `migrations` entry with `new_sqlite_classes`.
+6. ~~**Bindings for rooms.**~~ Done: `ROOMS` Durable Object binding and the `v1` migration
+   (`new_sqlite_classes: ["Room"]`) are in `wrangler.jsonc`.
 
 ## Smaller items
 

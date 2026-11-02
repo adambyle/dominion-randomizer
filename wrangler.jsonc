@@ -8,6 +8,8 @@
   "observability": { "enabled": true },
   // Accounts, history and synced settings. No database_id: `wrangler deploy` creates the database
   // on first deploy (automatic provisioning) and the Worker creates its tables on first use.
-  "d1_databases": [{ "binding": "DB", "database_name": "dominion-randomizer" }]
-  // A Durable Object (multiplayer rooms) gets added here when rooms are built — see docs/ROADMAP.md.
+  "d1_databases": [{ "binding": "DB", "database_name": "dominion-randomizer" }],
+  // Multiplayer rooms: one Durable Object per room code (SQLite-backed storage).
+  "durable_objects": { "bindings": [{ "name": "ROOMS", "class_name": "Room" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Room"] }]
 }

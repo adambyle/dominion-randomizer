@@ -43,7 +43,7 @@ export function welcomeView(app: App): Child {
   return h("div.welcome", null,
     h("header.welcome-head", null,
       h("div", null,
-        h("h1", null, first ? "Which sets do you have?" : "Your sets"),
+        h("h1", null, app.store.roomMode ? "The room's sets" : first ? "Which sets do you have?" : "Your sets"),
         h("p.lede", null, ready
           ? `${chosen} ${chosen === 1 ? "set" : "sets"}${promoCount ? ` and ${promoCount} ${promoCount === 1 ? "promo" : "promos"}` : ""} chosen`
           : "Tap the boxes you own")),

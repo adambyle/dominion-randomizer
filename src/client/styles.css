@@ -419,6 +419,28 @@ p.hint { margin: 10px 0; }
 .ix-tile .rk-tile { width: 100%; }
 .ix-tile .muted { font-size: 12px; }
 
+/* ---------- Rooms */
+.room-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; text-decoration: none; font-size: 14px;
+  background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); color: var(--ink-2); white-space: nowrap; }
+.room-chip b { color: var(--ink); letter-spacing: 0.08em; font-weight: 600; }
+.room-chip .dot { position: static; flex: none; box-shadow: none; width: 8px; height: 8px; border-radius: 50%; background: #3f9b5a; }
+.room-chip.offline .dot { background: var(--ink-3); }
+.room-page { max-width: 760px; padding-bottom: 40px; }
+.room-page h1 { font-family: var(--serif); font-weight: 600; font-size: 28px; letter-spacing: 0.03em; margin: 8px 0 6px; }
+.room-page h2 { font-family: var(--serif); font-weight: 600; font-size: 16px; letter-spacing: 0.06em; margin: 0 0 10px; }
+.room-code { font-family: var(--sans); font-weight: 700; letter-spacing: 0.14em; }
+.room-name { display: grid; gap: 4px; max-width: 320px; margin: 22px 0; font-size: 13.5px; }
+.room-name input, .room-join input { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--paper); font-size: 16px; }
+.room-join { display: flex; gap: 8px; }
+.room-join input { text-transform: uppercase; letter-spacing: 0.12em; width: 10ch; }
+.room-start { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.room-start section, .room-section { padding: 16px 18px; border-radius: 14px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+.room-section { margin-top: 14px; }
+.room-members { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.room-members li { display: flex; align-items: center; gap: 8px; }
+.room-history { padding-left: 18px; margin: 0; display: grid; gap: 8px; font-size: 14.5px; }
+a.deal { text-decoration: none; display: inline-block; }
+
 /* ---------- History and account */
 .account-link { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--ink-2); font-size: 14.5px;
   padding: 6px 12px; border-radius: 999px; }

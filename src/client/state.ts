@@ -236,6 +236,19 @@ function load(): State {
 
 type Listener = (state: State, prev: State) => void;
 
+/** What a room shares: the table and the settings that decide what's dealt and set up. */
+export interface SharedState { settings: Partial<Settings>; game: Game }
+const SHARED_SETTINGS = ["options", "players", "platinumColony", "shelters", "blackMarketSize"] as const;
+/** Actions every client works out for itself, so they aren't sent to the room. */
+const LOCAL_ACTIONS = new Set<Action["type"]>(["choices", "played", "accountBoxes"]);
+function pick<T extends object, K extends keyof T>(o: T, keys: readonly K[]): Partial<T> {
+  const out: Partial<T> = {};
+  for (const k of keys) if (o[k] !== undefined) out[k] = o[k];
+  return out;
+}
+const shared = (s: State): SharedState => ({ settings: pick(s.settings, SHARED_SETTINGS), game: s.game });
+const sharedKey = (s: State) => JSON.stringify(pick(s.settings, SHARED_SETTINGS));
+
 export class Store {
   state: State = load();
   /** Cards played in earlier games; the app wires this to the history. */
@@ -244,13 +257,49 @@ export class Store {
   private setupKey = "";
   private setupCache: SetupResult | null = null;
 
+  /**
+   * In a room the table and the shared settings come from the room: local changes are sent to it
+   * (onShared) and never saved over the player's own saved state, which comes back on leaving.
+   */
+  roomMode = false;
+  onShared: ((shared: SharedState) => void) | null = null;
+
   dispatch = (action: Action) => {
     const prev = this.state;
     this.state = reduce(prev, action, { played: this.played() });
     if (this.state === prev) return;
-    try { localStorage.setItem(KEY, JSON.stringify(this.state)); } catch { /* storage unavailable */ }
+    if (!this.roomMode) {
+      try { localStorage.setItem(KEY, JSON.stringify(this.state)); } catch { /* storage unavailable */ }
+    } else if (!LOCAL_ACTIONS.has(action.type) && (this.state.game !== prev.game || sharedKey(this.state) !== sharedKey(prev))) {
+      this.onShared?.(shared(this.state));
+    }
     for (const l of this.listeners) l(this.state, prev);
   };
+
+  /** Adopts the room's table and settings (from another player). */
+  adopt(remote: SharedState) {
+    const prev = this.state;
+    const known = (ids: unknown) => (Array.isArray(ids) ? ids.filter((id): id is string => typeof id === "string" && db.byId.has(id)) : []);
+    const g = (remote.game ?? {}) as Partial<Game>;
+    const st = (remote.settings ?? {}) as Partial<Settings>;
+    this.state = {
+      settings: { ...prev.settings, ...pick(st, SHARED_SETTINGS), options: { ...prev.settings.options, ...(st.options ?? {}) } },
+      game: { ...prev.game, ...g, kingdom: known(g.kingdom), landscapes: known(g.landscapes), locked: known(g.locked) },
+    };
+    for (const l of this.listeners) l(this.state, prev);
+  }
+
+  /** Back to the player's own saved table and settings. */
+  leaveRoom() {
+    const prev = this.state;
+    this.roomMode = false;
+    this.onShared = null;
+    this.state = load();
+    for (const l of this.listeners) l(this.state, prev);
+  }
+
+  /** The shared part of the current state (sent to a room). */
+  shared(): SharedState { return shared(this.state); }
 
   subscribe(listener: Listener) {
     this.listeners.push(listener);

@@ -61,7 +61,7 @@ export class Account {
   constructor(private store: Store) {
     // Owned boxes follow the account: push local changes while signed in.
     store.subscribe((state, prev) => {
-      if (this.status === "signedIn" && state.settings.boxesUpdated !== prev.settings.boxesUpdated) this.queueBoxes();
+      if (this.status === "signedIn" && !store.roomMode && state.settings.boxesUpdated !== prev.settings.boxesUpdated) this.queueBoxes();
     });
     window.addEventListener("online", () => this.queueSync(0));
     document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") this.queueSync(0); });
@@ -126,7 +126,9 @@ export class Account {
     }
     // Owned boxes: the newer side wins.
     const local = this.store.state.settings;
-    if (me.settings && me.settings.updated > local.boxesUpdated) {
+    if (this.store.roomMode) {
+      // In a room the sets belong to the room; personal ones sync after leaving.
+    } else if (me.settings && me.settings.updated > local.boxesUpdated) {
       this.store.dispatch({ type: "accountBoxes", enabledBoxes: me.settings.enabledBoxes, updated: me.settings.updated });
     } else if (!me.settings || local.boxesUpdated > me.settings.updated) {
       this.queueBoxes();
@@ -153,6 +155,12 @@ export class Account {
     const entry: HistoryEntry = { id: newId(), playedAt: now, updated: now, game };
     this.write([entry]);
     return entry.id;
+  }
+
+  /** Saves a game played in a room under the room's shared id (once). */
+  addShared(id: string, playedAt: number, game: HistoryGame) {
+    if (this.saved.entries.some((e) => e.id === id)) return;
+    this.write([{ id, playedAt, updated: Date.now(), game }]);
   }
 
   remove(ids: string[]) {
@@ -228,6 +236,7 @@ export class Account {
   }
 
   private queueBoxes() {
+    if (this.store.roomMode) return;
     if (this.boxesTimer) clearTimeout(this.boxesTimer);
     this.boxesTimer = setTimeout(async () => {
       this.boxesTimer = null;

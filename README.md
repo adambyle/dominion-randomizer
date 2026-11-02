@@ -8,7 +8,7 @@ Randomizer and setup reference for *Dominion*, deployed to dominion.adambyle.net
 - `scripts/` — data pipeline (wiki export → app data) and checks
 - `src/shared/` — types, seeded RNG, and the setup engine (used by the client and the Worker)
 - `src/client/` — front end in plain TypeScript (no framework): `main.ts` shell and routing, `state.ts` store, `model.ts` table layout, `views/`
-- `src/worker/` — API (Hono): accounts, synced history and settings in D1; later, multiplayer rooms (Durable Object)
+- `src/worker/` — API (Hono): accounts, synced history and settings in D1; multiplayer rooms (Durable Object)
 - `src/data/` — generated card and recommended-kingdom data, bundled into the client
 - `data/rules/` — the app's own rules reference, hand-written Markdown (see below)
 - `public/data/` — generated FAQ and rules reference, served as static assets
@@ -85,6 +85,13 @@ first, with the wiki FAQ as a secondary source. The format is documented at the 
 `{rule:topic-id}` links and a trailing `[official]` on statements that restate an official ruling.
 `npm test` checks that every file names a real card and that every link points to a card or topic
 that exists.
+
+## Multiplayer rooms
+
+`#/room` starts or joins a room. Each room is a `Room` Durable Object (`src/worker/room.ts`, binding
+`ROOMS`, migration `v1` in `wrangler.jsonc`) reached at `/api/rooms/<code>/ws`; rooms work without
+D1 or accounts. Rooms relay the table's inputs and settings; every client resolves the setup itself
+with the seeded engine. `npm run dev` runs Durable Objects locally too.
 
 ## Card interactions
 

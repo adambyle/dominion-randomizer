@@ -42,7 +42,9 @@ export function playedControl(app: App): Child {
     h("button.btn", { type: "button", onclick: () => {
       const snapshot = currentGame(app);
       if (!snapshot) return;
-      app.store.dispatch({ type: "played", id: app.account.add(snapshot) });
+      // In a room the room records it, and every member saves it to their history.
+      if (app.room.code && app.room.status === "open") app.room.played(snapshot);
+      else app.store.dispatch({ type: "played", id: app.account.add(snapshot) });
     } }, icon("check"), "Mark as played"));
 }
 

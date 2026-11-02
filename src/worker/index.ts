@@ -6,6 +6,10 @@ import {
 } from "../shared/history";
 import { hashPassword, randomId, SESSION_COOKIE, SESSION_DAYS, sha256, verifyPassword } from "./auth";
 import * as q from "./db";
+import { Room } from "./room";
+import { ROOM_ALPHABET, ROOM_CODE } from "../shared/room";
+
+export { Room };
 
 // Static assets (the app, card data, images) are served by Workers Assets; this Worker only
 // handles /api/*: accounts, synced history and settings. Multiplayer rooms will live here too
@@ -13,6 +17,8 @@ import * as q from "./db";
 
 export interface Env {
   ASSETS: Fetcher;
+  /** Multiplayer rooms (src/worker/room.ts). */
+  ROOMS: DurableObjectNamespace<Room>;
   /** Optional: without it the API answers 503 and the app stays local-only. */
   DB?: D1Database;
 }
@@ -28,6 +34,21 @@ const MAX_SYNC_CHANGES = 500;
 const app = new Hono<{ Bindings: Env; Variables: Vars }>();
 
 app.get("/api/health", (c) => c.json({ ok: true, accounts: !!c.env.DB }));
+
+// Rooms don't need accounts or D1: a code names a Durable Object.
+app.post("/api/rooms", async (c) => {
+  const bytes = crypto.getRandomValues(new Uint8Array(6));
+  const code = [...bytes].map((b) => ROOM_ALPHABET[b % ROOM_ALPHABET.length]).join("");
+  await c.env.ROOMS.get(c.env.ROOMS.idFromName(code)).fetch(`https://room/init?code=${code}`, { method: "POST" });
+  return c.json({ code });
+});
+
+app.get("/api/rooms/:code/ws", async (c) => {
+  const code = c.req.param("code").toUpperCase();
+  if (!ROOM_CODE.test(code)) return c.json({ error: "That isn't a room code." }, 400);
+  if (c.req.header("Upgrade") !== "websocket") return c.json({ error: "Expected a WebSocket." }, 426);
+  return c.env.ROOMS.get(c.env.ROOMS.idFromName(code)).fetch(c.req.raw) as unknown as Promise<Response>;
+});
 
 // Everything else needs the database and a JSON body (which also blocks simple cross-site forms).
 app.use("/api/*", async (c, next) => {
