@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action. You may discard 2 cards; if you discard 2, get {coin:+2}. [official]
+- You can discard with only one card in hand, but you only get the coins if you discarded 2. [official]
+- Also worth {vp:1}. Use 8 with 2 players and 12 with 3 or more. [official]

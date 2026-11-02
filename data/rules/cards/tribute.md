@@ -1,0 +1,5 @@
+- The player to your left reveals the top 2 cards of their deck and discards them.
+- For each differently named card revealed, you get: Action, +2 Actions; Treasure, {coin:+2}; Victory, +2 Cards. A card with two of these types gives both.
+- Two copies of the same card count once. A {card:Curse} gives nothing.
+- They shuffle if needed; if they still can't reveal 2, they reveal what they can.
+- Removed in the second edition. It's still in first-edition boxes.

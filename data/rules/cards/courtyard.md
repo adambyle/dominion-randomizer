@@ -1,0 +1,2 @@
+- Draw 3 cards, then put a card from your hand onto your deck. [official]
+- The card you put back can be any card in your hand, not just one you drew. [official]

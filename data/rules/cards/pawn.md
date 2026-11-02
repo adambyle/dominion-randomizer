@@ -1,0 +1,3 @@
+- Choose two different options: +1 Card; +1 Action; +1 Buy; {coin:+1}. [official]
+- Choose both before doing either. [official]
+- If you play it twice, you can choose differently each time.

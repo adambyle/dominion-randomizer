@@ -1,0 +1,3 @@
+- Draw 2 cards and get +1 Action. Then put a card from your hand anywhere in your deck. [official]
+- Top, bottom or anywhere in between, and everyone can see where. [official]
+- If your deck is empty, the card becomes your whole deck. [official]

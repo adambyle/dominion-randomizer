@@ -1,0 +1,3 @@
+- Get +2 Actions, then reveal your hand. If it has no Action cards, draw 2 cards. [official]
+- Cards that are Actions and something else (like {card:Nobles}) count as Action cards. [official]
+- Played twice, you reveal and check separately each time.

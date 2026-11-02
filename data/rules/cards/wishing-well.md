@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action. Then name a card and reveal the top card of your deck. [official]
+- Name a specific card, not a type: "{card:Copper}", not "Treasure". [official]
+- If it's the named card, put it into your hand; otherwise leave it on your deck. [official]

@@ -1,0 +1,3 @@
+- Choose one: draw 3 cards; or get +2 Actions.
+- Also worth {vp:2} at the end of the game. Use 8 with 2 players and 12 with 3 or more. [official]
+- When it's played more than once (for example with {card:Throne Room}), you can choose differently each time.

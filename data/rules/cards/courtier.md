@@ -1,0 +1,5 @@
+- Reveal a card from your hand and count its types (Action, Attack, Treasure, Victory, Curse, Reaction and so on). [official]
+- For each type, choose a different one of: +1 Action; +1 Buy; {coin:+3}; gain a {card:Gold}. A {card:Copper} gives one choice, a {card:Mill} two. [official]
+- There are only four options, so a card with 5 or more types still gives just the four.
+- With an empty hand you reveal nothing and get nothing.
+- The gained Gold goes to your discard pile. [official]

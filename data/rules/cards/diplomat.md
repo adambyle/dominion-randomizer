@@ -1,0 +1,4 @@
+- Played: draw 2 cards. Then, if you have 5 or fewer cards in hand, get +2 Actions. [official]
+- Count after drawing. Playing it from a hand of 5 leaves you with 6 after drawing, so no Actions. [official]
+- Reaction: when another player plays an Attack and you have 5 or more cards in hand, you may reveal Diplomat to draw 2 cards and then discard 3. [official]
+- It doesn't stop the Attack. You can react with it even if the Attack wouldn't affect you.

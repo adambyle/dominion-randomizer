@@ -1,0 +1,2 @@
+- Trash 2 cards from your hand. If you trashed 2, gain a {card:Silver} to your hand. [official]
+- With only one card, trash it and gain nothing. [official]

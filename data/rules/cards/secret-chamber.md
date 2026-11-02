@@ -1,0 +1,5 @@
+- Played: discard any number of cards and get {coin:+1} per card discarded. [official]
+- Reaction: when another player plays an Attack, you may reveal it to draw 2 cards, then put any 2 cards from your hand onto your deck. [official]
+- Revealing it doesn't stop the Attack.
+- You can reveal it more than once in response to the same Attack, and use other Reactions in between.
+- Removed in the second edition. It's still in first-edition boxes.

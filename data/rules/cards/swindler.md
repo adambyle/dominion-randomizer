@@ -1,0 +1,5 @@
+- Get {coin:+2}. Each other player trashes the top card of their deck, then gains a card you choose with exactly the same cost. [official]
+- The gained card comes from the Supply to their discard pile. It can be another copy of what they lost. [official]
+- If nothing in the Supply has that cost, they gain nothing. [official]
+- Go in turn order when it matters. [official]
+- The trashed card's "when you trash" ability happens before you choose the replacement.

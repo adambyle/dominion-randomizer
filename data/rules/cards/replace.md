@@ -1,0 +1,5 @@
+- Trash a card from your hand and gain a card costing up to {cost:2} more than it. [official]
+- If the gained card is an Action or Treasure, put it onto your deck. If it's a Victory card, each other player gains a {card:Curse}. [official]
+- A card with both kinds of type (such as {card:Mill} or {card:Nobles}) does both. [official]
+- The card is gained normally first and then moved onto your deck, so if something else has already moved it, it stays where it is. See {rule:stop-moving-rule}.
+- With an empty hand you trash nothing and gain nothing.

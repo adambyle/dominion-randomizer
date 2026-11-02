@@ -1,0 +1,3 @@
+- Draw 3 cards. Each other player chooses: discard 2 cards, or gain a {card:Curse} to their hand. [official]
+- They can choose an option they can't fully do, like gaining a Curse when none are left. [official]
+- Go in turn order, starting on your left. [official]
