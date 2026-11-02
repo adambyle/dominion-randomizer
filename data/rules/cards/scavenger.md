@@ -1,0 +1,3 @@
+- Get {coin:+2}. You may put your deck into your discard pile. Then put a card from your discard pile onto your deck. [official]
+- The first part is optional; the second isn't, unless your discard pile is empty. [official]
+- Moving your deck isn't discarding. [official]

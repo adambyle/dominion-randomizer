@@ -1,0 +1,3 @@
+- Choose: gain a card costing from {cost:3} to {cost:6} from the trash, onto your deck; or trash an Action card from your hand and gain a card costing up to {cost:3} more than it. [official]
+- You may look through the trash at any time. You can pick an option you can't do. [official]
+- Costs with {potion} or {debt:} aren't between {cost:3} and {cost:6}. [official]

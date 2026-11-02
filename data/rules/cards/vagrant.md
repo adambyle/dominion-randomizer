@@ -1,0 +1,1 @@
+- Draw a card and get +1 Action. Reveal the top card of your deck. If it's a Curse, Ruins, Shelter or Victory card, put it into your hand; otherwise leave it. [official]

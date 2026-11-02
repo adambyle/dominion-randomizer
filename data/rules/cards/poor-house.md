@@ -1,0 +1,2 @@
+- Get {coin:+4}, then reveal your hand and lose {coin:1} per Treasure in it, never going below {coin:0}. [official]
+- Play it before your Treasures, which are no longer in your hand once played.

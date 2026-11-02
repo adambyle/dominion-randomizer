@@ -1,0 +1,3 @@
+- Not in the Supply; it comes from {card:Bandit Camp}, {card:Marauder} and {card:Pillage}. A Treasure worth {coin:3}. [official]
+- When you play it, return it to the Spoils pile. You keep the {coin:3}. [official]
+- The Spoils pile doesn't count for pile endings.

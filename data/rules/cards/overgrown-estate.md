@@ -1,0 +1,3 @@
+- A Shelter, and a Victory card worth {vp:0}. [official]
+- When you trash it, draw a card right away, even in the middle of another card. [official]
+- It doesn't trash itself; you need another card to do that. [official]

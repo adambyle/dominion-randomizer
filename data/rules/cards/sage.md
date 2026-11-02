@@ -1,0 +1,2 @@
+- Get +1 Action. Reveal cards from your deck until you reveal one costing {cost:3} or more. Put it into your hand and discard the rest. [official]
+- If none turns up, discard everything. [official]

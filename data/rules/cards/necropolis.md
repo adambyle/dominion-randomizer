@@ -1,0 +1,2 @@
+- A Shelter. An Action that gives +2 Actions. [official]
+- With Shelters, each player starts with Necropolis, {card:Hovel} and {card:Overgrown Estate} instead of 3 Estates. See {rule:setup}.

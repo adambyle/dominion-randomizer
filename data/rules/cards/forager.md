@@ -1,0 +1,2 @@
+- Get +1 Action and +1 Buy. Trash a card from your hand (if you can), then get {coin:+1} per differently named Treasure in the trash. [official]
+- Copies don't add more. The card you just trashed counts. [official]

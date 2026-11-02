@@ -1,0 +1,2 @@
+- Draw a card and get +2 Actions. Reveal the top 3 cards of your deck. [official]
+- Put the Action cards back on top in any order and discard the rest. [official]

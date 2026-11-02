@@ -1,0 +1,3 @@
+- Look through your discard pile. You may trash a non-Treasure card from your discard pile or your hand. Then gain a card costing up to {cost:3}.
+- At the end of your Buy phase, if you gained no cards in that Buy phase, exchange Hermit for a {card:Madman}: return Hermit to its pile and take a Madman.
+- If Hermit is no longer in play, it can't be exchanged.

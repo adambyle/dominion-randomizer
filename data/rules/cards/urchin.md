@@ -1,0 +1,4 @@
+- Draw a card and get +1 Action. Each other player discards down to 4 cards in hand. [official]
+- While Urchin is in play, when you play another Attack card, you may first trash Urchin to gain a {card:Mercenary}. [official]
+- It has to be a different Attack card: replaying the same Urchin doesn't count, but a second Urchin does. [official]
+- Mercenaries come from their own pile outside the Supply. [official]

@@ -1,0 +1,3 @@
+- Trash Pillage. If you did, gain 2 {card:Spoils}, then each other player with 5 or more cards in hand reveals it and discards a card you choose. [official]
+- Spoils come from their own pile outside the Supply; you get as many as are left. [official]
+- If Pillage couldn't be trashed (for example, the second play from {card:Throne Room}), nothing else happens.

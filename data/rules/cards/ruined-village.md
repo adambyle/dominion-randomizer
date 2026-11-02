@@ -1,0 +1,2 @@
+- A Ruins card: get +1 Action. [official]
+- See {card:Abandoned Mine} for how the Ruins pile works.

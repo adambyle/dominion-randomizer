@@ -1,0 +1,3 @@
+- A Treasure worth {coin:1} with +1 Buy. You may play a non-Duration Treasure from your hand twice, then trash it.
+- You keep everything the Treasure made. A Treasure that leaves play itself (like {card:Spoils}) can't then be trashed.
+- Playing it twice is optional; if you don't, nothing is trashed.

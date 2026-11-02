@@ -1,0 +1,3 @@
+- At the end of the game, worth {vp:1} per 3 {card:Silver|Silvers} you have, rounded down. [official]
+- When you trash it, gain 3 Silvers (as many as are left). [official]
+- It's a Kingdom Victory card: 8 with 2 players, 12 with 3 or more. [official]

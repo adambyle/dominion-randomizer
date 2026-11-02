@@ -1,0 +1,2 @@
+- A Shelter. When you gain a Victory card, you may trash Hovel from your hand. You get nothing for it except a thinner deck.
+- With Shelters, each player starts with Hovel, {card:Necropolis} and {card:Overgrown Estate} instead of 3 Estates. Shelters aren't in the Supply. See {rule:setup}.

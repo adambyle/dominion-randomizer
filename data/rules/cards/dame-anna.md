@@ -1,0 +1,3 @@
+- One of the {card:Knights}. You may trash up to 2 cards from your hand, then do the Knight Attack. [official]
+- Knight Attack: each other player reveals their top 2 cards, trashes one costing from {cost:3} to {cost:6} (their choice if both qualify), and discards the rest. If a Knight is trashed this way, trash Dame Anna.
+- Trashing a Knight from your own hand with the first part doesn't trash her.

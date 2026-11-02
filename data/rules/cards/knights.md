@@ -1,0 +1,6 @@
+- A Kingdom pile of 10 different Knights, shuffled face down with only the top card face up. Only the top card can be bought or gained. [official]
+- Every Knight has the same Attack plus its own bonus. Do the card from top to bottom. [official]
+- Knight Attack: each other player reveals their top 2 cards and trashes one costing from {cost:3} to {cost:6}, their choice if both qualify, and discards the rest. If a Knight is trashed by it, trash the Knight you played. [official]
+- Costs with {potion} or {debt:} don't qualify. [official]
+- The pile isn't a Victory pile even if {card:Dame Josephine} is on top. Most Knights cost {cost:5}; {card:Sir Martin} costs {cost:4}. [official]
+- With {card:Black Market}, put a single Knight into the Black Market deck. [official]

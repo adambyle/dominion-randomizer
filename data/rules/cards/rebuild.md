@@ -1,0 +1,3 @@
+- Get +1 Action. Name a card, then reveal cards from your deck until you reveal a Victory card that isn't the named card. [official]
+- Discard the other revealed cards, trash that Victory card, and gain a Victory card costing up to {cost:3} more than it. [official]
+- If none turns up, discard everything and nothing more happens. [official]

@@ -1,0 +1,2 @@
+- One of the {card:Knights}. You may gain a card costing up to {cost:3}, then do the Knight Attack.
+- Knight Attack: each other player reveals their top 2 cards, trashes one costing from {cost:3} to {cost:6}, and discards the rest. If a Knight is trashed, trash Dame Natalie.

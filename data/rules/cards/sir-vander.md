@@ -1,0 +1,2 @@
+- One of the {card:Knights}. He only has the Knight Attack: each other player reveals their top 2 cards, trashes one costing from {cost:3} to {cost:6}, and discards the rest. If a Knight is trashed, trash him.
+- When Sir Vander is trashed, on anyone's turn, his owner gains a {card:Gold}. [official]
