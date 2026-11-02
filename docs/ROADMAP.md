@@ -3,26 +3,25 @@
 What's left after the first prototype (commit 8749484). The product spec is `.claude/spec.md`
 (kept out of git because it contains a wiki session cookie).
 
-## In progress
+## Done
 
-**1. Our own rules reference** — the framework is built and the first content is in:
+**1. Our own rules reference.** Every card (850) has a hand-written rules file in
+`data/rules/cards/`, and there are 18 general topic pages in `data/rules/topics/` (setup, turns,
+game end, split piles, Durations, Reserves, Travellers, tokens, costs/Debt, Exile, Night/Boons/Hexes,
+Loot, Shadows/Omens, landscapes, Attacks/Reactions, stop-moving and lose-track rules). The card
+sheet shows them first with *Official* tags; the wiki FAQ is a collapsed secondary source.
+`npm test` validates every file; `npm run data` reports any card without a file (e.g. after a wiki
+refresh adds Arcana).
 
-- Format, parser and checks: `src/shared/guide.ts`, `src/shared/guide.test.ts`; files in `data/rules/`.
-- Card sheet shows our rules first, with an *Official* tag on restated rulings, links to the
-  general pages that apply (by type, or split pile), and the wiki FAQ collapsed below.
-- `#/rules` index and topic pages: Setup, Taking a turn, Game end and scoring, Split piles,
-  Durations, Attacks and Reactions, Stop-moving rule, Lose-track rule (old).
-- Card files for every card the wiki has no FAQ for: the six basic Treasures and Victory cards,
-  and the 12 split piles.
+Follow-ups for the rules reference:
 
-Remaining: write card files for the rest of the ~850 cards (start with the most-played sets and
-cards whose wiki FAQ is thin), more topics (Reserve/Tavern mat, Travellers, Events/Projects,
-Boons/Hexes, Ways, Traits, Allies & Favors, Prophecies & Omens, costs/debt/potions, Black Market
-deck, the no-visiting rule), and a coverage line in `data/generated/report.txt`.
+- Review pass against the rulebooks, especially which statements are tagged *Official*.
+- More topics as needed (Black Market deck, the no-visiting rule, Possession/extra turns).
+- New cards from future refreshes need files; the report lists them.
 
 ## Next, in priority order
 
-1. **Our own rules reference for every card** (in progress, see above). Synthesize the official FAQ (rulebooks) and the
+1. ~~**Our own rules reference for every card.**~~ Done (see above). Synthesize the official FAQ (rulebooks) and the
    wiki's unofficial FAQ/rules clarifications into rules explanations written for this app — not
    copied from the wiki — and fill gaps where the wiki's FAQ is thin or missing (e.g. split-pile
    randomizer cards, basic cards, Allies piles; see `data/generated/report.txt` for cards with no

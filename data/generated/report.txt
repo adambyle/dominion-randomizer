@@ -2,6 +2,7 @@ Export: data/raw/wiki-export.json (fetched 2026-11-02T17:21:30.512Z)
 Cards: 850 (basic: 15, kingdom: 498, landscape: 193, pileMember: 54, nonSupply: 56, status: 34)
 FAQ entries: 832
 Rules pages: 105
+App rules (data/rules/cards): 850 of 850 cards
 Recommended kingdoms: 433 (433 rulebook)
 
 Unknown templates (rendered as their first parameter): cost — l — p×1

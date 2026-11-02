@@ -9,7 +9,7 @@
 //   public/data/rules.json   rules reference pages (static asset)
 //   data/generated/report.txt  warnings to review after each refresh
 
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import type {
   Box, Card, CardData, CardKind, Cost, Edition, FaqSection, RecommendedKingdom, RulesPage, SetInfo,
@@ -356,11 +356,16 @@ write("public/data/rules.json", rules);
 const counts = Object.entries(
   cards.reduce<Record<string, number>>((acc, c) => ((acc[c.kind] = (acc[c.kind] ?? 0) + 1), acc), {}),
 ).map(([k, n]) => `${k}: ${n}`).join(", ");
+// The app's own rules (data/rules/cards) are hand-written; list cards that don't have one yet.
+const ownRules = new Set(existsSync("data/rules/cards") ? readdirSync("data/rules/cards").map((f) => f.replace(/\.md$/, "")) : []);
+const noOwnRules = cards.filter((c) => !ownRules.has(c.id)).map((c) => c.name);
+
 const report = [
   `Export: ${exportPath} (fetched ${exp.fetched})`,
   `Cards: ${cards.length} (${counts})`,
   `FAQ entries: ${Object.keys(faq).length}`,
   `Rules pages: ${rules.length}`,
+  `App rules (data/rules/cards): ${cards.length - noOwnRules.length} of ${cards.length} cards${noOwnRules.length ? ` — missing: ${noOwnRules.join(", ")}` : ""}`,
   `Recommended kingdoms: ${kingdoms.length} (${kingdoms.filter((k) => k.source === "rulebook").length} rulebook)`,
   "",
   `Unknown templates (rendered as their first parameter): ${[...unknownTemplates].map(([k, n]) => `${k}×${n}`).join(", ") || "none"}`,
