@@ -1,0 +1,2 @@
+- Get +1 Action. Reveal the top 3 cards of your deck; the player to your left picks one for you to discard, and the rest go into your hand. [official]
+- If you can only reveal fewer, they still pick one of those. [official]

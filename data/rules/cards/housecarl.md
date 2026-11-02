@@ -1,0 +1,1 @@
+- A Reward (not in the Supply). Draw a card per differently named Action card you have in play, counting itself. [official]

@@ -1,0 +1,3 @@
+- Do this twice: trash a card from your hand, then gain a card costing exactly {cost:1} more than it. [official]
+- With one card you do it once; with none, nothing happens. [official]
+- If nothing costs exactly that, you gain nothing for that card. [official]

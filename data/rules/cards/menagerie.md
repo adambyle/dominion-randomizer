@@ -1,0 +1,2 @@
+- Get +1 Action. Reveal your hand. If no two cards share a name, draw 3 cards; otherwise draw 1. [official]
+- Only names matter. An empty hand has no matches, so you draw 3. [official]

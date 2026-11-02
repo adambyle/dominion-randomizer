@@ -1,0 +1,3 @@
+- A Prize (not in the Supply). Draw 2 cards and gain an {card:Estate}. Each other player gains a {card:Curse} and discards down to 3 cards in hand. [official]
+- Do these in that order. [official]
+- First-edition Cornucopia only.

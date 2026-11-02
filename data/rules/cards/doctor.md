@@ -1,0 +1,4 @@
+- Name a card, reveal the top 3 cards of your deck, trash any that match, and put the rest back in any order.
+- Overpay: when you buy it, for each extra {cost:1} you pay, look at the top card of your deck and trash it, discard it or put it back.
+- You may look at the same card again if you put it back. The Doctor is gained first, so you might find it.
+- Removed in the second edition (Guilds). It's still in first-edition boxes.

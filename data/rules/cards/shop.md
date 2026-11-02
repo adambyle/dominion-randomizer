@@ -1,0 +1,3 @@
+- Draw a card and get {coin:+1}. You may play an Action card from your hand that you don't have a copy of in play. [official]
+- It doesn't matter whether you played a copy earlier, only whether one is in play now. [official]
+- Playing it doesn't use up an Action.

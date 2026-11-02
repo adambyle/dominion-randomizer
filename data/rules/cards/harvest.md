@@ -1,0 +1,2 @@
+- Reveal the top 4 cards of your deck, then discard them. Get {coin:+1} per differently named card revealed. [official]
+- Removed in the second edition (Cornucopia). It's still in first-edition boxes.

@@ -1,0 +1,3 @@
+- A Treasure worth {coin:1}.
+- Overpay: when you buy it, gain a {card:Silver} per {cost:1} overpaid.
+- Removed in the second edition (Guilds). It's still in first-edition boxes.

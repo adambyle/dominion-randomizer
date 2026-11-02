@@ -1,0 +1,2 @@
+- A Reward (not in the Supply). Get +2 Actions and +2 Buys, and gain a {card:Gold}. [official]
+- At the end of the game it's worth {vp:1} per Gold you have. [official]

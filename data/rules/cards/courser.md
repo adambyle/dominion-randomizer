@@ -1,0 +1,2 @@
+- A Reward (not in the Supply). Choose two different options: +2 Cards; +2 Actions; {coin:+2}; gain 4 {card:Silver|Silvers}. [official]
+- Do the chosen options in the order listed. [official]

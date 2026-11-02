@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. Reveal your hand, then reveal cards from your deck until you reveal one that doesn't match the name of any card in your hand. [official]
+- Put that card into your hand and discard the rest. If none turns up, discard everything revealed. [official]

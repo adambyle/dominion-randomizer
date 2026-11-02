@@ -1,0 +1,4 @@
+- Draw a card and get +1 Action. Reveal the top card of your deck; if it's an Action, play it. That isn't optional. [official]
+- Playing it doesn't use up an Action. [official]
+- Overpay: when you buy it, for each extra {cost:1} you pay, put any card from your discard pile onto your deck. [official]
+- Decide how much to overpay before looking through your discard pile. [official]

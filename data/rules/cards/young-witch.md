@@ -1,0 +1,5 @@
+- Draw 2 cards, then discard 2. Each other player gains a {card:Curse} unless they reveal a Bane card from their hand. [official]
+- Setup: add an extra Kingdom pile costing {cost:2} or {cost:3} to the Supply. That is the Bane pile, and it's an ordinary Supply pile. [official]
+- Do the Bane's own setup too.
+- Reactions like {card:Moat} come before Bane reveals. [official]
+- A split pile whose randomizer shows {cost:2} or {cost:3} can be the Bane; every card from it is a Bane.

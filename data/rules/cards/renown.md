@@ -1,0 +1,2 @@
+- A Reward (not in the Supply). Get +1 Buy. This turn, cards everywhere cost {cost:2} less, never below {cost:0}. [official]
+- Played twice (for example with {card:Throne Room}), costs drop by {cost:4}. [official]

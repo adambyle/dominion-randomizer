@@ -1,0 +1,5 @@
+- Draw 2 cards, get +1 Action, and discard a card.
+- Setup: choose an extra Kingdom pile costing {cost:3} or {cost:4} and set it beside the Supply. Do its setup too. [official]
+- When you gain a Ferryman, also gain a card from that pile. That's the only way to get those cards. [official]
+- The set-aside pile isn't in the Supply, so it doesn't count for pile endings.
+- If it's a split pile, you gain whatever is on top. [official]

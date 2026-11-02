@@ -1,0 +1,3 @@
+- A Prize (not in the Supply). Get +1 Buy. This turn, cards everywhere cost {cost:2} less, never below {cost:0}.
+- It stacks with other cost reductions.
+- First-edition Cornucopia only.

@@ -1,0 +1,3 @@
+- Gain a {card:Gold}. Each other player gains a {card:Curse}, and each who did draws a card. [official]
+- Drawing isn't optional. A player who didn't gain a Curse doesn't draw. [official]
+- Each player gains and draws before the next player does.

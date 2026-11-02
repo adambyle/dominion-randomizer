@@ -1,0 +1,4 @@
+- Get {coin:+2}. Each other player discards the top card of their deck. [official]
+- If it's a Victory card, they gain a {card:Curse}. Otherwise you choose: they gain a copy of it, or you do. [official]
+- No copy is gained if none are in the Supply. Players with no cards are unaffected. [official]
+- The card is discarded, not revealed, so "when revealed" abilities don't trigger.

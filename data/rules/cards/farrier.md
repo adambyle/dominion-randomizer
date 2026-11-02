@@ -1,0 +1,3 @@
+- Draw a card, get +1 Action and +1 Buy.
+- Overpay: when you buy it, draw an extra card at the end of the turn for each {cost:1} you overpaid. [official]
+- Gaining it without buying doesn't allow overpaying. [official]

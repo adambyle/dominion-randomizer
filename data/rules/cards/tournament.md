@@ -1,0 +1,5 @@
+- Get +1 Action. Each player, you included, may reveal a {card:Province} from their hand. [official]
+- If you revealed one, discard it and gain any Prize or a {card:Duchy}, onto your deck. [official]
+- If no one else revealed one, draw a card and get {coin:+1}. [official]
+- Prizes come only from the Prize pile, and you may take any of them. [official]
+- First-edition Cornucopia only; the second edition has {card:Joust}.

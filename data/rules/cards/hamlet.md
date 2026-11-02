@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. Then you may discard a card for +1 Action, and you may discard a card for +1 Buy. [official]
+- So you can discard 0, 1 or 2 cards; each bonus needs its own discard and can only be taken once. [official]

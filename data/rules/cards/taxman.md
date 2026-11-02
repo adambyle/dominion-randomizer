@@ -1,0 +1,3 @@
+- You may trash a Treasure from your hand. If you do, each other player with 5 or more cards in hand discards a copy of it (or shows they can't), and you gain a Treasure costing up to {cost:3} more onto your deck. [official]
+- The gain is required if you trashed, but can cost less. [official]
+- Removed in the second edition (Guilds). It's still in first-edition boxes.

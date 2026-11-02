@@ -1,0 +1,3 @@
+- Take +2 Coffers. Then you may trash a card from your hand and spend any number of Coffers, to gain a card costing up to the trashed card's cost plus {cost:1} per Coffers spent. [official]
+- You can spend the Coffers you just got. Coffers spent this way don't give you coins. [official]
+- You may gain something cheaper than allowed, even spending nothing.

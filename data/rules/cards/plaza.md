@@ -1,0 +1,1 @@
+- Draw a card and get +2 Actions. You may discard a Treasure for +1 Coffers. [official]
