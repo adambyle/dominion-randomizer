@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action now. At the start of your next turn, draw a card. [official]
+- It stays in play until then. See {rule:durations}.

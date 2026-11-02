@@ -1,0 +1,3 @@
+- Draw 2 cards. Each other player with 4 or more cards in hand puts cards from their hand onto their deck until they have 3. [official]
+- They choose which cards and in what order. [official]
+- Removed in the second edition. It's still in first-edition boxes.

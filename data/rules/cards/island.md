@@ -1,0 +1,5 @@
+- Put Island and a card from your hand onto your Island mat. They stay there until the end of the game. [official]
+- You must put a card with it if you can. Cards on the mat are face up. [official]
+- At the end of the game, Island and the cards on the mat go back into your deck before scoring. Island is worth {vp:2}. [official]
+- With {card:Throne Room} you set aside two cards with Island. [official]
+- It's a Kingdom Victory card: 8 with 2 players, 12 with 3 or more. [official]

@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action. Look at the bottom card of your deck; you may put it on top. [official]
+- Shuffle first if your deck is empty. [official]
+- Removed in the second edition. It's still in first-edition boxes.

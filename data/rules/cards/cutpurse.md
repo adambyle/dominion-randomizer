@@ -1,0 +1,1 @@
+- Get {coin:+2}. Each other player discards a {card:Copper}, or shows a hand with no Copper. [official]

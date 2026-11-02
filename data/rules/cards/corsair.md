@@ -1,0 +1,3 @@
+- Get {coin:+2}. At the start of your next turn, draw a card.
+- Until then, each other player trashes the first {card:Silver} or {card:Gold} they play on each of their turns. The trashed card still made its coins. [official]
+- Several Corsairs in play still trash just one card per player per turn.

@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. Reveal the top card of your deck. If you have a copy of it in play, put it into your hand; otherwise leave it there. [official]
+- Every card in play counts, including this Sea Chart and Durations from last turn. [official]

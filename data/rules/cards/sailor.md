@@ -1,0 +1,5 @@
+- Get +1 Action. Once this turn, when you gain a Duration card, you may play it. [official]
+- At the start of your next turn: {coin:+2}, and you may trash a card from your hand. [official]
+- Each Sailor plays one Duration; two Sailors can play two different gained Durations, but not the same one twice. [official]
+- It works for bought and otherwise gained cards, even in your Buy phase. +Actions you get then don't let you play Actions in the Buy phase. [official]
+- The Duration can be a Treasure or Night card too.

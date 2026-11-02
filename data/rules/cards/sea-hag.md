@@ -1,0 +1,4 @@
+- Each other player discards the top card of their deck, then gains a {card:Curse} onto their deck. [official]
+- Curses go out in turn order. [official]
+- With no Curses left, they still discard.
+- Removed in the second edition. It's still in first-edition boxes.

@@ -1,0 +1,1 @@
+- Draw 2 cards; each other player gains a {card:Curse}. At the start of your next turn, draw 2 cards and then discard 2. [official]

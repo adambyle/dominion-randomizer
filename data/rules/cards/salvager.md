@@ -1,0 +1,2 @@
+- Get +1 Buy. Trash a card from your hand and get {coin:+1} per {cost:1} it costs. [official]
+- {potion} and {debt:} in a cost give nothing. [official]

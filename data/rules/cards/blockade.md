@@ -1,0 +1,6 @@
+- Gain a card costing up to {cost:4} and set it aside on the Blockade. At the start of your next turn, put it into your hand. [official]
+- Until then, when another player gains a copy of that card on their own turn, they also gain a {card:Curse}. [official]
+- The gained card never visits your discard pile, so abilities that care about that (like {card:Nomad Camp}'s) don't apply.
+- If the gained card gets moved elsewhere straight away, nothing more happens and Blockade is discarded this turn. [official]
+- Other players block it with {card:Moat} when you play Blockade, not later when they gain the card.
+- Gains on someone else's turn (for example from {card:Messenger}) don't give a Curse.

@@ -1,0 +1,2 @@
+- Get {coin:+2}. Look at the top 5 cards of your deck, then either discard all of them or put them all back in any order. [official]
+- Removed in the second edition. It's still in first-edition boxes.

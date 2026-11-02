@@ -1,0 +1,3 @@
+- Trash Treasure Map and another Treasure Map from your hand. If you trashed two, gain 4 {card:Gold|Golds} onto your deck. [official]
+- With no second Map in hand, you just trash this one. [official]
+- Playing one Map twice with {card:Throne Room} doesn't count as trashing two. [official]

@@ -1,0 +1,2 @@
+- Draw 3 cards and get +1 Action, then discard 3 cards. [official]
+- You discard 3 even if you couldn't draw 3. [official]

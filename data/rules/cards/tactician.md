@@ -1,0 +1,3 @@
+- If you have any cards in hand, discard them all. Then at the start of your next turn: +5 Cards, +1 Action and +1 Buy. [official]
+- With an empty hand, Tactician does nothing and is discarded this turn. [official]
+- With {card:Throne Room}, the second play finds an empty hand and does nothing. [official]

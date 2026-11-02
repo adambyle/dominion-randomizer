@@ -1,0 +1,3 @@
+- Until your next turn, whenever the player to your right gains a card, you draw a card. At the start of your next turn, draw a card.
+- This counts gains on any turn, such as a {card:Curse} they gain on your turn. [official]
+- The effect ends as soon as your next turn begins.

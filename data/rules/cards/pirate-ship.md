@@ -1,0 +1,5 @@
+- Choose one: {coin:+1} per Coin token on your Pirate Ship mat; or each other player reveals their top 2 cards, trashes a Treasure from them that you choose, and discards the rest. [official]
+- If anyone trashed a Treasure, add one Coin token to your mat (at most one per play). [official]
+- Tokens on the mat are never spent; they just count. [official]
+- Players reveal {card:Moat} before you choose. [official]
+- Removed in the second edition. It's still in first-edition boxes.
