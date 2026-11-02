@@ -1,0 +1,2 @@
+- A Landmark. Setup: put {vp:6} on it per player.
+- When you gain a Victory card, bought or not, take {vp:2} from Battlefield. [official]

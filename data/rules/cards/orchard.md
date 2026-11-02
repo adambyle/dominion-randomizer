@@ -1,0 +1,2 @@
+- A Landmark. When scoring, {vp:4} per differently named Action card you have 3 or more copies of. [official]
+- More than 3 copies doesn't add more. [official]

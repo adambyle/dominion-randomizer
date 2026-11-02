@@ -1,0 +1,3 @@
+- A Castle that's also an Action, worth {vp:2}.
+- Trash it or another Castle from your hand. If you do, gain the top Castle from the pile. [official]
+- See {card:Castles} for how the pile works.

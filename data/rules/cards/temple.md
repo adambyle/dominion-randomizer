@@ -1,0 +1,2 @@
+- A Gathering card. Take {vp:1}, trash 1 to 3 differently named cards from your hand, then add {vp:1} to the Temple pile. [official]
+- When you gain a Temple, take all the {vp:} from the pile. [official]

@@ -1,0 +1,1 @@
+- An Event. Gain 2 {card:Silver|Silvers}, then take {vp:1} per Silver you've gained this turn, including these. [official]

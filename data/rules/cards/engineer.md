@@ -1,0 +1,2 @@
+- Costs {debt:4}. Gain a card costing up to {cost:4}. Then you may trash Engineer to gain another card costing up to {cost:4}. [official]
+- It can't gain cards with {debt:} in the cost, including itself. [official]

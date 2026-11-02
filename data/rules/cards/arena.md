@@ -1,0 +1,2 @@
+- A Landmark. Setup: put {vp:6} on it per player.
+- At the start of your Buy phase, you may discard an Action card from your hand to take {vp:2} from Arena.

@@ -1,0 +1,2 @@
+- A Landmark. When scoring, {vp:-1} per card you have after your first 15. [official]
+- Scores can go below zero. [official]

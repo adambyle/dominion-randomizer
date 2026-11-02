@@ -1,0 +1,1 @@
+- An Event. If your deck and discard pile are both empty, gain 3 {card:Gold|Golds} (as many as are left). [official]

@@ -1,0 +1,3 @@
+- A Landmark. Setup: put {vp:2} on each Action Supply pile that isn't a Gathering pile.
+- When you gain an Action, move {vp:1} from its pile to Defiled Shrine. When you gain a {card:Curse} in your Buy phase, take all the {vp:} from it.
+- Curses gained at other times don't count.

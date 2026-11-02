@@ -1,0 +1,2 @@
+- A Gathering card. Get +1 Buy. If the Farmers' Market pile has {vp:4} or more on it, take them and trash this. Otherwise add {vp:1} to the pile and get {coin:+1} per {vp:1} there. [official]
+- So it makes {coin:1}, {coin:2}, {coin:3}, {coin:4}, then pays out the VP and starts over. It works even when the pile is empty. [official]

@@ -1,0 +1,1 @@
+- Costs {debt:8}. Draw 5 cards, then reveal your hand and discard every {card:Copper} in it. [official]

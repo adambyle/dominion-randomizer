@@ -1,0 +1,3 @@
+- The bottom half of the {card:Patrician/Emporium} pile. Draw a card, get +1 Action and {coin:+1}.
+- When you gain it, if you have at least 5 Action cards in play, take {vp:2}. [official]
+- Durations from earlier turns and called Reserves count, since they're in play. [official]

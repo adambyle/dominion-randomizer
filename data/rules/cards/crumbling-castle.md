@@ -1,0 +1,3 @@
+- A Castle worth {vp:1}.
+- When you gain or trash it, take {vp:1} token and gain a {card:Silver}.
+- See {card:Castles} for how the pile works.

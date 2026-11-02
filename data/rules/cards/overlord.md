@@ -1,0 +1,3 @@
+- Costs {debt:8}. Play a non-Command, non-Duration Action card costing up to {cost:5} from the Supply, leaving it there.
+- Only the top card of a pile can be played. Command is a type that only stops these cards from playing each other.
+- If the played card tries to move itself, it can't. See {rule:stop-moving-rule}.

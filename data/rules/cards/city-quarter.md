@@ -1,0 +1,2 @@
+- Costs {debt:8}. Get +2 Actions, reveal your hand, and draw a card per Action card revealed. [official]
+- Cards with Action among their types count. [official]

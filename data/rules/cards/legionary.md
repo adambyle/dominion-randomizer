@@ -1,0 +1,2 @@
+- Get {coin:+3}. You may reveal a {card:Gold} from your hand. If you do, each other player discards down to 2 cards in hand, then draws a card.
+- Reactions like {card:Moat} come before you decide whether to reveal. [official]

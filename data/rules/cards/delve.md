@@ -1,0 +1,2 @@
+- An Event. Get +1 Buy and gain a {card:Silver}. [official]
+- Since it gives the Buy back, you can buy it again and again. [official]

@@ -1,0 +1,3 @@
+- A Landmark. Setup: put {vp:6} on it per player.
+- When you gain a card in your Buy phase, if you have {coin:2} or more left, take {vp:2} from Basilica. Any gain counts, bought or not.
+- Buying an Event or Project isn't gaining a card.

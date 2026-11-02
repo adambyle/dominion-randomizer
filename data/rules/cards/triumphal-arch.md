@@ -1,0 +1,2 @@
+- A Landmark. When scoring, {vp:3} per copy of your second most common Action card. [official]
+- If two are tied for most, either counts as second.

@@ -1,0 +1,3 @@
+- The top half of the {card:Catapult/Rocks} pile. Get {coin:+1} and trash a card from your hand. [official]
+- If it costs {cost:3} or more, each other player gains a {card:Curse}. If it's a Treasure, each other player discards down to 3. Both can happen. [official]
+- With nothing to trash, neither happens. [official]

@@ -1,0 +1,3 @@
+- Get +1 Action. Reveal the top card of your deck and put it into your hand. The player to your left reveals their top card and puts it back. [official]
+- If your card costs more, get {coin:+1} and {vp:1}. A tie doesn't count. [official]
+- If either of you has no card, yours doesn't cost more. See {rule:costs-and-debt}. [official]

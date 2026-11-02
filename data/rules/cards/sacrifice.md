@@ -1,0 +1,2 @@
+- Trash a card from your hand. For each type: Action gives +2 Cards and +2 Actions; Treasure gives {coin:+2}; Victory gives {vp:2}. [official]
+- A card with several of these types gives each. A {card:Curse} gives nothing. [official]

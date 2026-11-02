@@ -1,0 +1,3 @@
+- An Action and a Treasure. In your Action phase, you may play an Action from your hand twice. In your Buy phase, you may play a Treasure from your hand twice. [official]
+- Neither uses up Actions. Crown on Crown plays two cards twice each. [official]
+- It's always both types, whatever the phase. [official]

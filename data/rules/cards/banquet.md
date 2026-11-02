@@ -1,0 +1,2 @@
+- An Event. Gain 2 {card:Copper|Coppers} and a non-Victory card costing up to {cost:5}. [official]
+- It works even with no Coppers left. [official]

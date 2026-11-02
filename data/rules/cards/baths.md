@@ -1,0 +1,3 @@
+- A Landmark. Setup: put {vp:6} on it per player.
+- When you end your turn without having gained any card, take {vp:2} from Baths. [official]
+- Exchanging isn't gaining.

@@ -1,0 +1,3 @@
+- A Castle worth {vp:2}.
+- When you gain it on your own turn, gain a {card:Gold}, and each other player with 5 or more cards in hand puts 2 of them onto their deck. [official]
+- It isn't an Attack, so Reactions to Attacks don't apply. See {card:Castles} for how the pile works.

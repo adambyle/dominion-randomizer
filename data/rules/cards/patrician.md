@@ -1,0 +1,3 @@
+- The top half of the {card:Patrician/Emporium} pile. Draw a card and get +1 Action.
+- Reveal the top card of your deck. If it costs {cost:5} or more, put it into your hand; otherwise leave it.
+- A {debt:} cost only counts if the coin part is {cost:5} or more too. [official]

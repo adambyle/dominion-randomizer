@@ -1,0 +1,2 @@
+- A Landmark. When scoring, {vp:3} per set of {card:Copper}, {card:Silver} and {card:Gold} you have. [official]
+- In other words, {vp:3} per copy of whichever of the three you have fewest of.

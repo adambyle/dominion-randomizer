@@ -1,0 +1,3 @@
+- An Event costing {debt:8}. Look through your discard pile and shuffle all but up to 5 cards from it into your deck. Then gain a {card:Duchy}. [official]
+- The cards you keep stay in your discard pile. You still shuffle even if you keep everything. [official]
+- It still works with no Duchies left. See {rule:costs-and-debt}. [official]

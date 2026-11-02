@@ -1,0 +1,3 @@
+- The bottom half of the {card:Catapult/Rocks} pile. A Treasure worth {coin:1}.
+- When you gain or trash it: in your Buy phase, gain a {card:Silver} onto your deck; otherwise, gain a Silver to your hand. [official]
+- On another player's turn it isn't your Buy phase, so the Silver goes to your hand. [official]
