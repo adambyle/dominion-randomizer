@@ -85,6 +85,9 @@ export const deleteUser = (db: D1Database, userId: string) => db.batch([
   db.prepare("DELETE FROM users WHERE id = ?").bind(userId),
 ]);
 
+export const updatePassword = (db: D1Database, userId: string, pw: PasswordHash) =>
+  db.prepare("UPDATE users SET pw_hash = ?, pw_salt = ?, pw_iterations = ? WHERE id = ?").bind(pw.hash, pw.salt, pw.iterations, userId).run();
+
 export const saveSettings = (db: D1Database, userId: string, settings: AccountSettings) =>
   db.prepare("UPDATE users SET settings = ? WHERE id = ?").bind(JSON.stringify(settings), userId).run();
 

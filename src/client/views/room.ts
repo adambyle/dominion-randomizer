@@ -41,7 +41,7 @@ export function roomView(app: App, codeFromUrl: string | null): Child {
         h("section", null,
           h("h2", null, "Join a room"),
           h("form.room-join", { onsubmit: (e: Event) => { e.preventDefault(); room.error = null; location.hash = `#/room/${normalizeCode(joinCode)}`; } },
-            h("input#room-code", { value: joinCode, placeholder: "Room code", maxlength: 8, autocapitalize: "characters", autocomplete: "off", spellcheck: "false",
+            h("input#room-code", { value: joinCode, placeholder: "ABC", maxlength: 3, autocapitalize: "characters", autocomplete: "off", spellcheck: "false",
               oninput: (e: Event) => { joinCode = (e.target as HTMLInputElement).value; } }),
             h("button.btn", { type: "submit" }, "Join")))));
   }

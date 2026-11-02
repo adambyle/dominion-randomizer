@@ -5,10 +5,11 @@
 
 import type { HistoryGame } from "./history";
 
-/** Room codes: 6 characters, no easily confused letters or digits. */
-export const ROOM_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
-export const ROOM_CODE = /^[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}$/;
-export const normalizeCode = (s: string) => s.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+/** Room codes: 3 letters, without I, L and O (easily confused with 1 and 0). */
+export const ROOM_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ";
+export const ROOM_CODE_LENGTH = 3;
+export const ROOM_CODE = /^[ABCDEFGHJKMNPQRSTUVWXYZ]{3}$/;
+export const normalizeCode = (s: string) => s.trim().toUpperCase().replace(/[^A-Z]/g, "");
 
 export interface RoomMember {
   /** Random per-connection id. */

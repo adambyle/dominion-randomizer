@@ -19,6 +19,8 @@ export class Room extends DurableObject {
   override async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
     if (url.pathname === "/init") {
+      // A code already in use belongs to a live room: the Worker picks another.
+      if (await this.ctx.storage.get<string>("code")) return new Response("taken", { status: 409 });
       await this.ctx.storage.put("code", url.searchParams.get("code") ?? "");
       await this.touch();
       return new Response("ok");

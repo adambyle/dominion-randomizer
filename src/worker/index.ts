@@ -4,10 +4,10 @@ import {
   isAccountSettings, isHistoryEntry, isRecommendedMark, MAX_PASSWORD, MIN_PASSWORD, USERNAME,
   type AccountSettings, type Me, type SyncResponse,
 } from "../shared/history";
-import { hashPassword, randomId, SESSION_COOKIE, SESSION_DAYS, sha256, verifyPassword } from "./auth";
+import { hashPassword, PBKDF2_ITERATIONS, randomId, SESSION_COOKIE, SESSION_DAYS, sha256, verifyPassword } from "./auth";
 import * as q from "./db";
 import { Room } from "./room";
-import { ROOM_ALPHABET, ROOM_CODE } from "../shared/room";
+import { ROOM_ALPHABET, ROOM_CODE, ROOM_CODE_LENGTH } from "../shared/room";
 
 export { Room };
 
@@ -37,10 +37,14 @@ app.get("/api/health", (c) => c.json({ ok: true, accounts: !!c.env.DB }));
 
 // Rooms don't need accounts or D1: a code names a Durable Object.
 app.post("/api/rooms", async (c) => {
-  const bytes = crypto.getRandomValues(new Uint8Array(6));
-  const code = [...bytes].map((b) => ROOM_ALPHABET[b % ROOM_ALPHABET.length]).join("");
-  await c.env.ROOMS.get(c.env.ROOMS.idFromName(code)).fetch(`https://room/init?code=${code}`, { method: "POST" });
-  return c.json({ code });
+  // Three-letter codes are few (12,167), so skip any that a live room is using.
+  for (let attempt = 0; attempt < 30; attempt++) {
+    const bytes = crypto.getRandomValues(new Uint8Array(ROOM_CODE_LENGTH));
+    const code = [...bytes].map((b) => ROOM_ALPHABET[b % ROOM_ALPHABET.length]).join("");
+    const res = await c.env.ROOMS.get(c.env.ROOMS.idFromName(code)).fetch(`https://room/init?code=${code}`, { method: "POST" });
+    if (res.ok) return c.json({ code });
+  }
+  return c.json({ error: "Couldn't find a free room code. Try again." }, 503);
 });
 
 app.get("/api/rooms/:code/ws", async (c) => {
@@ -129,6 +133,8 @@ app.post("/api/auth/login", async (c) => {
     return c.json({ error: "Wrong username or password." }, 401);
   }
   await q.clearFailures(c.var.db, username);
+  // Passwords hashed with a different iteration count move to the current one.
+  if (user.pw_iterations !== PBKDF2_ITERATIONS) await q.updatePassword(c.var.db, user.id, await hashPassword(password));
   await startSession(c, user.id);
   return c.json(me(user));
 });

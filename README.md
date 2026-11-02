@@ -34,10 +34,10 @@ Played kingdoms ("Mark as played" under the table) are saved in the browser and 
   deploy (automatic provisioning). If you'd rather create it yourself:
   `npx wrangler d1 create dominion-randomizer` and add the printed `database_id` to the binding.
 - Without a `DB` binding the API answers 503 and the app quietly stays local-only.
-- Passwords are hashed with PBKDF2-SHA256 at 100,000 iterations (the Workers maximum). That takes
-  noticeable CPU time per sign-in; on the Workers Free plan (10 ms CPU per request) sign-ins may
-  fail, so use a paid plan or lower `PBKDF2_ITERATIONS` in `src/worker/auth.ts` (existing hashes keep
-  working, since each stores its own iteration count).
+- Passwords are hashed with PBKDF2-SHA256 at 2,000 iterations (about 1.5 ms of CPU) (`PBKDF2_ITERATIONS` in
+  `src/worker/auth.ts`): accounts only guard game history, so hashing is kept cheap enough for the
+  Workers Free plan. Each hash stores its iteration count, and sign-in re-hashes passwords made
+  with a different count.
 - Recommended kingdoms marked played / crossed off sync the same way (D1 table `marks`). History
   also feeds Tune → *Cards you've played* and the Stats tab on `#/history`.
 - `npm run dev` runs the Worker and a local D1 (in `.wrangler/`) through the Cloudflare Vite plugin.

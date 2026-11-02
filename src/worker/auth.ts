@@ -1,9 +1,10 @@
 // Password hashing (PBKDF2-SHA256 via WebCrypto) and session tokens.
 //
-// Workers cap PBKDF2 at 100,000 iterations. The iteration count is stored with each hash so it can
-// be changed later without breaking existing accounts.
+// Accounts only guard game history, so hashing is kept cheap: 2,000 iterations measured about 1.5 ms
+// of CPU (10,000 was about 6 ms), well inside the Workers Free plan's 10 ms per request. The
+// iteration count is stored with each hash, and sign-in re-hashes old passwords at the current count.
 
-export const PBKDF2_ITERATIONS = 100_000;
+export const PBKDF2_ITERATIONS = 2_000;
 const KEY_BITS = 256;
 
 const enc = new TextEncoder();

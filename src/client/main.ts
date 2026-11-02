@@ -54,7 +54,7 @@ export class App {
     this.account.subscribe(() => this.render());
     this.room.subscribe(() => this.render());
     // Back into the room you were in before a reload.
-    const roomLink = /^#\/?room\/([A-Za-z0-9]{6})/.exec(location.hash)?.[1];
+    const roomLink = /^#\/?room\/([A-Za-z]{3})(?![A-Za-z0-9])/.exec(location.hash)?.[1];
     if (!roomLink && this.room.saved) this.room.join(this.room.saved);
     void this.account.init();
     PHONE.addEventListener("change", () => this.render());

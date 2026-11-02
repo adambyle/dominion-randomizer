@@ -58,7 +58,7 @@ export class RoomClient {
 
   join(raw: string) {
     const code = normalizeCode(raw);
-    if (!ROOM_CODE.test(code)) { this.error = "Room codes are 6 letters and numbers."; this.changed(); return; }
+    if (!ROOM_CODE.test(code)) { this.error = "Room codes are 3 letters."; this.changed(); return; }
     if (this.code === code && this.status !== "idle") return;
     // Switching rooms: back to your own table first, so a new room starts from it.
     if (this.code) this.close(true);

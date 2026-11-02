@@ -57,7 +57,7 @@ Follow-ups for interactions:
   Trait targets, Reactions to gaining).
 - Tune the broad detectors (discard/trash triggers match many cards) using play feedback.
 
-**5. Multiplayer rooms.** A Room Durable Object per 6-character code (`src/worker/room.ts`,
+**5. Multiplayer rooms.** A Room Durable Object per 3-letter code (`src/worker/room.ts`,
 WebSocket hibernation, SQLite-backed storage, deleted after two weeks idle). Rooms share the
 table's inputs (Kingdom, landscapes, locks, choices, seed) and the settings that decide the deal;
 each client resolves the setup with the seeded engine, so everyone sees the same setup. Anyone
