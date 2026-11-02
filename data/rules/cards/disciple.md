@@ -1,0 +1,3 @@
+- Not in the Supply; part of the {card:Peasant} line. You may play an Action card from your hand twice, then gain a copy of it. [official]
+- The copy comes from the Supply; non-Supply cards can't be copied. [official]
+- When you discard Disciple from play, you may exchange it for a {card:Teacher}. See {rule:travellers}.

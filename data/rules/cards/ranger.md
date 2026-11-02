@@ -1,0 +1,2 @@
+- Get +1 Buy and turn your Journey token over. If it's now face up, draw 5 cards. [official]
+- Other cards that turn the token affect this. See {rule:adventures-tokens}. [official]

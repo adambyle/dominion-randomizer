@@ -1,0 +1,3 @@
+- Draw a card, get +1 Action and {coin:+1}. Then discard any number of cards. [official]
+- You may gain a card onto your deck costing exactly {cost:1} per card discarded. Discarding none lets you gain a {cost:0} card. [official]
+- Gaining is optional even if you discarded. [official]

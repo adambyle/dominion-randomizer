@@ -1,0 +1,3 @@
+- An Event, once per turn. Turn your Journey token over. If it's now face up, choose up to 3 differently named cards you have in play and gain a copy of each. [official]
+- So it gains cards every other time, depending on what else turned the token. [official]
+- Copies come from the Supply; non-Supply cards can't be copied.

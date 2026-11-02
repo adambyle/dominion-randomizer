@@ -1,0 +1,1 @@
+- Get +1 Action. Now and at the start of your next turn: draw 2 cards, then discard 2 cards. [official]

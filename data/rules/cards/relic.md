@@ -1,0 +1,2 @@
+- A Treasure worth {coin:2}. Each other player puts their –1 Card token on their deck. [official]
+- It's an Attack, so Reactions like {card:Moat} work against it. [official]

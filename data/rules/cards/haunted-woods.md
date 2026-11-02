@@ -1,0 +1,3 @@
+- At the start of your next turn, draw 3 cards. [official]
+- Until then, whenever another player gains a card they bought, they put their whole hand onto their deck in any order. [official]
+- Gains from playing cards or buying Events don't trigger it. Players with no cards left lose nothing. [official]

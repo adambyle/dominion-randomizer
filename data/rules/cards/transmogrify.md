@@ -1,0 +1,3 @@
+- Get +1 Action and put it on your Tavern mat. [official]
+- At the start of your turn, you may call it to trash a card from your hand and gain a card costing up to {cost:1} more, to your hand. [official]
+- With nothing to trash, you gain nothing. See {rule:reserve-cards}. [official]

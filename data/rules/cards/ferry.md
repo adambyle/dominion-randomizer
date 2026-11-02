@@ -1,0 +1,1 @@
+- An Event. Move your –{cost:2} cost token to an Action Supply pile. Cards from that pile cost {cost:2} less on your turns. See {rule:adventures-tokens}. [official]

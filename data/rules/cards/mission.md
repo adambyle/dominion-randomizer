@@ -1,0 +1,2 @@
+- An Event. Take an extra turn after this one, but not a third turn in a row. In it you can't buy cards. [official]
+- You can still buy Events and gain cards other ways in that turn. [official]

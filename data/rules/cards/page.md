@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. [official]
+- When you discard it from play, you may exchange it for a {card:Treasure Hunter}. See {rule:travellers}. [official]

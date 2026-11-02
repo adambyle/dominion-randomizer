@@ -1,0 +1,3 @@
+- Not in the Supply; the last step of the {card:Page} line. Get +1 Action. [official]
+- It stays in play for the rest of the game. From then on, Attacks other players play don't affect you, and whenever you play an Action card you first get +1 Action. [official]
+- It only protects against Attacks played after it. See {rule:travellers}. [official]

@@ -1,0 +1,1 @@
+- An Event. Move your +1 Card token to an Action Supply pile. When you play a card from that pile, you first draw a card. See {rule:adventures-tokens}. [official]

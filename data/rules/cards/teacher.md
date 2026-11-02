@@ -1,0 +1,3 @@
+- Not in the Supply; the last step of the {card:Peasant} line. When played, put it on your Tavern mat. [official]
+- At the start of your turn, you may call it to move your +1 Card, +1 Action, +1 Buy or {coin:+1} token to an Action Supply pile you have no tokens on. [official]
+- See {rule:adventures-tokens} and {rule:reserve-cards}.

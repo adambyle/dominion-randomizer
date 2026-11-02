@@ -1,0 +1,2 @@
+- Draw a card, get +1 Action, and put it on your Tavern mat. [official]
+- At the start of your turn, you may call it to trash a card from your hand. See {rule:reserve-cards}. [official]

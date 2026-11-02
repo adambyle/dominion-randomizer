@@ -1,0 +1,2 @@
+- An Event. Once per turn: if you have no Treasures in play, gain a card costing up to {cost:4}. [official]
+- Buy it before playing any Treasures, or play none. See {rule:events-and-landscapes}.

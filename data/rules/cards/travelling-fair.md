@@ -1,0 +1,2 @@
+- An Event. Get +2 Buys. For the rest of the turn, when you gain a card, you may put it onto your deck. [official]
+- Exchanging Travellers isn't gaining, so it doesn't apply to them. [official]

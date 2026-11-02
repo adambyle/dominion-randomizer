@@ -1,0 +1,2 @@
+- For the rest of the game, at the start of each of your turns, draw a card. Hireling stays in play to show this. [official]
+- Played twice (for example with {card:Throne Room}), you draw 2 a turn, and the Throne Room stays in play too. [official]

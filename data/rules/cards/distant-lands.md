@@ -1,0 +1,3 @@
+- An Action–Reserve–Victory card. When played, it goes on your Tavern mat for the rest of the game. It can't be called. [official]
+- At the end of the game it's worth {vp:4} if it's on your mat, otherwise {vp:0}. [official]
+- It's a Kingdom Victory card: 8 with 2 players, 12 with 3 or more. [official]

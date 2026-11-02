@@ -1,0 +1,3 @@
+- Not in the Supply; part of the {card:Page} line. Get +1 Action and {coin:+1}. [official]
+- Gain a {card:Silver} for each card the player to your right gained on their last turn, bought or not. [official]
+- When you discard it from play, you may exchange it for a {card:Warrior}. See {rule:travellers}.

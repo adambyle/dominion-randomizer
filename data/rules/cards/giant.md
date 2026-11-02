@@ -1,0 +1,3 @@
+- Turn your Journey token over. If it's now face down, get {coin:+1}. If it's face up, get {coin:+5} and attack. [official]
+- Attack: each other player reveals their top card. If it costs from {cost:3} to {cost:6}, they trash it; otherwise they discard it and gain a {card:Curse}. [official]
+- Reactions to Attacks can be used whichever way the token turns. See {rule:adventures-tokens}. [official]

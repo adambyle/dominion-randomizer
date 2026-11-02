@@ -1,0 +1,3 @@
+- Not in the Supply; part of the {card:Peasant} line. Get {coin:+2}, plus {coin:+1} per other Attack you have in play. [official]
+- Each other player with 4 or more cards in hand discards a card. [official]
+- When you discard it from play, you may exchange it for a {card:Fugitive}. See {rule:travellers}.

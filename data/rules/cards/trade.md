@@ -1,0 +1,1 @@
+- An Event. Trash up to 2 cards from your hand and gain a {card:Silver} per card trashed. [official]

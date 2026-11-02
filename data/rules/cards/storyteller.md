@@ -1,0 +1,3 @@
+- Get +1 Action. Play up to 3 Treasures from your hand. [official]
+- Then draw a card, and spend all your coins: draw a card for each {coin:1} spent. [official]
+- This uses up every coin you have so far this turn, however you got them. {potion} isn't spent. [official]

@@ -1,0 +1,2 @@
+- Get +1 Buy and {coin:+1}. [official]
+- When you discard it from play, you may exchange it for a {card:Soldier}. See {rule:travellers}. [official]

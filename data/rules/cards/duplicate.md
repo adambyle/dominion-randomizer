@@ -1,0 +1,4 @@
+- When played, put it on your Tavern mat. [official]
+- When you gain a card costing up to {cost:6}, you may call it to gain another copy of that card from the Supply. [official]
+- It works on other players' turns too, and several can be called for one gain. [official]
+- Costs with {potion} or {debt:} can't be copied. See {rule:reserve-cards}.

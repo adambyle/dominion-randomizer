@@ -1,0 +1,2 @@
+- Now and at the start of your next turn, choose one: {coin:+1}; trash a card from your hand; or gain a {card:Silver}. [official]
+- The two choices can be the same or different. [official]
