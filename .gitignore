@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars
+*.log
+
+# Contains a wiki session cookie; never commit
+.claude/spec.md
+.claude/settings.local.json

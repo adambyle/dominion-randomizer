@@ -1,0 +1,27 @@
+Export: data/raw/wiki-export.json (fetched 2026-11-02T17:21:30.512Z)
+Cards: 850 (basic: 15, kingdom: 498, landscape: 193, pileMember: 54, nonSupply: 56, status: 34)
+FAQ entries: 832
+Rules pages: 105
+Recommended kingdoms: 463 (433 rulebook)
+
+Unknown templates (rendered as their first parameter): cost — l — p×1
+
+Warnings (18):
+  Copper: no FAQ on the wiki
+  Duchy: no FAQ on the wiki
+  Estate: no FAQ on the wiki
+  Gold: no FAQ on the wiki
+  Province: no FAQ on the wiki
+  Silver: no FAQ on the wiki
+  Augurs: no FAQ on the wiki
+  Clashes: no FAQ on the wiki
+  Odysseys: no FAQ on the wiki
+  Forts: no FAQ on the wiki
+  Townsfolk: no FAQ on the wiki
+  Wizards: no FAQ on the wiki
+  Catapult/Rocks: no FAQ on the wiki
+  Encampment/Plunder: no FAQ on the wiki
+  Gladiator/Fortune: no FAQ on the wiki
+  Patrician/Emporium: no FAQ on the wiki
+  Settlers/Bustling Village: no FAQ on the wiki
+  Sauna/Avanto: no FAQ on the wiki

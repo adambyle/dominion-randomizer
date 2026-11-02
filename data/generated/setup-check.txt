@@ -1,0 +1,217 @@
+Academy: tok villagers, tok cubes
+Acting Troupe: tok villagers
+Alchemist: basic potion
+Annex: tok debt
+Apothecary: basic potion
+Aqueduct: tok vp
+Arena: tok vp
+Artist: tok debt
+Baker: tok coffers
+Ball: tok minus-coin-token
+Bandit Camp: ns spoils
+Banish: tok exile
+Bard: ns will-o-wisp, deck boons
+Bargain: ns horse
+Barracks: tok cubes
+Basilica: tok vp
+Baths: tok vp
+Battlefield: tok vp
+Bauble: ls league-of-shopkeepers, tok favors
+Bishop: tok vp
+Black Market: basic potion, aside black-market, ls kind-emperor, tok sun, tok villagers, tok exile
+Blessed Village: ns will-o-wisp, deck boons
+Border Guard: st lantern, st horn
+Borrow: tok minus-card-token
+Bounty Hunter: tok exile
+Bridge Troll: tok minus-coin-token
+Broker: ls league-of-shopkeepers, tok favors
+Butcher: tok coffers
+Camel Train: tok exile
+Canal: tok cubes
+Candlestick Maker: tok coffers
+Capital: tok debt
+Capitalism: tok cubes
+Cardinal: tok exile
+Castles: tok vp
+Cathedral: tok cubes
+Cavalry: ns horse
+Cemetery: ns ghost, deck+ haunted-mirror
+Change: tok debt
+Chariot Race: tok vp
+Citadel: tok cubes
+City Gate: tok cubes
+City Quarter: tok debt
+Coin of the Realm: tok tavern
+Collection: tok vp
+Colonnade: tok vp
+Conquest: tok vp
+Continue: tok debt
+Contract: ls league-of-shopkeepers, tok favors
+Coven: tok exile
+Craftsman: tok debt
+Credit: tok debt
+Crop Rotation: tok cubes
+Cultist: basic ruins
+Cursed: ns loot
+Cursed Village: st deluded, st envious, st miserable, st twice-miserable, deck hexes
+Cutthroat: ns loot
+Daimyo: tok debt
+Death Cart: basic ruins
+Defiled Shrine: tok vp
+Demand: ns horse
+Devil's Workshop: ns imp
+Displace: tok exile
+Distant Lands: tok tavern
+Dominate: tok vp
+Donate: tok debt
+Druid: ns will-o-wisp, aside druid
+Ducat: tok coffers
+Duplicate: tok tavern
+Embargo: tok embargo
+Emissary: ls league-of-shopkeepers, tok favors
+Encampment/Plunder: tok vp
+Enclave: tok exile
+Engineer: tok debt
+Exploration: tok coffers, tok villagers, tok cubes
+Fair: tok cubes
+Familiar: basic potion
+Farmers' Market: tok vp
+Ferry: tok minus-cost-token
+Ferryman: aside ferryman
+Flag Bearer: st flag
+Fleet: tok cubes
+Fool: ns will-o-wisp, st lost-in-the-woods, deck boons, deck+ lucky-coin
+Footpad: tok coffers
+Foray: ns loot
+Forts: tok coin-tokens
+Gatekeeper: tok exile
+Giant: tok journey-token
+Gold Mine: tok debt
+Golem: basic potion
+Goons: tok vp
+Groom: ns horse
+Groundskeeper: tok vp
+Guide: tok tavern
+Guildhall: tok coffers, tok cubes
+Guildmaster: ls league-of-shopkeepers, tok favors
+Hermit: ns madman
+Hostelry: ns horse
+Idol: ns will-o-wisp, deck boons
+Imperial Envoy: tok debt
+Importer: ls league-of-shopkeepers, tok favors
+Inheritance: tok estate-token
+Innovation: tok cubes
+Invasion: ns loot
+Invest: tok exile
+Investment: tok vp
+Island: tok island-mat
+Jewelled Egg: ns loot
+Joust: ns coronet, ns courser, ns demesne, ns housecarl, ns huge-turnip, ns renown, tok coffers
+Kitsune: ls harsh-winter, tok sun, tok debt
+Labyrinth: tok vp
+Lackeys: tok villagers
+Leprechaun: ns wish, st deluded, st envious, st miserable, st twice-miserable, deck hexes
+Litter: tok debt
+Livery: ns horse
+Looting: ns loot
+Lost Arts: tok plus-action-token
+Marauder: basic ruins, ns spoils
+Merchant Guild: tok coffers
+Miser: tok tavern
+Monument: tok vp
+Mountain Pass: tok debt, tok vp
+Mountain Shrine: ls harsh-winter, tok debt, tok sun
+Native Village: tok native-village-mat
+Necromancer: trash zombies
+Obelisk: tok vp
+Overlord: tok debt
+Paddock: ns horse
+Page: ns treasure-hunter, ns warrior, ns hero, ns champion
+Pageant: tok coffers, tok cubes
+Pathfinding: tok plus-card-token
+Patrician/Emporium: tok vp
+Patron: tok coffers, tok villagers
+Peasant: ns soldier, ns fugitive, ns disciple, ns teacher, tok tavern, tok plus-card-token, tok plus-action-token, tok plus-buy-token, tok plus-coin-token
+Peril: ns loot
+Philosopher's Stone: basic potion
+Piazza: tok cubes
+Pickaxe: ns loot
+Pilgrimage: tok journey-token
+Pillage: ns spoils
+Pirate Ship: tok pirate-ship-mat, tok coin-tokens
+Pixie: ns will-o-wisp, deck boons, deck+ goat
+Plan: tok trashing-token
+Plaza: tok coffers
+Poet: ls harsh-winter, tok sun, tok debt
+Pooka: deck+ cursed-gold
+Possession: basic potion, tok debt
+Prosper: ns loot
+Raid: tok minus-card-token
+Ranger: tok journey-token
+Ratcatcher: tok tavern
+Recruiter: tok villagers
+Relic: tok minus-card-token
+Ride: ns horse
+Ritual: tok vp
+River Shrine: ls harsh-winter, tok sun, tok debt
+Riverboat: aside riverboat
+Road Network: tok cubes
+Root Cellar: tok debt
+Royal Blacksmith: tok debt
+Royal Carriage: tok tavern
+Rustic Village: ls harsh-winter, tok sun, tok debt
+Sack of Loot: ns loot
+Sacred Grove: ns will-o-wisp, deck boons
+Sacrifice: tok vp
+Salt the Earth: tok vp
+Sanctuary: tok exile
+Scrap: ns horse
+Scrying Pool: basic potion
+Sculptor: tok villagers
+Search: ns loot
+Seaway: tok plus-buy-token
+Secret Cave: ns wish, deck+ magic-lamp
+Sewers: tok cubes
+Shepherd: deck+ pasture
+Silk Merchant: tok coffers, tok villagers
+Silos: tok cubes
+Sinister Plot: tok coin-tokens, tok cubes
+Skulk: st deluded, st envious, st miserable, st twice-miserable, deck hexes
+Sleigh: ns horse
+Spices: tok coffers
+Stampede: ns horse
+Star Chart: tok cubes
+Stockpile: tok exile
+Supplies: ns horse
+Swashbuckler: st treasure-chest, tok coffers
+Sycophant: ls league-of-shopkeepers, tok favors
+Tax: tok debt
+Tea House: ls harsh-winter, tok sun, tok debt
+Temple: tok vp
+Tomb: tok vp
+Tormentor: ns imp, st deluded, st envious, st miserable, st twice-miserable, deck hexes
+Tournament: ns bag-of-gold, ns diadem, ns followers, ns princess, ns trusty-steed
+Tracker: ns will-o-wisp, deck boons, deck+ pouch
+Trade Route: tok trade-route-mat, tok coin-tokens
+Training: tok plus-coin-token
+Transmogrify: tok tavern
+Transmute: basic potion
+Transport: tok exile
+Treasurer: st key
+Triumph: tok vp, tok debt
+Underling: ls league-of-shopkeepers, tok favors
+University: basic potion
+Urchin: ns mercenary
+Vampire: ns bat, st deluded, st envious, st miserable, st twice-miserable, deck hexes
+Villain: tok coffers
+Vineyard: basic potion
+Way of the Camel: tok exile
+Way of the Mouse: aside way-of-the-mouse, tok tavern
+Way of the Worm: tok exile
+Wealthy Village: ns loot
+Wedding: tok vp, tok debt
+Werewolf: st deluded, st envious, st miserable, st twice-miserable, deck hexes
+Wild Hunt: tok vp
+Wine Merchant: tok tavern
+Wizards: ls league-of-shopkeepers, tok favors
+Young Witch: +pile patrician-emporium, tok vp
