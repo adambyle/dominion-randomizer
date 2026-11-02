@@ -10,6 +10,7 @@ Randomizer and setup reference for *Dominion*, deployed to dominion.adambyle.net
 - `src/client/` — front end in plain TypeScript (no framework): `main.ts` shell and routing, `state.ts` store, `model.ts` table layout, `views/`
 - `src/worker/` — API (Hono), D1 access, multiplayer rooms (Durable Object)
 - `src/data/` — generated card and recommended-kingdom data, bundled into the client
+- `data/rules/` — the app's own rules reference, hand-written Markdown (see below)
 - `public/data/` — generated FAQ and rules reference, served as static assets
 - `public/img/` — card, box and symbol images from the wiki (git-ignored; `npm run images`)
 
@@ -54,5 +55,16 @@ aren't behind the bot check, but their URLs have to be looked up through the API
 Things the wiki doesn't express in a machine-readable way live in `scripts/supplement.ts`: boxes and
 editions, the 1st-edition Cornucopia/Guilds split, split-pile composition, excluded sets (Arcana,
 until it's released) and corrections to recommended kingdoms.
+
+## The app's own rules reference
+
+`data/rules/cards/<card-id>.md` holds rules explanations for one card or split pile, and
+`data/rules/topics/<id>.md` holds general rules pages (shown at `#/rules`). They're written for
+this app, not copied from the wiki, and a wiki refresh never touches them. The card sheet shows them
+first, with the wiki FAQ as a secondary source. The format is documented at the top of
+`src/shared/guide.ts`: Markdown lists using the same inline markup as the card data, plus
+`{rule:topic-id}` links and a trailing `[official]` on statements that restate an official ruling.
+`npm test` checks that every file names a real card and that every link points to a card or topic
+that exists.
 
 Wiki content is CC BY-NC-SA 3.0; the app credits the wiki wherever FAQ or rules text is shown.

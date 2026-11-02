@@ -274,6 +274,19 @@ main { padding: 0 28px 24px; }
 .divline { border: 0; border-top: 1.5px solid currentColor; opacity: 0.3; margin: 8px 25%; }
 .card-ref { font-weight: 600; }
 
+/* The app's own rules (data/rules) */
+.official-tag { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 6px; vertical-align: 1px;
+  background: var(--gold-soft); color: var(--ink-2); font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.guide-legend { margin-top: 12px; font-size: 12.5px; color: var(--ink-3); }
+.guide-legend .official-tag { margin: 0 2px 0 0; }
+.guide-section + .guide-section { margin-top: 6px; }
+.rule-ref { font-weight: 600; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+.rule-ref:hover { text-decoration-color: var(--gold); }
+.topic-chips { margin-top: 12px; font-size: 14px; }
+.wiki-more > summary { cursor: pointer; list-style-position: outside; }
+.wiki-more > summary h3 { display: inline; }
+.wiki-more[open] > summary { margin-bottom: 8px; }
+
 /* Tune drawer */
 .drawer section { margin-top: 26px; }
 .drawer section:first-child { margin-top: 4px; }
@@ -363,6 +376,21 @@ p.hint { margin: 10px 0; }
 .promo-list { display: flex; flex-wrap: wrap; gap: 6px; }
 .promo-list button { border: 1px solid var(--line-strong); background: none; border-radius: 999px; padding: 3px 11px; font-size: 13px; cursor: pointer; color: var(--ink-2); }
 .promo-list button.on { background: var(--deal-bg); border-color: var(--deal-bg); color: var(--deal-ink); }
+
+/* ---------- Rules reference pages */
+.rules-page { max-width: 760px; padding-bottom: 40px; }
+.rules-page h1 { font-family: var(--serif); font-weight: 600; font-size: 28px; letter-spacing: 0.03em; margin: 8px 0 6px; }
+.rules-page h2 { font-family: var(--serif); font-weight: 600; font-size: 17px; letter-spacing: 0.06em; margin: 28px 0 8px; }
+.rules-page .faq { font-size: 16px; }
+.rules-page .guide-legend { margin: 10px 0 0; }
+.crumbs { margin: 8px 0 0; font-size: 14px; }
+.crumbs a { display: inline-flex; align-items: center; gap: 2px; text-decoration: none; color: var(--ink-2); }
+.crumbs a:hover { color: var(--ink); }
+.topic-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+.topic-index a { display: flex; flex-direction: column; padding: 10px 14px; border-radius: var(--radius); text-decoration: none; }
+.topic-index a:hover { background: var(--paper); }
+.topic-index .muted { font-size: 14.5px; }
+.topic-links { padding-left: 18px; }
 
 /* ---------- Pages: recommended and cards */
 .page { max-width: 1240px; margin: 0 auto; }
@@ -541,6 +569,7 @@ p.hint { margin: 10px 0; }
 
   /* Other pages */
   .filters h1 { font-size: 22px; }
+  .rules-page h1 { font-size: 23px; }
   .filter-row { gap: 8px; }
   .search { min-width: 100%; }
   .rk-grid { grid-template-columns: 1fr; }

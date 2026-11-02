@@ -2,6 +2,9 @@
 
 import { h, type Child } from "./dom";
 import { cardByName, symbol } from "./data";
+import { topic } from "./guide";
+
+const topicTitle = (id: string) => topic(id)?.title ?? id;
 
 const TOKEN = /(\{[^{}\n]+\}|\*\*\*[^*]+\*\*\*|\*\*(?:[^*]|\*(?!\*))+\*\*|\*[^*\n]+\*|\n---\n|\n)/g;
 
@@ -38,6 +41,10 @@ export function markup(text: string, onCard?: (id: string) => void): Child[] {
         const card = cardByName(cardName!);
         if (!card || !onCard) return h("span.card-ref", null, display ?? cardName);
         return h("button.card-ref.link", { type: "button", onclick: () => onCard(card.id) }, display ?? cardName);
+      }
+      case "rule": {
+        const [topicId, display] = arg.split("|");
+        return h("a.rule-ref", { href: `#/rules/${topicId}` }, display ?? topicTitle(topicId!));
       }
       case "cost": case "coin": return sym("coin", arg, "s");
       case "debt": return sym("debt", arg, "s");

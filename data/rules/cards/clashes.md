@@ -1,0 +1,5 @@
+- A split pile of 16 cards: 4 each of {card:Battle Plan}, {card:Archer}, {card:Warlord} and {card:Territory}, in that order from the top. See {rule:split-piles}. [official]
+- Only the top card can be bought or gained. You can look through the pile at any time without changing its order. [official]
+- {card:Battle Plan} can rotate any Supply pile, not just the Clashes. It's handy for getting past the top card of another split pile, the {card:Castles} or the {card:Knights}.
+- As a pile, the Clashes are a {cost:3} Action – Clash pile, as on the randomizer, even though {card:Territory} is a Victory card. [official]
+- When you gain {card:Territory}, count empty Supply piles after it's gained. If it was the last card in the Clashes, that pile counts too. [official]

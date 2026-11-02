@@ -5,11 +5,24 @@ What's left after the first prototype (commit 8749484). The product spec is `.cl
 
 ## In progress
 
-Nothing — the plain-TypeScript redesign is built for desktop (table layout) and phones (art tiles, pull-up Setup sheet, thumb bar, tap-to-select quick card).
+**1. Our own rules reference** — the framework is built and the first content is in:
+
+- Format, parser and checks: `src/shared/guide.ts`, `src/shared/guide.test.ts`; files in `data/rules/`.
+- Card sheet shows our rules first, with an *Official* tag on restated rulings, links to the
+  general pages that apply (by type, or split pile), and the wiki FAQ collapsed below.
+- `#/rules` index and topic pages: Setup, Taking a turn, Game end and scoring, Split piles,
+  Durations, Attacks and Reactions, Stop-moving rule, Lose-track rule (old).
+- Card files for every card the wiki has no FAQ for: the six basic Treasures and Victory cards,
+  and the 12 split piles.
+
+Remaining: write card files for the rest of the ~850 cards (start with the most-played sets and
+cards whose wiki FAQ is thin), more topics (Reserve/Tavern mat, Travellers, Events/Projects,
+Boons/Hexes, Ways, Traits, Allies & Favors, Prophecies & Omens, costs/debt/potions, Black Market
+deck, the no-visiting rule), and a coverage line in `data/generated/report.txt`.
 
 ## Next, in priority order
 
-1. **Our own rules reference for every card.** Synthesize the official FAQ (rulebooks) and the
+1. **Our own rules reference for every card** (in progress, see above). Synthesize the official FAQ (rulebooks) and the
    wiki's unofficial FAQ/rules clarifications into rules explanations written for this app — not
    copied from the wiki — and fill gaps where the wiki's FAQ is thin or missing (e.g. split-pile
    randomizer cards, basic cards, Allies piles; see `data/generated/report.txt` for cards with no

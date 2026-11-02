@@ -1,0 +1,5 @@
+- A split pile of 10 cards: 5 {card:Gladiator|Gladiators} on top of 5 {card:Fortune|Fortunes}. See {rule:split-piles}. [official]
+- Only the top card can be bought or gained. [official]
+- {card:Gladiator} can trash Gladiators from the pile. Those are gone for good, and they bring the Fortunes into reach sooner.
+- As a pile it's a {cost:3} Action pile, as on the randomizer. So it can be {card:Young Witch}'s Bane, or get Adventures tokens, even though {card:Fortune} is a Treasure.
+- {card:Fortune} costs {cost:8} and {debt:8}. Debt comes from the Empires tokens, so have those ready.

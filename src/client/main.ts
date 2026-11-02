@@ -1,4 +1,4 @@
-// App shell: top bar, routing (#/, #/recommended, #/cards, #/sets), overlays and the render loop.
+// App shell: top bar, routing (#/, #/recommended, #/cards, #/rules[/topic], #/sets), overlays and the render loop.
 
 import "./styles.css";
 import { h, icon, replace, stepper, type Child } from "./dom";
@@ -14,8 +14,9 @@ import { pickerView } from "./views/picker";
 import { welcomeView } from "./views/welcome";
 import { recommendedView } from "./views/recommended";
 import { cardsView } from "./views/cards";
+import { rulesView } from "./views/rules";
 
-type Route = "table" | "recommended" | "cards" | "sets";
+type Route = "table" | "recommended" | "cards" | "rules" | "sets";
 
 /** Portrait phones get their own table layout; landscape phones and tablets use the desktop one. */
 const PHONE = window.matchMedia("(max-width: 720px)");
@@ -64,6 +65,7 @@ export class App {
   get route(): Route {
     const r = location.hash.replace(/^#\/?/, "");
     if (r === "recommended" || r === "cards" || r === "sets") return r;
+    if (r === "rules" || r.startsWith("rules/")) return "rules";
     return this.store.state.settings.onboarded ? "table" : "sets";
   }
 
@@ -153,6 +155,7 @@ export class App {
       case "sets": return welcomeView(this);
       case "recommended": return recommendedView(this);
       case "cards": return cardsView(this);
+      case "rules": return rulesView(this, decodeURIComponent(location.hash.replace(/^#\/?rules\/?/, "")) || null);
       default: return this.phone ? tableMobileView(this) : tableView(this);
     }
   }
@@ -178,14 +181,14 @@ function topBar(app: App, route: Route): Child {
           onclick: () => { app.menuOpen = !app.menuOpen; app.render(); } }, icon(app.menuOpen ? "close" : "menu")),
         app.menuOpen && h("nav.m-menu-pop", { "aria-label": "Sections" },
           link("#/", "Table", "table"), link("#/recommended", "Recommended kingdoms", "recommended"),
-          link("#/cards", "Cards", "cards"), link("#/sets", "Your sets", "sets"),
+          link("#/cards", "Cards", "cards"), link("#/rules", "Rules", "rules"), link("#/sets", "Your sets", "sets"),
           route === "table" && hasGame && h("button", { type: "button", onclick: () => { app.menuOpen = false; app.store.dispatch({ type: "clear" }); } }, "Clear the table"))));
   }
   return h("header.topbar", null,
     h("a.mark", { href: "#/" }, "Dominion", h("small", null, "Kingdom randomizer")),
     !firstRun && h("nav.nav", { "aria-label": "Sections" },
       link("#/", "Table", "table"), link("#/recommended", "Recommended", "recommended"), link("#/cards", "Cards", "cards"),
-      link("#/sets", "Your sets", "sets")),
+      link("#/rules", "Rules", "rules"), link("#/sets", "Your sets", "sets")),
     h("div.spacer"),
     route === "table" && h("div.bar-actions", null,
       h("div.players", null, stepper({ value: settings.players, min: 2, max: 6, label: "players", format: (n) => `${n} players`,

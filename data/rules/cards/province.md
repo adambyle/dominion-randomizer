@@ -1,0 +1,4 @@
+- Province is a basic Victory card worth {vp:6} at the end of the game. It costs {cost:8}. [official]
+- The pile has 8 cards with 2 players, 12 with 3–4, 15 with 5 and 18 with 6. [official]
+- The game ends at the end of any turn where the Province pile is empty. See {rule:game-end}. [official]
+- A Province you gain without buying it still comes from the pile, and still counts toward emptying it.

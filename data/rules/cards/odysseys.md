@@ -1,0 +1,4 @@
+- A split pile of 16 cards: 4 each of {card:Old Map}, {card:Voyage}, {card:Sunken Treasure} and {card:Distant Shore}, in that order from the top. See {rule:split-piles}. [official]
+- Only the top card can be bought or gained. You can look through the pile at any time without changing its order. [official]
+- {card:Old Map} can rotate the pile, moving every Old Map still on top to the bottom. [official]
+- As a pile, the Odysseys are a {cost:3} Action – Odyssey pile, as on the randomizer. Anything that affects the pile affects every card in it, even the Treasure {card:Sunken Treasure} and the Victory card {card:Distant Shore}. [official]

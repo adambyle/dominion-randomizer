@@ -1,0 +1,5 @@
+- A split pile of 16 cards: 4 each of {card:Herb Gatherer}, {card:Acolyte}, {card:Sorceress} and {card:Sibyl}, in that order from the top. See {rule:split-piles}. [official]
+- Only the top card can be bought or gained. You can look through the pile at any time without changing its order. [official]
+- {card:Herb Gatherer} can rotate the pile. That moves every Herb Gatherer still on top to the bottom, so the next card is showing. [official]
+- When {card:Acolyte} trashes itself to gain an Augur, you gain whichever Augur is on top of the pile.
+- As a pile, the Augurs are a {cost:3} Action – Augur pile, as on the randomizer. {card:Sorceress} is an Attack, but that doesn't make the pile an Attack pile.

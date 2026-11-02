@@ -1,0 +1,4 @@
+- Silver is a basic Treasure worth {coin:2} that costs {cost:3}. [official]
+- All 40 Silvers are in the Supply every game. No one starts with any.
+- Lots of cards gain Silvers, so the pile can run low. When it empties, it counts toward the three-pile ending. See {rule:game-end}.
+- Silver is a basic card, not a Kingdom card.

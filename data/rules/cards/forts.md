@@ -1,0 +1,5 @@
+- A split pile of 16 cards: 4 each of {card:Tent}, {card:Garrison}, {card:Hill Fort} and {card:Stronghold}, in that order from the top. See {rule:split-piles}. [official]
+- Only the top card can be bought or gained. You can look through the pile at any time without changing its order. [official]
+- {card:Tent} can rotate the pile, moving every Tent still on top to the bottom. [official]
+- As a pile, the Forts are a {cost:3} Action – Fort pile, as on the randomizer, even though {card:Stronghold} is also a Victory card. [official]
+- {card:Garrison} and {card:Stronghold} are Durations. See {rule:durations}.
