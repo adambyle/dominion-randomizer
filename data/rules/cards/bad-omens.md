@@ -1,0 +1,3 @@
+- A Hex. Put your deck into your discard pile, then look through it and put 2 {card:Copper|Coppers} from it onto your deck. [official]
+- With fewer than 2, put back what you have and reveal your cards to show it. [official]
+- Moving your deck isn't discarding. See {rule:night-boons-and-hexes}.

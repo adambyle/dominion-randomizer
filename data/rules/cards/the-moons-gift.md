@@ -1,0 +1,1 @@
+- A Boon. Look through your discard pile; you may put a card from it onto your deck.

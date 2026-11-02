@@ -1,0 +1,1 @@
+- Get {coin:+2} and receive a Boon. See {rule:night-boons-and-hexes}. [official]

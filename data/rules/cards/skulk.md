@@ -1,0 +1,2 @@
+- Get +1 Buy. Each other player receives the next Hex.
+- When you gain it, gain a {card:Gold}. [official]

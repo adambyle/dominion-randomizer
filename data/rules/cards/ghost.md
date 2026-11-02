@@ -1,0 +1,4 @@
+- A Spirit, not in the Supply. A Night–Duration card. [official]
+- Reveal cards from your deck until you reveal an Action. Discard the others and set the Action aside. At the start of your next turn, play it twice. [official]
+- If no Action turns up, discard everything and Ghost is discarded this turn. [official]
+- Playing it doesn't use up Actions. If it's a Duration, Ghost stays out with it. [official]

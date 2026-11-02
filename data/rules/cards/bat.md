@@ -1,0 +1,2 @@
+- Not in the Supply; you get it from {card:Vampire}. A Night card: trash up to 2 cards from your hand. If you trashed at least one, exchange Bat for a {card:Vampire}. [official]
+- With no Vampires left, you can still trash but can't exchange. [official]

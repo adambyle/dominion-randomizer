@@ -1,0 +1,2 @@
+- Draw a card and get +1 Action. Discard the top Boon. You may trash Pixie to receive that Boon twice. [official]
+- Heirloom: in games using Pixie, each player replaces a starting Copper with a {card:Goat}. See {rule:night-boons-and-hexes}. [official]

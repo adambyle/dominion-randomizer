@@ -1,0 +1,1 @@
+- Not in the Supply. Get +1 Action and return Wish to its pile. If you did, gain a card costing up to {cost:6} to your hand. [official]

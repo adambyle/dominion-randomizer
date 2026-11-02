@@ -1,0 +1,2 @@
+- A Spirit, not in the Supply. Draw a card and get +1 Action. Reveal the top card of your deck; if it costs {cost:2} or less, put it into your hand. [official]
+- Costs with {potion} or {debt:} don't count as {cost:2} or less. [official]

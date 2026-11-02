@@ -1,0 +1,1 @@
+- A Night card. Trash a card from your hand and gain a cheaper Spirit from one of the Spirit piles: {card:Will-o'-Wisp}, {card:Imp} or {card:Ghost}. [official]

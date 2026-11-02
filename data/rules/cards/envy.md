@@ -1,0 +1,1 @@
+- A Hex. If you don't have {card:Deluded} or {card:Envious}, take Envious. [official]

@@ -1,0 +1,2 @@
+- A Night–Duration–Attack card. Each other player with 5 or more cards in hand discards a copy of a card you have in play, or reveals they can't. [official]
+- At the start of your next turn, get {coin:+3}.

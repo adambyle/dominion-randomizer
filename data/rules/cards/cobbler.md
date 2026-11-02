@@ -1,0 +1,1 @@
+- A Night–Duration card. At the start of your next turn, gain a card costing up to {cost:4} to your hand. [official]

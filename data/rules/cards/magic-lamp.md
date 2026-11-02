@@ -1,0 +1,3 @@
+- An Heirloom (from {card:Secret Cave}). A Treasure worth {coin:1}.
+- If there are at least 6 cards you have exactly one copy of in play, counting this, trash it to gain 3 {card:Wish|Wishes}. [official]
+- You keep the {coin:1} and can play more Treasures afterwards. [official]

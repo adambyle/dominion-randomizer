@@ -1,0 +1,1 @@
+- A Spirit, not in the Supply. Draw 2 cards. You may play an Action card from your hand that you don't have a copy of in play. [official]

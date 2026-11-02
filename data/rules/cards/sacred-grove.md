@@ -1,0 +1,2 @@
+- Get +1 Buy and {coin:+3}. Receive a Boon. If it doesn't give {coin:+1}, each other player may receive it too. [official]
+- You must receive it; the others choose. [official]

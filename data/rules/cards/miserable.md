@@ -1,0 +1,1 @@
+- A State worth {vp:-2} at the end of the game. [official]

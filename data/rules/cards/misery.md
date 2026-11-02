@@ -1,0 +1,1 @@
+- A Hex. The first time, take {card:Miserable}. The second time, flip it to {card:Twice Miserable}. After that, nothing more. [official]

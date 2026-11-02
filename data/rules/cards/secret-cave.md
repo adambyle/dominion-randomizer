@@ -1,0 +1,3 @@
+- Draw a card and get +1 Action. You may discard 3 cards. If you discarded 3, get {coin:+3} at the start of your next turn. [official]
+- Otherwise it's discarded this turn. [official]
+- Heirloom: in games using Secret Cave, each player replaces a starting Copper with a {card:Magic Lamp}. [official]

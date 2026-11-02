@@ -1,0 +1,2 @@
+- Gain a {card:Gold}. Then if you have exactly 7 cards in play, gain a {card:Wish}; otherwise receive a Hex. [official]
+- Cards in play include Leprechaun, cards played this turn and Durations from earlier turns. [official]

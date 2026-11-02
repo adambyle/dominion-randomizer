@@ -1,0 +1,1 @@
+- An Heirloom (from {card:Pixie}). A Treasure worth {coin:1}; you may trash a card from your hand. [official]

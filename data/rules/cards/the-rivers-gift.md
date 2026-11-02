@@ -1,0 +1,1 @@
+- A Boon. At the end of this turn, after drawing your new hand, draw a card. Keep it in front of you until Clean-up. [official]

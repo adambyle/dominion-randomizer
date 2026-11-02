@@ -1,0 +1,1 @@
+- A Boon. Gain a {card:Will-o'-Wisp}.

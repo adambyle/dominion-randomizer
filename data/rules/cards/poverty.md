@@ -1,0 +1,1 @@
+- A Hex. Discard down to 3 cards in hand.

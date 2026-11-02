@@ -1,0 +1,3 @@
+- A Victory card worth {vp:2}.
+- When you gain it, trash up to 4 cards from your hand. [official]
+- Heirloom: in games using Cemetery, each player replaces a starting Copper with a {card:Haunted Mirror}. [official]

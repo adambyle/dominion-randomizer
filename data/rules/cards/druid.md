@@ -1,0 +1,3 @@
+- Get +1 Buy and receive one of Druid's three set-aside Boons, leaving it there. [official]
+- Setup: set aside the top 3 Boons face up for Druid. Other Fate cards use the remaining 9. [official]
+- See {rule:night-boons-and-hexes}.

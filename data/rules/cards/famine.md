@@ -1,0 +1,1 @@
+- A Hex. Reveal the top 3 cards of your deck, discard the Actions, and shuffle the rest into your deck. [official]

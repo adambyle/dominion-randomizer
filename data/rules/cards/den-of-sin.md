@@ -1,0 +1,2 @@
+- A Night–Duration card. At the start of your next turn, draw 2 cards. [official]
+- It's gained to your hand instead of your discard pile, so you can usually play it the turn you buy it. [official]

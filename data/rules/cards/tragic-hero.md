@@ -1,0 +1,2 @@
+- Draw 3 cards and get +1 Buy. If you then have 8 or more cards in hand, trash Tragic Hero and gain a Treasure. [official]
+- You gain the Treasure even if it couldn't be trashed. [official]

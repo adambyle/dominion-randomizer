@@ -1,0 +1,1 @@
+- A Hex. Gain a {card:Copper} onto your deck.

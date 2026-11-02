@@ -1,0 +1,1 @@
+- A Boon. Get +1 Action and {coin:+1}. Keep it in front of you until Clean-up.

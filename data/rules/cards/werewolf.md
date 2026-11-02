@@ -1,0 +1,2 @@
+- Both an Action and a Night card. Played in your Night phase, each other player receives the next Hex. Played any other time, draw 3 cards. [official]
+- It's always an Attack, even when it only draws.
