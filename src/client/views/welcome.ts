@@ -70,6 +70,7 @@ export function welcomeView(app: App): Child {
       h("div.welcome-actions", null,
         h("button.btn.ghost", { type: "button", onclick: () => setBoxes(ready ? [] : data.boxes.filter((b) => b.edition !== 1 && b.set !== "promo").map((b) => b.id)) },
           ready ? "Clear all" : "Select all"),
+        first && h("button.btn", { type: "button", disabled: !ready, onclick: () => app.configureDeal() }, icon("tune"), "Configure deal"),
         h("button.deal", { type: "button", disabled: !ready, onclick: () => app.finishWelcome(true) }, first ? "Deal a kingdom" : "Done"))),
 
     h("section.box-section", null,

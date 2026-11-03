@@ -43,6 +43,8 @@ export class App {
   private qr = false;
   /** Open the rules reference once the next navigation lands (it resets overlays). */
   private pendingReference = false;
+  /** Open the Tune menu once the next navigation lands. */
+  private pendingTune = false;
   private root = document.getElementById("app")!;
   /** Overlays opened since the last render; only these play their entrance animation. */
   private entering = new Set<"sheet" | "tune" | "picker" | "qr">();
@@ -74,6 +76,7 @@ export class App {
       this.picker = null;
       this.qr = false;
       this.reference = null;
+      if (this.pendingTune) { this.pendingTune = false; this.tune = true; this.entering.add("tune"); }
       if (this.pendingReference) { this.pendingReference = false; this.reference = this.firstReference(); }
       this.render();
       window.scrollTo(0, 0);
@@ -172,6 +175,15 @@ export class App {
     if (deal && first && !this.store.state.game.kingdom.length) this.store.dispatch({ type: "deal" });
     location.hash = "#/";
     if (!first) this.render();
+  }
+
+  /** Leaves the sets screen for an empty table with the Tune menu open, to set up the deal before dealing. */
+  configureDeal() {
+    // From "#/" (the first-visit screen) the hash doesn't change, so there's no navigation to wait for.
+    const stays = location.hash === "#/" || location.hash === "";
+    this.pendingTune = !stays;
+    this.finishWelcome(false);
+    if (stays) this.openTune();
   }
 
   useRecommended(k: RecommendedKingdom) {
