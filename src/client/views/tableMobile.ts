@@ -101,7 +101,7 @@ export function tableMobileView(app: App): Child {
   const bar = frozen ? h("nav.m-bar", { "aria-label": "Table actions" },
     h("button.m-round", { type: "button", "aria-label": "Unlock the table", title: "Unlock the table", onclick: () => app.lockSetup(false) }, icon("unlock")),
     h("button.deal.m-deal", { type: "button", onclick: () => app.openReference() }, "Card rules"),
-    app.room.code && h("button.m-round", { type: "button", "aria-label": "Show the join code", title: "Join code", onclick: () => app.openQr() }, icon("qr")))
+    h("button.m-round", { type: "button", "aria-label": "Show the join code", title: "Join code", onclick: () => app.openQr() }, icon("qr")))
   : h("nav.m-bar", { "aria-label": "Table actions" },
     h("button.m-round", { type: "button", "aria-label": "Tune", onclick: () => app.openTune() }, icon("tune")),
     h("button.m-round", { type: "button", "aria-label": "Add a card", onclick: () => app.openPicker() }, icon("plus")),

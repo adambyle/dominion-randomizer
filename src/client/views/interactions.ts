@@ -60,17 +60,19 @@ export function interactionSummary(app: App, limit = 6): Child {
 }
 
 /** Card sheet: this card's interactions with the rest of the game, and a link to the explorer. */
-export function sheetInteractions(app: App, id: string, open: (id: string) => void): Child {
+export function sheetInteractions(app: App, id: string, open: (id: string) => void, gameOnly = false): Child {
   const others = gameCards(app).filter((x) => x !== id);
   if (!others.length) return null;
   const list = interactionsWith(db, mentions(() => app.render()), id, others);
+  // The rules reference lists only what happens within this game: nothing to show, no section.
+  if (gameOnly && !list.length) return null;
   return h("section.ix-sheet", null,
     h("h3", null, "Interactions"),
     !list.length && h("p.muted", null, "No notable interactions between this card and the others on the current table."),
     list.map((x) => h("div.ix-block", null,
       h("h4", null, ...app.markup(`{card:${db.get(x.b).name}}`, open), x.rulings.length > 0 && h("span.muted", null, ` · ${x.rulings.length} ${x.rulings.length === 1 ? "ruling" : "rulings"}`)),
       interactionBody(app, x, { rulings: true, open }))),
-    h("p", null, h("a.btn.ghost.ix-compare", { href: explorerHref(id) }, icon("search"), "Check against any card")));
+    !gameOnly && h("p", null, h("a.btn.ghost.ix-compare", { href: explorerHref(id) }, icon("search"), "Check against any card")));
 }
 
 /** Quick list of names, for the phone quick card. */

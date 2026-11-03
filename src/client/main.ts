@@ -125,7 +125,21 @@ export class App {
   closeTune() { this.tune = false; this.render(); }
   openPicker() { this.entering.add("picker"); this.picker = pickerView(this); this.render(); }
   closePicker() { this.picker = null; this.render(); }
-  openQr() { this.entering.add("qr"); this.qr = true; this.render(); }
+  /**
+   * Shows the join code. A table that isn't in a room yet gets one reserved now: this player joins it
+   * (so it holds the locked table) and the code in the QR is what scanners join.
+   */
+  async openQr() {
+    this.entering.add("qr");
+    this.qr = true;
+    this.render();
+    if (this.room.code) return;
+    try { await this.room.create(); } catch (err) {
+      this.qr = false;
+      this.room.error = err instanceof Error ? err.message : "Couldn't create a room.";
+    }
+    this.render();
+  }
   closeQr() { this.qr = false; this.render(); }
 
   private firstReference() {
@@ -192,7 +206,7 @@ export class App {
     // The reference only stays up while the table is locked and still has the card.
     const { game } = this.store.state;
     if (this.reference && !(game.setupLocked && referenceCards(this).includes(this.reference))) this.reference = null;
-    if (this.qr && (!this.room.code || !game.setupLocked)) this.qr = false;
+    if (this.qr && !game.setupLocked) this.qr = false;
     const overlay = this.picker ? "picker" : this.sheet.length ? "sheet" : this.qr ? "qr" : this.tune ? "tune" : null;
     document.body.classList.toggle("overlay-open", !!overlay || !!this.reference);
     document.body.classList.toggle("phone-table", this.phone && route === "table");
@@ -281,7 +295,7 @@ function topBar(app: App, route: Route): Child {
     route === "table" && game.setupLocked && h("div.bar-actions", null,
       h("span.locked-note", null, icon("lock"), "Table locked"),
       h("button.btn.ghost", { type: "button", onclick: () => app.openReference() }, icon("info"), "Rules"),
-      app.room.code && h("button.btn.ghost", { type: "button", onclick: () => app.openQr() }, icon("qr"), "Join code"),
+      h("button.btn.ghost", { type: "button", onclick: () => app.openQr() }, icon("qr"), "Join code"),
       h("button.btn.ghost", { type: "button", onclick: () => app.lockSetup(false), title: "Unlock the table to change it" }, icon("unlock"), "Unlock")),
     route === "table" && !game.setupLocked && h("div.bar-actions", null,
       h("div.players", null, stepper({ value: settings.players, min: 2, max: 6, label: "players", format: (n) => `${n} players`,

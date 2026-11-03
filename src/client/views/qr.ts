@@ -25,14 +25,15 @@ export function qrSvg(text: string): SVGElement {
 let copied = false;
 
 export function qrView(app: App): HTMLElement {
-  const code = app.room.code!;
-  const link = joinLink(code);
+  const code = app.room.code;
+  const link = code ? joinLink(code) : "";
   return h("div.qr-dialog", { role: "dialog", "aria-modal": "true", "aria-label": "Join this table" },
     h("button.icon-btn.qr-close", { type: "button", "aria-label": "Close", onclick: () => app.closeQr() }, icon("close")),
     h("h2", null, "Join this table"),
-    h("p.muted", null, "Scan to join the room and open the cards’ rules."),
-    h("div.qr-code", null, qrSvg(link)),
-    h("p.qr-room", null, "Room ", h("b", null, code)),
+    h("p.muted", null, "Scan to join and open the cards’ rules."),
+    code ? h("div.qr-code", null, qrSvg(link)) : h("div.qr-code.qr-wait", null, "Preparing…"),
+    code && h("p.qr-room", null, "Room ", h("b", null, code)),
+    code &&
     h("button.btn", { type: "button", onclick: async () => {
       try { await navigator.clipboard.writeText(link); copied = true; app.render(); setTimeout(() => { copied = false; app.render(); }, 2000); } catch { prompt("Copy this link", link); }
     } }, icon("check"), copied ? "Copied" : "Copy link"));

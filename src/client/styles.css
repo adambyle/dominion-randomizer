@@ -811,3 +811,4 @@ input[type="search"]::-webkit-search-cancel-button { display: none; }
 .qr-room b { letter-spacing: 0.14em; }
 .room-qr { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .room-qr .qr-code { width: 180px; flex: none; }
+.qr-wait { aspect-ratio: 1; display: grid; place-items: center; color: #6b6050; font-size: 14px; }

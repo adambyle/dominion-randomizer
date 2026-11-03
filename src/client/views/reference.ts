@@ -7,6 +7,7 @@ import { costSymbols } from "../markup";
 import { buildModel } from "../model";
 import type { App } from "../main";
 import { ruleSections } from "./sheet";
+import { sheetInteractions } from "./interactions";
 
 /** The cards a locked table has rules for, in table order. */
 export function referenceCards(app: App): string[] {
@@ -49,7 +50,7 @@ export function referenceView(app: App, id: string): HTMLElement {
       h("div", { class: ["sheet-card", wide ? "wide" : ""] },
         img ? h("img", { src: img.src, alt: card.name, width: img.w, height: img.h }) : h("div.face-missing", null, card.name)),
       h("p.meta", null, costSymbols(card.cost, "s"), " ", card.types.join(" · "), " · ", set && h("img.set-glyph", { src: set.src, alt: "" }), setName(card.set))),
-    ownSection, wikiSection);
+    ownSection, sheetInteractions(app, id, (next) => app.openCard(next), true), wikiSection);
 
   const neighbour = (to: number, dir: "prev" | "next"): Child => {
     const target = cards[to];
