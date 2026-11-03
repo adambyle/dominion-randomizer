@@ -7,7 +7,7 @@ Randomizer and setup reference for *Dominion*, deployed to dominion.adambyle.net
 
 - `scripts/` — data pipeline (wiki export → app data) and checks
 - `src/shared/` — types, seeded RNG, and the setup engine (used by the client and the Worker)
-- `src/client/` — front end in plain TypeScript (no framework): `main.ts` shell and routing, `state.ts` store, `model.ts` table layout, `views/`
+- `src/client/` — front end in plain TypeScript (no framework): `main.ts` shell and routing, `state.ts` store, `model.ts` table layout, `views/` (the expansion selection pane is `views/expansions.ts`; Tune holds weights and limits)
 - `src/worker/` — API (Hono): accounts, synced history and settings in D1; multiplayer rooms (Durable Object)
 - `src/data/` — generated card and recommended-kingdom data, bundled into the client
 - `data/rules/` — the app's own rules reference, hand-written Markdown (see below)

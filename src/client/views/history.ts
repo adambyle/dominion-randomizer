@@ -197,8 +197,8 @@ export function accountView(app: App): Child {
         h("button.btn", { type: "button", disabled: busy, onclick: () => run(async () => {
           try { await a.logout(signOutWarning); signOutWarning = false; }
           catch (err) { if (err instanceof ApiError && err.status === 0) { signOutWarning = true; throw new Error("Some history hasn't synced yet. Sign out anyway to lose it, or try again when you're online."); } throw err; }
-        }) }, signOutWarning ? "Sign out anyway" : "Sign out"),
-        a.status === "signedIn" && h("button.btn.ghost", { type: "button", disabled: busy, onclick: () => void a.sync() }, "Sync now")),
+        }) }, busy ? "Signing out…" : signOutWarning ? "Sign out anyway" : "Sign out"),
+        h("button.btn.ghost", { type: "button", disabled: busy || a.syncing, onclick: () => void a.sync() }, a.syncing ? "Syncing…" : "Sync now")),
       h("details.danger-zone", { open: confirmDelete, ontoggle: (e: Event) => { confirmDelete = (e.target as HTMLDetailsElement).open; } },
         h("summary", null, "Delete account"),
         h("p", null, "This deletes your account and its history from the server. Enter your password to confirm."),
@@ -208,7 +208,7 @@ export function accountView(app: App): Child {
           void run(() => a.deleteAccount(pw));
         } },
           h("input", { type: "password", name: "password", autocomplete: "current-password", placeholder: "Password", required: true }),
-          h("button.btn.danger", { type: "submit", disabled: busy }, "Delete my account"))));
+          h("button.btn.danger", { type: "submit", disabled: busy }, busy ? "Deleting…" : "Delete my account"))));
   }
 
   const register = mode === "register";
@@ -235,7 +235,7 @@ export function accountView(app: App): Child {
       h("label", null, "Password", h("input#account-password", { type: "password", name: "password", value: fields.password, oninput: keep("password"), autocomplete: register ? "new-password" : "current-password", required: true, minlength: register ? MIN_PASSWORD : undefined })),
       register && h("label", null, "Confirm password", h("input#account-confirm", { type: "password", name: "confirm", value: fields.confirm, oninput: keep("confirm"), autocomplete: "new-password", required: true })),
       formError && h("p.form-error", { role: "alert" }, formError),
-      h("button.deal", { type: "submit", disabled: busy }, busy ? "…" : register ? "Create account" : "Sign in"),
+      h("button.deal", { type: "submit", disabled: busy }, busy ? (register ? "Creating account…" : "Signing in…") : register ? "Create account" : "Sign in"),
       a.entries.length > 0 && h("p.muted.small", null, `The ${a.entries.length} ${a.entries.length === 1 ? "game" : "games"} saved on this device will be added to the account.`)),
     h("p", null, register ? "Already have an account? " : "New here? ",
       h("button.link", { type: "button", onclick: () => { mode = register ? "signin" : "register"; formError = null; rerender(); } }, register ? "Sign in" : "Create an account")));

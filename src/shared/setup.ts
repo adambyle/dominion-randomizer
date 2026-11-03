@@ -6,7 +6,7 @@
 // selections that depend on the final Supply (Obelisk, Traits) happen last.
 
 import type { Card, CardData } from "./types";
-import { pick, shuffle, type Rng } from "./random";
+import { shuffle, weightedSample, type Rng } from "./random";
 
 export interface Choices {
   bane?: string;
@@ -25,6 +25,26 @@ export interface Choices {
 
 export type AutoBool = boolean | "auto";
 
+/** A choice the user can ask to be picked again: a Bane, an Ally, a Trait's pile ("trait:<id>") ... */
+export type RerollKey = "bane" | "ferryman" | "riverboat" | "wayOfTheMouse" | "approachingArmy" | "obelisk" | "ally" | "prophecy"
+  | "blackMarket" | "druidBoons" | `trait:${string}`;
+
+/** The choices without `key`, and the card it held (to avoid picking it again). */
+export function withoutChoice(choices: Choices, key: RerollKey): { choices: Choices; previous: string | undefined } {
+  const next: Choices = { ...choices };
+  if (key.startsWith("trait:")) {
+    const trait = key.slice(6);
+    const previous = next.traits?.[trait];
+    next.traits = { ...next.traits };
+    delete next.traits[trait];
+    return { choices: next, previous };
+  }
+  const k = key as Exclude<RerollKey, `trait:${string}`>;
+  const previous = typeof next[k] === "string" ? (next[k] as string) : undefined;
+  delete next[k];
+  return { choices: next, previous };
+}
+
 export interface SetupInput {
   /** Kingdom piles in the order they were picked (the order matters for Colony/Shelters "auto"). */
   kingdom: string[];
@@ -40,6 +60,10 @@ export interface SetupInput {
    */
   acceptChoices?: boolean;
   blackMarketSize?: number;
+  /** Where fresh random picks (Bane, Ally, Black Market deck ...) lean: the expansions in play, and card weights. */
+  prefer?: { sets?: readonly string[]; weight?: (c: Card) => number };
+  /** Cards not to pick this time, so a re-rolled choice changes. */
+  exclude?: readonly string[];
 }
 
 export interface Reason {
@@ -229,6 +253,11 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
       const c = db.byId.get(id);
       return !!c && c.kind === "kingdom" && !usedPiles.has(id) && filter(c);
     });
+  /** Allies or Prophecies from the pool, or from every expansion when a card outside the pool (one the user added) needs one. */
+  const ofType = (type: string) => {
+    const own = [...pool].filter((x) => db.byId.get(x)?.types.includes(type));
+    return own.length ? own : db.data.cards.filter((c) => c.types.includes(type)).map((c) => c.id);
+  };
   /** Single cards (not piles) for Riverboat / Way of the Mouse: pile members count individually. */
   const unusedCards = (filter: (c: Card) => boolean) =>
     db.data.cards.filter((c) => {
@@ -238,14 +267,33 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
       return pool.has(pileId) && !usedPiles.has(pileId) && filter(c);
     }).map((c) => c.id);
 
+  // Fresh picks lean towards the expansions in play and follow the card weights; anything the user
+  // excluded is skipped unless nothing else is left. Eligibility itself never depends on these.
+  const excluded = new Set(input.exclude ?? []);
+  const preferSets = input.prefer?.sets;
+  const weightOf = (id: string) => input.prefer?.weight?.(card(id)) ?? 1;
+  /** Candidates best first: in-play expansions before others, each group in weighted random order. */
+  const preferredOrder = (ids: string[], lean = true): string[] => {
+    const allowed = ids.filter((id) => !excluded.has(id));
+    const base = allowed.length ? allowed : ids;
+    if (!lean) return shuffle(rng, base);
+    const inPlay = base.filter((id) => !preferSets?.length || preferSets.includes(card(id).set));
+    const groups = inPlay.length ? [inPlay, base.filter((id) => !inPlay.includes(id))] : [base];
+    return groups.flatMap((g) => {
+      const weighted = weightedSample(rng, g, weightOf, g.length);
+      return [...weighted, ...shuffle(rng, g.filter((id) => !weighted.includes(id)))];
+    });
+  };
+  const pickPreferred = (ids: string[], lean = true) => preferredOrder(ids, lean)[0];
+
   /**
    * Uses the given choice if it's still eligible (or the choices are official), otherwise picks
    * randomly. Choices carry over between edits, so one that stopped fitting — say, the Bane was
    * added to the Kingdom — is quietly re-picked.
    */
-  const choose = (key: string, givenId: string | undefined, candidates: string[]): string | undefined => {
+  const choose = (key: string, givenId: string | undefined, candidates: string[], lean = true): string | undefined => {
     if (givenId && (candidates.includes(givenId) || (input.acceptChoices && db.byId.has(givenId)))) return givenId;
-    const chosen = pick(rng, candidates);
+    const chosen = pickPreferred(candidates, lean);
     if (!chosen) warnings.push(`No eligible card for ${key}.`);
     return chosen;
   };
@@ -358,7 +406,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
       result.playerStart.reasons.push({ by, text: "Each player starts with +1 Coffers" });
     }
     if (types.has("Liaison") && once("ally")) {
-      const allies = [...pool].filter((x) => db.byId.get(x)?.types.includes("Ally"));
+      const allies = ofType("Ally");
       const ally = choose("the Ally", given.ally, allies);
       if (ally) {
         choices.ally = ally;
@@ -373,7 +421,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
       result.playerStart.reasons.push({ by, text: "Importer: each player gets +4 Favors" });
     }
     if (types.has("Omen") && once("prophecy")) {
-      const prophecies = [...pool].filter((x) => db.byId.get(x)?.types.includes("Prophecy"));
+      const prophecies = ofType("Prophecy");
       const prophecy = choose("the Prophecy", given.prophecy, prophecies);
       if (prophecy) {
         choices.prophecy = prophecy;
@@ -432,7 +480,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
       const size = input.blackMarketSize ?? 15;
       const candidates = unusedKingdom((k) => !k.pile && k.id !== "black-market");
       const keep = (given.blackMarket ?? []).filter((x) => candidates.includes(x));
-      const deck = [...keep, ...shuffle(rng, candidates.filter((x) => !keep.includes(x)))].slice(0, size);
+      const deck = [...keep, ...preferredOrder(candidates.filter((x) => !keep.includes(x)))].slice(0, size);
       choices.blackMarket = deck;
       for (const x of deck) { usedPiles.add(x); use(x, { by, text: "In the Black Market deck" }); }
       result.setAside.push({ id: "black-market", cards: deck, reasons: [{ by, text: `Black Market deck of ${deck.length} unused Kingdom cards` }] });
@@ -468,7 +516,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
   const actionSupply = [...supplyKingdom].filter((p) => card(p).types.includes("Action"));
   if (inUse.has("obelisk")) {
     const candidates = [...actionSupply, ...(triggered.has("ruins") ? ["ruins"] : [])];
-    const target = choose("Obelisk", given.obelisk, candidates);
+    const target = choose("Obelisk", given.obelisk, candidates, false);
     if (target) { choices.obelisk = target; result.targets.obelisk = target; }
   }
   const traits = input.landscapes.filter((l) => card(l).types.includes("Trait"));
@@ -480,7 +528,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
         const ty = card(p).types;
         return (ty.includes("Action") || ty.includes("Treasure")) && !taken.has(p);
       });
-      const target = choose(name(t), given.traits?.[t], candidates);
+      const target = choose(name(t), given.traits?.[t], candidates, false);
       if (target) { taken.add(target); choices.traits[t] = target; result.targets[t] = target; }
     }
   }

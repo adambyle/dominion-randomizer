@@ -82,6 +82,8 @@ const ICONS: Record<string, string> = {
   deal: '<rect x="3" y="6" width="10" height="14" rx="1.5"/><path d="M15 4.5l4.6 1.6-4 11.9"/>',
   user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
   qr: '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h3v3M20 14v.01M14 20h3M20 17v3"/>',
+  layers: '<path d="M12 4l9 5-9 5-9-5z"/><path d="M3 14l9 5 9-5"/>',
+  triangle: '<path d="M8 5l10 7-10 7z" fill="currentColor"/>',
   menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
 };
 

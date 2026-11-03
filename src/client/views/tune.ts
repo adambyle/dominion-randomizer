@@ -2,7 +2,7 @@
 
 import { h, icon, segmented, stepper, type Child } from "../dom";
 import { data, db, setIcon } from "../data";
-import { buildPool } from "../../shared/randomizer";
+import { buildPool, implicitSet, selectedSets } from "../../shared/randomizer";
 import { TRAITS, type Trait } from "../../shared/traits";
 import type { AutoBool } from "../../shared/setup";
 import type { App } from "../main";
@@ -20,7 +20,7 @@ const GROUPS: { id: Trait["group"]; label: string }[] = [
 ];
 
 export function tuneView(app: App): Child {
-  const { settings, game } = app.store.state;
+  const { settings } = app.store.state;
   const opts = settings.options;
   const enabled = new Set(opts.enabledBoxes);
   const setOpts = (patch: Partial<typeof opts>) => app.store.dispatch({ type: "options", patch });
@@ -28,6 +28,8 @@ export function tuneView(app: App): Child {
   const pool = buildPool(db, opts.enabledBoxes);
   const kingdomPool = [...pool].map((id) => db.get(id)).filter((c) => c.kind === "kingdom");
   const enabledSets = data.sets.filter((s) => s.boxes.some((b) => enabled.has(b)));
+  const chosen = new Set(selectedSets(db, opts));
+  const implicit = chosen.size ? undefined : implicitSet(db, opts.enabledBoxes);
   const autoOptions: { value: AutoBool; label: string; title: string }[] = [
     { value: "auto", label: "Suggested", title: "Prosperity first card / Dark Ages last card" },
     { value: true, label: "Always", title: "" }, { value: false, label: "Never", title: "" },
@@ -56,29 +58,24 @@ export function tuneView(app: App): Child {
           `From your history: ${app.store.played().size} cards played so far`),
         pool.has("black-market") && row("Black Market deck", stepper({ value: settings.blackMarketSize, min: 5, max: 60, label: "Black Market cards", onChange: (n) => setSettings({ blackMarketSize: n }) }))),
 
-      h("section", { "data-section": "expansions" },
-        h("h3", null, "Expansions"),
-        row("Expansions per game", stepper({ value: opts.setsPerGame, min: 0, max: enabledSets.length, label: "expansions per game",
-          format: (n) => (n === 0 ? "All" : String(n)), onChange: (n) => setOpts({ setsPerGame: n }) }),
-          "How many of your sets each game draws from"),
-        h("p.hint", null, "Tap expansions to draw from just those. The count follows your selection, and none selected means all."),
-        opts.setsPerGame > 0 && h("div.row.gap", null,
-          h("button.btn", { type: "button", onclick: () => app.store.dispatch({ type: "rollSets" }) }, icon("swap"), "Roll expansions")),
-        h("p.hint", null, "How often each expansion comes up, for rolling expansions and picking cards."),
+      h("section", null,
+        h("h3", null, "Expansion weights"),
+        h("p.hint", null, "How often each expansion comes up, both when cards are dealt and when expansions are rolled. A triangle marks the expansions selected to deal from."),
         h("ul.set-weights", null, enabledSets.map((s) => {
           const w = opts.setWeights[s.id] ?? 1;
           const img = setIcon(s.id);
-          const picked = !!game.sets?.includes(s.id);
-          return h("li", { class: picked ? "rolled" : "" },
-            h("button.set-name", { type: "button", "aria-pressed": String(picked), title: picked ? "Drop from this game" : "Draw from this expansion",
-              onclick: () => app.store.dispatch({ type: "toggleSet", id: s.id }) },
+          const picked = chosen.has(s.id);
+          return h("li", { class: picked ? "picked" : "" },
+            h("span.set-name", null,
+              h("span.sel-mark", { class: !picked && s.id === implicit ? "faint" : "", title: picked ? "Selected to deal from" : "" }, (picked || s.id === implicit) && icon("triangle")),
               img && h("img", { src: img.src, alt: "" }), s.name),
             h("div.pips", { role: "radiogroup", "aria-label": `${s.name} weight` }, SET_WEIGHTS.map((v, i) => h("button", {
               type: "button", role: "radio", "aria-checked": String(v === w), class: v <= w ? "on" : "",
               title: ["Rarely", "Less often", "Normal", "More often", "Much more often"][i], onclick: () => setOpts({ setWeights: { ...opts.setWeights, [s.id]: v } }),
             }))));
         })),
-        h("button.btn.ghost", { type: "button", onclick: () => app.openWelcome() }, "Change which sets you own")),
+        h("div.row.gap", null,
+          h("button.btn", { type: "button", onclick: () => app.openExpansions() }, icon("layers"), "Choose expansions to deal from"))),
 
       h("section", null,
         h("h3", null, "Card preferences"),

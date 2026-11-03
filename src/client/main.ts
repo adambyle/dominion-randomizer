@@ -5,12 +5,13 @@ import "./styles.css";
 import { h, icon, replace, stepper, type Child } from "./dom";
 import { markup } from "./markup";
 import { cardImage, recommended } from "./data";
-import { Store } from "./state";
+import { Store, type Settings } from "./state";
 import type { RecommendedKingdom } from "../shared/types";
 import { tableView } from "./views/table";
 import { tableMobileView } from "./views/tableMobile";
 import { sheetView } from "./views/sheet";
 import { tuneView } from "./views/tune";
+import { expansionsView, ownedSets } from "./views/expansions";
 import { pickerView } from "./views/picker";
 import { welcomeView } from "./views/welcome";
 import { recommendedView } from "./views/recommended";
@@ -25,6 +26,7 @@ import { RoomClient } from "./room";
 import { Account } from "./account";
 import { playedCards } from "../shared/stats";
 
+type Overlay = "picker" | "sheet" | "qr" | "expansions" | "tune";
 type Route = "table" | "recommended" | "cards" | "rules" | "interactions" | "history" | "account" | "room" | "sets";
 
 /** Portrait phones get their own table layout; landscape phones and tablets use the desktop one. */
@@ -37,6 +39,12 @@ export class App {
   recommended = recommended;
   private sheet: string[] = [];
   private tune = false;
+  private expansions = false;
+  /** Brings the open expansions pane up to date without rebuilding it. */
+  private syncExpansions: (() => void) | null = null;
+  /** Code of a room opened just to show the join code: closing the code leaves it again unless someone joined. */
+  private autoRoom: string | null = null;
+  private creatingRoom = false;
   private picker: HTMLElement | null = null;
   /** The card showing in the rules reference of a locked table. */
   private reference: string | null = null;
@@ -47,13 +55,18 @@ export class App {
   private pendingTune = false;
   private root = document.getElementById("app")!;
   /** Overlays opened since the last render; only these play their entrance animation. */
-  private entering = new Set<"sheet" | "tune" | "picker" | "qr">();
+  private entering = new Set<Overlay>();
   private renderToken = 0;
   private loaded = new Set<string>();
   menuOpen = false;
 
   constructor() {
     this.store.subscribe((state, prev) => {
+      // Picking expansions only touches the pane (the table doesn't depend on it), so just that updates.
+      if (this.expansions && this.syncExpansions && state.game === prev.game && onlySelectionChanged(state.settings, prev.settings)) {
+        this.syncExpansions();
+        return;
+      }
       const before = new Set([...prev.game.kingdom, ...prev.game.landscapes]);
       const added = [...state.game.kingdom, ...state.game.landscapes].filter((id) => !before.has(id));
       if (added.length) this.renderAfterImages(added);
@@ -67,14 +80,17 @@ export class App {
     if (!roomLink && this.room.saved) this.room.join(this.room.saved);
     void this.account.init();
     PHONE.addEventListener("change", () => this.render());
+    // Pinch-zooming is off (iOS ignores the viewport setting for it).
+    document.addEventListener("gesturestart", (e) => e.preventDefault());
     window.addEventListener("resize", () => this.measureTopBar());
     window.addEventListener("hashchange", () => {
       if (this.route === "history" || this.route === "account") this.account.queueSync(0);
       this.menuOpen = false;
       this.sheet = [];
       this.tune = false;
+      this.expansions = false;
       this.picker = null;
-      this.qr = false;
+      this.closeQrState();
       this.reference = null;
       if (this.pendingTune) { this.pendingTune = false; this.tune = true; this.entering.add("tune"); }
       if (this.pendingReference) { this.pendingReference = false; this.reference = this.firstReference(); }
@@ -82,17 +98,13 @@ export class App {
       window.scrollTo(0, 0);
     });
     window.addEventListener("keydown", (e) => {
-      const covered = this.picker || this.sheet.length || this.qr || this.tune;
-      if (this.reference && !covered && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
+      if (this.reference && !this.topOverlay() && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
         const cards = referenceCards(this);
         const next = cards[cards.indexOf(this.reference) + (e.key === "ArrowRight" ? 1 : -1)];
         if (next) this.showReference(next);
       }
       if (e.key !== "Escape") return;
-      if (this.picker) this.closePicker();
-      else if (this.sheet.length) this.closeCard();
-      else if (this.qr) this.closeQr();
-      else if (this.tune) this.closeTune();
+      if (this.topOverlay()) this.closeTopOverlay();
       else if (this.reference) this.closeReference();
     });
     this.render();
@@ -119,13 +131,24 @@ export class App {
   }
   backCard() { this.sheet = this.sheet.slice(0, -1); this.render(); }
   closeCard() { this.sheet = []; this.render(); }
-  openTune(section?: "expansions") {
-    this.entering.add("tune");
-    this.tune = true;
-    this.render();
-    if (section) requestAnimationFrame(() => document.querySelector(`[data-section="${section}"]`)?.scrollIntoView({ block: "start" }));
-  }
+  openTune() { this.entering.add("tune"); this.tune = true; this.expansions = false; this.render(); }
   closeTune() { this.tune = false; this.render(); }
+  openExpansions() { this.entering.add("expansions"); this.expansions = true; this.tune = false; this.render(); }
+  closeExpansions() { this.expansions = false; this.syncExpansions = null; this.render(); }
+
+  /** The overlay on top: the later in this order, the further in front. */
+  private topOverlay(): Overlay | null {
+    return this.picker ? "picker" : this.sheet.length ? "sheet" : this.qr ? "qr" : this.expansions ? "expansions" : this.tune ? "tune" : null;
+  }
+  private closeTopOverlay() {
+    switch (this.topOverlay()) {
+      case "picker": return this.closePicker();
+      case "sheet": return this.closeCard();
+      case "qr": return this.closeQr();
+      case "expansions": return this.closeExpansions();
+      case "tune": return this.closeTune();
+    }
+  }
   openPicker() { this.entering.add("picker"); this.picker = pickerView(this); this.render(); }
   closePicker() { this.picker = null; this.render(); }
   /**
@@ -136,14 +159,25 @@ export class App {
     this.entering.add("qr");
     this.qr = true;
     this.render();
-    if (this.room.code) return;
-    try { await this.room.create(); } catch (err) {
+    if (this.room.code || this.creatingRoom) return;
+    this.creatingRoom = true;
+    try { this.autoRoom = await this.room.create(); } catch (err) {
       this.qr = false;
       this.room.error = err instanceof Error ? err.message : "Couldn't create a room.";
     }
+    this.creatingRoom = false;
+    // Closed while the room was being made.
+    if (!this.qr) this.closeQrState();
     this.render();
   }
-  closeQr() { this.qr = false; this.render(); }
+  closeQr() { this.closeQrState(); this.render(); }
+  /** Hides the join code; a room opened only for it is left again if nobody has joined. */
+  private closeQrState() {
+    this.qr = false;
+    const auto = this.autoRoom;
+    this.autoRoom = null;
+    if (auto && auto === this.room.code && this.room.members.length <= 1) this.room.leave();
+  }
 
   private firstReference() {
     return this.store.state.game.setupLocked ? referenceCards(this)[0] ?? null : null;
@@ -171,6 +205,8 @@ export class App {
 
   finishWelcome(deal: boolean) {
     const first = !this.store.state.settings.onboarded;
+    // A first deal draws from everything just chosen; the Expansions pane narrows it afterwards.
+    if (first) this.store.dispatch({ type: "drawSets", sets: ownedSets(this) });
     this.store.dispatch({ type: "settings", patch: { onboarded: true } });
     if (deal && first && !this.store.state.game.kingdom.length) this.store.dispatch({ type: "deal" });
     location.hash = "#/";
@@ -218,8 +254,8 @@ export class App {
     // The reference only stays up while the table is locked and still has the card.
     const { game } = this.store.state;
     if (this.reference && !(game.setupLocked && referenceCards(this).includes(this.reference))) this.reference = null;
-    if (this.qr && !game.setupLocked && !this.room.code) this.qr = false;
-    const overlay = this.picker ? "picker" : this.sheet.length ? "sheet" : this.qr ? "qr" : this.tune ? "tune" : null;
+    if (this.qr && !game.setupLocked && !this.room.code && !this.creatingRoom) this.qr = false;
+    const overlay = this.topOverlay();
     document.body.classList.toggle("overlay-open", !!overlay || !!this.reference);
     document.body.classList.toggle("phone-table", this.phone && route === "table");
 
@@ -229,9 +265,10 @@ export class App {
       h("footer.footer", null,
         "Card images and rulings from the ", h("a", { href: "https://wiki.dominionstrategy.com", target: "_blank", rel: "noreferrer" }, "Dominion Strategy Wiki"),
         ". Dominion is © Donald X. Vaccarino and Rio Grande Games; this is an unofficial fan tool."),
-      overlay && h("div.scrim", { class: this.entering.size ? "enter" : "", onclick: () => (this.picker ? this.closePicker() : this.sheet.length ? this.closeCard() : this.qr ? this.closeQr() : this.closeTune()) }),
+      overlay && h("div.scrim", { class: this.entering.size ? "enter" : "", onclick: () => this.closeTopOverlay() }),
       this.reference && referenceView(this, this.reference),
       this.tune && withEnter(tuneView(this), this.entering.has("tune")),
+      this.expansions && withEnter(expansionsView(this, (sync) => { this.syncExpansions = sync; }), this.entering.has("expansions")),
       this.sheet.length > 0 && withEnter(sheetView(this, this.sheet), this.entering.has("sheet")),
       this.qr && withEnter(qrView(this), this.entering.has("qr")),
       this.picker && withEnter(this.picker, this.entering.has("picker")));
@@ -266,6 +303,12 @@ export class App {
       default: return this.phone ? tableMobileView(this) : tableView(this);
     }
   }
+}
+
+/** True when the only difference is which expansions are selected (and the roll count that follows). */
+function onlySelectionChanged(a: Settings, b: Settings): boolean {
+  const strip = (s: Settings) => JSON.stringify({ ...s, options: { ...s.options, drawSets: 0, rollCount: 0 } });
+  return a.options.drawSets !== b.options.drawSets && strip(a) === strip(b);
 }
 
 function withEnter<T extends Child>(el: T, entering: boolean): T {
@@ -314,6 +357,7 @@ function topBar(app: App, route: Route): Child {
       h("button.btn.ghost", { type: "button", disabled: !hasGame || locked, onclick: () => app.store.dispatch({ type: "clear" }), title: "Clear the table" }, "Clear"),
       h("button.btn.ghost.lock-toggle", { type: "button", disabled: !hasGame && !locked, onclick: () => app.lockSetup(!locked),
         title: locked ? "Unlock the table to change it" : "Lock the table: tapping a card then goes straight to its rules" }, icon(locked ? "unlock" : "lock"), locked ? "Unlock" : "Lock"),
+      h("button.btn.ghost", { type: "button", disabled: locked, onclick: () => app.openExpansions(), title: "Choose the expansions to deal from" }, icon("layers"), "Expansions"),
       h("button.btn.ghost", { type: "button", disabled: locked, onclick: () => app.openTune() }, icon("tune"), "Tune"),
       locked
         ? h("button.deal", { type: "button", onclick: () => app.openReference(), title: "Open the cards' rules" }, "Rules")

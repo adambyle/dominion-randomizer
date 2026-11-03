@@ -4,13 +4,13 @@
 
 import { h, icon, type Child } from "../dom";
 import { artImage, cardImage, db, name, recommended, setIcon, setName } from "../data";
-import { buildModel, type TableItem, type TableModel } from "../model";
+import { BASICS_PREVIEW, buildModel, type TableItem, type TableModel } from "../model";
 import { costSymbols } from "../markup";
 import type { App } from "../main";
+import { tableSets } from "../state";
 import { playedControl } from "./history";
+import { rerollsFor, swapButton } from "./rerolls";
 import { interactionSummary, interactsWithNames } from "./interactions";
-
-const BASICS_PREVIEW = ["copper", "silver", "gold", "estate", "duchy", "province", "curse"];
 
 let selected: string | null = null;
 let sheetOpen = false;
@@ -60,10 +60,11 @@ export function tableMobileView(app: App): Child {
   const landscapes = (model?.landscapes ?? []).map((l) => {
     const img = cardImage(l.card);
     const own = game.landscapes.includes(l.card);
-    return h("button", {
-      type: "button", class: ["m-landscape", dim(l.card, l.roots) ? "dim" : "", selected === l.card ? "selected" : "", own && app.store.fresh.has(l.card) ? "fresh" : ""],
+    return h("div.m-landscape-wrap", null, h("button", {
+      type: "button", class: ["m-landscape", dim(l.card, l.roots) ? "dim" : "", selected === l.card ? "selected" : "", app.store.fresh.has(l.card) ? "fresh" : ""],
       ...pressHandlers(() => (own ? (frozen ? app.openReference(l.card) : select(l.card)) : app.openCard(l.card)), () => (frozen && own ? app.openReference(l.card) : app.openCard(l.card))),
-    }, img && h("img", { src: img.src, alt: name(l.card), draggable: "false" }), l.note && h("span.m-caption", null, l.note));
+    }, img && h("img", { src: img.src, alt: name(l.card), draggable: "false" }), l.note && h("span.m-caption", null, l.note)),
+      !own && !frozen && l.reroll && swapButton(app, l.reroll));
   });
 
   // ---- Supply strip
@@ -84,7 +85,7 @@ export function tableMobileView(app: App): Child {
         h("button.m-tool", { type: "button", class: frozen ? "on" : "", disabled: empty && !frozen, onclick: () => app.lockSetup(!frozen),
           "aria-pressed": String(frozen), "aria-label": frozen ? "Unlock the table" : "Lock the table",
           title: frozen ? "Unlock the table to change it" : "Lock the table: tapping a card then goes straight to its rules" }, icon(frozen ? "lock" : "unlock")),
-        sets(app, game.sets ?? [...new Set([...game.kingdom, ...game.landscapes].map((id) => db.get(id).set))]))),
+        sets(app, tableSets(game), frozen))),
     h("div.m-kingdom", null, tiles, slots),
     empty && h("p.m-empty", null, "Deal a random kingdom, pick a recommended one from the menu, or tap a slot to add cards yourself."),
     landscapes.length > 0 && h("div.m-landscapes", null, landscapes),
@@ -106,6 +107,7 @@ export function tableMobileView(app: App): Child {
     h("button.m-round", { type: "button", "aria-label": "Show the join code", title: "Join code", onclick: () => app.openQr() }, icon("qr")))
   : h("nav.m-bar", { "aria-label": "Table actions" },
     h("button.m-round", { type: "button", "aria-label": "Tune", onclick: () => app.openTune() }, icon("tune")),
+    h("button.m-round", { type: "button", "aria-label": "Expansions to deal from", onclick: () => app.openExpansions() }, icon("layers")),
     h("button.m-round", { type: "button", "aria-label": "Add a card", onclick: () => app.openPicker() }, icon("plus")),
     h("button.deal.m-deal", { type: "button", onclick: () => { selected = null; dispatch({ type: "deal" }); } }, hasGame ? "Deal again" : "Deal"),
     h("div.m-players", null,
@@ -126,12 +128,16 @@ export function tableMobileView(app: App): Child {
     felt, quick, sheet, bar);
 }
 
-function sets(app: App, list: string[]) {
+/** The table's expansions as a short overlapping stack of icons ("+3" for the rest), so many of them never run off the screen. */
+const STACK_MAX = 4;
+function sets(app: App, list: string[], frozen: boolean) {
   if (!list.length) return null;
-  return h("button.m-sets", { type: "button", title: "Choose expansions", "aria-label": "Choose expansions", onclick: () => app.openTune("expansions") }, list.map((s) => {
-    const img = setIcon(s);
-    return img ? h("img", { src: img.src, alt: setName(s), title: setName(s) }) : null;
-  }));
+  const shown = list.length > STACK_MAX ? list.slice(0, STACK_MAX - 1) : list;
+  const rest = list.length - shown.length;
+  return h("button.m-sets", { type: "button", disabled: frozen, title: list.map(setName).join(", "), "aria-label": `Expansions: ${list.map(setName).join(", ")}. Choose expansions to deal from`,
+    onclick: () => app.openExpansions() },
+    shown.map((s) => { const img = setIcon(s); return img ? h("span.m-set-dot", null, h("img", { src: img.src, alt: "" })) : null; }),
+    rest > 0 && h("span.m-set-dot.more", null, `+${rest}`));
 }
 
 function relatedTo(id: string, model: TableModel | null): string[] {
@@ -155,6 +161,7 @@ function quickCard(app: App, id: string, model: TableModel) {
   const groups = model.tray.filter((g) => g.by === id).map((g) => g.what);
   const count = model.pileCounts.get(id);
   const interacts = interactsWithNames(app, id);
+  const rerolls = rerollsFor(app, id);
   const dispatch = app.store.dispatch;
   const done = () => { selected = null; };
   const entering = shownQuick !== id;
@@ -167,6 +174,8 @@ function quickCard(app: App, id: string, model: TableModel) {
       groups.length > 0 && h("p.m-quick-brings", null, `Brings: ${groups.join("; ")}`),
       interacts.length > 0 && h("p.m-quick-brings", null, "Interacts with ", interacts.slice(0, 4).map((x, i) => [i > 0 && ", ",
         h("button.link", { type: "button", onclick: () => app.openCard(x) }, name(x))]), interacts.length > 4 ? ` +${interacts.length - 4}` : ""),
+      rerolls.length > 0 && h("div.m-quick-rerolls", null, rerolls.map((r) =>
+        h("button", { type: "button", onclick: () => dispatch({ type: "reroll", key: r.key }) }, icon("swap"), r.label))),
       brings.length > 0 && h("div.m-quick-thumbs", null, brings.slice(0, 6).map((b) => {
         const bi = cardImage(b);
         return h("button", { type: "button", onclick: () => app.openCard(b), "aria-label": name(b) }, bi && h("img", { src: bi.src, alt: "" }));
@@ -212,9 +221,11 @@ function setupSheet(app: App, model: TableModel, empty: boolean) {
       h("h4", null, h("b", null, g.title), ` · ${g.what}`),
       h("div.m-group-cards", null, g.items.map((i) => {
         const img = cardImage(i.card);
-        return h("button", { type: "button", onclick: () => app.openCard(i.card), class: img && img.w > img.h ? "wide" : "" },
-          img && h("img", { src: img.src, alt: name(i.card) }),
-          i.count !== undefined && h("span.count", null, i.count));
+        return h("div.m-group-item", { class: [img && img.w > img.h ? "wide" : "", app.store.fresh.has(i.card) ? "fresh" : ""] },
+          h("button", { type: "button", onclick: () => app.openCard(i.card), class: img && img.w > img.h ? "wide" : "" },
+            img && h("img", { src: img.src, alt: name(i.card) }),
+            i.count !== undefined && h("span.count", null, i.count)),
+          !app.store.state.game.setupLocked && i.reroll && swapButton(app, i.reroll));
       })))),
     h("p.label", null, "To hand out"),
     h("div.m-checks", null, model.checklist.map((c) => h("label.check", null,

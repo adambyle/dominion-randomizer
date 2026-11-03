@@ -18,8 +18,10 @@ export interface RandomizerOptions {
   enabledBoxes: string[];
   /** Per-set weight (default 1), used both for rolling expansions and for picking cards. */
   setWeights: Record<string, number>;
-  /** How many expansions a game draws from; 0 means all enabled ones. */
-  setsPerGame: number;
+  /** Expansions cards are drawn from. Empty means none chosen: the implicit set (see `implicitSet`) is used. */
+  drawSets: string[];
+  /** How many expansions "Roll" selects. Follows the selection's size, but changing it doesn't change the selection. */
+  rollCount: number;
   kingdomSize: number;
   landscapeCount: number;
   maxWays: number;
@@ -31,7 +33,8 @@ export interface RandomizerOptions {
 export const DEFAULT_OPTIONS: RandomizerOptions = {
   enabledBoxes: [],
   setWeights: {},
-  setsPerGame: 0,
+  drawSets: [],
+  rollCount: 1,
   kingdomSize: 10,
   landscapeCount: 2,
   maxWays: 1,
@@ -39,7 +42,7 @@ export const DEFAULT_OPTIONS: RandomizerOptions = {
 };
 
 export interface RollContext {
-  /** Expansions rolled for this game (setsPerGame > 0). Cards outside them are not picked. */
+  /** Expansions to draw from (see `drawnSets`). Cards outside them are not picked. */
   sets?: string[];
   /** Kingdom piles kept as they are. */
   locked?: string[];
@@ -72,13 +75,44 @@ export function poolSets(db: CardDb, pool: ReadonlySet<string>): string[] {
   return [...new Set([...pool].map((id) => db.get(id)).filter((c) => c.kind === "kingdom").map((c) => c.set))];
 }
 
-export function rollSets(db: CardDb, opts: RandomizerOptions, rng: Rng, keep: string[] = []): string[] {
+/** The expansion used while none is selected: Dominion (2nd edition) if owned, otherwise the first owned one. */
+export function implicitSet(db: CardDb, enabledBoxes: readonly string[]): string | undefined {
+  const available = poolSets(db, buildPool(db, enabledBoxes));
+  return available.includes("dominion") ? "dominion" : db.data.sets.find((s) => available.includes(s.id))?.id;
+}
+
+/** The selected expansions that are owned, in the order of the set list. */
+export function selectedSets(db: CardDb, opts: RandomizerOptions): string[] {
   const available = poolSets(db, buildPool(db, opts.enabledBoxes));
-  if (!opts.setsPerGame || opts.setsPerGame >= available.length) return available;
-  const kept = keep.filter((s) => available.includes(s)).slice(0, opts.setsPerGame);
-  const rest = weightedSample(rng, available.filter((s) => !kept.includes(s)),
-    (s) => opts.setWeights[s] ?? 1, opts.setsPerGame - kept.length);
-  return [...kept, ...rest];
+  return db.data.sets.map((s) => s.id).filter((id) => available.includes(id) && opts.drawSets.includes(id));
+}
+
+/** The expansions a deal draws from: the selection, or the implicit set when nothing is selected. */
+export function drawnSets(db: CardDb, opts: RandomizerOptions): string[] {
+  const chosen = selectedSets(db, opts);
+  if (chosen.length) return chosen;
+  const implicit = implicitSet(db, opts.enabledBoxes);
+  return implicit ? [implicit] : [];
+}
+
+/** Picks `count` owned expansions, weighted by the set weights. */
+export function rollSets(db: CardDb, opts: RandomizerOptions, rng: Rng, count = opts.rollCount): string[] {
+  const available = poolSets(db, buildPool(db, opts.enabledBoxes));
+  return weightedSample(rng, available, (s) => opts.setWeights[s] ?? 1, Math.max(1, count));
+}
+
+/** Weights cards by their expansion and the card preferences (Tune) times an optional extra factor. */
+export function cardWeighter(db: CardDb, opts: RandomizerOptions, extra?: (id: string) => number): (c: Card) => number {
+  const cache = new Map<string, number>();
+  return (c) => {
+    let w = cache.get(c.id);
+    if (w === undefined) {
+      w = (opts.setWeights[c.set] ?? 1) * (extra?.(c.id) ?? 1);
+      for (const t of cardTraits(db, c)) w *= opts.traitRules[t]?.weight ?? 1;
+      cache.set(c.id, w);
+    }
+    return w;
+  };
 }
 
 export function cardTraits(db: CardDb, card: Card): Set<string> {
@@ -97,11 +131,7 @@ export function randomize(db: CardDb, opts: RandomizerOptions, ctx: RollContext,
     return t;
   };
 
-  const weightOf = (c: Card) => {
-    let w = (opts.setWeights[c.set] ?? 1) * (ctx.cardWeight?.(c.id) ?? 1);
-    for (const t of traitsOf(c.id)) w *= opts.traitRules[t]?.weight ?? 1;
-    return w;
-  };
+  const weightOf = cardWeighter(db, opts, ctx.cardWeight);
 
   // --- Kingdom piles
   const kingdom = [...(ctx.locked ?? [])];
@@ -148,7 +178,10 @@ export function randomize(db: CardDb, opts: RandomizerOptions, ctx: RollContext,
     const [pick] = weightedSample(rng,
       landscapeCandidates.filter((c) => !landscapes.includes(c.id) && (ways < opts.maxWays || !isWay(c.id))),
       (c) => (opts.setWeights[c.set] ?? 1) * (ctx.cardWeight?.(c.id) ?? 1), 1);
-    if (!pick) break;
+    if (!pick) {
+      if (landscapeCandidates.length) warnings.push(`Only ${landscapes.length} landscapes match the current options.`);
+      break;
+    }
     landscapes.push(pick.id);
   }
 
@@ -170,11 +203,10 @@ export function replaceOne(db: CardDb, opts: RandomizerOptions, draft: Draft, id
     locked: landscape ? draft.kingdom : others,
     lockedLandscapes: landscape ? others : draft.landscapes,
   }, rng);
-  const pickNew = (old: string[], now: string[]) => {
-    const added = now.find((x) => !old.includes(x));
-    return added ? old.map((x) => (x === id ? added : x)) : old.filter((x) => x !== id);
-  };
+  const added = (landscape ? rolled.landscapes : rolled.kingdom).find((x) => !(landscape ? draft.landscapes : draft.kingdom).includes(x));
+  if (!added) return { ...draft, warnings: [...rolled.warnings, "Nothing else to swap in with the current options."] };
+  const swap = (old: string[]) => old.map((x) => (x === id ? added : x));
   return landscape
-    ? { kingdom: draft.kingdom, landscapes: pickNew(draft.landscapes, rolled.landscapes), warnings: rolled.warnings }
-    : { kingdom: pickNew(draft.kingdom, rolled.kingdom), landscapes: draft.landscapes, warnings: rolled.warnings };
+    ? { kingdom: draft.kingdom, landscapes: swap(draft.landscapes), warnings: rolled.warnings }
+    : { kingdom: swap(draft.kingdom), landscapes: draft.landscapes, warnings: rolled.warnings };
 }

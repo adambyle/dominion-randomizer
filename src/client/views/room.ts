@@ -4,12 +4,11 @@
 import { h, icon, type Child } from "../dom";
 import { byCost, data, db, name } from "../data";
 import { normalizeCode } from "../../shared/room";
-import { joinLink, qrSvg } from "./qr";
+import { copyLink, joinLink, linkCopied, qrSvg } from "./qr";
 import type { App } from "../main";
 
 let joinCode = "";
 let busy = false;
-let copied = false;
 
 const timeFmt = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
 
@@ -43,7 +42,7 @@ export function roomView(app: App, path: string | null): Child {
             busy = true; rerender();
             try { const code = await room.create(); location.hash = `#/room/${code}`; } catch (err) { room.error = err instanceof Error ? err.message : "Couldn't create a room."; }
             busy = false; rerender();
-          } }, "Start a room")),
+          } }, busy ? "Starting…" : "Start a room")),
         h("section", null,
           h("h2", null, "Join a room"),
           h("form.room-join", { onsubmit: (e: Event) => { e.preventDefault(); room.error = null; location.hash = `#/room/${normalizeCode(joinCode)}`; } },
@@ -64,9 +63,7 @@ export function roomView(app: App, path: string | null): Child {
     h("p.lede", null, room.status === "open" ? "Everyone here sees the same table." : room.status === "reconnecting" ? "Reconnecting…" : "Connecting…"),
     room.error && h("p.form-error", { role: "alert" }, room.error),
     h("div.row", null,
-      h("button.btn", { type: "button", onclick: async () => {
-        try { await navigator.clipboard.writeText(link); copied = true; rerender(); setTimeout(() => { copied = false; rerender(); }, 2000); } catch { prompt("Copy this link", link); }
-      } }, icon("check"), copied ? "Copied" : "Copy invite link"),
+      h("button.btn", { type: "button", onclick: () => copyLink(app, link) }, icon("check"), linkCopied() ? "Copied" : "Copy invite link"),
       h("a.deal", { href: "#/" }, "Go to the table"),
       h("button.btn.ghost", { type: "button", onclick: () => { room.leave(); location.hash = "#/room"; } }, "Leave room")),
     nameField,

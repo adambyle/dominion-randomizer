@@ -3,12 +3,12 @@
 
 import { h, icon, type Child } from "../dom";
 import { cardImage, db, name, recommended, setIcon, setName } from "../data";
-import { buildModel, type TableItem } from "../model";
+import { tableSets } from "../state";
+import { BASICS_PREVIEW, buildModel, type TableItem } from "../model";
 import type { App } from "../main";
 import { playedControl } from "./history";
 import { interactionSummary } from "./interactions";
-
-const BASICS_PREVIEW = ["copper", "silver", "gold", "estate", "duchy", "province", "curse"];
+import { swapButton } from "./rerolls";
 
 /** What the pointer is over, kept across re-renders so a click doesn't replay the fade. */
 let hovered: { attr: "id" | "roots" | "set"; value: string } | null = null;
@@ -71,7 +71,7 @@ export function tableView(app: App): Child {
   const slots = frozen ? 0 : Math.max(0, size - kingdomIds.length);
   const cols = Math.min(6, Math.max(5, Math.ceil(Math.max(size, kingdomIds.length) / 2)));
   const rec = game.recommendedId ? recommended.find((k) => k.id === game.recommendedId) : null;
-  const sets = game.sets ?? [...new Set([...game.kingdom, ...game.landscapes].map((id) => db.get(id).set))];
+  const sets = tableSets(game);
   const empty = !kingdomIds.length && !game.landscapes.length;
 
   const kingdom = h("div.kingdom-area", null,
@@ -81,9 +81,9 @@ export function tableView(app: App): Child {
       h("div.set-icons", null, sets.map((s) => {
         const img = setIcon(s);
         const compact = sets.length > 4;
-        return h("span.set-chip", { "data-set-key": s, title: setName(s), class: [game.sets?.includes(s) ? "rolled" : "", compact ? "icon-only" : ""] },
+        return h("span.set-chip", { "data-set-key": s, title: setName(s), class: compact ? "icon-only" : "" },
           img && h("img", { src: img.src, alt: compact ? setName(s) : "" }), !compact && setName(s));
-      }), h("button.set-edit", { type: "button", title: "Choose expansions", "aria-label": "Choose expansions", onclick: () => app.openTune("expansions") }, icon("tune")))),
+      }), !frozen && h("button.set-edit", { type: "button", title: "Choose expansions to deal from", "aria-label": "Choose expansions to deal from", onclick: () => app.openExpansions() }, icon("layers")))),
     h("div.kingdom", { style: `--cols:${cols}` },
       kingdomIds.map(pile),
       Array.from({ length: slots }, (_, i) => h("button.slot", {
@@ -102,20 +102,22 @@ export function tableView(app: App): Child {
         const locked = game.locked.includes(l.card);
         return h("div.landscape", {
           "data-id": own ? l.card : undefined, "data-roots": own ? undefined : l.roots.join(" "), "data-set": db.get(l.card).set,
-          class: [locked ? "locked" : "", own && app.store.fresh.has(l.card) ? "fresh" : ""],
+          class: [locked ? "locked" : "", app.store.fresh.has(l.card) ? "fresh" : ""],
         },
           h("button.pile-card", { type: "button", onclick: () => (own ? openOwn(l.card) : open(l.card)), "aria-label": `${name(l.card)} — ${frozen && own ? "rules" : "details"}` }, face(l.card)),
           l.note && h("span.caption", null, l.note),
+          !own && !frozen && l.reroll && swapButton(app, l.reroll),
           locked && !frozen && h("span.lockmark", null, icon("lock")),
           own && !frozen && tools(l.card, locked));
       }))));
 
   // ---- Off to the side
-  const trayItem = (item: TableItem) =>
+  const trayItem = (item: TableItem) => h("div.tray-item", { class: app.store.fresh.has(item.card) ? "fresh" : "" },
     h("button.tray-card", { type: "button", onclick: () => open(item.card), title: item.label ?? name(item.card) },
       face(item.card, isWide(item.card) ? "face wide" : "face"),
       item.count !== undefined && h("span.count", null, item.count),
-      item.note && h("span.caption", null, item.note));
+      item.note && h("span.caption", null, item.note)),
+    !frozen && item.reroll && swapButton(app, item.reroll));
   const tray = model && (model.tray.length > 0 || model.extraKingdom.length > 0) && h("div.tray", null,
     h("p.label", null, "Off to the side"),
     model.extraKingdom.map((x) => h("div.group.extra", { "data-roots": x.roots.join(" ") },

@@ -3,7 +3,7 @@
 // things to hand out. Every item knows which table cards it ultimately comes from, so hovering a
 // pile can light up everything it brings.
 
-import type { Reason, SetupResult } from "../shared/setup";
+import type { Reason, RerollKey, SetupResult } from "../shared/setup";
 import { byCost, db, name } from "./data";
 
 export interface TableItem {
@@ -15,6 +15,39 @@ export interface TableItem {
   note?: string;
   /** Table cards (Kingdom piles / landscapes) this item exists because of. */
   roots: string[];
+  /** Set when the item is a random pick the user can ask to have picked again. */
+  reroll?: Reroll;
+}
+
+export interface Reroll { key: RerollKey; label: string }
+
+const REROLL_LABELS: Record<string, string> = {
+  bane: "Swap the Bane", ferryman: "Swap Ferryman's pile", riverboat: "Swap the Riverboat card", wayOfTheMouse: "Swap the Way of the Mouse card",
+  approachingArmy: "Swap Approaching Army's pile", obelisk: "Move Obelisk to another pile", ally: "Swap the Ally", prophecy: "Swap the Prophecy",
+  blackMarket: "Draw a new Black Market deck", druidBoons: "Draw new Boons",
+};
+const reroll = (key: RerollKey): Reroll => ({ key, label: key.startsWith("trait:") ? "Move to another pile" : REROLL_LABELS[key]! });
+
+/** The Kingdom cards that make a pick, and what they pick. */
+const PICKERS: Record<string, RerollKey> = {
+  "young-witch": "bane", ferryman: "ferryman", riverboat: "riverboat", "way-of-the-mouse": "wayOfTheMouse", "approaching-army": "approachingArmy",
+  obelisk: "obelisk", "black-market": "blackMarket", druid: "druidBoons",
+};
+
+/** Every re-pickable choice that concerns a card: the pick itself (a Bane, an Ally ...) or the card that made it (Young Witch, a Liaison, a Trait ...). */
+export function choiceRerolls(setup: SetupResult, id: string): Reroll[] {
+  const c = setup.choices;
+  const keys = new Set<RerollKey>();
+  const asPick: [RerollKey, unknown][] = [["bane", c.bane], ["ferryman", c.ferryman], ["riverboat", c.riverboat], ["wayOfTheMouse", c.wayOfTheMouse],
+    ["approachingArmy", c.approachingArmy], ["ally", c.ally], ["prophecy", c.prophecy]];
+  for (const [key, value] of asPick) if (value === id) keys.add(key);
+  const picker = PICKERS[id];
+  if (picker && !picker.startsWith("trait:") && (c as Record<string, unknown>)[picker] !== undefined) keys.add(picker);
+  const types = db.get(id).types;
+  if (c.ally && types.includes("Liaison")) keys.add("ally");
+  if (c.prophecy && types.includes("Omen")) keys.add("prophecy");
+  if (c.traits?.[id]) keys.add(`trait:${id}`);
+  return [...keys].map(reroll);
 }
 
 export interface TrayGroup {
@@ -45,6 +78,9 @@ export interface TableModel {
   /** Kingdom pile id -> number of cards in it for this player count. */
   pileCounts: Map<string, number>;
 }
+
+/** The Supply column of an empty table. */
+export const BASICS_PREVIEW = ["copper", "silver", "gold", "estate", "duchy", "province", "curse"];
 
 const VISIBLE_BASICS = ["copper", "silver", "gold", "platinum", "estate", "duchy", "province", "colony", "curse", "potion", "ruins"];
 
@@ -95,6 +131,7 @@ export function buildModel(setup: SetupResult, kingdom: string[], landscapes: st
 
   const extraKingdom: TableItem[] = setup.extraKingdom.map((p) => ({
     card: p.id, count: p.count, roots: rootsOfReasons(p.reasons),
+    reroll: p.reasons[0]?.by === "young-witch" ? reroll("bane") : p.reasons[0]?.by === "approaching-army" ? reroll("approachingArmy") : undefined,
     note: p.reasons[0]?.by === "young-witch" ? "Bane" : p.reasons[0]?.by ? `for ${name(p.reasons[0].by)}` : undefined,
   }));
 
@@ -108,6 +145,7 @@ export function buildModel(setup: SetupResult, kingdom: string[], landscapes: st
     ...landscapes.map((id) => ({ card: id, roots: [id] })),
     ...setup.landscapes.filter((l) => !landscapes.includes(l.id)).map((l) => ({
       card: l.id, roots: rootsOfReasons(l.reasons),
+      reroll: db.get(l.id).types.includes("Ally") ? reroll("ally") : db.get(l.id).types.includes("Prophecy") ? reroll("prophecy") : undefined,
       note: db.get(l.id).types.includes("Ally") ? neededBy("Liaison") : db.get(l.id).types.includes("Prophecy") ? neededBy("Omen")
         : l.reasons[0]?.by ? `for ${name(l.reasons[0].by)}` : undefined,
     })),
@@ -141,7 +179,9 @@ export function buildModel(setup: SetupResult, kingdom: string[], landscapes: st
     const what = s.id === "black-market" ? `Black Market deck · ${s.cards.length}` : s.id === "ferryman" ? "pile, set aside"
       : s.id === "druid" ? "set aside face up" : "set aside";
     const cards = s.id === "black-market" ? s.cards.slice(0, 1) : s.cards;
-    for (const c of cards) add(by, what, { card: c, roots: rootsOf(c), note: s.id === "black-market" ? `${s.cards.length} cards` : undefined });
+    const key = ({ ferryman: "ferryman", riverboat: "riverboat", "way-of-the-mouse": "wayOfTheMouse", "black-market": "blackMarket", druid: "druidBoons" } as const)[s.id as "ferryman"];
+    cards.forEach((c, i) => add(by, what, { card: c, roots: rootsOf(c), reroll: key && i === 0 ? reroll(key) : undefined,
+      note: s.id === "black-market" ? `${s.cards.length} cards` : undefined }));
   }
   for (const c of setup.startingDeck.cards) {
     const by = [...(causes.get(c.id) ?? [])][0];

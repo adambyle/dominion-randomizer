@@ -3,7 +3,7 @@ import cardData from "../data/cards.json";
 import type { CardData } from "./types";
 import { createDb } from "./setup";
 import { createRng } from "./random";
-import { DEFAULT_OPTIONS, randomize, replaceOne, rollSets, type RandomizerOptions } from "./randomizer";
+import { DEFAULT_OPTIONS, drawnSets, implicitSet, randomize, replaceOne, rollSets, type RandomizerOptions } from "./randomizer";
 import { cardTraits } from "./randomizer";
 
 const data = cardData as CardData;
@@ -39,7 +39,7 @@ describe("randomizer", () => {
   });
 
   it("rolls the requested number of expansions and draws only from them", () => {
-    const o = opts({ setsPerGame: 2 });
+    const o = opts({ rollCount: 2 });
     const sets = rollSets(db, o, createRng(5));
     expect(sets).toHaveLength(2);
     const d = randomize(db, o, { sets }, createRng(5));
@@ -58,5 +58,31 @@ describe("randomizer", () => {
 
   it("is reproducible from a seed", () => {
     expect(randomize(db, opts(), {}, createRng(42))).toEqual(randomize(db, opts(), {}, createRng(42)));
+  });
+});
+
+describe("expansion selection", () => {
+  it("draws from the base set while nothing is selected, or the first owned set without it", () => {
+    expect(drawnSets(db, opts({ enabledBoxes: allBoxes }))).toEqual(["dominion"]);
+    expect(drawnSets(db, opts({ enabledBoxes: ["seaside-2", "intrigue-2"] }))).toEqual(["intrigue"]);
+    expect(implicitSet(db, ["seaside-2"])).toBe("seaside");
+  });
+
+  it("uses the selection, ignoring sets that aren't owned", () => {
+    expect(drawnSets(db, opts({ enabledBoxes: ["dominion-2", "seaside-2"], drawSets: ["seaside", "prosperity"] }))).toEqual(["seaside"]);
+  });
+
+  it("rolls at least one expansion and never more than are owned", () => {
+    expect(rollSets(db, opts({ enabledBoxes: ["dominion-2", "seaside-2"] }), createRng(1), 0)).toHaveLength(1);
+    expect(rollSets(db, opts({ enabledBoxes: ["dominion-2", "seaside-2"] }), createRng(1), 5)).toHaveLength(2);
+  });
+
+  it("keeps a card when there is nothing else to swap in", () => {
+    const o = opts({ enabledBoxes: ["alchemy"], kingdomSize: 12 });
+    const d = randomize(db, o, {}, createRng(1));
+    expect(d.kingdom).toHaveLength(12);
+    const r = replaceOne(db, o, d, d.kingdom[3]!, {}, createRng(2));
+    expect(r.kingdom).toEqual(d.kingdom);
+    expect(r.warnings.length).toBeGreaterThan(0);
   });
 });

@@ -9,6 +9,7 @@ import { topicsForCard, type GuideDoc } from "../../shared/guide";
 import { cachedCardGuide, hasCardGuide, loadCardGuide, topics } from "../guide";
 import { guideBody } from "./rules";
 import { notableCount, sheetInteractions } from "./interactions";
+import { rerollsFor } from "./rerolls";
 import type { App } from "../main";
 
 let faqCache: Record<string, FaqSection[]> | null = null;
@@ -42,6 +43,7 @@ export function sheetView(app: App, stack: string[]): Child {
   const set = setIcon(card.set);
   const parent = card.pileId ? db.get(card.pileId) : null;
   const locked = game.locked.includes(id);
+  const rerolls = rerollsFor(app, id);
 
   return h("aside.sheet", { role: "dialog", "aria-modal": "true", "aria-label": card.name },
     h("header.sheet-head", null,
@@ -60,6 +62,9 @@ export function sheetView(app: App, stack: string[]): Child {
         h("button.btn", { type: "button", onclick: () => app.store.dispatch({ type: "toggleLock", id }) }, icon(locked ? "unlock" : "lock"), locked ? "Unlock" : "Lock"),
         h("button.btn", { type: "button", onclick: () => { app.store.dispatch({ type: "replace", id }); app.closeCard(); } }, icon("swap"), "Swap"),
         h("button.btn", { type: "button", onclick: () => { app.store.dispatch({ type: "remove", id }); app.closeCard(); } }, icon("close"), "Remove")),
+
+      rerolls.length > 0 && h("div.sheet-actions", null, rerolls.map((r) =>
+        h("button.btn", { type: "button", onclick: () => { app.store.dispatch({ type: "reroll", key: r.key }); app.closeCard(); } }, icon("swap"), r.label))),
 
       (brings.length > 0 || why.length > 0) && h("section", null,
         h("h3", null, "In this game"),

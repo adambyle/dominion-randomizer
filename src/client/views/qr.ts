@@ -23,6 +23,17 @@ export function qrSvg(text: string): SVGElement {
 }
 
 let copied = false;
+export const linkCopied = () => copied;
+
+/** Copies a link, showing "Copied" for a moment; falls back to a prompt where the clipboard is unavailable. */
+export async function copyLink(app: App, link: string) {
+  try {
+    await navigator.clipboard.writeText(link);
+    copied = true;
+    app.render();
+    setTimeout(() => { copied = false; app.render(); }, 2000);
+  } catch { prompt("Copy this link", link); }
+}
 
 export function qrView(app: App): HTMLElement {
   const code = app.room.code;
@@ -31,10 +42,8 @@ export function qrView(app: App): HTMLElement {
     h("button.icon-btn.qr-close", { type: "button", "aria-label": "Close", onclick: () => app.closeQr() }, icon("close")),
     h("h2", null, "Join this table"),
     h("p.muted", null, app.store.state.game.setupLocked ? "Scan to join and open the cards’ rules." : "Scan to join this room."),
-    code ? h("div.qr-code", null, qrSvg(link)) : h("div.qr-code.qr-wait", null, "Preparing…"),
+    code ? h("div.qr-code", null, qrSvg(link)) : h("div.qr-code.qr-wait", { role: "status" }, "Preparing…"),
     code && h("p.qr-room", null, "Room ", h("b", null, code)),
     code &&
-    h("button.btn", { type: "button", onclick: async () => {
-      try { await navigator.clipboard.writeText(link); copied = true; app.render(); setTimeout(() => { copied = false; app.render(); }, 2000); } catch { prompt("Copy this link", link); }
-    } }, icon("check"), copied ? "Copied" : "Copy link"));
+    h("button.btn", { type: "button", onclick: () => copyLink(app, link) }, icon("check"), copied ? "Copied" : "Copy link"));
 }

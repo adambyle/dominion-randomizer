@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import cardData from "../data/cards.json";
 import kingdoms from "../data/kingdoms.json";
 import type { CardData, RecommendedKingdom } from "./types";
-import { createDb, resolveSetup, type SetupInput } from "./setup";
+import { createDb, resolveSetup, withoutChoice, type SetupInput } from "./setup";
 import { createRng } from "./random";
 
 const data = cardData as CardData;
@@ -115,5 +115,61 @@ describe("setup engine", () => {
           prophecy: k.landscapes.find((l) => db.get(l).types.includes("Prophecy")) } as never, acceptChoices: true });
       expect(r.warnings, k.name).toEqual([]);
     }
+  });
+});
+
+describe("random picks follow the expansions in play and the weights", () => {
+  const prefer = (sets: string[], weight?: (c: import("./types").Card) => number) => ({ sets, weight });
+
+  it("picks the Bane, Ferryman's pile and the Ally from the expansions in play when it can", () => {
+    for (let seed = 0; seed < 40; seed++) {
+      const r = setup({ kingdom: ["young-witch", "ferryman", "bustling-village", ...filler], prefer: prefer(["dominion", "intrigue", "seaside"]) }, seed);
+      expect(["dominion", "intrigue", "seaside"]).toContain(db.get(r.choices.bane!).set);
+      expect(["dominion", "intrigue", "seaside"]).toContain(db.get(r.choices.ferryman!).set);
+    }
+  });
+
+  it("falls back to other expansions when nothing fits", () => {
+    const r = setup({ kingdom: ["young-witch", ...filler], prefer: prefer(["prosperity"]) });
+    expect(r.choices.bane).toBeDefined();
+    expect(r.warnings).toEqual([]);
+  });
+
+  it("leans on card weights, and never on a card weighted zero while others fit", () => {
+    for (let seed = 0; seed < 40; seed++) {
+      const r = setup({ kingdom: ["young-witch", ...filler], prefer: prefer([], (c) => (c.types.includes("Attack") ? 0 : 1)) }, seed);
+      expect(db.get(r.choices.bane!).types).not.toContain("Attack");
+    }
+  });
+
+  it("fills the Black Market deck from the expansions in play first", () => {
+    const r = setup({ kingdom: ["black-market", ...filler], blackMarketSize: 10, prefer: prefer(["seaside"]) });
+    expect(r.choices.blackMarket).toHaveLength(10);
+    expect(r.choices.blackMarket!.every((id) => db.get(id).set === "seaside")).toBe(true);
+  });
+
+  it("keeps an eligible given choice whatever the preference says", () => {
+    const r = setup({ kingdom: ["young-witch", ...filler], choices: { bane: "page" }, prefer: prefer(["seaside"]) });
+    expect(r.choices.bane).toBe("page");
+  });
+
+  it("re-picks a choice without repeating the previous card", () => {
+    for (let seed = 0; seed < 30; seed++) {
+      const first = setup({ kingdom: ["young-witch", ...filler] }, seed);
+      const { choices, previous } = withoutChoice(first.choices, "bane");
+      expect(previous).toBe(first.choices.bane);
+      expect(choices.bane).toBeUndefined();
+      const again = setup({ kingdom: ["young-witch", ...filler], choices, exclude: [previous!] }, seed + 100);
+      expect(again.choices.bane).not.toBe(previous);
+    }
+  });
+
+  it("re-picks the Ally of a Liaison and the trait target", () => {
+    const first = setup({ kingdom: ["underling", ...filler] });
+    const { choices, previous } = withoutChoice(first.choices, "ally");
+    const again = setup({ kingdom: ["underling", ...filler], choices, exclude: [previous!] }, 9);
+    expect(again.choices.ally).toBeDefined();
+    expect(again.choices.ally).not.toBe(previous);
+    expect(again.landscapes.filter((l) => db.get(l.id).types.includes("Ally"))).toHaveLength(1);
   });
 });
