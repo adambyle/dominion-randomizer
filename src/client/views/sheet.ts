@@ -10,6 +10,8 @@ import { cachedCardGuide, hasCardGuide, loadCardGuide, topics } from "../guide";
 import { guideBody } from "./rules";
 import { notableCount, sheetInteractions } from "./interactions";
 import { rerollsFor } from "./rerolls";
+import { prefControl } from "./prefs";
+import { isWeightable } from "../../shared/cardPrefs";
 import type { App } from "../main";
 
 let faqCache: Record<string, FaqSection[]> | null = null;
@@ -65,6 +67,11 @@ export function sheetView(app: App, stack: string[]): Child {
 
       rerolls.length > 0 && h("div.sheet-actions", null, rerolls.map((r) =>
         h("button.btn", { type: "button", onclick: () => { app.store.dispatch({ type: "reroll", key: r.key }); app.closeCard(); } }, icon("swap"), r.label))),
+
+      isWeightable(card) && card.boxes.some((b) => app.store.state.settings.options.enabledBoxes.includes(b)) && h("section.pref-section", null,
+        h("h3", null, "When dealing"),
+        prefControl(app, id),
+        h("p.hint", null, "Weight 1–5 (3 is normal), or ban it. Applies to dealing, adding a random card, and random picks like a Bane or an Ally. Saved to your account when signed in.")),
 
       (brings.length > 0 || why.length > 0) && h("section", null,
         h("h3", null, "In this game"),

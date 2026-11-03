@@ -60,8 +60,12 @@ export interface SetupInput {
    */
   acceptChoices?: boolean;
   blackMarketSize?: number;
-  /** Where fresh random picks (Bane, Ally, Black Market deck ...) lean: the expansions in play, and card weights. */
-  prefer?: { sets?: readonly string[]; weight?: (c: Card) => number };
+  /**
+   * Where fresh random picks (Bane, Ally, Black Market deck ...) lean: the expansions in play, and card weights.
+   * `banned` cards are never picked fresh (except as a last resort, with a warning, for picks the game can't do without);
+   * choices already made are kept as they are.
+   */
+  prefer?: { sets?: readonly string[]; weight?: (c: Card) => number; banned?: readonly string[] };
   /** Cards not to pick this time, so a re-rolled choice changes. */
   exclude?: readonly string[];
 }
@@ -271,11 +275,18 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
   // excluded is skipped unless nothing else is left. Eligibility itself never depends on these.
   const excluded = new Set(input.exclude ?? []);
   const preferSets = input.prefer?.sets;
+  const banned = new Set(input.prefer?.banned ?? []);
   const weightOf = (id: string) => input.prefer?.weight?.(card(id)) ?? 1;
-  /** Candidates best first: in-play expansions before others, each group in weighted random order. */
+  /**
+   * Candidates best first: in-play expansions before others, each group in weighted random order.
+   * Banned cards only come up when nothing else is left. `lean` off is for picks among cards already
+   * on the table (Obelisk, Traits), which ignore the expansions, weights and bans.
+   */
   const preferredOrder = (ids: string[], lean = true): string[] => {
-    const allowed = ids.filter((id) => !excluded.has(id));
-    const base = allowed.length ? allowed : ids;
+    const open = lean ? ids.filter((id) => !banned.has(id)) : ids;
+    const usable = open.length ? open : ids;
+    const allowed = usable.filter((id) => !excluded.has(id));
+    const base = allowed.length ? allowed : usable;
     if (!lean) return shuffle(rng, base);
     const inPlay = base.filter((id) => !preferSets?.length || preferSets.includes(card(id).set));
     const groups = inPlay.length ? [inPlay, base.filter((id) => !inPlay.includes(id))] : [base];
@@ -295,6 +306,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
     if (givenId && (candidates.includes(givenId) || (input.acceptChoices && db.byId.has(givenId)))) return givenId;
     const chosen = pickPreferred(candidates, lean);
     if (!chosen) warnings.push(`No eligible card for ${key}.`);
+    else if (lean && banned.has(chosen)) warnings.push(`${name(chosen)} is banned, but it was the only card that fits ${key}.`);
     return chosen;
   };
 
@@ -478,7 +490,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
     }
     if (id === "black-market" && once("black-market")) {
       const size = input.blackMarketSize ?? 15;
-      const candidates = unusedKingdom((k) => !k.pile && k.id !== "black-market");
+      const candidates = unusedKingdom((k) => !k.pile && k.id !== "black-market" && !banned.has(k.id));
       const keep = (given.blackMarket ?? []).filter((x) => candidates.includes(x));
       const deck = [...keep, ...preferredOrder(candidates.filter((x) => !keep.includes(x)))].slice(0, size);
       choices.blackMarket = deck;
@@ -498,7 +510,7 @@ export function resolveSetup(input: SetupInput, db: CardDb, pool: ReadonlySet<st
       let deckBoons = boons;
       if (druid) {
         const keep = (given.druidBoons ?? []).filter((b) => boons.includes(b)).slice(0, 3);
-        const set = [...keep, ...shuffle(rng, boons.filter((b) => !keep.includes(b)))].slice(0, 3);
+        const set = [...keep, ...preferredOrder(boons.filter((b) => !keep.includes(b)))].slice(0, 3);
         choices.druidBoons = set;
         result.setAside.push({ id: "druid", cards: set, reasons: [{ by: "druid", text: "sets aside 3 Boons face up" }] });
         for (const b of set) use(b, { by: "druid", text: "Set aside for Druid" });

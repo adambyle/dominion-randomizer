@@ -172,6 +172,7 @@ const ICONS: Record<string, string> = {
   layers: '<path d="M12 4l9 5-9 5-9-5z"/><path d="M3 14l9 5 9-5"/>',
   triangle: '<path d="M8 5l10 7-10 7z" fill="currentColor"/>',
   menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  ban: '<circle cx="12" cy="12" r="8"/><path d="M6.3 6.3l11.4 11.4"/>',
 };
 
 export function icon(name: keyof typeof ICONS | string, cls = ""): SVGSVGElement {

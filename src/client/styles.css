@@ -560,6 +560,34 @@ a.stat-tile:hover { box-shadow: inset 0 0 0 1px var(--ink-3); }
 .grid-card img { width: 100%; height: auto; display: block; border-radius: 6px; box-shadow: var(--shadow); }
 .more { grid-column: 1 / -1; text-align: center; }
 
+/* Card weights and bans */
+.grid-card { position: relative; }
+.grid-card.banned img { opacity: 0.4; filter: grayscale(1); }
+.pref-badge { position: absolute; top: -6px; right: -6px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; display: inline-grid; place-items: center;
+  font-size: 12.5px; font-weight: 700; box-shadow: var(--shadow); background: var(--ink); color: var(--bg); }
+.pref-badge.high { background: var(--gold); color: #fff; }
+.pref-badge.low { background: var(--ink-2); color: var(--paper); }
+.pref-badge.banned { background: #a3352b; color: #fff; }
+.pref-badge .icon { width: 14px; height: 14px; }
+.pref { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pref-pips { display: flex; gap: 6px; }
+.pref-pips button { width: 18px; height: 18px; border-radius: 999px; border: 1.5px solid var(--ink-3); background: none; padding: 0; cursor: pointer; }
+.pref-pips button.on { background: var(--ink); border-color: var(--ink); }
+.pref-pips button:hover { border-color: var(--gold); }
+.pref.banned .pref-pips { opacity: 0.4; }
+.pref-ban { padding: 4px 10px; font-size: 14px; color: var(--ink-2); }
+.pref-ban .icon { width: 16px; height: 16px; margin-right: 4px; }
+.pref-ban.on { background: #a3352b; border-color: #a3352b; color: #fff; }
+.pref-note { font-size: 13px; }
+.pref-section .pref { margin: 8px 0; }
+.pref-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 4px; }
+.pref-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 8px 10px; border-radius: 10px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+.pref-row.banned .pref-card img { opacity: 0.45; filter: grayscale(1); }
+.pref-card { display: flex; align-items: center; gap: 12px; border: 0; background: none; padding: 0; cursor: pointer; text-align: left; color: inherit; min-width: 0; }
+.pref-card img { width: 64px; height: 44px; object-fit: cover; object-position: top; border-radius: 5px; box-shadow: var(--shadow); flex: none; }
+.pref-name { display: grid; line-height: 1.25; }
+.pref-name .muted { font-size: 13px; }
+
 @keyframes fade { from { opacity: 0; } }
 @keyframes slide-left { from { transform: translateX(30px); opacity: 0; } }
 @keyframes pop { from { transform: translate(-50%, 8px); opacity: 0; } }

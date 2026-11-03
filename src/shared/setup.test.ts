@@ -173,3 +173,49 @@ describe("random picks follow the expansions in play and the weights", () => {
     expect(again.landscapes.filter((l) => db.get(l.id).types.includes("Ally"))).toHaveLength(1);
   });
 });
+
+describe("banned and weighted picks", () => {
+  const cheap = db.data.cards
+    .filter((c) => c.kind === "kingdom" && !filler.includes(c.id) && c.cost && [2, 3].includes(c.cost.coin) && !c.cost.debt && !c.cost.potion)
+    .map((c) => c.id);
+
+  it("doesn't pick a banned Bane, but keeps one that was already chosen", () => {
+    const banned = cheap.slice(1);
+    for (let seed = 0; seed < 20; seed++) {
+      const r = setup({ kingdom: ["young-witch", ...filler], prefer: { banned } }, seed);
+      expect(r.choices.bane).toBe(cheap[0]);
+    }
+    const kept = setup({ kingdom: ["young-witch", ...filler], choices: { bane: cheap[1] }, prefer: { banned: cheap } });
+    expect(kept.choices.bane).toBe(cheap[1]);
+  });
+
+  it("falls back to a banned card with a warning when nothing else fits", () => {
+    const r = setup({ kingdom: ["young-witch", ...filler], prefer: { banned: cheap } });
+    expect(cheap).toContain(r.choices.bane);
+    expect(r.warnings.some((w) => w.includes("banned"))).toBe(true);
+  });
+
+  it("leaves banned cards out of the Black Market deck and Druid's Boons", () => {
+    const candidates = [...pool].filter((id) => db.get(id).kind === "kingdom" && !db.get(id).pile && !filler.includes(id) && id !== "black-market");
+    const banned = candidates.slice(0, candidates.length - 20);
+    const bm = setup({ kingdom: ["black-market", ...filler], blackMarketSize: 15, prefer: { banned } });
+    expect(bm.choices.blackMarket).toHaveLength(15);
+    for (const id of bm.choices.blackMarket!) expect(banned).not.toContain(id);
+
+    const boons = db.data.cards.filter((c) => c.types.includes("Boon")).map((c) => c.id);
+    for (let seed = 0; seed < 20; seed++) {
+      const r = setup({ kingdom: ["druid", ...filler.slice(1)], prefer: { banned: boons.slice(0, 9) } }, seed);
+      expect([...r.choices.druidBoons!].sort()).toEqual(boons.slice(9).sort());
+    }
+  });
+
+  it("follows card weights for Allies", () => {
+    const allies = db.data.cards.filter((c) => c.types.includes("Ally")).map((c) => c.id);
+    const favorite = allies[0]!;
+    let hits = 0;
+    for (let seed = 0; seed < 100; seed++) {
+      hits += setup({ kingdom: ["underling", ...filler.slice(1)], prefer: { weight: (c) => (c.id === favorite ? 20 : 1) } }, seed).choices.ally === favorite ? 1 : 0;
+    }
+    expect(hits).toBeGreaterThan((100 / allies.length) * 2);
+  });
+});

@@ -4,7 +4,7 @@
 // Signing in merges this device's history into the account. Signing out clears it from the device
 // (it's safe on the server) so the next person to use the device doesn't see it.
 
-import { mergeEntries, mergeMarks, visible, type HistoryEntry, type HistoryGame, type Me, type RecommendedMark, type SyncResponse } from "../shared/history";
+import { mergeEntries, mergeMarks, visible, type AccountSettings, type HistoryEntry, type HistoryGame, type Me, type RecommendedMark, type SyncResponse } from "../shared/history";
 import type { Store } from "./state";
 
 const KEY = "dominion-randomizer:history:v1";
@@ -57,11 +57,16 @@ export class Account {
   private syncTimer: ReturnType<typeof setTimeout> | null = null;
   private boxesTimer: ReturnType<typeof setTimeout> | null = null;
   private listeners: (() => void)[] = [];
+  private wasInRoom = false;
 
   constructor(private store: Store) {
     // Owned boxes follow the account: push local changes while signed in.
     store.subscribe((state, prev) => {
-      if (this.status === "signedIn" && !store.roomMode && state.settings.boxesUpdated !== prev.settings.boxesUpdated) this.queueBoxes();
+      const leftRoom = this.wasInRoom && !store.roomMode;
+      this.wasInRoom = store.roomMode;
+      if (this.status !== "signedIn") return;
+      // In a room the boxes are the room's, so nothing is pushed until the player is back to their own settings.
+      if (leftRoom || state.settings.prefsUpdated !== prev.settings.prefsUpdated || state.settings.boxesUpdated !== prev.settings.boxesUpdated) this.queueBoxes();
     });
     window.addEventListener("online", () => this.queueSync(0));
     document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") this.queueSync(0); });
@@ -89,8 +94,7 @@ export class Account {
   }
 
   async register(username: string, password: string) {
-    const { options, boxesUpdated } = this.store.state.settings;
-    const me = await api<Me>("/auth/register", { body: { username, password, settings: { enabledBoxes: options.enabledBoxes, updated: boxesUpdated || Date.now() } } });
+    const me = await api<Me>("/auth/register", { body: { username, password, settings: this.localSettings() } });
     this.signedIn(me, true);
   }
 
@@ -124,15 +128,23 @@ export class Account {
       this.saved.cursor = 0;
       this.persist();
     }
-    // Owned boxes: the newer side wins.
+    // Owned boxes and card weights: the newer side wins, each on its own.
     const local = this.store.state.settings;
+    let push = false;
     if (this.store.roomMode) {
       // In a room the sets belong to the room; personal ones sync after leaving.
     } else if (me.settings && me.settings.updated > local.boxesUpdated) {
       this.store.dispatch({ type: "accountBoxes", enabledBoxes: me.settings.enabledBoxes, updated: me.settings.updated });
     } else if (!me.settings || local.boxesUpdated > me.settings.updated) {
-      this.queueBoxes();
+      push = true;
     }
+    const remotePrefs = me.settings?.prefsUpdated ?? 0;
+    if (me.settings?.cardPrefs && remotePrefs > local.prefsUpdated) {
+      this.store.dispatch({ type: "accountPrefs", cardPrefs: me.settings.cardPrefs, updated: remotePrefs });
+    } else if (local.prefsUpdated > remotePrefs) {
+      push = true;
+    }
+    if (push) this.queueBoxes();
     this.changed();
     void this.sync();
   }
@@ -235,16 +247,24 @@ export class Account {
     }
   }
 
+  /** This device's owned boxes and card weights, as account settings. */
+  private localSettings(): AccountSettings {
+    const { options, boxesUpdated, cardPrefs, prefsUpdated } = this.store.state.settings;
+    return { enabledBoxes: options.enabledBoxes, updated: boxesUpdated || Date.now(), cardPrefs, prefsUpdated };
+  }
+
   private queueBoxes() {
     if (this.store.roomMode) return;
     if (this.boxesTimer) clearTimeout(this.boxesTimer);
     this.boxesTimer = setTimeout(async () => {
       this.boxesTimer = null;
-      const { options, boxesUpdated } = this.store.state.settings;
+      if (this.store.roomMode) return;
       try {
-        const saved = await api<{ enabledBoxes: string[]; updated: number }>("/me/settings", { method: "PUT", body: { enabledBoxes: options.enabledBoxes, updated: boxesUpdated || Date.now() } });
+        const saved = await api<AccountSettings>("/me/settings", { method: "PUT", body: this.localSettings() });
         // The server keeps the newest; adopt it if another device was newer.
-        if (saved.updated > this.store.state.settings.boxesUpdated) this.store.dispatch({ type: "accountBoxes", enabledBoxes: saved.enabledBoxes, updated: saved.updated });
+        const now = this.store.state.settings;
+        if (saved.updated > now.boxesUpdated) this.store.dispatch({ type: "accountBoxes", enabledBoxes: saved.enabledBoxes, updated: saved.updated });
+        if (saved.cardPrefs && (saved.prefsUpdated ?? 0) > now.prefsUpdated) this.store.dispatch({ type: "accountPrefs", cardPrefs: saved.cardPrefs, updated: saved.prefsUpdated ?? 0 });
       } catch { /* retried on the next change */ }
     }, 800);
   }

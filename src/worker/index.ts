@@ -1,7 +1,7 @@
 import { Hono, type Context } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import {
-  isAccountSettings, isHistoryEntry, isRecommendedMark, MAX_PASSWORD, MIN_PASSWORD, USERNAME,
+  isAccountSettings, isHistoryEntry, isRecommendedMark, mergeAccountSettings, MAX_PASSWORD, MIN_PASSWORD, USERNAME,
   type AccountSettings, type Me, type SyncResponse,
 } from "../shared/history";
 import { hashPassword, PBKDF2_ITERATIONS, randomId, SESSION_COOKIE, SESSION_DAYS, sha256, verifyPassword } from "./auth";
@@ -155,10 +155,9 @@ app.put("/api/me/settings", async (c) => {
   const b = await body(c);
   if (!isAccountSettings(b)) return c.json({ error: "Bad settings." }, 400);
   const current = parseSettings(c.var.user!.settings);
-  // Newest wins, so a stale device can't overwrite a newer choice.
-  if (current && current.updated >= b.updated) return c.json(current);
-  const settings: AccountSettings = { enabledBoxes: b.enabledBoxes, updated: b.updated };
-  await q.saveSettings(c.var.db, c.var.user!.id, settings);
+  // Newest wins (the boxes and the card prefs each on their own), so a stale device can't overwrite a newer choice.
+  const settings = mergeAccountSettings(current, b)!;
+  if (JSON.stringify(settings) !== JSON.stringify(current)) await q.saveSettings(c.var.db, c.var.user!.id, settings);
   return c.json(settings);
 });
 

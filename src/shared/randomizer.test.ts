@@ -85,4 +85,29 @@ describe("expansion selection", () => {
     expect(r.kingdom).toEqual(d.kingdom);
     expect(r.warnings.length).toBeGreaterThan(0);
   });
+
+  it("never picks banned cards, even when they are all that's left", () => {
+    const banned = ["village", "smithy", "market", "militia", "festival"];
+    for (let seed = 0; seed < 40; seed++) {
+      const d = randomize(db, opts({ banned, enabledBoxes: ["dominion-2"] }), {}, createRng(seed));
+      for (const id of banned) expect(d.kingdom).not.toContain(id);
+    }
+    const everything = db.data.cards.filter((c) => c.kind === "kingdom" && c.boxes.includes("dominion-2")).map((c) => c.id);
+    const d = randomize(db, opts({ banned: everything.slice(1), enabledBoxes: ["dominion-2"] }), {}, createRng(1));
+    expect(d.kingdom).toEqual([everything[0]]);
+    expect(d.warnings).toHaveLength(1);
+  });
+
+  it("deals cards with a higher weight more often", () => {
+    const count = (weight: (id: string) => number) => {
+      let n = 0;
+      for (let seed = 0; seed < 300; seed++) {
+        n += randomize(db, opts({ enabledBoxes: ["dominion-2"] }), { cardWeight: weight }, createRng(seed)).kingdom.filter((id) => id === "village").length;
+      }
+      return n;
+    };
+    const normal = count(() => 1);
+    expect(count((id) => (id === "village" ? 4 : 1))).toBeGreaterThan(normal);
+    expect(count((id) => (id === "village" ? 0.25 : 1))).toBeLessThan(normal);
+  });
 });

@@ -40,6 +40,12 @@ Played kingdoms ("Mark as played" under the table) are saved in the browser and 
   with a different count.
 - Recommended kingdoms marked played / crossed off sync the same way (D1 table `marks`). History
   also feeds Tune → *Cards you've played* and the Stats tab on `#/history`.
+- Card weights (1-5, default 3) and bans are set on the card sheet or in Cards → *Weights & bans*. They
+  live in the browser (`card-prefs` key, kept even in a room) and sync in the account's settings
+  (`prefsUpdated` is merged separately from the owned boxes). Deals, swaps, added random cards and
+  fresh setup picks (Bane, Ally, Black Market deck, Druid's Boons ...) all follow them; picks among
+  cards already on the table (Obelisk, Traits) and choices already made don't. Setup picks in a room
+  ignore personal weights so every player works out the same ones.
 - `npm run dev` runs the Worker and a local D1 (in `.wrangler/`) through the Cloudflare Vite plugin.
 
 ## Refreshing card data from the wiki

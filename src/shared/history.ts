@@ -6,6 +6,7 @@
 // the played entry.
 
 import type { Choices } from "./setup";
+import { isCardPrefs, type CardPrefs } from "./cardPrefs";
 
 export interface HistoryGame {
   kingdom: string[];
@@ -69,6 +70,18 @@ export interface AccountSettings {
   /** Boxes the user owns: the default card pool and the "only sets I own" filters. */
   enabledBoxes: string[];
   updated: number;
+  /** Card weights and bans (see cardPrefs.ts), with their own timestamp so they merge independently of the boxes. */
+  cardPrefs?: CardPrefs;
+  prefsUpdated?: number;
+}
+
+/** Combines two copies of the account settings: the boxes and the card prefs each keep their newer side. */
+export function mergeAccountSettings(a: AccountSettings | null, b: AccountSettings | null): AccountSettings | null {
+  if (!a || !b) return a ?? b;
+  const [boxes, prefs] = [a.updated >= b.updated ? a : b, (a.prefsUpdated ?? 0) >= (b.prefsUpdated ?? 0) ? a : b];
+  const merged: AccountSettings = { enabledBoxes: boxes.enabledBoxes, updated: boxes.updated };
+  if (prefs.cardPrefs) { merged.cardPrefs = prefs.cardPrefs; merged.prefsUpdated = prefs.prefsUpdated ?? 0; }
+  return merged;
 }
 
 export function isAccountSettings(v: unknown): v is AccountSettings {
@@ -76,7 +89,8 @@ export function isAccountSettings(v: unknown): v is AccountSettings {
   const s = v as Partial<AccountSettings>;
   return Array.isArray(s.enabledBoxes) && s.enabledBoxes.length <= 200
     && s.enabledBoxes.every((b) => typeof b === "string" && b.length <= 64)
-    && Number.isFinite(s.updated);
+    && Number.isFinite(s.updated)
+    && (s.cardPrefs === undefined || (isCardPrefs(s.cardPrefs) && Number.isFinite(s.prefsUpdated)));
 }
 
 export const USERNAME = /^[A-Za-z0-9_.-]{3,32}$/;

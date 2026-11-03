@@ -138,3 +138,60 @@ describe("picks that go with a table", () => {
     }
   });
 });
+
+describe("card weights and bans", () => {
+  it("never deals, fills, swaps or adds at random a banned card", () => {
+    const s = store({ drawSets: ["dominion"] });
+    const banned = db.data.cards.filter((c) => c.kind === "kingdom" && c.set === "dominion").slice(0, 12).map((c) => c.id);
+    for (const id of banned) s.dispatch({ type: "cardPref", id, value: 0 });
+    for (let i = 0; i < 25; i++) {
+      s.dispatch({ type: "deal" });
+      for (const id of banned) expect(s.state.game.kingdom).not.toContain(id);
+      s.dispatch({ type: "replace", id: s.state.game.kingdom[0]! });
+      s.dispatch({ type: "addRandom", set: null });
+      s.dispatch({ type: "fill" });
+      for (const id of banned) expect(s.state.game.kingdom).not.toContain(id);
+    }
+  });
+
+  it("still lets a banned card be added by hand", () => {
+    const s = store();
+    s.dispatch({ type: "cardPref", id: "village", value: 0 });
+    s.dispatch({ type: "add", id: "village" });
+    expect(s.state.game.kingdom).toContain("village");
+  });
+
+  it("deals a heavily weighted card far more often than a rare one", () => {
+    const tally = (value: number) => {
+      const s = store({ drawSets: ["dominion"] });
+      s.dispatch({ type: "cardPref", id: "village", value });
+      let n = 0;
+      for (let i = 0; i < 200; i++) { s.dispatch({ type: "deal" }); n += s.state.game.kingdom.includes("village") ? 1 : 0; }
+      return n;
+    };
+    expect(tally(5)).toBeGreaterThan(tally(1) * 2);
+  });
+
+  it("stores only changes, resets to the default and stamps the change", () => {
+    const s = store();
+    s.dispatch({ type: "cardPref", id: "village", value: 5 });
+    s.dispatch({ type: "cardPref", id: "chapel", value: 0 });
+    expect(s.state.settings.cardPrefs).toEqual({ village: 5, chapel: 0 });
+    expect(s.state.settings.prefsUpdated).toBeGreaterThan(0);
+    s.dispatch({ type: "cardPref", id: "village", value: 3 });
+    expect(s.state.settings.cardPrefs).toEqual({ chapel: 0 });
+    s.dispatch({ type: "resetCardPrefs" });
+    expect(s.state.settings.cardPrefs).toEqual({});
+  });
+
+  it("keeps a Bane that was already picked, but never picks a banned one", () => {
+    const s = store({ drawSets: ["dominion", "intrigue", "seaside"] });
+    s.dispatch({ type: "add", id: "young-witch" });
+    const bane = s.setup()!.choices.bane!;
+    s.dispatch({ type: "choices", choices: s.setup()!.choices });
+    s.dispatch({ type: "cardPref", id: bane, value: 0 });
+    expect(s.setup()!.choices.bane).toBe(bane);
+    s.dispatch({ type: "reroll", key: "bane" });
+    expect(s.state.game.choices.bane).not.toBe(bane);
+  });
+});

@@ -5,6 +5,7 @@ import type { HistoryGame } from "../shared/history";
 import { resolveSetup, withoutChoice, type AutoBool, type Choices, type RerollKey, type SetupInput, type SetupResult } from "../shared/setup";
 import { buildPool, cardWeighter, DEFAULT_OPTIONS, drawnSets, poolSets, randomize, replaceOne, rollSets, type RandomizerOptions } from "../shared/randomizer";
 import { createRng } from "../shared/random";
+import { bannedIds, cleanPrefs, prefFactor, withPref, type CardPrefs } from "../shared/cardPrefs";
 import { data, db } from "./data";
 
 export interface Game {
@@ -41,6 +42,10 @@ export interface Settings {
   boxesUpdated: number;
   /** Cards from your play history: deal them as usual, less often, or not at all. */
   playedCards: PlayedMode;
+  /** Per-card weights and bans. Personal: never shared with a room, saved even while in one. */
+  cardPrefs: CardPrefs;
+  /** When cardPrefs last changed (ms), so account sync keeps the newest. */
+  prefsUpdated: number;
 }
 
 export type PlayedMode = "any" | "fewer" | "none";
@@ -116,6 +121,8 @@ const defaultSettings = (): Settings => ({
   onboarded: false,
   boxesUpdated: 0,
   playedCards: "any",
+  cardPrefs: {},
+  prefsUpdated: 0,
 });
 
 export type Action =
@@ -144,7 +151,13 @@ export type Action =
   | { type: "loadHistory"; game: HistoryGame }
   | { type: "played"; id: string | null }
   /** Owned boxes from the account (keeps the account's timestamp). */
-  | { type: "accountBoxes"; enabledBoxes: string[]; updated: number };
+  | { type: "accountBoxes"; enabledBoxes: string[]; updated: number }
+  /** Sets one card's weight (1-5), bans it (0) or restores the default (null). */
+  | { type: "cardPref"; id: string; value: number | null }
+  /** Restores the default weight of the given cards (all tuned ones when omitted). */
+  | { type: "resetCardPrefs"; ids?: string[] }
+  /** Card weights and bans from the account (keeps the account's timestamp). */
+  | { type: "accountPrefs"; cardPrefs: CardPrefs; updated: number };
 
 function edited(game: Game, patch: Partial<Game>): Game {
   return { ...game, ...patch, official: false, recommendedId: null, playedId: null };
@@ -154,20 +167,27 @@ function edited(game: Game, patch: Partial<Game>): Game {
 interface Env {
   /** Cards played in earlier games (from history). */
   played: Set<string>;
+  /** Card weights and bans to deal with. */
+  prefs: CardPrefs;
 }
+
+/** Randomizer options with the banned cards added. */
+const withBans = (options: RandomizerOptions, prefs: CardPrefs): RandomizerOptions =>
+  ({ ...options, banned: [...(options.banned ?? []), ...bannedIds(prefs)] });
 
 /**
  * Runs a roll with the "played cards" preference. With "none", if skipping played cards leaves the
  * deal shorter than a normal one would be, rolls again preferring unplayed cards instead.
  */
-function withPlayed<T extends { kingdom: string[]; landscapes: string[]; warnings: string[] }>(settings: Settings, env: Env, roll: (cardWeight?: (id: string) => number) => T): T {
-  if (settings.playedCards === "any" || !env.played.size) return roll();
+function withPlayed<T extends { kingdom: string[]; landscapes: string[]; warnings: string[] }>(settings: Settings, env: Env, roll: (cardWeight: (id: string) => number) => T): T {
+  const weighted = (played: (id: string) => number) => (id: string) => played(id) * prefFactor(env.prefs, id);
+  if (settings.playedCards === "any" || !env.played.size) return roll(weighted(() => 1));
   if (settings.playedCards === "none") {
-    const strict = roll((id) => (env.played.has(id) ? 0 : 1));
-    const normal = roll();
+    const strict = roll(weighted((id) => (env.played.has(id) ? 0 : 1)));
+    const normal = roll(weighted(() => 1));
     if (strict.kingdom.length >= normal.kingdom.length && strict.landscapes.length >= normal.landscapes.length) return strict;
   }
-  const r = roll((id) => (env.played.has(id) ? FEWER_WEIGHT : 1));
+  const r = roll(weighted((id) => (env.played.has(id) ? FEWER_WEIGHT : 1)));
   if (settings.playedCards === "none") r.warnings = [...r.warnings, "Not enough cards you haven't played yet, so some you have are included."];
   return r;
 }
@@ -176,13 +196,13 @@ function withPlayed<T extends { kingdom: string[]; landscapes: string[]; warning
 function setupInput(state: State, env: Env): SetupInput {
   const { game, settings } = state;
   const opts = settings.options;
-  const playedWeight = settings.playedCards === "any" ? undefined
-    : (id: string) => (env.played.has(id) ? (settings.playedCards === "none" ? 0 : FEWER_WEIGHT) : 1);
+  const playedWeight = (id: string) => (settings.playedCards === "any" || !env.played.has(id) ? 1 : settings.playedCards === "none" ? 0 : FEWER_WEIGHT);
+  const weight = (id: string) => playedWeight(id) * prefFactor(env.prefs, id);
   return {
     kingdom: game.kingdom, landscapes: game.landscapes, players: settings.players,
     platinumColony: game.platinumColony ?? settings.platinumColony, shelters: game.shelters ?? settings.shelters,
     choices: game.choices, acceptChoices: game.official, blackMarketSize: settings.blackMarketSize,
-    prefer: { sets: drawnSets(db, opts), weight: cardWeighter(db, opts, playedWeight) },
+    prefer: { sets: drawnSets(db, opts), weight: cardWeighter(db, opts, weight), banned: bannedIds(env.prefs) },
   };
 }
 
@@ -214,6 +234,14 @@ function reduce(state: State, action: Action, env: Env): State {
       return { ...state, settings: { ...settings, options: { ...opts, enabledBoxes: action.enabledBoxes.filter((b) => known.has(b)) },
         boxesUpdated: action.updated } };
     }
+    case "cardPref":
+      return { ...state, settings: { ...settings, cardPrefs: withPref(settings.cardPrefs, action.id, action.value), prefsUpdated: Date.now() } };
+    case "resetCardPrefs": {
+      const cardPrefs = action.ids ? action.ids.reduce((p, id) => withPref(p, id, null), settings.cardPrefs) : {};
+      return { ...state, settings: { ...settings, cardPrefs, prefsUpdated: Date.now() } };
+    }
+    case "accountPrefs":
+      return { ...state, settings: { ...settings, cardPrefs: cleanPrefs(action.cardPrefs, (id) => db.byId.has(id)), prefsUpdated: action.updated } };
     case "played":
       return { ...state, game: { ...game, playedId: action.id } };
     case "loadHistory": {
@@ -250,7 +278,7 @@ function reduce(state: State, action: Action, env: Env): State {
       const seed = newSeed();
       const sets = drawnSets(db, opts);
       const kept = keptPicks(game);
-      const draft = withPlayed(settings, env, (cardWeight) => randomize(db, opts, {
+      const draft = withPlayed(settings, env, (cardWeight) => randomize(db, withBans(opts, env.prefs), {
         sets,
         locked: game.kingdom.filter((id) => game.locked.includes(id)),
         lockedLandscapes: game.landscapes.filter((id) => game.locked.includes(id)),
@@ -263,13 +291,13 @@ function reduce(state: State, action: Action, env: Env): State {
       // Fill empty slots only: everything already on the table stays (without being locked).
       const seed = newSeed();
       const draft = withPlayed(settings, env, (cardWeight) =>
-        randomize(db, opts, { sets: drawnSets(db, opts), locked: game.kingdom, lockedLandscapes: game.landscapes, avoid: reservedPicks(game.choices), cardWeight }, createRng(seed)));
+        randomize(db, withBans(opts, env.prefs), { sets: drawnSets(db, opts), locked: game.kingdom, lockedLandscapes: game.landscapes, avoid: reservedPicks(game.choices), cardWeight }, createRng(seed)));
       return { ...state, game: edited(game, { kingdom: draft.kingdom, landscapes: draft.landscapes, sets: grown(game, draft.kingdom, draft.landscapes), warnings: draft.warnings }) };
     }
     case "replace": {
       const seed = newSeed();
       const draft = withPlayed(settings, env, (cardWeight) =>
-        replaceOne(db, opts, { ...game, warnings: [] }, action.id, { sets: drawnSets(db, opts), avoid: reservedPicks(game.choices), cardWeight }, createRng(seed)));
+        replaceOne(db, withBans(opts, env.prefs), { ...game, warnings: [] }, action.id, { sets: drawnSets(db, opts), avoid: reservedPicks(game.choices), cardWeight }, createRng(seed)));
       return { ...state, game: edited(game, { kingdom: draft.kingdom, landscapes: draft.landscapes, sets: grown(game, draft.kingdom, draft.landscapes), warnings: draft.warnings }) };
     }
     case "toggleLock": {
@@ -290,7 +318,7 @@ function reduce(state: State, action: Action, env: Env): State {
         : opts.enabledBoxes;
       const seed = newSeed();
       const draft = withPlayed(settings, env, (cardWeight) => randomize(db,
-        { ...opts, enabledBoxes, kingdomSize: game.kingdom.length + 1, landscapeCount: game.landscapes.length },
+        { ...withBans(opts, env.prefs), enabledBoxes, kingdomSize: game.kingdom.length + 1, landscapeCount: game.landscapes.length },
         { sets: action.set ? [action.set] : drawnSets(db, opts), locked: game.kingdom, lockedLandscapes: game.landscapes, avoid: reservedPicks(game.choices), cardWeight },
         createRng(seed)));
       const added = draft.kingdom.filter((id) => !game.kingdom.includes(id));
@@ -341,6 +369,8 @@ function reduce(state: State, action: Action, env: Env): State {
 }
 
 const KEY = "dominion-randomizer:v2";
+/** Card weights and bans are kept apart from the rest so they're saved (and survive leaving) even in a room. */
+const PREFS_KEY = "dominion-randomizer:card-prefs:v1";
 
 /**
  * Options saved before the expansion selection existed had "expansions per game" (0 meant every owned
@@ -353,18 +383,26 @@ function migrateOptions(options: RandomizerOptions & { setsPerGame?: number }, d
   return withSelection(rest, setsPerGame && dealt ? dealt : setsPerGame ? [] : all);
 }
 
+function loadPrefs(): Pick<Settings, "cardPrefs" | "prefsUpdated"> | null {
+  try {
+    const v = JSON.parse(localStorage.getItem(PREFS_KEY) ?? "null") as { cardPrefs?: unknown; updated?: number } | null;
+    if (v) return { cardPrefs: cleanPrefs(v.cardPrefs, (id) => db.byId.has(id)), prefsUpdated: Number(v.updated) || 0 };
+  } catch { /* storage unavailable */ }
+  return null;
+}
+
 function load(): State {
   const fresh: State = { settings: defaultSettings(), game: emptyGame() };
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) ?? "null") as State | null;
-    if (!saved) return fresh;
+    if (!saved) return { ...fresh, settings: { ...fresh.settings, ...loadPrefs() } };
     // Drop anything that no longer exists after a data refresh.
     const known = (ids: string[]) => ids.filter((id) => db.byId.has(id));
     const boxes = new Set(data.boxes.map((b) => b.id));
     const options = { ...fresh.settings.options, ...saved.settings.options,
       enabledBoxes: saved.settings.options.enabledBoxes.filter((b) => boxes.has(b)) };
     return {
-      settings: { ...fresh.settings, ...saved.settings, options: migrateOptions(options, saved.game?.sets) },
+      settings: { ...fresh.settings, ...saved.settings, ...loadPrefs(), options: migrateOptions(options, saved.game?.sets) },
       game: { ...fresh.game, ...saved.game, kingdom: known(saved.game.kingdom), landscapes: known(saved.game.landscapes),
         locked: known(saved.game.locked) },
     };
@@ -409,8 +447,11 @@ export class Store {
 
   dispatch = (action: Action) => {
     const prev = this.state;
-    this.state = reduce(prev, action, { played: this.played() });
+    this.state = reduce(prev, action, { played: this.played(), prefs: prev.settings.cardPrefs });
     if (this.state === prev) return;
+    if (this.state.settings.cardPrefs !== prev.settings.cardPrefs) {
+      try { localStorage.setItem(PREFS_KEY, JSON.stringify({ cardPrefs: this.state.settings.cardPrefs, updated: this.state.settings.prefsUpdated })); } catch { /* storage unavailable */ }
+    }
     if (action.type === "add" || action.type === "addRandom" || action.type === "fill" || action.type === "replace" || action.type === "reroll") {
       // Table cards that arrived, or (re-picked) Banes, Allies ... that now appear off to the side.
       const had = new Set(action.type === "reroll" ? pickedCards(prev.game.choices) : [...prev.game.kingdom, ...prev.game.landscapes]);
@@ -466,10 +507,10 @@ export class Store {
     const { game, settings } = this.state;
     if (!game.kingdom.length && !game.landscapes.length) return null;
     // The picks' leanings (expansions, weights) only matter when something is picked, so they aren't part of the key.
-    const key = JSON.stringify([{ ...setupInput(this.state, { played: new Set() }), prefer: undefined }, game.seed, settings.options.enabledBoxes]);
+    const key = JSON.stringify([{ ...setupInput(this.state, { played: new Set(), prefs: {} }), prefer: undefined }, game.seed, settings.options.enabledBoxes]);
     if (key !== this.setupKey) {
       // In a room every player works out the same picks from the shared seed, so personal history stays out of them.
-      const input = setupInput(this.state, { played: this.roomMode ? new Set() : this.played() });
+      const input = setupInput(this.state, { played: this.roomMode ? new Set() : this.played(), prefs: this.roomMode ? {} : this.state.settings.cardPrefs });
       this.setupCache = resolveSetup(input, db, setupPool(this.state), createRng(game.seed));
       this.setupKey = key;
       // Keep the resolved choices so later edits don't reshuffle unrelated picks (Druid's Boons etc.).
