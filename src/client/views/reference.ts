@@ -36,9 +36,18 @@ export function referenceView(app: App, id: string): HTMLElement {
   // Keep the current card in view in the strip (after it is in the page).
   requestAnimationFrame(() => strip.querySelector<HTMLElement>(".on")?.scrollIntoView({ inline: "center", block: "nearest" }));
 
+  // Wide screens get the whole list down the side instead of the strip and the full-width buttons.
+  const side = h("nav.ref-side", { "aria-label": "Cards in this game" }, cards.map((c, i) => {
+    const art = artImage(c) ?? cardImage(c);
+    return h("button", { type: "button", class: c === id ? "on" : "", "aria-current": c === id ? "true" : undefined, onclick: () => go(i) },
+      h("span.ref-thumb", null, art && h("img", { src: art.src, alt: "", draggable: "false" })), h("span.ref-side-name", null, name(c)));
+  }));
+  requestAnimationFrame(() => side.querySelector<HTMLElement>(".on")?.scrollIntoView({ block: "nearest" }));
+
   let startX = 0, startY = 0;
   const body = h("div.ref-body", {
-    "data-scroll": `ref-${id}`,
+    // Keyed by card, so each card opens scrolled to the top.
+    "data-key": `ref-${id}`, "data-scroll": `ref-${id}`,
     ontouchstart: (e: TouchEvent) => { startX = e.touches[0]!.clientX; startY = e.touches[0]!.clientY; },
     ontouchend: (e: TouchEvent) => {
       const t = e.changedTouches[0]!;
@@ -63,7 +72,10 @@ export function referenceView(app: App, id: string): HTMLElement {
     h("header.ref-head", null,
       h("button.icon-btn", { type: "button", "aria-label": "Close rules", onclick: () => app.closeReference() }, icon("close")),
       h("h2", null, card.name),
-      h("span.ref-count", null, `${at + 1} / ${cards.length}`)),
-    body,
+      h("span.ref-count", null, `${at + 1} / ${cards.length}`),
+      h("div.ref-arrows", null,
+        h("button.icon-btn", { type: "button", "aria-label": "Previous card", title: at > 0 ? name(cards[at - 1]!) : undefined, disabled: at <= 0, onclick: () => go(at - 1) }, icon("back")),
+        h("button.icon-btn", { type: "button", "aria-label": "Next card", title: cards[at + 1] ? name(cards[at + 1]!) : undefined, disabled: at >= cards.length - 1, onclick: () => go(at + 1) }, icon("back", "flip")))),
+    h("div.ref-main", null, side, body),
     h("footer.ref-foot", null, strip, h("div.ref-navs", null, neighbour(at - 1, "prev"), neighbour(at + 1, "next"))));
 }

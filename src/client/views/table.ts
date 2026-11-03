@@ -135,21 +135,26 @@ export function tableView(app: App): Child {
     h("div.checks", null, model.checklist.map((c) => h("label.check", { "data-roots": c.roots.join(" ") },
       h("input", { type: "checkbox" }),
       h("span", null, h("b", null, c.title), h("span.detail", null, ...app.markup(c.detail)))))));
-  const prompt = checklist && h("button.checklist-prompt", { type: "button", onclick: () => checklist.scrollIntoView({ behavior: "smooth", block: "start" }) },
+  // Keeps whatever state the live prompt has, so a render doesn't make it fade out and back in.
+  const promptHidden = document.querySelector(".checklist-prompt")?.classList.contains("hidden") ?? true;
+  const prompt = checklist && h("button.checklist-prompt", { class: promptHidden ? "hidden" : "", type: "button", onclick: () => document.getElementById("checklist")?.scrollIntoView({ behavior: "smooth", block: "start" }) },
     "Setup checklist", h("span.prompt-count", null, model!.checklist.length), icon("back", "down"));
 
-  const view = h("div.table-view", null,
+  const view = h("div.table-view", hoverHandlers,
     game.warnings.length > 0 && h("div.notice", null, game.warnings.join(" ")),
     setup && setup.warnings.length > 0 && h("div.notice", null, setup.warnings.join(" ")),
     table, checklist, model && interactionSummary(app), model && playedControl(app), prompt);
-  wireHover(view, table);
+  // Re-apply the hover from before this render, so the highlight carries over without animating.
+  if (hovered) applyHover(view, hovered.attr, hovered.value);
 
   // The prompt shows only while the checklist is still below the screen: not once it is in view or scrolled past.
   promptCleanup?.();
   promptCleanup = null;
   if (checklist && prompt) {
-    prompt.classList.add("hidden");
-    const update = () => prompt.classList.toggle("hidden", checklist.getBoundingClientRect().top < window.innerHeight - 24);
+    const update = () => {
+      const live = document.getElementById("checklist");
+      document.querySelector(".checklist-prompt")?.classList.toggle("hidden", !!live && live.getBoundingClientRect().top < window.innerHeight - 24);
+    };
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     promptCleanup = () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
@@ -168,46 +173,46 @@ function isWide(id: string) {
  * expansion icon lights up that expansion's cards. Everything else steps back — but only when
  * something on the table itself lights up, so a hover never dims the table for no visible reason.
  */
-function wireHover(view: HTMLElement, table: HTMLElement) {
-  const clear = () => {
-    view.classList.remove("focus");
-    view.querySelectorAll(".lit").forEach((e) => e.classList.remove("lit"));
-  };
-  const apply = (attr: "id" | "roots" | "set", value: string) => {
-    clear();
-    const self = attr === "set" ? view.querySelector(`[data-set-key="${CSS.escape(value)}"]`) : view.querySelector(`[data-${attr}="${CSS.escape(value)}"]`);
-    if (!self) return;
-    let litOnTable = 0;
-    const lite = (el: Element) => { el.classList.add("lit"); if (table.contains(el) && el !== self) litOnTable++; };
-    if (attr === "set") {
-      view.querySelectorAll(`[data-set="${CSS.escape(value)}"]`).forEach(lite);
-    } else {
-      const ids = attr === "id" ? [value] : value.split(" ").filter(Boolean);
-      for (const el of view.querySelectorAll<HTMLElement>("[data-roots]")) {
-        if (el === self) continue;
-        const roots = (el.dataset.roots ?? "").split(" ");
-        if (ids.some((id) => roots.includes(id))) lite(el);
-      }
-      if (attr === "roots") for (const id of ids) view.querySelectorAll(`[data-id="${CSS.escape(id)}"]`).forEach(lite);
-    }
-    if (!litOnTable) return;
-    self.classList.add("lit");
-    view.classList.add("focus");
-  };
-  const targetOf = (el: Element | null) => el?.closest<HTMLElement>("[data-id], [data-roots]:not([data-roots='']), [data-set-key]") ?? null;
+function clearHover(view: HTMLElement) {
+  view.classList.remove("focus");
+  view.querySelectorAll(".lit").forEach((e) => e.classList.remove("lit"));
+}
 
-  view.addEventListener("mouseover", (e) => {
-    const target = targetOf(e.target as Element);
-    if (!target) { hovered = null; clear(); return; }
+function applyHover(view: HTMLElement, attr: "id" | "roots" | "set", value: string) {
+  clearHover(view);
+  const table = view.querySelector(".table");
+  const self = attr === "set" ? view.querySelector(`[data-set-key="${CSS.escape(value)}"]`) : view.querySelector(`[data-${attr}="${CSS.escape(value)}"]`);
+  if (!self || !table) return;
+  let litOnTable = 0;
+  const lite = (el: Element) => { el.classList.add("lit"); if (table.contains(el) && el !== self) litOnTable++; };
+  if (attr === "set") {
+    view.querySelectorAll(`[data-set="${CSS.escape(value)}"]`).forEach(lite);
+  } else {
+    const ids = attr === "id" ? [value] : value.split(" ").filter(Boolean);
+    for (const el of view.querySelectorAll<HTMLElement>("[data-roots]")) {
+      if (el === self) continue;
+      const roots = (el.dataset.roots ?? "").split(" ");
+      if (ids.some((id) => roots.includes(id))) lite(el);
+    }
+    if (attr === "roots") for (const id of ids) view.querySelectorAll(`[data-id="${CSS.escape(id)}"]`).forEach(lite);
+  }
+  if (!litOnTable) return;
+  self.classList.add("lit");
+  view.classList.add("focus");
+}
+
+/** Handlers read the live view from the event, since a render keeps the old element and only adopts the new one's handlers. */
+const hoverHandlers = {
+  onmouseover: (e: MouseEvent) => {
+    const view = e.currentTarget as HTMLElement;
+    const target = (e.target as Element).closest<HTMLElement>("[data-id], [data-roots]:not([data-roots='']), [data-set-key]");
+    if (!target) { hovered = null; clearHover(view); return; }
     const next = target.dataset.setKey ? { attr: "set" as const, value: target.dataset.setKey }
       : target.dataset.id ? { attr: "id" as const, value: target.dataset.id }
       : { attr: "roots" as const, value: target.dataset.roots! };
     if (hovered && hovered.attr === next.attr && hovered.value === next.value) return;
     hovered = next;
-    apply(next.attr, next.value);
-  });
-  view.addEventListener("mouseleave", () => { hovered = null; clear(); });
-
-  // Re-apply the hover from before this render, synchronously, so nothing animates.
-  if (hovered) apply(hovered.attr, hovered.value);
-}
+    applyHover(view, next.attr, next.value);
+  },
+  onmouseleave: (e: MouseEvent) => { hovered = null; clearHover(e.currentTarget as HTMLElement); },
+};

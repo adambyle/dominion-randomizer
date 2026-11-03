@@ -2,13 +2,13 @@
 // #/sets), overlays and the render loop.
 
 import "./styles.css";
-import { h, icon, replace, stepper, type Child } from "./dom";
+import { h, icon, morph, stepper, type Child } from "./dom";
 import { markup } from "./markup";
 import { cardImage, recommended } from "./data";
 import { Store, type Settings } from "./state";
 import type { RecommendedKingdom } from "../shared/types";
 import { tableView } from "./views/table";
-import { tableMobileView } from "./views/tableMobile";
+import { fitNames, tableMobileView } from "./views/tableMobile";
 import { sheetView } from "./views/sheet";
 import { tuneView } from "./views/tune";
 import { expansionsView, ownedSets } from "./views/expansions";
@@ -259,7 +259,7 @@ export class App {
     document.body.classList.toggle("overlay-open", !!overlay || !!this.reference);
     document.body.classList.toggle("phone-table", this.phone && route === "table");
 
-    replace(this.root,
+    morph(this.root,
       topBar(this, route),
       h("main", { class: `route-${route}` }, this.view(route)),
       h("footer.footer", null,
@@ -274,6 +274,8 @@ export class App {
       this.picker && withEnter(this.picker, this.entering.has("picker")));
     this.entering.clear();
     this.measureTopBar();
+    // Names are re-fitted right away: a morph resets their size, and waiting a frame would flash the unfitted text.
+    if (this.phone && route === "table") fitNames();
 
     if (focusId) {
       const el = document.getElementById(focusId) as HTMLInputElement | null;
@@ -308,7 +310,7 @@ export class App {
 /** True when the only difference is which expansions are selected (and the roll count that follows). */
 function onlySelectionChanged(a: Settings, b: Settings): boolean {
   const strip = (s: Settings) => JSON.stringify({ ...s, options: { ...s.options, drawSets: 0, rollCount: 0 } });
-  return a.options.drawSets !== b.options.drawSets && strip(a) === strip(b);
+  return (a.options.drawSets !== b.options.drawSets || a.options.rollCount !== b.options.rollCount) && strip(a) === strip(b);
 }
 
 function withEnter<T extends Child>(el: T, entering: boolean): T {
@@ -349,8 +351,8 @@ function topBar(app: App, route: Route): Child {
     !firstRun && h("a.account-link", { href: "#/account", class: route === "account" ? "on" : "", title: "Account" }, icon("user"),
       h("span", null, app.account.status === "signedIn" ? app.account.username : "Sign in")),
     route === "table" && h("div.bar-actions", null,
-      // Right-aligned: the join code appears at the left edge without moving anything else.
-      (game.setupLocked || app.room.code) && h("button.btn.ghost", { type: "button", onclick: () => app.openQr(), title: "Join code" }, icon("qr"), "Join code"),
+      // Always laid out (hidden, not removed), so the other buttons never move when it appears.
+      h("button.btn.ghost.join-code", { type: "button", onclick: () => app.openQr(), title: "Join code", hidden: !(game.setupLocked || app.room.code), tabindex: game.setupLocked || app.room.code ? undefined : "-1" }, icon("qr"), "Join code"),
       h("div.players", { class: locked ? "disabled" : "" }, stepper({ value: settings.players, min: 2, max: 6, label: "players", format: (n) => `${n} players`,
         onChange: (n) => !locked && app.store.dispatch({ type: "settings", patch: { players: n } }) })),
       h("button.btn.ghost", { type: "button", disabled: locked, onclick: () => app.openPicker(), title: "Choose a card to include" }, icon("plus"), "Add card"),

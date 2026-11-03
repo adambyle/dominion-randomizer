@@ -1,5 +1,7 @@
 // Minimal DOM building helpers. Views are functions that return elements; the app re-renders a
-// region when the state it depends on changes.
+// region when the state it depends on changes. `morph` applies a freshly built tree onto the live
+// one, touching only what differs, so unchanged elements keep their identity, focus, scroll position
+// and running CSS animations instead of being replaced (which replays every animation on them).
 
 export type Child = Node | string | number | null | undefined | false | Child[];
 
@@ -32,7 +34,7 @@ export function h<K extends keyof HTMLElementTagNameMap>(tag: K | `${K}.${string
         const extra = Array.isArray(value) ? value.filter(Boolean).join(" ") : String(value);
         if (extra) el.className = el.className ? `${el.className} ${extra}` : extra;
       } else if (key.startsWith("on") && typeof value === "function") {
-        el.addEventListener(key.slice(2), value as EventListener);
+        setListener(el, key.slice(2), value as EventListener);
       } else if (key === "style") {
         el.setAttribute("style", String(value));
       } else if (value === true) {
@@ -46,12 +48,97 @@ export function h<K extends keyof HTMLElementTagNameMap>(tag: K | `${K}.${string
   return el;
 }
 
+// Handlers live in a table the element's single listener per event type reads, so a morph can swap in
+// the new tree's handlers (and their fresh closures) without re-binding anything.
+const listeners = new WeakMap<Element, { fns: Map<string, EventListener>; attached: Set<string> }>();
+
+function setListener(el: Element, type: string, fn: EventListener) {
+  let entry = listeners.get(el);
+  if (!entry) listeners.set(el, (entry = { fns: new Map(), attached: new Set() }));
+  entry.fns.set(type, fn);
+  if (!entry.attached.has(type)) {
+    entry.attached.add(type);
+    el.addEventListener(type, (e) => listeners.get(el)?.fns.get(type)?.(e));
+  }
+}
+
 export function append(parent: Node, children: Child[]) {
   for (const child of children) {
     if (child === null || child === undefined || child === false) continue;
     if (Array.isArray(child)) append(parent, child);
     else parent.appendChild(typeof child === "object" ? child : document.createTextNode(String(child)));
   }
+}
+
+const keyOf = (n: Node): string | null => {
+  if (!(n instanceof HTMLElement)) return null;
+  const key = n.dataset.key ?? n.dataset.id ?? n.dataset.setKey ?? (n.id || null);
+  return key === null ? null : `${n.tagName}:${key}`;
+};
+/** Two nodes are the same kind of thing when they have the same tag and static (first) class. */
+const kindOf = (n: Node) => (n instanceof Element ? `${n.tagName}.${n.classList[0] ?? ""}` : "#text");
+
+function patchChildren(parent: Node, next: Node[]) {
+  const byKey = new Map<string, Node>();
+  const loose: Node[] = [];
+  for (const o of Array.from(parent.childNodes)) {
+    const k = keyOf(o);
+    if (k) byKey.set(k, o); else loose.push(o);
+  }
+  const result: Node[] = [];
+  for (const n of next) {
+    let match: Node | undefined;
+    if (n.parentNode === parent) match = n; // already lives here (a persistent element handed back in)
+    else {
+      const k = keyOf(n);
+      const candidate = k ? byKey.get(k) : loose.find((o) => kindOf(o) === kindOf(n));
+      if (candidate && kindOf(candidate) === kindOf(n)) match = candidate;
+    }
+    if (match) {
+      const k = keyOf(match);
+      if (k && byKey.get(k) === match) byKey.delete(k);
+      else if (loose.includes(match)) loose.splice(loose.indexOf(match), 1);
+      if (match !== n) patchNode(match, n);
+    }
+    result.push(match ?? n);
+  }
+  for (const o of [...byKey.values(), ...loose]) parent.removeChild(o);
+  let ref: Node | null = parent.firstChild;
+  for (const node of result) {
+    if (node === ref) ref = ref.nextSibling;
+    else parent.insertBefore(node, ref);
+  }
+}
+
+function patchNode(old: Node, next: Node) {
+  if (!(old instanceof Element) || !(next instanceof Element)) {
+    if (old.nodeValue !== next.nodeValue) old.nodeValue = next.nodeValue;
+    return;
+  }
+  for (const attr of Array.from(old.attributes)) if (!next.hasAttribute(attr.name)) old.removeAttribute(attr.name);
+  for (const attr of Array.from(next.attributes)) if (old.getAttribute(attr.name) !== attr.value) old.setAttribute(attr.name, attr.value);
+  const mine = listeners.get(old);
+  const theirs = listeners.get(next);
+  for (const type of mine?.fns.keys() ?? []) if (!theirs?.fns.has(type)) mine!.fns.delete(type);
+  for (const [type, fn] of theirs?.fns ?? []) setListener(old, type, fn);
+  // Form state lives in properties, not attributes.
+  if (old instanceof HTMLInputElement && next instanceof HTMLInputElement) {
+    if (old.checked !== next.checked) old.checked = next.checked;
+    if (old.value !== next.value && old !== document.activeElement) old.value = next.value;
+  }
+  patchChildren(old, Array.from(next.childNodes));
+}
+
+/** Like `replace`, but patches the live children into the new ones instead of swapping them out. */
+export function morph(container: Element, ...children: Child[]) {
+  const nodes: Node[] = [];
+  const collect = (c: Child) => {
+    if (c === null || c === undefined || c === false) return;
+    if (Array.isArray(c)) c.forEach(collect);
+    else nodes.push(typeof c === "object" ? c : document.createTextNode(String(c)));
+  };
+  children.forEach(collect);
+  patchChildren(container, nodes);
 }
 
 /** Replaces a container's content, keeping the scroll position of marked scrollers. */

@@ -18,6 +18,8 @@ let sheetOpen = false;
 let shownQuick: string | null = null;
 let shownSheetOpen = false;
 let playersOpen = false;
+/** Where a pull on the setup sheet started (kept here so a render mid-gesture doesn't lose it). */
+let sheetDragY: number | null = null;
 
 export function tableMobileView(app: App): Child {
   const { game, settings } = app.store.state;
@@ -117,7 +119,6 @@ export function tableMobileView(app: App): Child {
         h("button", { type: "button", role: "radio", "aria-checked": String(n === settings.players), class: n === settings.players ? "on" : "",
           onclick: () => { playersOpen = false; dispatch({ type: "settings", patch: { players: n } }); } }, n)))));
 
-  requestAnimationFrame(fitNames);
   document.fonts?.ready.then(fitNames);
   return h("div.m-table", { class: selected ? "has-selection" : "", onclick: (e: MouseEvent) => {
     // Tapping empty felt clears the selection.
@@ -192,17 +193,15 @@ function setupSheet(app: App, model: TableModel, empty: boolean) {
     ...model.tray.map((g) => ({ key: g.key, title: g.by ? name(g.by) : "Rules", what: g.what, items: g.items }))];
   const peekCards = aside.flatMap((g) => g.items).slice(0, 7);
   const toggle = (open: boolean) => { sheetOpen = open; app.render(); };
-  let startY: number | null = null;
-
   const handle = h("div.m-sheet-head", {
     role: "button", tabindex: "0", "aria-expanded": String(sheetOpen), "aria-label": sheetOpen ? "Collapse setup" : "Expand setup",
     onclick: () => toggle(!sheetOpen),
     onkeydown: (e: KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(!sheetOpen); } },
-    onpointerdown: (e: PointerEvent) => { startY = e.clientY; },
+    onpointerdown: (e: PointerEvent) => { sheetDragY = e.clientY; },
     onpointerup: (e: PointerEvent) => {
-      if (startY === null) return;
-      const dy = e.clientY - startY;
-      startY = null;
+      if (sheetDragY === null) return;
+      const dy = e.clientY - sheetDragY;
+      sheetDragY = null;
       if (Math.abs(dy) > 30) { e.preventDefault(); toggle(dy < 0); }
     },
   },
@@ -240,7 +239,7 @@ function setupSheet(app: App, model: TableModel, empty: boolean) {
 }
 
 /** Names wrap between words; a word too long for the tile ("Philosopher's") shrinks the name until it fits. */
-function fitNames() {
+export function fitNames() {
   for (const el of document.querySelectorAll<HTMLElement>(".m-name")) {
     el.style.fontSize = "";
     let size = parseFloat(getComputedStyle(el).fontSize);
@@ -251,16 +250,20 @@ function fitNames() {
   }
 }
 
-/** Tap selects; holding for half a second opens the full card instead. */
+/**
+ * Tap selects; holding for half a second opens the full card instead. The press is tracked per
+ * element rather than in the closure, because a render in the middle of a press (the long press
+ * itself causes one) hands the element new handlers.
+ */
+const presses = new WeakMap<EventTarget, { timer?: number; long: boolean }>();
 function pressHandlers(onTap: () => void, onLongPress: () => void) {
-  let timer: number | undefined;
-  let long = false;
+  const state = (e: Event) => { let p = presses.get(e.currentTarget!); if (!p) presses.set(e.currentTarget!, (p = { long: false })); return p; };
   return {
-    onpointerdown: () => { long = false; timer = window.setTimeout(() => { long = true; onLongPress(); }, 500); },
-    onpointerup: () => window.clearTimeout(timer),
-    onpointerleave: () => window.clearTimeout(timer),
-    onpointercancel: () => window.clearTimeout(timer),
+    onpointerdown: (e: Event) => { const p = state(e); p.long = false; window.clearTimeout(p.timer); p.timer = window.setTimeout(() => { p.long = true; onLongPress(); }, 500); },
+    onpointerup: (e: Event) => window.clearTimeout(state(e).timer),
+    onpointerleave: (e: Event) => window.clearTimeout(state(e).timer),
+    onpointercancel: (e: Event) => window.clearTimeout(state(e).timer),
     oncontextmenu: (e: Event) => e.preventDefault(),
-    onclick: (e: Event) => { e.stopPropagation(); if (!long) onTap(); },
+    onclick: (e: Event) => { e.stopPropagation(); if (!state(e).long) onTap(); },
   };
 }
