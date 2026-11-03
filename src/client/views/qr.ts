@@ -30,7 +30,7 @@ export function qrView(app: App): HTMLElement {
   return h("div.qr-dialog", { role: "dialog", "aria-modal": "true", "aria-label": "Join this table" },
     h("button.icon-btn.qr-close", { type: "button", "aria-label": "Close", onclick: () => app.closeQr() }, icon("close")),
     h("h2", null, "Join this table"),
-    h("p.muted", null, "Scan to join and open the cards’ rules."),
+    h("p.muted", null, app.store.state.game.setupLocked ? "Scan to join and open the cards’ rules." : "Scan to join this room."),
     code ? h("div.qr-code", null, qrSvg(link)) : h("div.qr-code.qr-wait", null, "Preparing…"),
     code && h("p.qr-room", null, "Room ", h("b", null, code)),
     code &&

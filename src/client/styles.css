@@ -621,10 +621,11 @@ a.stat-tile:hover { box-shadow: inset 0 0 0 1px var(--ink-3); }
   .m-slot { background: rgb(255 255 255 / 0.12); border: 1.5px dashed var(--line-strong); box-shadow: none; color: var(--ink-3); font-size: 12px; }
   .m-slot .icon { width: 20px; height: 20px; }
   .m-felt-tools { display: flex; align-items: center; gap: 10px; }
-  .m-lockbtn, .m-locked { display: inline-flex; align-items: center; gap: 4px; border: 0; border-radius: 999px; padding: 3px 10px 3px 8px; font-size: 12.5px; font-weight: 600; }
-  .m-lockbtn { cursor: pointer; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line-strong); color: var(--ink); }
-  .m-locked { background: var(--gold-soft); color: var(--ink); }
-  .m-lockbtn .icon, .m-locked .icon { width: 13px; height: 13px; }
+  .m-tool { width: 30px; height: 30px; flex: none; padding: 0; border: 0; border-radius: 999px; display: grid; place-items: center; cursor: pointer;
+    background: var(--paper); box-shadow: inset 0 0 0 1px var(--line-strong); color: var(--ink); }
+  .m-tool.on { background: var(--gold-soft); box-shadow: inset 0 0 0 1px var(--gold); }
+  .m-tool:disabled { opacity: 0.4; cursor: default; }
+  .m-tool .icon { width: 15px; height: 15px; }
   .m-empty { text-align: center; color: var(--ink-2); margin: 14px 8px 4px; }
 
   .m-landscapes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
@@ -768,8 +769,10 @@ input[type="search"]::-webkit-search-cancel-button { display: none; }
 .fill-rest { justify-self: start; }
 
 /* Locked table */
-.locked-note { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: var(--gold-soft); font-size: 14px; font-weight: 600; }
-.locked-note .icon { width: 15px; height: 15px; }
+.lock-toggle { min-width: 92px; justify-content: center; }
+.bar-actions .deal { min-width: 8.5em; }
+.btn:disabled { opacity: 0.4; cursor: default; }
+.players.disabled { opacity: 0.5; pointer-events: none; }
 .icon.flip { transform: scaleX(-1); }
 
 /* Rules reference: one card per page */

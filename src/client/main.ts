@@ -218,7 +218,7 @@ export class App {
     // The reference only stays up while the table is locked and still has the card.
     const { game } = this.store.state;
     if (this.reference && !(game.setupLocked && referenceCards(this).includes(this.reference))) this.reference = null;
-    if (this.qr && !game.setupLocked) this.qr = false;
+    if (this.qr && !game.setupLocked && !this.room.code) this.qr = false;
     const overlay = this.picker ? "picker" : this.sheet.length ? "sheet" : this.qr ? "qr" : this.tune ? "tune" : null;
     document.body.classList.toggle("overlay-open", !!overlay || !!this.reference);
     document.body.classList.toggle("phone-table", this.phone && route === "table");
@@ -276,6 +276,7 @@ function withEnter<T extends Child>(el: T, entering: boolean): T {
 function topBar(app: App, route: Route): Child {
   const { settings, game } = app.store.state;
   const hasGame = game.kingdom.length > 0 || game.landscapes.length > 0;
+  const locked = game.setupLocked;
   const link = (href: string, label: string, r: Route) =>
     h("a", { href, class: route === r ? "on" : "", "aria-current": route === r ? "page" : undefined }, label);
   const firstRun = !settings.onboarded && route === "sets";
@@ -304,20 +305,20 @@ function topBar(app: App, route: Route): Child {
     roomChip(app),
     !firstRun && h("a.account-link", { href: "#/account", class: route === "account" ? "on" : "", title: "Account" }, icon("user"),
       h("span", null, app.account.status === "signedIn" ? app.account.username : "Sign in")),
-    route === "table" && game.setupLocked && h("div.bar-actions", null,
-      h("span.locked-note", null, icon("lock"), "Table locked"),
-      h("button.btn.ghost", { type: "button", onclick: () => app.openReference() }, icon("info"), "Rules"),
-      h("button.btn.ghost", { type: "button", onclick: () => app.openQr() }, icon("qr"), "Join code"),
-      h("button.btn.ghost", { type: "button", onclick: () => app.lockSetup(false), title: "Unlock the table to change it" }, icon("unlock"), "Unlock")),
-    route === "table" && !game.setupLocked && h("div.bar-actions", null,
-      h("div.players", null, stepper({ value: settings.players, min: 2, max: 6, label: "players", format: (n) => `${n} players`,
-        onChange: (n) => app.store.dispatch({ type: "settings", patch: { players: n } }) })),
-      h("button.btn.ghost", { type: "button", onclick: () => app.openPicker(), title: "Choose a card to include" }, icon("plus"), "Add card"),
-      hasGame && h("button.btn.ghost", { type: "button", onclick: () => app.store.dispatch({ type: "clear" }), title: "Clear the table" }, "Clear"),
-      hasGame && h("button.btn.ghost", { type: "button", onclick: () => app.lockSetup(true), title: "Lock the table: tapping a card then goes straight to its rules" }, icon("lock"), "Lock"),
-      h("button.btn.ghost", { type: "button", onclick: () => app.openTune() }, icon("tune"), "Tune"),
-      h("button.deal", { type: "button", onclick: () => app.store.dispatch({ type: "deal" }),
-        title: game.locked.length ? "Deal again, keeping locked cards" : "Deal a random kingdom" }, hasGame ? "Deal again" : "Deal")));
+    route === "table" && h("div.bar-actions", null,
+      // Right-aligned: the join code appears at the left edge without moving anything else.
+      (game.setupLocked || app.room.code) && h("button.btn.ghost", { type: "button", onclick: () => app.openQr(), title: "Join code" }, icon("qr"), "Join code"),
+      h("div.players", { class: locked ? "disabled" : "" }, stepper({ value: settings.players, min: 2, max: 6, label: "players", format: (n) => `${n} players`,
+        onChange: (n) => !locked && app.store.dispatch({ type: "settings", patch: { players: n } }) })),
+      h("button.btn.ghost", { type: "button", disabled: locked, onclick: () => app.openPicker(), title: "Choose a card to include" }, icon("plus"), "Add card"),
+      h("button.btn.ghost", { type: "button", disabled: !hasGame || locked, onclick: () => app.store.dispatch({ type: "clear" }), title: "Clear the table" }, "Clear"),
+      h("button.btn.ghost.lock-toggle", { type: "button", disabled: !hasGame && !locked, onclick: () => app.lockSetup(!locked),
+        title: locked ? "Unlock the table to change it" : "Lock the table: tapping a card then goes straight to its rules" }, icon(locked ? "unlock" : "lock"), locked ? "Unlock" : "Lock"),
+      h("button.btn.ghost", { type: "button", disabled: locked, onclick: () => app.openTune() }, icon("tune"), "Tune"),
+      locked
+        ? h("button.deal", { type: "button", onclick: () => app.openReference(), title: "Open the cards' rules" }, "Rules")
+        : h("button.deal", { type: "button", onclick: () => app.store.dispatch({ type: "deal" }),
+          title: game.locked.length ? "Deal again, keeping locked cards" : "Deal a random kingdom" }, hasGame ? "Deal again" : "Deal")));
 }
 
 /** "Room ABC123 · 3" while in a room. */
