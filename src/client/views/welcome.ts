@@ -2,10 +2,12 @@
 
 import { h, icon, type Child } from "../dom";
 import { boxImage, data } from "../data";
+import { normalizeCode, ROOM_CODE } from "../../shared/room";
 import type { App } from "../main";
 
 /** Kept across re-renders so changing a set doesn't snap the promos list shut. */
 let promosOpen = false;
+let joinCode = "";
 
 export function welcomeView(app: App): Child {
   const { settings } = app.store.state;
@@ -40,7 +42,25 @@ export function welcomeView(app: App): Child {
   const ready = settings.options.enabledBoxes.length > 0;
   const first = !settings.onboarded;
 
+  // Some visitors only want to join a friend's room: skip the sets (the room has its own).
+  const joinRoom = () => {
+    const code = normalizeCode(joinCode);
+    if (!ROOM_CODE.test(code)) return;
+    if (!ready) setBoxes(["dominion-2"]);
+    app.store.dispatch({ type: "settings", patch: { onboarded: true } });
+    location.hash = `#/room/${code}`;
+  };
+  const joinForm = first && !app.store.roomMode && h("form.welcome-join", { onsubmit: (e: Event) => { e.preventDefault(); joinRoom(); } },
+    h("label", { for: "welcome-code" }, "Just joining a room?"),
+    h("input#welcome-code", { value: joinCode, placeholder: "ABC", maxlength: 3, autocapitalize: "characters", autocomplete: "off", spellcheck: "false",
+      "aria-label": "Room code", oninput: (e: Event) => {
+        joinCode = (e.target as HTMLInputElement).value;
+        (document.getElementById("welcome-join-go") as HTMLButtonElement).disabled = !ROOM_CODE.test(normalizeCode(joinCode));
+      } }),
+    h("button#welcome-join-go.btn", { type: "submit", disabled: !ROOM_CODE.test(normalizeCode(joinCode)) }, "Join"));
+
   return h("div.welcome", null,
+    joinForm,
     h("header.welcome-head", null,
       h("div", null,
         h("h1", null, app.store.roomMode ? "The room's sets" : first ? "Which sets do you have?" : "Your sets"),

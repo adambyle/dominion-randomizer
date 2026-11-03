@@ -1,9 +1,9 @@
 // Add-card palette: search stays at the top; results update as you type.
 
 import { h, icon } from "../dom";
-import { artImage, byCost, cardImage, db, setIcon, setName } from "../data";
+import { artImage, byCost, cardImage, data, db, setIcon, setName } from "../data";
 import { costSymbols } from "../markup";
-import { isStandardLandscape } from "../../shared/randomizer";
+import { isStandardLandscape, poolSets } from "../../shared/randomizer";
 import type { App } from "../main";
 
 let query = "";
@@ -14,6 +14,26 @@ export function pickerView(app: App): HTMLElement {
   const pool = app.store.pool();
   const inGame = new Set([...game.kingdom, ...game.landscapes]);
   const results = h("ul.results", { "data-scroll": "picker", role: "listbox" });
+
+  // Random card from one expansion: the ones you own, or every expansion when including those you don't.
+  const owned = new Set(poolSets(db, pool));
+  const sets = () => data.sets.filter((s) => (everything ? db.data.cards.some((c) => c.kind === "kingdom" && c.set === s.id) : owned.has(s.id)));
+  const slots = Math.max(0, app.store.state.settings.options.kingdomSize - game.kingdom.length);
+  const random = h("div.random-row");
+  const fillRandom = () => {
+    random.replaceChildren(...[
+      h("span.label", null, "Add a random card from"),
+      h("div.random-chips", null,
+        h("button.chip", { type: "button", onclick: () => { app.store.dispatch({ type: "addRandom", set: null }); app.closePicker(); } }, "Any"),
+        sets().map((s) => {
+          const img = setIcon(s.id);
+          return h("button.chip", { type: "button", title: s.name, onclick: () => { app.store.dispatch({ type: "addRandom", set: s.id }); app.closePicker(); } },
+            img && h("img.set-glyph", { src: img.src, alt: "" }), s.name);
+        })),
+      slots > 0 && game.kingdom.length > 0 && h("button.btn.ghost.fill-rest", { type: "button", onclick: () => { app.store.dispatch({ type: "fill" }); app.closePicker(); } },
+        `Fill the other ${slots === 1 ? "slot" : `${slots} slots`} randomly`)].filter((x): x is HTMLElement => !!x));
+  };
+  fillRandom();
 
   const update = () => {
     const q = query.trim().toLowerCase();
@@ -47,7 +67,8 @@ export function pickerView(app: App): HTMLElement {
   return h("div.palette", { role: "dialog", "aria-modal": "true", "aria-label": "Add a card" },
     h("div.palette-search", null, icon("search"), input,
       h("button.icon-btn", { type: "button", "aria-label": "Close", onclick: () => app.closePicker() }, icon("close"))),
-    h("label.toggle", null, h("input", { type: "checkbox", checked: everything, onchange: (e) => { everything = (e.target as HTMLInputElement).checked; update(); } }),
+    h("label.toggle", null, h("input", { type: "checkbox", checked: everything, onchange: (e) => { everything = (e.target as HTMLInputElement).checked; update(); fillRandom(); } }),
       "Include sets you don’t own"),
+    random,
     results);
 }

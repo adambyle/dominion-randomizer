@@ -25,6 +25,8 @@ export interface Game {
   warnings: string[];
   /** The history entry this table was saved as; any edit starts a new draft (null). */
   playedId: string | null;
+  /** A locked table can't be changed (no dealing, swapping, adding or removing); tapping a card goes straight to its rules. */
+  setupLocked: boolean;
 }
 
 export interface Settings {
@@ -54,7 +56,7 @@ const newSeed = () => (Math.random() * 2 ** 32) >>> 0;
 
 const emptyGame = (): Game => ({
   kingdom: [], landscapes: [], locked: [], sets: null, choices: {}, official: false,
-  recommendedId: null, platinumColony: null, shelters: null, seed: newSeed(), warnings: [], playedId: null,
+  recommendedId: null, platinumColony: null, shelters: null, seed: newSeed(), warnings: [], playedId: null, setupLocked: false,
 });
 
 const defaultSettings = (): Settings => ({
@@ -79,6 +81,9 @@ export type Action =
   | { type: "replace"; id: string }
   | { type: "toggleLock"; id: string }
   | { type: "add"; id: string }
+  /** Adds a random Kingdom card from one expansion (or from the game's expansions when null). */
+  | { type: "addRandom"; set: string | null }
+  | { type: "lockSetup"; on: boolean }
   | { type: "remove"; id: string }
   | { type: "clear" }
   | { type: "choices"; choices: Choices }
@@ -114,9 +119,13 @@ function withPlayed<T extends { kingdom: string[]; landscapes: string[]; warning
   return r;
 }
 
+/** Actions that change the cards on the table; a locked table ignores them. */
+const TABLE_EDITS = new Set<Action["type"]>(["deal", "fill", "replace", "toggleLock", "add", "addRandom", "remove", "clear", "rollSets", "toggleSet"]);
+
 function reduce(state: State, action: Action, env: Env): State {
   const { settings, game } = state;
   const opts = settings.options;
+  if (game.setupLocked && TABLE_EDITS.has(action.type)) return state;
   switch (action.type) {
     case "settings":
       return { ...state, settings: { ...settings, ...action.patch } };
@@ -197,6 +206,23 @@ function reduce(state: State, action: Action, env: Env): State {
       const patch = card.kind === "landscape" ? { landscapes: [...game.landscapes, card.id] } : { kingdom: [...game.kingdom, card.id] };
       return { ...state, game: edited(game, { ...patch, locked: [...game.locked, card.id], warnings: [] }) };
     }
+    case "addRandom": {
+      // Picking an expansion you don't own still works: its current boxes join the pool for this card.
+      const enabledBoxes = action.set
+        ? [...new Set([...opts.enabledBoxes, ...data.boxes.filter((b) => b.set === action.set && b.edition !== 1).map((b) => b.id)])]
+        : opts.enabledBoxes;
+      const seed = newSeed();
+      const draft = withPlayed(settings, env, (cardWeight) => randomize(db,
+        { ...opts, enabledBoxes, kingdomSize: game.kingdom.length + 1, landscapeCount: game.landscapes.length },
+        { sets: action.set ? [action.set] : game.sets ?? undefined, locked: game.kingdom, lockedLandscapes: game.landscapes, cardWeight },
+        createRng(seed)));
+      const added = draft.kingdom.filter((id) => !game.kingdom.includes(id));
+      if (!added.length) return { ...state, game: { ...game, warnings: ["No more cards to add from there."] } };
+      return { ...state, game: edited(game, { kingdom: draft.kingdom, locked: [...game.locked, ...added], warnings: draft.warnings }) };
+    }
+    case "lockSetup":
+      if (action.on && !game.kingdom.length && !game.landscapes.length) return state;
+      return { ...state, game: { ...game, setupLocked: action.on } };
     case "remove":
       return { ...state, game: edited(game, {
         kingdom: game.kingdom.filter((x) => x !== action.id),
@@ -295,7 +321,7 @@ export class Store {
     const prev = this.state;
     this.state = reduce(prev, action, { played: this.played() });
     if (this.state === prev) return;
-    if (action.type === "add" || action.type === "fill" || action.type === "replace") {
+    if (action.type === "add" || action.type === "addRandom" || action.type === "fill" || action.type === "replace") {
       const had = new Set([...prev.game.kingdom, ...prev.game.landscapes]);
       this.fresh = new Set([...this.state.game.kingdom, ...this.state.game.landscapes].filter((id) => !had.has(id)));
       clearTimeout(this.freshTimer);

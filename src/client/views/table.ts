@@ -28,6 +28,9 @@ export function tableView(app: App): Child {
   const model = setup ? buildModel(setup, game.kingdom, game.landscapes) : null;
   const size = settings.options.kingdomSize;
   const open = (id: string) => app.openCard(id);
+  /** Cards of the table: on a locked table they go straight to their rules. */
+  const openOwn = (id: string) => app.tap(id, () => open(id));
+  const frozen = game.setupLocked;
   const dispatch = app.store.dispatch;
 
   // ---- Supply column
@@ -57,15 +60,15 @@ export function tableView(app: App): Child {
     const targets = model?.targetedBy.get(id) ?? [];
     const count = model?.pileCounts.get(id);
     return h("div.pile", { "data-id": id, "data-set": db.get(id).set, class: [locked ? "locked" : "", app.store.fresh.has(id) ? "fresh" : ""] },
-      h("button.pile-card", { type: "button", onclick: () => open(id), "aria-label": `${name(id)} — details` }, face(id)),
-      locked && h("span.lockmark", { title: "Locked: dealing again keeps it" }, icon("lock")),
+      h("button.pile-card", { type: "button", onclick: () => openOwn(id), "aria-label": `${name(id)} — ${frozen ? "rules" : "details"}` }, face(id)),
+      locked && !frozen && h("span.lockmark", { title: "Locked: dealing again keeps it" }, icon("lock")),
       bringsSomething.has(id) && h("span.dot", { title: "Needs extra setup — hover to see" }, "+"),
       count !== undefined && h("span.count", { title: `${count} cards in the pile` }, count),
       targets.map((t) => h("span.ribbon", { title: `${name(t)} applies to this pile` }, name(t))),
-      tools(id, locked));
+      !frozen && tools(id, locked));
   };
   const kingdomIds = model?.kingdom ?? [];
-  const slots = Math.max(0, size - kingdomIds.length);
+  const slots = frozen ? 0 : Math.max(0, size - kingdomIds.length);
   const cols = Math.min(6, Math.max(5, Math.ceil(Math.max(size, kingdomIds.length) / 2)));
   const rec = game.recommendedId ? recommended.find((k) => k.id === game.recommendedId) : null;
   const sets = game.sets ?? [...new Set([...game.kingdom, ...game.landscapes].map((id) => db.get(id).set))];
@@ -84,13 +87,13 @@ export function tableView(app: App): Child {
     h("div.kingdom", { style: `--cols:${cols}` },
       kingdomIds.map(pile),
       Array.from({ length: slots }, (_, i) => h("button.slot", {
-        type: "button", onclick: () => dispatch({ type: empty ? "deal" : "fill" }),
-        "aria-label": empty ? "Deal" : "Fill the empty slots", tabindex: empty && i > 0 ? "-1" : undefined,
-      }, empty ? "" : "Fill"))),
+        type: "button", onclick: () => app.openPicker(), "aria-label": "Add a card", title: "Add a card", tabindex: empty && i > 0 ? "-1" : undefined,
+      }, icon("plus")))),
     empty && h("div.empty-cta", null,
-      h("p", null, "Deal a random kingdom, or choose a recommended one."),
+      h("p", null, "Deal a random kingdom, choose a recommended one, or build your own."),
       h("div.row", null,
         h("button.deal.big", { type: "button", onclick: () => dispatch({ type: "deal" }) }, "Deal"),
+        h("button.btn", { type: "button", onclick: () => app.openPicker() }, icon("plus"), "Add cards"),
         h("a.btn", { href: "#/recommended" }, "Recommended kingdoms"))),
     model && model.landscapes.length > 0 && h("div.landscape-area", null,
       h("p.label", null, "Landscapes"),
@@ -101,10 +104,10 @@ export function tableView(app: App): Child {
           "data-id": own ? l.card : undefined, "data-roots": own ? undefined : l.roots.join(" "), "data-set": db.get(l.card).set,
           class: [locked ? "locked" : "", own && app.store.fresh.has(l.card) ? "fresh" : ""],
         },
-          h("button.pile-card", { type: "button", onclick: () => open(l.card), "aria-label": `${name(l.card)} — details` }, face(l.card)),
+          h("button.pile-card", { type: "button", onclick: () => (own ? openOwn(l.card) : open(l.card)), "aria-label": `${name(l.card)} — ${frozen && own ? "rules" : "details"}` }, face(l.card)),
           l.note && h("span.caption", null, l.note),
-          locked && h("span.lockmark", null, icon("lock")),
-          own && tools(l.card, locked));
+          locked && !frozen && h("span.lockmark", null, icon("lock")),
+          own && !frozen && tools(l.card, locked));
       }))));
 
   // ---- Off to the side

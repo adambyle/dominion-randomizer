@@ -4,6 +4,7 @@
 import { h, icon, type Child } from "../dom";
 import { byCost, data, db, name } from "../data";
 import { normalizeCode } from "../../shared/room";
+import { joinLink, qrSvg } from "./qr";
 import type { App } from "../main";
 
 let joinCode = "";
@@ -12,8 +13,13 @@ let copied = false;
 
 const timeFmt = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
 
-export function roomView(app: App, codeFromUrl: string | null): Child {
+export function roomView(app: App, path: string | null): Child {
   const room = app.room;
+  // "ABC" or "ABC/rules" (the QR link, which opens the rules of a locked table).
+  const [codeFromUrl = null, extra] = (path ?? "").split("/");
+  if (extra === "rules" && room.code && normalizeCode(codeFromUrl ?? "") === room.code && room.status === "open") {
+    queueMicrotask(() => app.goToReference());
+  }
   const rerender = () => app.render();
 
   // Following a room link joins it.
@@ -47,6 +53,7 @@ export function roomView(app: App, codeFromUrl: string | null): Child {
   }
 
   const link = `${location.origin}${location.pathname}#/room/${room.code}`;
+  const locked = app.store.state.game.setupLocked;
   const union = [...new Set([...room.myBoxes, ...room.members.flatMap((m) => m.boxes)])];
   const setBoxes = (boxes: string[]) => app.store.dispatch({ type: "options", patch: { enabledBoxes: boxes.filter((b) => data.boxes.some((x) => x.id === b)) } });
   const roomBoxes = app.store.state.settings.options.enabledBoxes;
@@ -63,6 +70,12 @@ export function roomView(app: App, codeFromUrl: string | null): Child {
       h("a.deal", { href: "#/" }, "Go to the table"),
       h("button.btn.ghost", { type: "button", onclick: () => { room.leave(); location.hash = "#/room"; } }, "Leave room")),
     nameField,
+    locked && h("section.room-section.room-qr", null,
+      h("div", null,
+        h("h2", null, "The table is locked"),
+        h("p.muted", null, "Anyone who scans this joins the room and lands on the cards’ rules."),
+        h("button.btn", { type: "button", onclick: () => app.openReference() }, icon("info"), "Open the rules")),
+      h("div.qr-code", null, qrSvg(joinLink(room.code)))),
     h("section.room-section", null,
       h("h2", null, `Here now (${room.members.length})`),
       h("ul.room-members", null, room.members.map((m) => h("li", null, icon("user"), h("span", null, m.name), m.id === room.you && h("span.muted", null, " (you)"))))),

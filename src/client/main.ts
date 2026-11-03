@@ -19,6 +19,8 @@ import { rulesView } from "./views/rules";
 import { accountView, historyView } from "./views/history";
 import { interactionsView } from "./views/interactions";
 import { roomView } from "./views/room";
+import { referenceCards, referenceView } from "./views/reference";
+import { qrView } from "./views/qr";
 import { RoomClient } from "./room";
 import { Account } from "./account";
 import { playedCards } from "../shared/stats";
@@ -36,9 +38,14 @@ export class App {
   private sheet: string[] = [];
   private tune = false;
   private picker: HTMLElement | null = null;
+  /** The card showing in the rules reference of a locked table. */
+  private reference: string | null = null;
+  private qr = false;
+  /** Open the rules reference once the next navigation lands (it resets overlays). */
+  private pendingReference = false;
   private root = document.getElementById("app")!;
   /** Overlays opened since the last render; only these play their entrance animation. */
-  private entering = new Set<"sheet" | "tune" | "picker">();
+  private entering = new Set<"sheet" | "tune" | "picker" | "qr">();
   private renderToken = 0;
   private loaded = new Set<string>();
   menuOpen = false;
@@ -65,14 +72,25 @@ export class App {
       this.sheet = [];
       this.tune = false;
       this.picker = null;
+      this.qr = false;
+      this.reference = null;
+      if (this.pendingReference) { this.pendingReference = false; this.reference = this.firstReference(); }
       this.render();
       window.scrollTo(0, 0);
     });
     window.addEventListener("keydown", (e) => {
+      const covered = this.picker || this.sheet.length || this.qr || this.tune;
+      if (this.reference && !covered && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
+        const cards = referenceCards(this);
+        const next = cards[cards.indexOf(this.reference) + (e.key === "ArrowRight" ? 1 : -1)];
+        if (next) this.showReference(next);
+      }
       if (e.key !== "Escape") return;
       if (this.picker) this.closePicker();
       else if (this.sheet.length) this.closeCard();
+      else if (this.qr) this.closeQr();
       else if (this.tune) this.closeTune();
+      else if (this.reference) this.closeReference();
     });
     this.render();
   }
@@ -107,6 +125,31 @@ export class App {
   closeTune() { this.tune = false; this.render(); }
   openPicker() { this.entering.add("picker"); this.picker = pickerView(this); this.render(); }
   closePicker() { this.picker = null; this.render(); }
+  openQr() { this.entering.add("qr"); this.qr = true; this.render(); }
+  closeQr() { this.qr = false; this.render(); }
+
+  private firstReference() {
+    return this.store.state.game.setupLocked ? referenceCards(this)[0] ?? null : null;
+  }
+  /** Opens the rules reference on a card of the locked table. */
+  openReference(id?: string) { this.reference = id ?? this.firstReference(); this.render(); }
+  showReference(id: string) { this.reference = id; this.render(); }
+  closeReference() { this.reference = null; this.render(); }
+  /** Goes to the table and opens the rules reference there (used when joining a locked room from its QR code). */
+  goToReference() {
+    if (this.pendingReference) return;
+    if (location.hash === "#/" || location.hash === "") { this.openReference(); return; }
+    this.pendingReference = true;
+    location.hash = "#/";
+  }
+  lockSetup(on: boolean) { this.store.dispatch({ type: "lockSetup", on }); }
+
+  /** Tapping a card: on a locked table straight to its rules, otherwise `otherwise`. */
+  tap(id: string, otherwise: () => void) {
+    if (this.store.state.game.setupLocked && referenceCards(this).includes(id)) this.openReference(id);
+    else otherwise();
+  }
+
   openWelcome() { this.tune = false; location.hash = "#/sets"; }
 
   finishWelcome(deal: boolean) {
@@ -146,8 +189,12 @@ export class App {
     const caret = active && "selectionStart" in active ? active.selectionStart : null;
 
     const route = this.route;
-    const overlay = this.picker ? "picker" : this.sheet.length ? "sheet" : this.tune ? "tune" : null;
-    document.body.classList.toggle("overlay-open", !!overlay);
+    // The reference only stays up while the table is locked and still has the card.
+    const { game } = this.store.state;
+    if (this.reference && !(game.setupLocked && referenceCards(this).includes(this.reference))) this.reference = null;
+    if (this.qr && (!this.room.code || !game.setupLocked)) this.qr = false;
+    const overlay = this.picker ? "picker" : this.sheet.length ? "sheet" : this.qr ? "qr" : this.tune ? "tune" : null;
+    document.body.classList.toggle("overlay-open", !!overlay || !!this.reference);
     document.body.classList.toggle("phone-table", this.phone && route === "table");
 
     replace(this.root,
@@ -156,9 +203,11 @@ export class App {
       h("footer.footer", null,
         "Card images and rulings from the ", h("a", { href: "https://wiki.dominionstrategy.com", target: "_blank", rel: "noreferrer" }, "Dominion Strategy Wiki"),
         ". Dominion is © Donald X. Vaccarino and Rio Grande Games; this is an unofficial fan tool."),
-      overlay && h("div.scrim", { class: this.entering.size ? "enter" : "", onclick: () => (this.picker ? this.closePicker() : this.sheet.length ? this.closeCard() : this.closeTune()) }),
+      overlay && h("div.scrim", { class: this.entering.size ? "enter" : "", onclick: () => (this.picker ? this.closePicker() : this.sheet.length ? this.closeCard() : this.qr ? this.closeQr() : this.closeTune()) }),
+      this.reference && referenceView(this, this.reference),
       this.tune && withEnter(tuneView(this), this.entering.has("tune")),
       this.sheet.length > 0 && withEnter(sheetView(this, this.sheet), this.entering.has("sheet")),
+      this.qr && withEnter(qrView(this), this.entering.has("qr")),
       this.picker && withEnter(this.picker, this.entering.has("picker")));
     this.entering.clear();
     this.measureTopBar();
@@ -217,7 +266,7 @@ function topBar(app: App, route: Route): Child {
           link("#/cards", "Cards", "cards"), link("#/rules", "Rules", "rules"), link("#/interactions", "Interactions", "interactions"),
           link("#/history", "History", "history"), link("#/room", app.room.code ? `Room ${app.room.code}` : "Play together", "room"),
           link("#/sets", app.store.roomMode ? "Room's sets" : "Your sets", "sets"), link("#/account", accountLabel(app), "account"),
-          route === "table" && hasGame && h("button", { type: "button", onclick: () => { app.menuOpen = false; app.store.dispatch({ type: "clear" }); } }, "Clear the table"))));
+          route === "table" && hasGame && !game.setupLocked && h("button", { type: "button", onclick: () => { app.menuOpen = false; app.store.dispatch({ type: "clear" }); } }, "Clear the table"))));
   }
   return h("header.topbar", null,
     h("a.mark", { href: "#/" }, "Dominion", h("small", null, "Kingdom randomizer")),
@@ -229,11 +278,17 @@ function topBar(app: App, route: Route): Child {
     roomChip(app),
     !firstRun && h("a.account-link", { href: "#/account", class: route === "account" ? "on" : "", title: "Account" }, icon("user"),
       h("span", null, app.account.status === "signedIn" ? app.account.username : "Sign in")),
-    route === "table" && h("div.bar-actions", null,
+    route === "table" && game.setupLocked && h("div.bar-actions", null,
+      h("span.locked-note", null, icon("lock"), "Table locked"),
+      h("button.btn.ghost", { type: "button", onclick: () => app.openReference() }, icon("info"), "Rules"),
+      app.room.code && h("button.btn.ghost", { type: "button", onclick: () => app.openQr() }, icon("qr"), "Join code"),
+      h("button.btn.ghost", { type: "button", onclick: () => app.lockSetup(false), title: "Unlock the table to change it" }, icon("unlock"), "Unlock")),
+    route === "table" && !game.setupLocked && h("div.bar-actions", null,
       h("div.players", null, stepper({ value: settings.players, min: 2, max: 6, label: "players", format: (n) => `${n} players`,
         onChange: (n) => app.store.dispatch({ type: "settings", patch: { players: n } }) })),
       h("button.btn.ghost", { type: "button", onclick: () => app.openPicker(), title: "Choose a card to include" }, icon("plus"), "Add card"),
       hasGame && h("button.btn.ghost", { type: "button", onclick: () => app.store.dispatch({ type: "clear" }), title: "Clear the table" }, "Clear"),
+      hasGame && h("button.btn.ghost", { type: "button", onclick: () => app.lockSetup(true), title: "Lock the table: tapping a card then goes straight to its rules" }, icon("lock"), "Lock"),
       h("button.btn.ghost", { type: "button", onclick: () => app.openTune() }, icon("tune"), "Tune"),
       h("button.deal", { type: "button", onclick: () => app.store.dispatch({ type: "deal" }),
         title: game.locked.length ? "Deal again, keeping locked cards" : "Deal a random kingdom" }, hasGame ? "Deal again" : "Deal")));

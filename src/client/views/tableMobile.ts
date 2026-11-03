@@ -25,6 +25,8 @@ export function tableMobileView(app: App): Child {
   const model = setup ? buildModel(setup, game.kingdom, game.landscapes) : null;
   const dispatch = app.store.dispatch;
   const empty = !game.kingdom.length && !game.landscapes.length;
+  const frozen = game.setupLocked;
+  if (frozen) selected = null;
   if (selected && !game.kingdom.includes(selected) && !game.landscapes.includes(selected)) selected = null;
   document.body.classList.toggle("sheet-up", sheetOpen && !!model);
 
@@ -40,19 +42,19 @@ export function tableMobileView(app: App): Child {
     const art = artImage(id) ?? cardImage(id);
     const brings = model ? bringsAnything(id, model) : false;
     return h("button", {
-      type: "button", class: ["m-tile", dim(id) ? "dim" : "", selected === id ? "selected" : "", game.locked.includes(id) ? "locked" : "", app.store.fresh.has(id) ? "fresh" : ""],
-      "aria-label": `${c.name}${selected === id ? ", selected" : ""}`, ...pressHandlers(() => select(id), () => app.openCard(id)),
+      type: "button", class: ["m-tile", dim(id) ? "dim" : "", selected === id ? "selected" : "", game.locked.includes(id) && !frozen ? "locked" : "", app.store.fresh.has(id) ? "fresh" : ""],
+      "aria-label": `${c.name}${selected === id ? ", selected" : ""}`, ...pressHandlers(() => (frozen ? app.openReference(id) : select(id)), () => (frozen ? app.openReference(id) : app.openCard(id))),
     },
       art && h("img", { src: art.src, alt: "", draggable: "false" }),
       h("span.m-cost", null, costSymbols(c.cost, "s")),
       brings && h("span.m-dot", null, "+"),
-      game.locked.includes(id) && h("span.m-lock", null, icon("lock")),
+      game.locked.includes(id) && !frozen && h("span.m-lock", null, icon("lock")),
       (model?.targetedBy.get(id) ?? []).map((t) => h("span.m-ribbon", null, name(t))),
       // Split piles ("Settlers/Bustling Village") may break after the slash.
       h("span.m-name", null, c.name.replace(/\//g, "/​")));
   });
-  const slots = Array.from({ length: Math.max(0, size - tiles.length) }, () =>
-    h("button.m-tile.m-slot", { type: "button", onclick: () => dispatch({ type: empty ? "deal" : "fill" }), "aria-label": empty ? "Deal" : "Fill the empty slots" }, empty ? "" : "Fill"));
+  const slots = Array.from({ length: frozen ? 0 : Math.max(0, size - tiles.length) }, () =>
+    h("button.m-tile.m-slot", { type: "button", onclick: () => app.openPicker(), "aria-label": "Add a card" }, icon("plus")));
 
   // ---- Landscapes (own first, then Allies/Prophecies with their caption)
   const landscapes = (model?.landscapes ?? []).map((l) => {
@@ -60,7 +62,7 @@ export function tableMobileView(app: App): Child {
     const own = game.landscapes.includes(l.card);
     return h("button", {
       type: "button", class: ["m-landscape", dim(l.card, l.roots) ? "dim" : "", selected === l.card ? "selected" : "", own && app.store.fresh.has(l.card) ? "fresh" : ""],
-      ...pressHandlers(() => (own ? select(l.card) : app.openCard(l.card)), () => app.openCard(l.card)),
+      ...pressHandlers(() => (own ? (frozen ? app.openReference(l.card) : select(l.card)) : app.openCard(l.card)), () => (frozen && own ? app.openReference(l.card) : app.openCard(l.card))),
     }, img && h("img", { src: img.src, alt: name(l.card), draggable: "false" }), l.note && h("span.m-caption", null, l.note));
   });
 
@@ -76,9 +78,13 @@ export function tableMobileView(app: App): Child {
   const felt = h("section.m-felt", null,
     h("div.m-felt-head", null,
       h("p.label", null, rec ? `Kingdom · ${rec.name}` : "Kingdom"),
-      sets(app, game.sets ?? [...new Set([...game.kingdom, ...game.landscapes].map((id) => db.get(id).set))])),
+      h("div.m-felt-tools", null,
+        frozen && h("span.m-locked", null, icon("lock"), "Locked"),
+        !frozen && !empty && h("button.m-lockbtn", { type: "button", onclick: () => app.lockSetup(true), "aria-label": "Lock the table", title: "Lock the table: tapping a card then goes straight to its rules" },
+          icon("lock"), "Lock"),
+        sets(app, game.sets ?? [...new Set([...game.kingdom, ...game.landscapes].map((id) => db.get(id).set))]))),
     h("div.m-kingdom", null, tiles, slots),
-    empty && h("p.m-empty", null, "Deal a random kingdom, or pick a recommended one from the menu."),
+    empty && h("p.m-empty", null, "Deal a random kingdom, pick a recommended one from the menu, or tap a slot to add cards yourself."),
     landscapes.length > 0 && h("div.m-landscapes", null, landscapes),
     supply);
 
@@ -92,7 +98,11 @@ export function tableMobileView(app: App): Child {
 
   // ---- Thumb bar
   const hasGame = !empty;
-  const bar = h("nav.m-bar", { "aria-label": "Table actions" },
+  const bar = frozen ? h("nav.m-bar", { "aria-label": "Table actions" },
+    h("button.m-round", { type: "button", "aria-label": "Unlock the table", title: "Unlock the table", onclick: () => app.lockSetup(false) }, icon("unlock")),
+    h("button.deal.m-deal", { type: "button", onclick: () => app.openReference() }, "Card rules"),
+    app.room.code && h("button.m-round", { type: "button", "aria-label": "Show the join code", title: "Join code", onclick: () => app.openQr() }, icon("qr")))
+  : h("nav.m-bar", { "aria-label": "Table actions" },
     h("button.m-round", { type: "button", "aria-label": "Tune", onclick: () => app.openTune() }, icon("tune")),
     h("button.m-round", { type: "button", "aria-label": "Add a card", onclick: () => app.openPicker() }, icon("plus")),
     h("button.deal.m-deal", { type: "button", onclick: () => { selected = null; dispatch({ type: "deal" }); } }, hasGame ? "Deal again" : "Deal"),

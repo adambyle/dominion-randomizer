@@ -37,6 +37,58 @@ export function sheetView(app: App, stack: string[]): Child {
     why = reasons.filter((r) => r.by).map((r) => `${name(r.by!)} ${r.text}`);
   }
 
+  const [ownSection, wikiSection] = ruleSections(app, id, open);
+
+  const set = setIcon(card.set);
+  const parent = card.pileId ? db.get(card.pileId) : null;
+  const locked = game.locked.includes(id);
+
+  return h("aside.sheet", { role: "dialog", "aria-modal": "true", "aria-label": card.name },
+    h("header.sheet-head", null,
+      stack.length > 1 && h("button.icon-btn", { type: "button", "aria-label": "Back", onclick: () => app.backCard() }, icon("back")),
+      h("h2", null, card.name),
+      h("button.icon-btn", { type: "button", "aria-label": "Close", onclick: () => app.closeCard() }, icon("close"))),
+    h("div.sheet-body", { "data-scroll": "sheet" },
+      h("div", { class: ["sheet-card", wide ? "wide" : ""] },
+        img ? h("img", { src: img.src, alt: card.name, width: img.w, height: img.h }) : h("div.face-missing", null, card.name)),
+      h("p.meta", null,
+        costSymbols(card.cost, "s"), " ", card.types.join(" · "), " · ",
+        set && h("img.set-glyph", { src: set.src, alt: "" }), setName(card.set),
+        card.quantity ? ` · ${card.quantity} in the box` : ""),
+
+      onTable && !game.setupLocked && h("div.sheet-actions", null,
+        h("button.btn", { type: "button", onclick: () => app.store.dispatch({ type: "toggleLock", id }) }, icon(locked ? "unlock" : "lock"), locked ? "Unlock" : "Lock"),
+        h("button.btn", { type: "button", onclick: () => { app.store.dispatch({ type: "replace", id }); app.closeCard(); } }, icon("swap"), "Swap"),
+        h("button.btn", { type: "button", onclick: () => { app.store.dispatch({ type: "remove", id }); app.closeCard(); } }, icon("close"), "Remove")),
+
+      (brings.length > 0 || why.length > 0) && h("section", null,
+        h("h3", null, "In this game"),
+        why.map((w) => h("p", null, ...app.markup(w, open))),
+        brings.length > 0 && h("div.brings", null, h("span.muted", null, "Brings "),
+          brings.map((b, i) => [i > 0 && ", ", h("button.link", { type: "button", onclick: () => open(b) }, name(b))]))),
+
+      parent && h("p", null, "Part of the ", h("button.link", { type: "button", onclick: () => open(parent.id) }, parent.name), " pile."),
+
+      card.pile && h("section", null,
+        h("h3", null, "In the pile"),
+        h("p.muted", null, card.pile.shuffled ? "Shuffled face down; only the top card is face up." : "Top card first. Only the top card can be bought or gained."),
+        h("div.pile-members", null, card.pile.members.map((m) => {
+          const mi = cardImage(m);
+          const qty = db.get(m).quantity ?? 1;
+          return h("button.member", { type: "button", onclick: () => open(m) },
+            mi && h("img", { src: mi.src, alt: name(m), loading: "lazy" }),
+            h("span", null, name(m)), h("span.muted", null, `×${qty}${card.id === "castles" && qty > 1 ? " (1 with 2 players)" : ""}`));
+        }))),
+
+      data.setupNotes[id] && h("section", null, h("h3", null, "Setup"), h("p", null, ...app.markup(data.setupNotes[id]!, open))),
+      ownSection,
+      // The FAQ comes first only when nothing in this game is worth a look.
+      notableCount(app) === 0 ? [wikiSection, sheetInteractions(app, id, open)] : [sheetInteractions(app, id, open), wikiSection]));
+}
+
+/** The card's rules (this app's own explanations, then the wiki FAQ); both fill in as they load. */
+export function ruleSections(app: App, id: string, open: (id: string) => void): [HTMLElement, HTMLElement] {
+  const card = db.get(id);
   // Rules: this app's own explanations (data/rules) first, the wiki's FAQ as a secondary source.
   const ownSection = h("section.rules");
   const wikiSection = h("section.rules.wiki-faq", null, h("h3", null, "Wiki FAQ"), h("p.muted", null, "Loading…"));
@@ -70,52 +122,7 @@ export function sheetView(app: App, stack: string[]): Child {
   if (faqCache && (cached || !hasCardGuide(id))) fillFaq(faqCache, !!cached);
   else (faqCache ? Promise.resolve(faqCache) : loadFaq()).then((all) => { faqCache = all; return withOwn(all); })
     .catch(() => wikiSection.replaceChildren(h("h3", null, "Wiki FAQ"), h("p.muted", null, "Couldn't load rulings.")));
-
-  const set = setIcon(card.set);
-  const parent = card.pileId ? db.get(card.pileId) : null;
-  const locked = game.locked.includes(id);
-
-  return h("aside.sheet", { role: "dialog", "aria-modal": "true", "aria-label": card.name },
-    h("header.sheet-head", null,
-      stack.length > 1 && h("button.icon-btn", { type: "button", "aria-label": "Back", onclick: () => app.backCard() }, icon("back")),
-      h("h2", null, card.name),
-      h("button.icon-btn", { type: "button", "aria-label": "Close", onclick: () => app.closeCard() }, icon("close"))),
-    h("div.sheet-body", { "data-scroll": "sheet" },
-      h("div", { class: ["sheet-card", wide ? "wide" : ""] },
-        img ? h("img", { src: img.src, alt: card.name, width: img.w, height: img.h }) : h("div.face-missing", null, card.name)),
-      h("p.meta", null,
-        costSymbols(card.cost, "s"), " ", card.types.join(" · "), " · ",
-        set && h("img.set-glyph", { src: set.src, alt: "" }), setName(card.set),
-        card.quantity ? ` · ${card.quantity} in the box` : ""),
-
-      onTable && h("div.sheet-actions", null,
-        h("button.btn", { type: "button", onclick: () => app.store.dispatch({ type: "toggleLock", id }) }, icon(locked ? "unlock" : "lock"), locked ? "Unlock" : "Lock"),
-        h("button.btn", { type: "button", onclick: () => { app.store.dispatch({ type: "replace", id }); app.closeCard(); } }, icon("swap"), "Swap"),
-        h("button.btn", { type: "button", onclick: () => { app.store.dispatch({ type: "remove", id }); app.closeCard(); } }, icon("close"), "Remove")),
-
-      (brings.length > 0 || why.length > 0) && h("section", null,
-        h("h3", null, "In this game"),
-        why.map((w) => h("p", null, ...app.markup(w, open))),
-        brings.length > 0 && h("div.brings", null, h("span.muted", null, "Brings "),
-          brings.map((b, i) => [i > 0 && ", ", h("button.link", { type: "button", onclick: () => open(b) }, name(b))]))),
-
-      parent && h("p", null, "Part of the ", h("button.link", { type: "button", onclick: () => open(parent.id) }, parent.name), " pile."),
-
-      card.pile && h("section", null,
-        h("h3", null, "In the pile"),
-        h("p.muted", null, card.pile.shuffled ? "Shuffled face down; only the top card is face up." : "Top card first. Only the top card can be bought or gained."),
-        h("div.pile-members", null, card.pile.members.map((m) => {
-          const mi = cardImage(m);
-          const qty = db.get(m).quantity ?? 1;
-          return h("button.member", { type: "button", onclick: () => open(m) },
-            mi && h("img", { src: mi.src, alt: name(m), loading: "lazy" }),
-            h("span", null, name(m)), h("span.muted", null, `×${qty}${card.id === "castles" && qty > 1 ? " (1 with 2 players)" : ""}`));
-        }))),
-
-      data.setupNotes[id] && h("section", null, h("h3", null, "Setup"), h("p", null, ...app.markup(data.setupNotes[id]!, open))),
-      ownSection,
-      // The FAQ comes first only when nothing in this game is worth a look.
-      notableCount(app) === 0 ? [wikiSection, sheetInteractions(app, id, open)] : [sheetInteractions(app, id, open), wikiSection]));
+  return [ownSection, wikiSection];
 }
 
 function faqList(items: FaqItem[], app: App, open: (id: string) => void): HTMLElement {
